@@ -12,6 +12,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #fafafa;
 }
 
 /*Formatações do container principal*/
@@ -19,22 +20,25 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    width: 100vw;
-    background-color: red;
-    
+    width: 100vw;    
 }
 #containerMain > header{
-    background-color: blue;
+    display: flex;
+    align-items: center;
     flex-grow: 0.025;
+    border-bottom: var(--borderColor) solid var(--bordeSize);
+    margin-bottom: clamp(1vmin,2vmin,10px);
 }
 
 #containerMain > section {
-    background-color: yellow;
     overflow-y: auto;
     flex-grow: 0.95;
 }
 
 #containerMain > footer{
+    display: flex;
+    align-items: center;
     flex-grow: 0.025;
-    background-color: green;
+    border-top: var(--borderColor) solid var(--bordeSize);
+    margin-top: clamp(1vmin,2vmin,10px);
 }

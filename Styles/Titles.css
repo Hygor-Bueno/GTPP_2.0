@@ -1,15 +1,15 @@
+@import '../Root.css';
 .mainTitle {
-    color: #656565;
-    /*Função clamp ajuda na responsividade clamp('valor minímo','valor preferido','valor máximo')*/
-    font-size:clamp(2vmin,6.2vmin,26px);
+    color:var(--MainTitleColor);
+    font-size:var(--MainTitleSize);
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
 
 .secondaryTitle {
-    color: #555;
-    font-size:clamp(1.8vmin,5.8vmin,22px);
+    color:var(--SecondaryTitleColor);
+    font-size:var(--SecondaryTitleSize);
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
