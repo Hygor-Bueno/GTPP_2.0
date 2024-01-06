@@ -1,0 +1,16 @@
+.mainTitle {
+    color: #656565;
+    /*Função clamp ajuda na responsividade clamp('valor minímo','valor preferido','valor máximo')*/
+    font-size:clamp(2vmin,6.2vmin,26px);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.secondaryTitle {
+    color: #555;
+    font-size:clamp(1.8vmin,5.8vmin,22px);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
