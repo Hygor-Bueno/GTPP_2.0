@@ -1,5 +1,40 @@
+/* importações das folhas de estilo; */
+@import './Styles/Titles.css';
+
+/* Retira as formatações iniciais dos componentes. */
+*{
+    margin: 0px;
+    padding: 0px;
+}
+/* Formatações iniciais do Body */
 body {
+    display: flex;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-  }
+}
+
+/*Formatações do container principal*/
+#containerMain{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background-color: red;
+    
+}
+#containerMain > header{
+    background-color: blue;
+    flex-grow: 0.025;
+}
+
+#containerMain > section {
+    background-color: yellow;
+    overflow-y: auto;
+    flex-grow: 0.95;
+}
+
+#containerMain > footer{
+    flex-grow: 0.025;
+    background-color: green;
+}
