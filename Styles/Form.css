@@ -1,0 +1,10 @@
+.itemsForm{
+    display: flex;
+    flex-direction: column;
+    padding: var(--spaceDefault);
+    /* background-color: red; */
+}
+
+.form{
+    background: blue;
+}
