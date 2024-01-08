@@ -1,4 +1,5 @@
 import Containers from "./Components/Containers.js";
+import Form from "./Components/Form.js";
 
 // Função auto excutável. Neste formato modular ela é a única função a ser excutada neste script.
 (() => {
