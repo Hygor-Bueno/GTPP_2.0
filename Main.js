@@ -1,4 +1,5 @@
 import Containers from "./Components/Containers.js";
+import Form from "./Components/Form.js";
 
 // Função auto excutável. Neste formato modular ela é a única função a ser excutada neste script.
 (() => {
@@ -9,5 +10,11 @@ import Containers from "./Components/Containers.js";
 
 function login() {
     const loginContainer = new Containers();
-    return loginContainer.containerBasic({ id: 'loginContainer' });
+    let form = new Form();
+    return loginContainer.containerBasic(
+        {
+            id: 'loginContainer',
+            element: form.ContainerForm({ classItemsForm: 'itemsForm',classForm:'form' })
+        }
+    );
 }

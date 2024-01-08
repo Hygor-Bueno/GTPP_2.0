@@ -1,5 +1,6 @@
 /* importações das folhas de estilo; */
 @import './Styles/Titles.css';
+@import './Styles/Form.css';
 
 /* Retira as formatações iniciais dos componentes. */
 * {
@@ -28,7 +29,7 @@ body {
     display: flex;
     align-items: center;
     flex-grow: 0.025;
-    border-bottom: var(--borderColor) solid var(--bordeSize);
+    border-bottom: var(--borderColor) solid var(--borderSize);
     margin-bottom: var(--spaceDefault);
 }
 
@@ -44,10 +45,6 @@ body {
     flex-grow: 0.025;
     border-top: var(--borderColor) solid var(--borderSize);
     margin-top: var(--spaceDefault);
-}
-
-.bgRed {
-    background-color: red;
 }
 
 #loginContainer{
