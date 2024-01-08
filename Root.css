@@ -9,6 +9,10 @@
     --SecondaryTitleColor:#505050;
     --SecondaryTitleSize:clamp(1.8vmin,5.8vmin,22px);
 
-    --bordeSize:clamp(0.2vmin,0.5vmin,1px);
+    /*Váriáveis de bordas.*/
+    --borderSize:clamp(0.2vmin,0.5vmin,1px);
+    --borderSizeL:clamp(0.2vmin,0.5vmin,2px);
     --borderColor:#ccc;
+
+    --spaceDefault:clamp(1vmin, 2vmin, 10px);
 }
