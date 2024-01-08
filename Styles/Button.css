@@ -1,0 +1,9 @@
+.bgButton{
+    padding: var(--spaceDefault);
+    border: solid var(--borderColor);
+    border-width: var(--borderSize);
+    border-radius: clamp(0.2vmin,2vmin,8px);
+    background: none;
+    font-size: var(--textSize);
+    color:var(--textColor);
+}

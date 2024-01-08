@@ -1,15 +1,16 @@
 @import '../Root.css';
+
 .mainTitle {
-    color:var(--MainTitleColor);
-    font-size:var(--MainTitleSize);
+    color: var(--MainTitleColor);
+    font-size: var(--MainTitleSize);
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
 
 .secondaryTitle {
-    color:var(--SecondaryTitleColor);
-    font-size:var(--SecondaryTitleSize);
+    color: var(--SecondaryTitleColor);
+    font-size: var(--SecondaryTitleSize);
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;

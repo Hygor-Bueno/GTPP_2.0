@@ -1,11 +1,15 @@
 /* importações das folhas de estilo; */
 @import './Styles/Titles.css';
 @import './Styles/Form.css';
+@import './Styles/Button.css';
 
 /* Retira as formatações iniciais dos componentes. */
 * {
     margin: 0px;
     padding: 0px;
+}
+fieldset{
+    border:none;
 }
 
 /* Formatações iniciais do Body */
@@ -34,6 +38,9 @@ body {
 }
 
 #containerMain>section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: var(--spaceDefault);
     overflow-y: auto;
     flex-grow: 0.95;
@@ -48,7 +55,21 @@ body {
 }
 
 #loginContainer{
+    display: flex;
     border: var(--borderColor) solid;
     border-width: var(--borderSizeL);
+    border-radius: var(--borderRadius);
     padding: var(--spaceDefault);
+    height: 40%;
+}
+
+#loginContainer > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+button:hover{
+    cursor: pointer;
 }

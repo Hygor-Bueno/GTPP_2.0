@@ -7,7 +7,7 @@ export default class Containers {
             container.appendChild(configs.element);
             return container;
         } catch (error) {
-
+            console.error(error);
         }
     }
 }
