@@ -14,5 +14,11 @@
     --borderSizeL:clamp(0.2vmin,0.5vmin,2px);
     --borderColor:#ccc;
 
+    /*Configurações do Label.*/
+    --labelSize:clamp(1.8vmin,4.8vmin,20px);
+    --labelColor:#757575;
+
+    /*Outras formatações.*/
     --spaceDefault:clamp(1vmin, 2vmin, 10px);
+    
 }

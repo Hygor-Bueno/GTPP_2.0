@@ -1,10 +1,31 @@
+@import '../Root.css';
 .itemsForm{
     display: flex;
     flex-direction: column;
     padding: var(--spaceDefault);
+    border:none;
     /* background-color: red; */
 }
 
 .form{
-    background: blue;
+    /* background: blue; */
+}
+
+.labelForm{
+    color:var(--labelColor);
+    font-size:var(--labelSize);
+    font-weight: bold;
+}
+
+.inputForm{
+    display: block;
+    padding: 0.375rem 0.75rem;
+    font-size: var(--labelSize);
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: var(--borderSize) solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;   
 }

@@ -7,6 +7,9 @@
     margin: 0px;
     padding: 0px;
 }
+fieldset{
+    border:none;
+}
 
 /* Formatações iniciais do Body */
 body {
@@ -29,7 +32,7 @@ body {
     display: flex;
     align-items: center;
     flex-grow: 0.025;
-    border-bottom: var(--borderColor) solid var(--borderSize);
+    border-bottom: var(--borderColor) solid var(--bordeSize);
     margin-bottom: var(--spaceDefault);
 }
 
@@ -45,6 +48,10 @@ body {
     flex-grow: 0.025;
     border-top: var(--borderColor) solid var(--borderSize);
     margin-top: var(--spaceDefault);
+}
+
+.bgRed {
+    background-color: red;
 }
 
 #loginContainer{
