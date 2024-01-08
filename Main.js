@@ -1,6 +1,9 @@
+import Button from "./Components/Button.js";
 import Containers from "./Components/Containers.js";
 import Form from "./Components/Form.js";
-import { inputsLogin } from "./Configuration/Configuration.js";
+import { buttonLogin, inputsLogin } from "./Configuration/Configuration.js";
+import { Connection } from "./Connection/Connection.js";
+import Util from "./Util.js";
 
 // Função auto excutável. Neste formato modular ela é a única função a ser excutada neste script.
 (() => {
@@ -11,7 +14,23 @@ import { inputsLogin } from "./Configuration/Configuration.js";
 
 function login() {
     const loginContainer = new Containers();
-    let form = new Form();
-    return loginContainer.containerBasic({ id: 'loginContainer', element: form.ContainerForm(inputsLogin) }
-    );
+    const formObj = new Form();
+    let form = formObj.ContainerForm(inputsLogin);
+
+    const buttonObj = new Button();
+    let confgBtn = buttonLogin;
+    confgBtn.onAction = accountAccess;
+    form.appendChild(buttonObj.Button(confgBtn));
+
+    return loginContainer.containerBasic({ id: 'loginContainer', element: form });
+}
+
+async function accountAccess() {
+    const username = document.getElementById('userInput').value;
+    const password = document.getElementById('passwordInput').value;
+    const connection = new Connection();
+    const user = { user: username, password };
+    let response = await connection.postLogin(user, "CCPP/Login.php");
+    console.log(response);
+    const util = new Util().cleanInputs("#loginContainer form input");
 }

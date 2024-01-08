@@ -1,16 +1,17 @@
 export default class Form {
     ContainerForm(configs) {
         const form = document.createElement('form');
+        configs.forEach(config => {form.appendChild(this.ItemForm(config.listfields))});
         if (configs && configs.classForm) form.className = configs.classForm;
-        configs.forEach(config => {form.appendChild(this.ItemForm(config));})
         return form;
     }
-
-    ItemForm(configs) {
+    
+    ItemForm(configs) {        
         //Configurações do fieldset
         const fieldset = document.createElement('fieldset');
+
         //Adicação dos filhos.
-        fieldset.appendChild(this.DivSubContainer(this.Label(configs), this.Input(configs), configs));
+        configs.forEach(config => {fieldset.appendChild(this.DivSubContainer(this.Label(config), this.Input(config), config));});
         return fieldset;
     }
 
@@ -45,6 +46,7 @@ export default class Form {
             }
             const input = document.createElement('input');
             input.type = configs.inputType;
+            input.id = configs.inputId
             if (configs?.classInput) input.className = configs.classInput;
             return input;
         } catch (error) {
