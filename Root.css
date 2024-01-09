@@ -24,4 +24,11 @@
 
     /*Outras formatações.*/
     --spaceDefault:clamp(1vmin, 2vmin, 10px);
+
+    /*Cores*/
+    --primaryColor: #DC3545;
+    --secondaryColor: #007BFF;
+    --thirdColor: #FFC107;
+    --fourthColor: #28A745;
+    --fifthColor: #FFFF;
 }

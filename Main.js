@@ -28,21 +28,8 @@ function login() {
 }
 
 function modalGender() {
-    // Exemplo de uso da classe Modal
     const modal = new Modal();
-
-    // Exemplo de modal de erro
-    modal.showError('Ocorreu um erro!');
-
-    // Exemplo de modal de confirmação
-    modal.showConfirmation('Deseja confirmar?', (confirmado) => {
-        if (confirmado) {
-            console.log('Ação confirmada!');
-        } else {
-            console.log('Ação cancelada.');
-        }
-    });
-
+    return modal.OpenModal('Erro!!', 'Ocorreu um erro!', true);
 }
 
 async function accountAccess() {
