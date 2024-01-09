@@ -1,0 +1,42 @@
+@import '../Root.css';
+
+.modal {
+    width: 20vw;
+    border-radius: 1vw;
+    padding: 1rem;
+    background-color: black;
+    overflow: hidden;
+
+    position: relative;
+}
+
+.modal-content {}
+
+.btn-close {
+    background: red;
+    color: white;
+
+    padding: 0.5vmin;
+
+    font-size: 1rem;
+    border-radius: 1rem;
+
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    
+    cursor: pointer;
+}
+
+.btn-close:active {
+    border: 1px solid #fff;
+}
+
+.modal-content h1 {
+    color: white;
+    padding-bottom: 10px;
+}
+
+.modal-content p {
+    color: white;
+}
