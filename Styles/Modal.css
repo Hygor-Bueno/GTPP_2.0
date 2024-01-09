@@ -3,14 +3,36 @@
 .modal {
     width: 20vw;
     border-radius: 0.5vw;
-    padding: 1rem;
-    background-color: var(--primaryColor);
+    padding: 1rem;    
     overflow: hidden;
-
+    position: absolute;
     position: relative;
 }
 
+.modal {
+    background-color: var(--primaryColor);
+}
+
+.modal-absolute {
+    position: absolute;
+    bottom: 20px;
+    left: 15px;
+
+    animation-name: e;
+}
+
 .modal-content {}
+
+.modal-content h1 {
+    color: var(--fifthColor);
+    padding-bottom: 10px;
+}
+
+.modal-content p {
+    color: var(--fifthColor);
+}
+
+/*btn*/
 
 .btn-close {
     color: var(--fifthColor);
@@ -38,11 +60,3 @@
     border: 1px solid var(--fifthColor);
 }
 
-.modal-content h1 {
-    color: var(--fifthColor);
-    padding-bottom: 10px;
-}
-
-.modal-content p {
-    color: var(--fifthColor);
-}

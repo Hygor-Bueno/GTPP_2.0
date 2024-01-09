@@ -50,8 +50,10 @@ export default class Modal {
   OpenModal(titulo, mensagem, exibirBotoes) {
     this.title.textContent = titulo;
     this.messageElement.textContent = mensagem;
-    this.btnClose.style.display = exibirBotoes ? 'block' : 'none';
-    this.modalDiv.style.display = 'block';
+    this.btnClose.style.display = exibirBotoes;
+    // this.modalDiv.style.display = 'block';
+
+    this.modalDiv.classList.add('modal-absolute');
 
     return this.modalDiv;
   }
