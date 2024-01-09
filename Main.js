@@ -9,7 +9,7 @@ import Util from "./Util.js";
 // Função auto excutável. Neste formato modular ela é a única função a ser excutada neste script.
 (() => {
     const section = document.querySelector("#containerMain section");
-    // section.appendChild(login());
+    section.appendChild(login());
     section.appendChild(modalGender());
 }
 )();
