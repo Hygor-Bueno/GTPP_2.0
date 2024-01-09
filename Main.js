@@ -39,7 +39,7 @@ async function accountAccess() {
     const password = document.getElementById('passwordInput').value;
     const connection = new Connection();
     const user = { user: username, password };
-    let response = await connection.postLogin(user, "CCPP/Login.php");
+    let response = await connection.postLogin(user, "CCPP/Login.php",{error:true,exception:'no data'});
     console.log(response);
     const util = new Util().cleanInputs("#loginContainer form input");
 }

@@ -53,6 +53,7 @@ export default class IndexedDBManager {
             };
         });
     }
+    /*Deleta o usuário  pelo Id dele*/
     deleteUserForID(id) {
         return new Promise((resolve, reject) => {
           if (!this.db) {
@@ -66,11 +67,11 @@ export default class IndexedDBManager {
           const request = objectStore.delete(id);
     
           request.onsuccess = (event) => {
-            resolve({ error: false, data: "Usuário deletado com sucesso do banco de dados." });
+            resolve({ error: false, data: "User successfully deleted from the database." });
           };
     
           request.onerror = (event) => {
-            reject({ error: true, message: "Erro ao deletar usuário do banco de dados." });
+            reject({ error: true, message: "Error when deleting user from database." });
           };
         });
       }
@@ -93,12 +94,12 @@ export default class IndexedDBManager {
                 if (usuario) {
                     resolve({ error: false, data: usuario });
                 } else {
-                    reject({ error: true, message: "Usuário não encontrado." });
+                    reject({ error: true, message: "User not found." });
                 }
             };
 
             request.onerror = (event) => {
-                reject({ error: true, message: "Erro ao recuperar usuário do banco de dados." });
+                reject({ error: true, message: "Error retrieving user from database." });
             };
         });
     }

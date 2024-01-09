@@ -3,7 +3,7 @@ export class Connection {
     params;
     pathFile;
     err = {
-        error:false,
+        error:true,
         exception:''
     };
 
@@ -134,7 +134,10 @@ export class Connection {
         let token = localStorage.getItem("token");
         this.URL = server + middlewer + token + (params ? params : "");
     }
-    prepareCatchReturn(messageErr) {
+    prepareCatchReturn(messageErr) {        
+        if(this.err.error && !messageErr.message.toUpperCase().includes(this.err.exception.toUpperCase())){
+            alert(messageErr["message"])
+        }
         return { "error": true, "message": messageErr["message"] }
     }
 }
