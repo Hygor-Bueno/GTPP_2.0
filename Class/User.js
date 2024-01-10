@@ -75,7 +75,6 @@ export default class User {
      * @date 10/01/2024 - 4:34:53 PM
      * @author Hygor Bueno
      * @async
-     * @returns {*}
      */
     async loadPhotos() {
         try {
@@ -95,7 +94,6 @@ export default class User {
      * @date 10/01/2024 - 4:37:49 PM
      * @author Hygor Bueno
      * @async
-     * @returns {*}
      */
     async loadDetails() {
         try {

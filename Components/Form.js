@@ -1,4 +1,20 @@
+/**
+ * Description placeholder
+ * @date 10/01/2024 - 4:59:00 PM
+ * @author Hygor Bueno.
+ *
+ * @export
+ * @class Form
+ * @classdesc Uma classe criada para retornar os elementos htmls mais comuns para a criação de um formulário (form, fieldset, inputs e etc).
+ */
 export default class Form {
+    /**
+     * Description placeholder
+     * @date 10/01/2024 - 5:02:24 PM
+     * @author Hygor Bueno
+     * @param {Object} configs
+     * @returns {HTMLElement} Retorna um elemento html form.
+     */
     ContainerForm(configs) {
         const form = document.createElement('form');
         configs.forEach(config => {form.appendChild(this.ItemForm(config.listfields))});
@@ -6,6 +22,13 @@ export default class Form {
         return form;
     }
     
+     /**
+     * Description placeholder
+     * @date 10/01/2024 - 5:02:24 PM
+     * @author Hygor Bueno
+     * @param {Object} configs
+     * @returns {HTMLFieldSetElement} Retorna um elemento html fieldset.
+     */
     ItemForm(configs) {        
         //Configurações do fieldset
         const fieldset = document.createElement('fieldset');
@@ -15,6 +38,16 @@ export default class Form {
         return fieldset;
     }
 
+    /**
+     * Description placeholder
+     * @date 10/01/2024 - 5:15:48 PM
+     * @author Hygor Bueno
+     * 
+     * @param {String} label
+     * @param {HTMLInputElement} input
+     * @param {Object} configs
+     * @returns {HTMLElement}
+     */
     DivSubContainer(label, input, configs) {
         const subContainer = document.createElement('div');
         if (configs && configs.classItemsForm) {
@@ -25,6 +58,14 @@ export default class Form {
         return subContainer;
     }
 
+    /**
+     * Description placeholder
+     * @date 10/01/2024 - 5:18:16 PM
+     * @author Hygor Bueno.
+     * 
+     * @param {Object} configs
+     * @returns {HTMLInputElement} Retorna um elemento label
+     */
     Label(configs) {
         try {
             if (!configs || !configs.label) {
@@ -39,6 +80,13 @@ export default class Form {
         }
     }
 
+    /**
+     * Description placeholder
+     * @date 10/01/2024 - 5:20:20 PM
+     * @author Hygor Bueno
+     * @param {*} configs
+     * @returns {HTMLElement} Retorna um input pré-configurado.
+     */
     Input(configs) {
         try {
             if (!configs || !configs.inputType) {
