@@ -60,7 +60,7 @@ body {
     border-width: var(--borderSizeL);
     border-radius: var(--borderRadius);
     padding: var(--spaceDefault);
-    height: 40%;
+    min-height: 40%;
 }
 
 #loginContainer > form {

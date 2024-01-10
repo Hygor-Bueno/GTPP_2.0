@@ -1,5 +1,4 @@
 :root{
-    
     /*Variáveis do Título principal.*/
     --MainTitleColor:#606060;
     /*Função clamp ajuda na responsividade clamp('valor minímo','valor preferido','valor máximo')*/
@@ -18,6 +17,7 @@
     /*Configurações de texto*/
     --textSize:clamp(1.8vmin,4vmin,16px);
     --textColor:#495057;
+
     /*Configurações do Label.*/
     --labelSize:clamp(1.8vmin,4.8vmin,20px);
     --labelColor:#757575;

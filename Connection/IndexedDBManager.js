@@ -26,7 +26,7 @@ export default class IndexedDBManager {
                 const objectStore = db.createObjectStore("User", { keyPath: "id" });
 
                 // Cria um índice chamado "url" para buscar por URL
-                objectStore.createIndex("url", "url", { unique: false });
+                objectStore.createIndex("id", "id", { unique: false });
             };
         });
     }
@@ -56,25 +56,25 @@ export default class IndexedDBManager {
     /*Deleta o usuário  pelo Id dele*/
     deleteUserForID(id) {
         return new Promise((resolve, reject) => {
-          if (!this.db) {
-            reject({ error: true, message: "Database is not open." });
-            return;
-          }
-    
-          const transaction = this.db.transaction(["User"], "readwrite");
-          const objectStore = transaction.objectStore("User");
-    
-          const request = objectStore.delete(id);
-    
-          request.onsuccess = (event) => {
-            resolve({ error: false, data: "User successfully deleted from the database." });
-          };
-    
-          request.onerror = (event) => {
-            reject({ error: true, message: "Error when deleting user from database." });
-          };
+            if (!this.db) {
+                reject({ error: true, message: "Database is not open." });
+                return;
+            }
+
+            const transaction = this.db.transaction(["User"], "readwrite");
+            const objectStore = transaction.objectStore("User");
+
+            const request = objectStore.delete(id);
+
+            request.onsuccess = (event) => {
+                resolve({ error: false, data: "User successfully deleted from the database." });
+            };
+
+            request.onerror = (event) => {
+                reject({ error: true, message: "Error when deleting user from database." });
+            };
         });
-      }
+    }
 
     // Método para recuperar um usuário pelo ID
     getUserForID(id) {
@@ -91,16 +91,19 @@ export default class IndexedDBManager {
 
             request.onsuccess = (event) => {
                 const usuario = event.target.result;
-                if (usuario) {
+                if (usuario !== undefined) {
                     resolve({ error: false, data: usuario });
-                } else {
-                    reject({ error: true, message: "User not found." });
+                } 
+                else {
+                    resolve({ error: true, message: "User not found." });
                 }
             };
+            
 
             request.onerror = (event) => {
                 reject({ error: true, message: "Error retrieving user from database." });
             };
         });
     }
+
 }

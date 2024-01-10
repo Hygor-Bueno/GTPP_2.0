@@ -1,10 +1,13 @@
+import IndexedDBManager from "./IndexedDBManager.js";
+import Translator from "./Translator.js";
+
 export class Connection {
     URL;
     params;
     pathFile;
     err = {
-        error:true,
-        exception:''
+        error: true,
+        exception: ''
     };
 
     async get(params, pathFile, err) {
@@ -100,7 +103,7 @@ export class Connection {
         this.validationParams(params, pathFile, err);
         await this.settingUrl(`/Controller/${this.pathFile}?app_id=3&AUTH=`);
         let req;
-        console.log(this.URL)
+
         await fetch(this.URL, {
             method: "DELETE",
             headers: {
@@ -131,12 +134,20 @@ export class Connection {
     }
     async settingUrl(middlewer, params) {
         let server = "http://192.168.0.99:71/GLOBAL";
-        let token = localStorage.getItem("token");
+        let token =localStorage.getItem('tokenGTPP');
         this.URL = server + middlewer + token + (params ? params : "");
     }
-    prepareCatchReturn(messageErr) {        
-        if(this.err.error && !messageErr.message.toUpperCase().includes(this.err.exception.toUpperCase())){
-            alert(messageErr["message"])
+    async getUser(idUser) {
+        let db = new IndexedDBManager();
+        await db.openDatabase();
+        let user = await db.getUserForID(idUser);
+        return user;
+    }
+
+    prepareCatchReturn(messageErr) {
+        if (this.err.error && (!this.err.exception || !messageErr.message.toUpperCase().includes(this.err.exception.toUpperCase()))) {
+            const translator = new Translator(messageErr["message"]);
+            alert(translator.getMessagePT());
         }
         return { "error": true, "message": messageErr["message"] }
     }
