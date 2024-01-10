@@ -1,3 +1,4 @@
+import Modal from "../Components/Modal/Modal.js";
 import IndexedDBManager from "./IndexedDBManager.js";
 import Translator from "./Translator.js";
 
@@ -134,7 +135,7 @@ export class Connection {
     }
     async settingUrl(middlewer, params) {
         let server = "http://192.168.0.99:71/GLOBAL";
-        let token =localStorage.getItem('tokenGTPP');
+        let token = localStorage.getItem('tokenGTPP');
         this.URL = server + middlewer + token + (params ? params : "");
     }
     async getUser(idUser) {
@@ -147,7 +148,8 @@ export class Connection {
     prepareCatchReturn(messageErr) {
         if (this.err.error && (!this.err.exception || !messageErr.message.toUpperCase().includes(this.err.exception.toUpperCase()))) {
             const translator = new Translator(messageErr["message"]);
-            alert(translator.getMessagePT());
+            const modal = new Modal();
+            modal.OpenModal('Erro!', translator.getMessagePT()), document.querySelector("#containerMain section");
         }
         return { "error": true, "message": messageErr["message"] }
     }

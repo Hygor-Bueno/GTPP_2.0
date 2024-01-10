@@ -1,13 +1,14 @@
 import Button from "./Components/Button.js";
 import Containers from "./Components/Containers.js";
 import Form from "./Components/Form.js";
-import Modal from "./Components/Modal/modal.js";
+import Modal from "./Components/Modal/Modal.js";
 import { buttonLogin, inputsLogin } from "./Configuration/Configuration.js";
 import { Connection } from "./Connection/Connection.js";
 import Util from "./Util.js";
 import IndexedDBManager from './Connection/IndexedDBManager.js'
 import User from "./Class/User.js";
 // import Modals from "./Components/Modal/modal.js";
+
 init();
 
 // Função auto excutável. Neste formato modular ela é a única função a ser excutada neste script.
@@ -15,9 +16,6 @@ async function init() {
     const validateLogin = await getUser(parseInt(localStorage.userGTPP) || 0);
     if (!validateLogin.error) {
         document.getElementById("loginContainer")?.remove();
-        const section = document.querySelector("#containerMain section");
-        section.appendChild(login());
-        section.appendChild(modalGender());
     } else {
         const section = document.querySelector("#containerMain section");
         section.appendChild(login());
@@ -37,10 +35,10 @@ function login() {
     return loginContainer.containerBasic({ id: 'loginContainer', element: form });
 }
 
-function modalGender() {
-    const modal = new Modal();
-    return modal.OpenModal('Erro!!', 'Ocorreu um erro!', true);
-}
+// function modalGender() {
+//     const modal = new Modal();
+//     return modal.OpenModal('Erro!!', 'Teste!', false,);
+// }
 
 async function accountAccess() {
     try {
@@ -70,7 +68,6 @@ async function accountAccess() {
         await db.addUser(userData);
 
         await init();
-
     } catch (error) {
         console.log(error);
     }
@@ -80,10 +77,12 @@ async function logoff(idUser) {
     let db = new IndexedDBManager();
     await db.openDatabase();
     db.deleteUserForID(idUser);
-    localStorage.removeItem('userGTPP')
+    localStorage.removeItem('userGTPP');
+    localStorage.removeItem('tokenGTPP');
 }
 
 async function getUser(idUser) {
+
     let db = new IndexedDBManager();
     await db.openDatabase();
 

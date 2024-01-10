@@ -8,7 +8,7 @@ export default class Modal {
     //Criação da div principal do modal
     this.modalDiv = document.createElement("div");
     this.modalDiv.className = "modal"
-    this.modalDiv.id= 'testeModal'
+    this.modalDiv.id= 'ModalReturn'
 
     this.separatorDiv = document.createElement("div");
     this.separatorDiv.className = "separator";
@@ -47,14 +47,10 @@ export default class Modal {
     document.querySelector('section').appendChild(this.modalDiv);
   }
 
-  OpenModal(titulo, mensagem, exibirBotoes) {
+  OpenModal(titulo, mensagem, local) {
     this.title.textContent = titulo;
     this.messageElement.textContent = mensagem;
-    this.btnClose.style.display = exibirBotoes;
-    // this.modalDiv.style.display = 'block';
-
     this.modalDiv.classList.add('modal-absolute');
-
-    return this.modalDiv;
+    local.appendChild(this.modalDiv);
   }
 }
