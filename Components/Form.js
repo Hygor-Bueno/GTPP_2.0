@@ -1,5 +1,5 @@
 /**
- * Description placeholder
+ * Classe Form
  * @date 10/01/2024 - 4:59:00 PM
  * @author Hygor Bueno.
  *
@@ -9,7 +9,7 @@
  */
 export default class Form {
     /**
-     * Description placeholder
+     * Cria um elemento e retorna um elemento do tipo form;
      * @date 10/01/2024 - 5:02:24 PM
      * @author Hygor Bueno
      * @param {Object} configs
@@ -23,7 +23,7 @@ export default class Form {
     }
     
      /**
-     * Description placeholder
+     * Cria e retorna um elemento html com as formatações básicas de um item de formulário (fieldset, div, label e input).
      * @date 10/01/2024 - 5:02:24 PM
      * @author Hygor Bueno
      * @param {Object} configs
@@ -39,7 +39,7 @@ export default class Form {
     }
 
     /**
-     * Description placeholder
+     * Cria e retorna um elemento html com as formatações básicas de container de um item de formulário (div, label e input).
      * @date 10/01/2024 - 5:15:48 PM
      * @author Hygor Bueno
      * 
@@ -59,7 +59,7 @@ export default class Form {
     }
 
     /**
-     * Description placeholder
+     * Cria e retorna um elemento html label pré-formatado.
      * @date 10/01/2024 - 5:18:16 PM
      * @author Hygor Bueno.
      * 
@@ -81,7 +81,7 @@ export default class Form {
     }
 
     /**
-     * Description placeholder
+     * Cria e retorna um elemento html input pré-formatado
      * @date 10/01/2024 - 5:20:20 PM
      * @author Hygor Bueno
      * @param {*} configs
