@@ -74,16 +74,24 @@ export default class Modal {
    * @param {HTMLElement} local - O elemento DOM onde o modal será anexado.
    */
   openModal(titulo, mensagem, local) {
-    const modalDiv = this.createModal();
+    // Obtém uma referencia ao modal existente, se houver, ID 'ModalReturn'
+    const modalExistente = document.getElementById('ModalReturn');
 
-    // Define o conteúdo do modal com base nos parâmetros fornecidos
-    modalDiv.querySelector('.title-modal h1').textContent = titulo;
-    modalDiv.querySelector('.modal-content p').textContent = mensagem;
+    // Verificar se o modal ainda não existe na DOM
+    if (!modalExistente) {
 
-    // Adiciona classe para posicionar o modal
-    modalDiv.classList.add('modal-absolute');
+      // Cria um novo elemento DIV para representar o modal.
+      const modalDiv = this.createModal();
 
-    // Anexa o modal ao local fornecido
-    local.appendChild(modalDiv);
+      // Define o conteúdo do modal com base nos parâmetros fornecidos
+      modalDiv.querySelector('.title-modal h1').textContent = titulo;
+      modalDiv.querySelector('.modal-content p').textContent = mensagem;
+
+      // Adiciona classe para posicionar o modal
+      modalDiv.classList.add('modal-absolute');
+
+      // Anexa o modal a um certo local fornecido na DOM
+      local.appendChild(modalDiv);
+    }
   }
 }
