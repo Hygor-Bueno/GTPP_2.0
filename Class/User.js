@@ -1,5 +1,12 @@
 import { Connection } from "../Connection/Connection.js";
-
+/**
+ * Classe de usuários
+ * @date 10/01/2024 - 4:15:56 PM
+ * @author Hygor Bueno
+ * @class User
+ * @classdesc Utiliza os principios da programação orientada a objeto para criar um objeto usuário.
+ * 
+ */
 export default class User {
     #connection = new Connection();
     id;
@@ -16,12 +23,27 @@ export default class User {
     pendingMessage = 0;
     notification = 0;
 
-    constructor(id,token,dataUser) {
+    /**
+     * Método construtor da classe.carrega a foto do usuário.
+     * @date 10/01/2024 - 4:23:49 PM
+     * @author Hygor Bueno
+     * @constructor
+     * @param {number} id
+     * @param {string} token
+     * @param {Object} dataUser
+     */
+    constructor(id, token, dataUser) {
         this.id = id;
         this.token = token;
         dataUser && this.populate(dataUser);
     }
 
+    /**
+     * Método destinado a popular as váriáveis do objeto "User"carrega a foto do usuário.
+     * @date 10/01/2024 - 4:29:03 PM
+     * @author Hygor Bueno
+     * @param {Object} dataUser
+     */
     populate(dataUser) {
         this.id = dataUser.id;
         this.name = dataUser.name;
@@ -37,11 +59,23 @@ export default class User {
         this.notification = dataUser.notification;
     }
 
+    /**
+     * Method que busca no banco as informações detalhadas do usuário e a photo de perfil dele.
+     * @date 10/01/2024 - 4:31:48 PM
+     * @author Hygor Bueno
+     * @async
+     */
     async loadInfo() {
         await this.loadPhotos();
         await this.loadDetails();
     }
 
+    /**
+     * Método que carrega a foto do usuário.
+     * @date 10/01/2024 - 4:34:53 PM
+     * @author Hygor Bueno
+     * @async
+     */
     async loadPhotos() {
         try {
             let userPhoto = await this.#connection.get(`&id=${this.id}`, 'CCPP/EmployeePhoto.php');
@@ -54,6 +88,13 @@ export default class User {
             console.log(error.toString());
         }
     }
+
+    /**
+     * Carrega as informações detalhada do colaborador (companhia, unidade, departamento, subdepartamento e etc)
+     * @date 10/01/2024 - 4:37:49 PM
+     * @author Hygor Bueno
+     * @async
+     */
     async loadDetails() {
         try {
             let details = await this.#connection.get(`&id=${this.id}`, 'CCPP/Employee.php');
