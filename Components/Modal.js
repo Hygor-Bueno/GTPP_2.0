@@ -10,23 +10,30 @@ import {buttonCloseModal} from "../Configuration/Configuration.js";
 export default class Modal {
   /**
    * Cria um novo elemento de modal.
-   * @private
+   * @public
    * @returns {HTMLElement} O elemento do modal criado.
    */
   createModal() {
+
+    // criação do divisor modal
     const modalDiv = document.createElement('div');
     modalDiv.className = 'modal';
     modalDiv.id = 'ModalReturn';
 
+    // criação do divisor separator
     const separatorDiv = document.createElement('div');
     separatorDiv.className = 'separator';
 
+    // criação do modal-content
     const modalContent = document.createElement('div');
     modalContent.className = 'modal-content';    
 
+    // pega os components Title e paragraph 
     const divTitle = this.createTitleElement();
     const messageElement = this.createMessageElement();
 
+
+    // aplicando os elementos
     modalDiv.appendChild(modalContent);
     modalContent.appendChild(this.closeModal());
     divTitle.appendChild(messageElement);
@@ -36,6 +43,10 @@ export default class Modal {
     return modalDiv;
   }
 
+  /**
+   * @extends Button está estendendo as funções que precisamos para criar um componente de botão.
+   * @returns {HTMLButtonElement} retorna um botão para fechar o modal
+   */
   closeModal() {
     const btnClose = new Button();
     let configBtn = buttonCloseModal;
@@ -45,7 +56,7 @@ export default class Modal {
 
   /**
    * Cria um novo elemento de título para o modal.
-   * @private
+   * @public
    * @returns {HTMLElement} O elemento do título criado.
    */
   createTitleElement() {
@@ -60,7 +71,7 @@ export default class Modal {
 
   /**
    * Cria um novo elemento de mensagem para o modal.
-   * @private
+   * @public
    * @returns {HTMLElement} O elemento de mensagem criado.
    */
   createMessageElement() {
