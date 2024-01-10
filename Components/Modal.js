@@ -15,12 +15,12 @@ export default class Modal {
    */
   createModal() {
 
-    // criação do divisor modal
+    // criação do 'DIV' modal
     const modalDiv = document.createElement('div');
     modalDiv.className = 'modal';
     modalDiv.id = 'ModalReturn';
 
-    // criação do divisor separator
+    // criação do 'DIV' separator
     const separatorDiv = document.createElement('div');
     separatorDiv.className = 'separator';
 
@@ -33,7 +33,7 @@ export default class Modal {
     const messageElement = this.createMessageElement();
 
 
-    // aplicando os elementos
+    // VINCULANDO OS FILHOS.
     modalDiv.appendChild(modalContent);
     modalContent.appendChild(this.closeModal());
     divTitle.appendChild(messageElement);
