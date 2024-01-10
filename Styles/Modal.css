@@ -1,73 +1,30 @@
 @import '../Root.css';
 
-/*
-DUAS CLASSES IGUAIS, UNIFICAR OS ATRIBUTOS PARA UMA UNICA CLASS (2X .MODAL )
-*/
 .modal {
-    width: clamp(50vw,auto,calc(400px - var(--spaceDefault)));
+    width: clamp(10vw,calc(100vw - (2*var(--spaceDefault))),calc(400px - (2*var(--spaceDefault))));
     border-radius: 0.5vw;
     overflow: hidden;
+    background-color: var(--dangerColor);
 }
 
-.modal {
-    background-color: var(--primaryColor);
-}
-
-/*CORRIGIR O NOME DA ANIMAÇÃO*/
 .modal-absolute {
     position: absolute;
     left: 0;   
     bottom: 0;
     margin:var(--spaceDefault);
-    animation-name: e;
 }
 
 .modal-content {
     padding: var(--spaceDefault);    
 }
 
-/*
-AQUI FORAM ADICIONADAS 2 VARIÁVEIS (H1 E P) PARA AUXILIAR NA RESPONSIVIDADE DAS LETRAS. 
-NÃO É VIÁVEL INSERIR PADDING, MARGIN OU FONT SIZE COM NÚMEROS FIXOS COMO PIXEL POR EXEMPLO.
-*/
 .modal-content h1 {
     font-size: var(--SecondaryTitleSize);
-    color: var(--fifthColor);
+    color: var(--primaryColor);
     padding-bottom: 10px;
 }
 
 .modal-content p {
     font-size: var(--textSize);
-    color: var(--fifthColor);
+    color: var(--primaryColor);
 }
-
-/*
-    JÁ TEMOS UMA CLASSE DE BOTÕES, SOLICITO QUE MOVA A CLASSE ABAIXO PARA ELA. E APAGUE A LINHA "CURSOR:POINTER" ATUALMENTE TODOS OS BOTÕES POR PADRÃO RECEBEM ESSA FORMATAÇÃO;
-*/
-/*btn*/
-.btn-close {
-    color: var(--fifthColor);
-    background: transparent;
-
-    font-weight: 600;
-
-    padding: 0.5vmin;
-    border-radius: 1vw;
-
-    font-size: 1rem;
-
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    
-    cursor: pointer;
-}
-
-.btn-close {
-    border: none;
-}
-
-.btn-close:active {
-    border: 1px solid var(--fifthColor);
-}
-

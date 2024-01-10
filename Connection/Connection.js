@@ -1,4 +1,5 @@
-import Modal from "../Components/Modal/Modal.js";
+
+import Modal from "../Components/Modal.js";
 import IndexedDBManager from "./IndexedDBManager.js";
 import Translator from "./Translator.js";
 
@@ -149,7 +150,7 @@ export class Connection {
         if (this.err.error && (!this.err.exception || !messageErr.message.toUpperCase().includes(this.err.exception.toUpperCase()))) {
             const translator = new Translator(messageErr["message"]);
             const modal = new Modal();
-            modal.OpenModal('Erro!', translator.getMessagePT()), document.querySelector("#containerMain section");
+            modal.openModal('Erro!', translator.getMessagePT(), document.querySelector("#containerMain section"));
         }
         return { "error": true, "message": messageErr["message"] }
     }

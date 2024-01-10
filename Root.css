@@ -26,9 +26,9 @@
     --spaceDefault:clamp(1vmin, 2vmin, 10px);
 
     /*Cores*/
-    --primaryColor: #DC3545;
-    --secondaryColor: #007BFF;
-    --thirdColor: #FFC107;
-    --fourthColor: #28A745;
-    --fifthColor: #FFFF;
+    --dangerColor: #DC3545;
+    --infoColor: #007BFF;
+    --warningColor: #FFC107;
+    --successColor: #28A745;
+    --primaryColor: #FFFF;
 }

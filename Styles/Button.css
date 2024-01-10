@@ -7,3 +7,27 @@
     font-size: var(--textSize);
     color:var(--textColor);
 }
+
+.btn-close {
+    color: var(--primaryColor);
+    background: transparent;
+    font-weight: 600;
+    padding: var(--spaceDefault);
+    border-radius: var(--spaceDefault);
+    font-size: var(--textSize);
+    position: absolute;
+    right: var(--spaceDefault);
+    top: var(--spaceDefault);
+    border: none; 
+    /*cursor: pointer;*/
+}
+
+
+button:active {
+    border: 1px solid var(--borderColor);
+
+}
+
+button:hover{
+    cursor: pointer;
+}

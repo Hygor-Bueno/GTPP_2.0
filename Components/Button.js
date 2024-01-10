@@ -20,6 +20,5 @@ export default class Button{
             console.error(error)
         }
     }
-
     
 }

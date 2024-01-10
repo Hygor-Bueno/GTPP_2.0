@@ -30,3 +30,10 @@ export const buttonLogin = {
     description: 'Login',
     classButton: 'bgButton'
 }
+
+export const buttonCloseModal = {
+    type: 'button',
+    title: 'Click para entrar',
+    description: 'x',
+    classButton: 'btn-close'
+}

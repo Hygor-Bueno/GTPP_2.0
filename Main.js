@@ -1,13 +1,11 @@
 import Button from "./Components/Button.js";
 import Containers from "./Components/Containers.js";
 import Form from "./Components/Form.js";
-import Modal from "./Components/Modal/Modal.js";
 import { buttonLogin, inputsLogin } from "./Configuration/Configuration.js";
 import { Connection } from "./Connection/Connection.js";
 import Util from "./Util.js";
 import IndexedDBManager from './Connection/IndexedDBManager.js'
 import User from "./Class/User.js";
-// import Modals from "./Components/Modal/modal.js";
 
 init();
 
