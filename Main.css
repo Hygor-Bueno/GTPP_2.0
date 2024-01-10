@@ -2,6 +2,7 @@
 @import './Styles/Titles.css';
 @import './Styles/Form.css';
 @import './Styles/Button.css';
+@import './Styles/Modal.css';
 
 /* Retira as formatações iniciais dos componentes. */
 * {

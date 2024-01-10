@@ -1,6 +1,7 @@
 import Button from "./Components/Button.js";
 import Containers from "./Components/Containers.js";
 import Form from "./Components/Form.js";
+import Modal from "./Components/Modal/modal.js";
 import { buttonLogin, inputsLogin } from "./Configuration/Configuration.js";
 import { Connection } from "./Connection/Connection.js";
 import Util from "./Util.js";
@@ -14,6 +15,9 @@ async function init() {
     const validateLogin = await getUser(parseInt(localStorage.userGTPP) || 0);
     if (!validateLogin.error) {
         document.getElementById("loginContainer")?.remove();
+        const section = document.querySelector("#containerMain section");
+        section.appendChild(login());
+        section.appendChild(modalGender());
     } else {
         const section = document.querySelector("#containerMain section");
         section.appendChild(login());
@@ -31,6 +35,11 @@ function login() {
     form.appendChild(buttonObj.Button(confgBtn));
 
     return loginContainer.containerBasic({ id: 'loginContainer', element: form });
+}
+
+function modalGender() {
+    const modal = new Modal();
+    return modal.OpenModal('Erro!!', 'Ocorreu um erro!', true);
 }
 
 async function accountAccess() {

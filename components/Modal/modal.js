@@ -1,31 +1,60 @@
 export default class Modal {
+  constructor () {
+    const divTitle = document.createElement("div");
+    
+    this.modalDiv = null;
+    this.callback = null;
 
-  ContainerForm(configs) {
+    //Criação da div principal do modal
+    this.modalDiv = document.createElement("div");
+    this.modalDiv.className = "modal"
+    this.modalDiv.id= 'testeModal'
 
-    const divModal = document.createElement('div');
-    if (configs && configs.classDivModal) divModal.className = configs.classDivModal;
-    divModal.appendChild(this.ModalDivision({title: 'Erro'}));
-    return divModal;
+    this.separatorDiv = document.createElement("div");
+    this.separatorDiv.className = "separator";
+
+    // conteudo do modelo
+    this.modalContent = document.createElement("div");
+    this.modalContent.className = "modal-content";
+    
+    // Criação do titulo do modal 
+    this.title = document.createElement("h1");
+    this.title.className = "title-modal";
+    this.title.textContent = "Erro!!";
+    
+    // Criação de um botão de fechar
+    this.btnClose = document.createElement("button");
+    this.btnClose.className = "btn-close";
+    this.btnClose.textContent = 'x';
+    this.btnClose.onclick=() => {
+      document.getElementById('testeModal').remove();
+    }
+    
+    // Criação do paragrafo
+    this.messageElement = document.createElement("p");
+    this.messageElement.textContent = "Houve um erro por ai!!"
+    
+    
+    this.modalDiv.appendChild(this.modalContent);
+    this.modalContent.appendChild(this.btnClose);
+    
+    divTitle.appendChild(this.title);
+    divTitle.appendChild(this.messageElement);
+    this.separatorDiv.appendChild(this.modalDiv);
+    this.modalContent.appendChild(divTitle);
+    
+    
+    document.querySelector('section').appendChild(this.modalDiv);
   }
 
-  ModalDivision(configs) {
-    try {
-      if(!configs || !configs.title) {
-        throw new Error(`Keys not found`)
-      }
-      const divModalError = document.createElement('div');
+  OpenModal(titulo, mensagem, exibirBotoes) {
+    this.title.textContent = titulo;
+    this.messageElement.textContent = mensagem;
+    this.btnClose.style.display = exibirBotoes;
+    // this.modalDiv.style.display = 'block';
 
-      divModalError.className = 'modal-gender'
-      divModalError.innerHTML = `
-        <h1>${configs.title}</h1>
-      `;
+    this.modalDiv.classList.add('modal-absolute');
 
-      console.log(divModalError)
-
-      return divModalError;
-
-    } catch (error) {
-      console.error(error.message)
-    }
+    return this.modalDiv;
   }
 }
