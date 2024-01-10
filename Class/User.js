@@ -1,7 +1,7 @@
 import { Connection } from "../Connection/Connection.js";
 /**
  * Classe de usuários
- * @date 1/10/2024 - 4:15:56 PM
+ * @date 10/01/2024 - 4:15:56 PM
  * @author Hygor Bueno
  * @class User
  * @classdesc Utiliza os principios da programação orientada a objeto para criar um objeto usuário.
@@ -25,7 +25,7 @@ export default class User {
 
     /**
      * Método construtor da classe.carrega a foto do usuário.
-     * @date 1/10/2024 - 4:23:49 PM
+     * @date 10/01/2024 - 4:23:49 PM
      * @author Hygor Bueno
      * @constructor
      * @param {number} id
@@ -40,7 +40,7 @@ export default class User {
 
     /**
      * Método destinado a popular as váriáveis do objeto "User"carrega a foto do usuário.
-     * @date 1/10/2024 - 4:29:03 PM
+     * @date 10/01/2024 - 4:29:03 PM
      * @author Hygor Bueno
      * @param {Object} dataUser
      */
@@ -61,7 +61,7 @@ export default class User {
 
     /**
      * Method que busca no banco as informações detalhadas do usuário e a photo de perfil dele.
-     * @date 1/10/2024 - 4:31:48 PM
+     * @date 10/01/2024 - 4:31:48 PM
      * @author Hygor Bueno
      * @async
      */
@@ -72,7 +72,7 @@ export default class User {
 
     /**
      * Método que carrega a foto do usuário.
-     * @date 1/10/2024 - 4:34:53 PM
+     * @date 10/01/2024 - 4:34:53 PM
      * @author Hygor Bueno
      * @async
      * @returns {*}
@@ -92,7 +92,7 @@ export default class User {
 
     /**
      * Carrega as informações detalhada do colaborador (companhia, unidade, departamento, subdepartamento e etc)
-     * @date 1/10/2024 - 4:37:49 PM
+     * @date 10/01/2024 - 4:37:49 PM
      * @author Hygor Bueno
      * @async
      * @returns {*}

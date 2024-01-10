@@ -2,7 +2,7 @@ import Util from "../Util.js";
 
 /**
  * Classe Button
- * @date 1/10/2024 - 4:42:03 PM
+ * @date 10/01/2024 - 4:42:03 PM
  * @author Hygor Bueno.
  * @export
  * @class Button
@@ -13,7 +13,7 @@ export default class Button{
     
     /**
      * Description placeholder
-     * @date 1/10/2024 - 4:44:45 PM
+     * @date 10/01/2024 - 4:44:45 PM
      * @author Hygor Bueno.
      * @param {Object} configs
      * @returns {HTMLElement} Elemento Button
