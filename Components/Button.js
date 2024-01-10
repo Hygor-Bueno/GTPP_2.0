@@ -12,7 +12,7 @@ export default class Button{
     util = new Util();
     
     /**
-     * Description placeholder
+     * Cria e retonar um elemento html button totalmente configurado.
      * @date 10/01/2024 - 4:44:45 PM
      * @author Hygor Bueno.
      * @param {Object} configs
