@@ -22,7 +22,7 @@ export default class Form {
         return form;
     }
     
-     /**
+    /**
      * Cria e retorna um elemento html com as formatações básicas de um item de formulário (fieldset, div, label e input).
      * @date 10/01/2024 - 5:02:24 PM
      * @author Hygor Bueno
@@ -94,7 +94,8 @@ export default class Form {
             }
             const input = document.createElement('input');
             input.type = configs.inputType;
-            input.id = configs.inputId
+            input.id = configs.inputId;
+            if(configs.requiredInput) input.dataset.required = 1 
             if (configs?.classInput) input.className = configs.classInput;
             return input;
         } catch (error) {

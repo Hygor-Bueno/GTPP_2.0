@@ -231,7 +231,7 @@ export class Connection {
         let token = localStorage.getItem('tokenGTPP');
         this.URL = server + middlewer + token + (params ? params : "");
     }
-    
+
     /**
      * Ela recebe a mensagem de erro, valida se existe alguma exceção, caso tudo se encontre nos conformes ele abre o modal e retorna o resultado para o usuário. 
      * @date 11/01/2023 - 8:29:47 AM

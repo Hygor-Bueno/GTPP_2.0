@@ -32,4 +32,11 @@ export default class Util {
         let list = document.querySelectorAll(local);
         list.forEach(item=>item.value='');   
     }
+
+    validateMandatoryFields(){
+        const elementList = document.querySelectorAll('[data-required="1"]');
+        elementList.forEach(element=>{
+            if(!element.value) element.classList.add('borderDanger');
+        })
+    }
 }

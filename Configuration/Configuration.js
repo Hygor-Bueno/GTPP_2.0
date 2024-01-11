@@ -15,7 +15,8 @@ export const inputsLogin = [
                 classInput: 'inputForm',
                 label: 'Usuário:',
                 inputType: 'text',
-                inputId:'userInput'
+                inputId:'userInput',
+                requiredInput:true,
             },
             {
                 classItemsForm: 'itemsForm',
@@ -24,7 +25,8 @@ export const inputsLogin = [
                 classInput: 'inputForm',
                 label: 'Senha:',
                 inputType: 'password',
-                inputId:'passwordInput'
+                inputId:'passwordInput',
+                requiredInput:true,
             }
         ]
     }
