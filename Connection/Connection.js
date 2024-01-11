@@ -1,11 +1,10 @@
 
 import Modal from "../Components/Modal.js";
-import IndexedDBManager from "./IndexedDBManager.js";
 import Translator from "./Translator.js";
 
 /**
  * Description placeholder
- * @date 1/11/2024 - 8:02:54 AM
+ * @date 11/01/2023 - 8:02:54 AM
  * @author Hygor Bueno.
  *
  * @export
@@ -23,7 +22,7 @@ export class Connection {
 
     /**
      * Método GET - realiza a busca de informações no servidor.
-     * @date 1/11/2024 - 8:07:59 AM
+     * @date 11/01/2023 - 8:07:59 AM
      * @author Hygor Bueno.
      * 
      * @async
@@ -51,7 +50,7 @@ export class Connection {
 
     /**
      * Método POST - realiza a inserção de uma informações no servidor.
-     * @date 1/11/2024 - 8:07:59 AM
+     * @date 11/01/2023 - 8:07:59 AM
      * @author Hygor Bueno.
      * 
      * @async
@@ -80,7 +79,7 @@ export class Connection {
 
     /**
      * Método POST - realiza a inserção de uma informações no servidor (usada exclusivamente para realizar o Login). 
-     * @date 1/11/2024 - 8:07:59 AM
+     * @date 11/01/2023 - 8:07:59 AM
      * @author Hygor Bueno.
      * 
      * @async
@@ -109,7 +108,7 @@ export class Connection {
 
     /**
      * Método PUT - realiza a alteração de uma informações no servidor. 
-     * @date 1/11/2024 - 8:07:59 AM
+     * @date 11/01/2023 - 8:07:59 AM
      * @author Hygor Bueno.
      * 
      * @async
@@ -137,7 +136,7 @@ export class Connection {
     }
     /**
      * Método POST - realiza a inserção de uma informações no servidor (usada exclusivamente para realizar o reset de senha). 
-     * @date 1/11/2024 - 8:07:59 AM
+     * @date 11/01/2023 - 8:07:59 AM
      * @author Hygor Bueno.
      * 
      * @async
@@ -166,7 +165,7 @@ export class Connection {
 
     /**
      * Método DELETE - solicita a exclusão de uma informações através do servidor. 
-     * @date 1/11/2024 - 8:07:59 AM
+     * @date 11/01/2023 - 8:07:59 AM
      * @author Hygor Bueno.
      * 
      * @async
@@ -199,7 +198,7 @@ export class Connection {
     }
     /**
      * Método responsável por validar a existência dos parâmetros vincular a uma variável.
-     * @date 1/11/2024 - 8:22:27 AM
+     * @date 11/01/2023 - 8:22:27 AM
      * @author Hygor Bueno.
      * @param {object} params
      * @param {string} pathFile
@@ -213,7 +212,7 @@ export class Connection {
 
     /**
      * Método respomsável por limpar as varáveis.
-     * @date 1/11/2024 - 8:24:31 AM
+     * @date 11/01/2023 - 8:24:31 AM
      */
     cleanParams() {
         this.params = "";
@@ -222,7 +221,7 @@ export class Connection {
     }
     /**
      * Método responsável por construir uma URL válida.
-     * @date 1/11/2024 - 8:24:53 AM
+     * @date 11/01/2023 - 8:24:53 AM
      * @author Hygor Bueno.
      * @param {string} middlewer
      * @param {string} params
@@ -235,7 +234,7 @@ export class Connection {
     
     /**
      * Ela recebe a mensagem de erro, valida se existe alguma exceção, caso tudo se encontre nos conformes ele abre o modal e retorna o resultado para o usuário. 
-     * @date 1/11/2024 - 8:29:47 AM
+     * @date 11/01/2023 - 8:29:47 AM
      * @author Hygor Bueno.
      * @param {string} messageErr
      * @returns {{ error: boolean; message: string; }}
