@@ -72,7 +72,7 @@ export default class Translator {
     }
 
     /**
-     * Este método verifica a mensagem recebida e simplificar em grupos para retornos padrão, caso a mensagem não se enquadre em nenhum dos grupos ela é retornada na intergra.
+     * Este método verifica a mensagem recebida e simplifica em grupos para retornos padrão, caso a mensagem não se enquadre em nenhum dos grupos ela é retornada na intergra.
      * @date 10/01/2024 - 5:59:30 PM
      * @author Hygor Bueno.
      * @param {string} messagePT
