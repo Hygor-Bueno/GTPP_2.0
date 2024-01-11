@@ -17,11 +17,11 @@ export default class Form {
      */
     ContainerForm(configs) {
         const form = document.createElement('form');
-        configs.forEach(config => {form.appendChild(this.ItemForm(config.listfields))});
+        configs.forEach(config => { form.appendChild(this.ItemForm(config.listfields)) });
         if (configs && configs.classForm) form.className = configs.classForm;
         return form;
     }
-    
+
     /**
      * Cria e retorna um elemento html com as formatações básicas de um item de formulário (fieldset, div, label e input).
      * @date 10/01/2024 - 5:02:24 PM
@@ -29,12 +29,12 @@ export default class Form {
      * @param {Object} configs
      * @returns {HTMLFieldSetElement} Retorna um elemento html fieldset.
      */
-    ItemForm(configs) {        
+    ItemForm(configs) {
         //Configurações do fieldset
         const fieldset = document.createElement('fieldset');
 
         //Adicação dos filhos.
-        configs.forEach(config => {fieldset.appendChild(this.DivSubContainer(this.Label(config), this.Input(config), config));});
+        configs.forEach(config => { fieldset.appendChild(this.divSubContainer(this.label(config), this.input(config), config)); });
         return fieldset;
     }
 
@@ -48,7 +48,7 @@ export default class Form {
      * @param {Object} configs
      * @returns {HTMLElement}
      */
-    DivSubContainer(label, input, configs) {
+    divSubContainer(label, input, configs) {
         const subContainer = document.createElement('div');
         if (configs && configs.classItemsForm) {
             subContainer.className = configs.classItemsForm;
@@ -58,6 +58,8 @@ export default class Form {
         return subContainer;
     }
 
+
+
     /**
      * Cria e retorna um elemento html label pré-formatado.
      * @date 10/01/2024 - 5:18:16 PM
@@ -66,18 +68,45 @@ export default class Form {
      * @param {Object} configs
      * @returns {HTMLInputElement} Retorna um elemento label
      */
-    Label(configs) {
+    label(configs) {
         try {
             if (!configs || !configs.label) {
                 throw new Error('key label not found.');
             }
+            const div = document.createElement('div');
+            div.style.display = 'flex';
+            if(configs.iconLabel) div.style.alignItems = 'flex-end';
+
             const label = document.createElement('label');
             label.innerText = configs.label;
+            configs.iconLabel && div.appendChild(this.iconLabel(configs.nameImageLabel))
+            div.appendChild(label);
+            if (configs.requiredInput) div.appendChild(this.mandatory());
             if (configs?.classLabel) label.className = configs.classLabel;
-            return label;
+            return div;
         } catch (error) {
             console.error(error)
         }
+    }
+
+    /**
+     * insere um Asterisco vermelho identificando que aquela caixa é obrigatória;
+     * @date 11/01/2024 - 1:34:07 PM
+     * @author Hygor Bueno.
+     * @returns {HTMLLabelElement}
+     */
+    mandatory() {
+        const label = document.createElement('label');
+        label.innerText = '*';
+        label.style.fontSize = 'var(--MainTitleSize)'
+        label.style.color = 'var(--dangerColor)'
+        return label;
+    }
+
+    iconLabel(nameImg){
+        const img = document.createElement('img');
+        img.src= `../Assets/Image/${nameImg}`;
+        return img;
     }
 
     /**
@@ -87,7 +116,7 @@ export default class Form {
      * @param {*} configs
      * @returns {HTMLElement} Retorna um input pré-configurado.
      */
-    Input(configs) {
+    input(configs) {
         try {
             if (!configs || !configs.inputType) {
                 throw new Error('key inputType not found.');
@@ -95,7 +124,7 @@ export default class Form {
             const input = document.createElement('input');
             input.type = configs.inputType;
             input.id = configs.inputId;
-            if(configs.requiredInput) input.dataset.required = 1 
+            if (configs.requiredInput) input.dataset.required = 1
             if (configs?.classInput) input.className = configs.classInput;
             return input;
         } catch (error) {
