@@ -1,4 +1,5 @@
 
+import Header from "../Components/Header.js";
 import { Connection } from "../Connection/Connection.js";
 import Login from "../Pages/Login/Login.js";
 
@@ -16,6 +17,8 @@ export default class Router {
 
         switch (page) {
             case "Home":
+                const header = new Header("Gerenciado de Tarefas Peg Pese");
+                document.querySelector("#containerMain").insertBefore(header.main(),document.querySelector("#containerMain").firstElementChild)
                 const title = document.createElement('h1');
                 title.innerText = 'Welcome to Home!';
                 local.appendChild(title);
