@@ -28,3 +28,8 @@
 .borderDanger{
     border-color: var(--dangerColor);
 }
+
+.divLabelForm{
+    display:flex;
+    align-items: flex-end;
+}

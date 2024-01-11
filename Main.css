@@ -9,8 +9,9 @@
     margin: 0px;
     padding: 0px;
 }
-fieldset{
-    border:none;
+
+fieldset {
+    border: none;
 }
 
 /* Formatações iniciais do Body */
@@ -56,7 +57,7 @@ body {
     margin-top: var(--spaceDefault);
 }
 
-#loginContainer{
+#loginContainer {
     display: flex;
     border: var(--borderColor) solid;
     border-width: var(--borderSizeL);
@@ -65,9 +66,14 @@ body {
     min-height: 40%;
 }
 
-#loginContainer > form {
+#loginContainer>form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+}
+
+img.iconImg {
+    width: var(--imageSize);
+    height: var(--imageSize);
 }

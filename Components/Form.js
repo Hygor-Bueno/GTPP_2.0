@@ -74,8 +74,7 @@ export default class Form {
                 throw new Error('key label not found.');
             }
             const div = document.createElement('div');
-            div.style.display = 'flex';
-            if(configs.iconLabel) div.style.alignItems = 'flex-end';
+            if(configs.iconLabel) div.className = 'divLabelForm';
 
             const label = document.createElement('label');
             label.innerText = configs.label;
@@ -105,6 +104,7 @@ export default class Form {
 
     iconLabel(nameImg){
         const img = document.createElement('img');
+        img.className='iconImg'
         img.src= `../Assets/Image/${nameImg}`;
         return img;
     }

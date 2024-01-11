@@ -31,4 +31,7 @@
     --warningColor: #FFC107;
     --successColor: #28A745;
     --primaryColor: #FFFF;
+
+    /*Imagens*/
+    --imageSize: clamp(2vmin,7.5vmin,36px);
 }
