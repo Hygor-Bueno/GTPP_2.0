@@ -6,32 +6,28 @@ import { Connection } from "./Connection/Connection.js";
 import Util from "./Util.js";
 import IndexedDBManager from './Connection/IndexedDBManager.js'
 import User from "./Class/User.js";
+import Card from "./Components/Card.package/Card.js";
 
 init();
 
-/**
- * Função auto excutável. Neste formato modular ela é a única função a ser excutada neste script.
- * @date 1/11/2024 - 9:18:35 AM
- * @author Hygor Bueno.
- * @async
- * @returns {*}
- */
+// Função auto excutável. Neste formato modular ela é a única função a ser excutada neste script.
 async function init() {
     const validateLogin = await getUser(parseInt(localStorage.userGTPP) || 0);
     if (!validateLogin.error) {
         document.getElementById("loginContainer")?.remove();
+        const section = document.querySelector("#containerMain section");
+        // let var1 = document.createElement('p');
+        // var1.innerText = 'Hello World';
+        let var2 = new Containers();
+        section.appendChild(var2.containerBasic({
+            element: componentCardTodo(),
+        }));
     } else {
         const section = document.querySelector("#containerMain section");
         section.appendChild(login());
     }
 };
 
-/**
- * Description placeholder
- * @date 1/11/2024 - 9:18:54 AM
- * @author Hygor Bueno.
- *
- */
 function login() {
     const loginContainer = new Containers();
     const formObj = new Form();
@@ -45,12 +41,11 @@ function login() {
     return loginContainer.containerBasic({ id: 'loginContainer', element: form });
 }
 
-/**
- * Description placeholder
- * @date 1/11/2024 - 9:24:34 AM
- * @author Hygor Bueno.
- * @async
- */
+function componentCardTodo() {
+    const cardTodo = new Card();
+    return cardTodo.createCard();
+}
+
 async function accountAccess() {
     try {
         //Captura o valor dos campos e atribui a duas váriáveis.
@@ -84,14 +79,6 @@ async function accountAccess() {
     }
 }
 
-/**
- * Ao realizar o logoff essa função ira excluir seus dados do indexed db e excluir as chaves no local storage.
- * @date 1/11/2024 - 9:26:00 AM
- * @author Hygor Bueno.
- *
- * @async
- * @param {number} idUser
- */
 async function logoff(idUser) {
     let db = new IndexedDBManager();
     await db.openDatabase();
@@ -100,15 +87,8 @@ async function logoff(idUser) {
     localStorage.removeItem('tokenGTPP');
 }
 
-/**
- * Essa função busca o usuário no indexedDB apartir do id que é passado via parâmetro. 
- * @date 1/11/2024 - 9:27:41 AM
- *
- * @async
- * @param {number} idUser
- * @returns {object}
- */
 async function getUser(idUser) {
+
     let db = new IndexedDBManager();
     await db.openDatabase();
 

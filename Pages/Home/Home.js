@@ -1,4 +1,2 @@
-import Card from "../../Components/Card.js";
+import Card from "../../Components/Card.package/Card";
 
-const card = new Card();
-card.render();

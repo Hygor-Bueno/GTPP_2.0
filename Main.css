@@ -3,6 +3,7 @@
 @import './Styles/Form.css';
 @import './Styles/Button.css';
 @import './Styles/Modal.css';
+@import './Styles/Card.css';
 
 /* Retira as formatações iniciais dos componentes. */
 * {
@@ -20,6 +21,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #fafafa;
+    background-color: black;
 }
 
 /*Formatações do container principal*/
