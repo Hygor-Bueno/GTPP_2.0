@@ -33,5 +33,5 @@
     --primaryColor: #FFFF;
 
     /*Imagens*/
-    --imageSize: clamp(2vmin,7.5vmin,36px);
+    --imageSize: clamp(2vmin,7.2vmin,32px);
 }

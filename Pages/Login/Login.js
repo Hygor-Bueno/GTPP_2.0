@@ -3,10 +3,18 @@ import { buttonLogin, inputsLogin } from "../../Configuration/Configuration.js";
 import { Connection } from "../../Connection/Connection.js";
 import IndexedDBManager from "../../Connection/IndexedDBManager.js";
 import Util from "../../Util.js";
-import Button from "../Button.js";
-import Containers from "../Containers.js";
-import Form from "../Form.js";
+import Button from "../../Components/Button.js";
+import Containers from "../../Components/Containers.js";
+import Form from "../../Components/Form.js";
+import Router from "../../Routers/Router.js";
 
+/**
+ * Página de login
+ * @date 1/11/2024 - 5:26:52 PM
+ * @author Hygor Bueno.
+ * @export
+ * @class Login
+ */
 export default class Login {
     /**
      * Cria o componente de login.
@@ -36,6 +44,7 @@ export default class Login {
     async accountAccess() {
         try {
             const util = new Util();
+            const router = new Router();
             util.validateMandatoryFields();
             let response = await this.executeLogin();
             //Tratativa de erro para falha no login.
@@ -49,7 +58,7 @@ export default class Login {
 
             let verifyDataUser = await this.getUser(parseInt(response.data.id));
             if (verifyDataUser.error && verifyDataUser.message.toLowerCase().includes('not found')) await salveUserInIndexedDB(response);
-    
+            await router.navigation('Home');
         } catch (error) {
             console.log(error);
         }
@@ -73,7 +82,7 @@ export default class Login {
         //Abre a conexão e cria o objeto a ser enviado.
         const connection = new Connection();
         const user = { user: username, password };
-        return await connection.postLogin(user, "CCPP/Login.php");
+        return connection.postLogin(user, "CCPP/Login.php");
     }
 
     /**
