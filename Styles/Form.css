@@ -4,11 +4,6 @@
     flex-direction: column;
     padding: var(--spaceDefault);
     border:none;
-    /* background-color: red; */
-}
-
-.form{
-    /* background: blue; */
 }
 
 .labelForm{
