@@ -2,7 +2,7 @@
  * Váriável de configuração para componentes html;
  * @date 10/01/2024 - 5:27:19 PM
  * @author Hygor Bueno.
- * @type {{legend:string; listfields:[{ classItemsForm: string; classForm: string; classLabel: string; classInput: string; label: string; inputType: string; inputId: string; }]}}
+ * @type {{legend:string; listfields:[{ classItemsForm: string; classForm: string; classLabel: string; classInput: string; label: string; inputType: string; inputId: string;requiredInput:boolean;iconLabel:boolean,nameImageLabel:string }]}}
  */
 export const inputsLogin = [
     {
@@ -13,18 +13,22 @@ export const inputsLogin = [
                 classForm: 'form',
                 classLabel: 'labelForm',
                 classInput: 'inputForm',
-                label: 'Usuário:',
+                label: 'Usuário',
                 inputType: 'text',
-                inputId:'userInput'
+                inputId:'userInput',
+                iconLabel:true,
+                nameImageLabel:'User.svg'
             },
             {
                 classItemsForm: 'itemsForm',
                 classForm: 'form',
                 classLabel: 'labelForm',
                 classInput: 'inputForm',
-                label: 'Senha:',
+                label: 'Senha',
                 inputType: 'password',
-                inputId:'passwordInput'
+                inputId:'passwordInput',
+                iconLabel:true,
+                nameImageLabel:'Lock.svg'
             }
         ]
     }

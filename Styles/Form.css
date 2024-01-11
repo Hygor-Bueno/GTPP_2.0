@@ -4,11 +4,6 @@
     flex-direction: column;
     padding: var(--spaceDefault);
     border:none;
-    /* background-color: red; */
-}
-
-.form{
-    /* background: blue; */
 }
 
 .labelForm{
@@ -28,4 +23,13 @@
     border: var(--borderSize) solid #ced4da;
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;   
+}
+
+.borderDanger{
+    border-color: var(--dangerColor);
+}
+
+.divLabelForm{
+    display:flex;
+    align-items: flex-end;
 }

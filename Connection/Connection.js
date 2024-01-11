@@ -231,7 +231,7 @@ export class Connection {
         let token = localStorage.getItem('tokenGTPP');
         this.URL = server + middlewer + token + (params ? params : "");
     }
-    
+
     /**
      * Ela recebe a mensagem de erro, valida se existe alguma exceção, caso tudo se encontre nos conformes ele abre o modal e retorna o resultado para o usuário. 
      * @date 11/01/2023 - 8:29:47 AM
@@ -245,6 +245,7 @@ export class Connection {
             const modal = new Modal();
             modal.openModal('Erro!', translator.getMessagePT(), document.querySelector("#containerMain section"));
         }
+        console.log({ "error": true, "message": messageErr["message"] },this.URL);
         return { "error": true, "message": messageErr["message"] }
     }
 }
