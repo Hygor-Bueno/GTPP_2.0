@@ -9,7 +9,13 @@ import User from "./Class/User.js";
 
 init();
 
-// Função auto excutável. Neste formato modular ela é a única função a ser excutada neste script.
+/**
+ * Função auto excutável. Neste formato modular ela é a única função a ser excutada neste script.
+ * @date 1/11/2024 - 9:18:35 AM
+ * @author Hygor Bueno.
+ * @async
+ * @returns {*}
+ */
 async function init() {
     const validateLogin = await getUser(parseInt(localStorage.userGTPP) || 0);
     if (!validateLogin.error) {
@@ -20,6 +26,12 @@ async function init() {
     }
 };
 
+/**
+ * Description placeholder
+ * @date 1/11/2024 - 9:18:54 AM
+ * @author Hygor Bueno.
+ *
+ */
 function login() {
     const loginContainer = new Containers();
     const formObj = new Form();
@@ -33,11 +45,12 @@ function login() {
     return loginContainer.containerBasic({ id: 'loginContainer', element: form });
 }
 
-// function modalGender() {
-//     const modal = new Modal();
-//     return modal.OpenModal('Erro!!', 'Teste!', false,);
-// }
-
+/**
+ * Description placeholder
+ * @date 1/11/2024 - 9:24:34 AM
+ * @author Hygor Bueno.
+ * @async
+ */
 async function accountAccess() {
     try {
         //Captura o valor dos campos e atribui a duas váriáveis.
@@ -71,6 +84,14 @@ async function accountAccess() {
     }
 }
 
+/**
+ * Ao realizar o logoff essa função ira excluir seus dados do indexed db e excluir as chaves no local storage.
+ * @date 1/11/2024 - 9:26:00 AM
+ * @author Hygor Bueno.
+ *
+ * @async
+ * @param {number} idUser
+ */
 async function logoff(idUser) {
     let db = new IndexedDBManager();
     await db.openDatabase();
@@ -79,8 +100,15 @@ async function logoff(idUser) {
     localStorage.removeItem('tokenGTPP');
 }
 
+/**
+ * Essa função busca o usuário no indexedDB apartir do id que é passado via parâmetro. 
+ * @date 1/11/2024 - 9:27:41 AM
+ *
+ * @async
+ * @param {number} idUser
+ * @returns {object}
+ */
 async function getUser(idUser) {
-
     let db = new IndexedDBManager();
     await db.openDatabase();
 
