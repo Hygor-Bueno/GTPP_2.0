@@ -3,8 +3,11 @@ import Button from "./Button.js";
 import {buttonCloseModal} from "../Configuration/Configuration.js";
 
 /**
- * Classe Modal
- * @class
+ * @date 11/01/2024
+ * @author Jonatas
+ * 
+ * @class Classe Modal
+ * 
  * @classdesc Representa um componente modal simples para exibir mensagens.
  */
 export default class Modal {
