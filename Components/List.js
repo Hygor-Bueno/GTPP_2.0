@@ -22,7 +22,8 @@ export default class List{
         const icon = document.createElement('img');
 
         icon.className='iconMenu';
-        icon.src = `../Assets/Image/${item.icon}`
+        icon.src = `../Assets/Image/${item.icon}`;
+        li.onclick = item.onAction;
 
         p.innerText = item.label;
 

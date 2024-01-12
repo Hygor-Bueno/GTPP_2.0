@@ -11,13 +11,15 @@
     padding: var(--spaceDefault);
     border: white var(--borderSize) solid;
 }
-#navMenu > div{
+
+#navMenu>div {
     display: flex;
     justify-content: flex-end;
-    
+
 }
-.closeNavMenu{
-    width: auto!important;
+
+.closeNavMenu {
+    width: auto !important;
 }
 
 #navMenu>ul>li {
@@ -30,26 +32,27 @@
     margin: calc(var(--spaceDefault)*2) 0px;
     font-weight: bold;
     transition: margin-left .8s;
+    margin-left: calc(var(--spaceDefault)*-4);
 }
-.closeListMenu{
+
+.closeListMenu {
     display: none;
 }
 
-.iconMenu{
-    position: absolute;
-    margin-left: calc(var(--spaceDefault)*-4);
+.iconMenu {
+    margin-right: var(--spaceDefault);
     height: var(--imageSize);
     width: var(--imageSize);
 }
+
 #navMenu>ul>li:hover {
     cursor: pointer;
-    margin-left: calc(3*var(--spaceDefault));
+    margin-left: var(--spaceDefault);
 }
 
 #containerHome>div {
     width: 100%;
     overflow-y: hidden;
     overflow-x: auto;
-    /* background-color: blue; */
     padding: var(--spaceDefault);
 }

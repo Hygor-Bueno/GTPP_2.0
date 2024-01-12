@@ -27,7 +27,6 @@
     right: var(--spaceDefault);
     top: var(--spaceDefault);
     border: none; 
-    /*cursor: pointer;*/
 }
 
 .btn-submenu {    

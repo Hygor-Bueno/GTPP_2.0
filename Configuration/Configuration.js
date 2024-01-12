@@ -77,12 +77,12 @@ export const buttonMenu = {
  * Váriável de configuração para componentes html;
  * @date 12/01/2024 - 4:42:21 PM
  * @author Hygor Bueno.
- * @type {{ listItems: {label:string;icon:string}; }}
+ * @type {{ listItems: {label:string;icon:string;router:string}; }}
  */
 export const listItemsMenu = {
     listItems: [
-        { label: 'Home', icon: 'House.svg' },
-        { label: 'Logoff', icon: 'Logout.svg' }
+        { label: 'Home', icon: 'House.svg', router:'Home' },
+        { label: 'Logoff', icon: 'Logout.svg',router:'Login' }
     ],
 }
 

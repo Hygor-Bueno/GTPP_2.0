@@ -1,4 +1,5 @@
 import { buttonMenu, listItemsMenu } from "../Configuration/Configuration.js";
+import Router from "../Routers/Router.js"
 import Util from "../Util.js";
 import Button from "./Button.js";
 import Containers from "./Containers.js";
@@ -43,6 +44,13 @@ export default class Menu {
      */
     nav() {
         const container = new Containers();
+        listItemsMenu.listItems.forEach(menu => {
+            menu.onAction = ()=>{
+                console.log(menu.router);
+                const router = new Router();
+                router.navigation(menu.router);
+            }
+        });
         const list = new List(listItemsMenu);
 
         const nav = document.createElement('nav');

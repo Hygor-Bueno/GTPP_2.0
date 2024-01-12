@@ -68,7 +68,7 @@ export default class Router {
         const isHeader = "#containerMain header";
         const container = document.querySelector("#containerMain");
         
-        isHeader && container.insertBefore(header.main(), container.firstElementChild);
+        !document.querySelector(isHeader) && container.insertBefore(header.main(), container.firstElementChild);
         local.appendChild(pageElement);
     }
 }
