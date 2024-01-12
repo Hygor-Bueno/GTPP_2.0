@@ -1,11 +1,11 @@
 @import '../Root.css';
 
 .menu {
-    position: fixed;
+    position: absolute;
     gap: 0.2vw;
     background-color: transparent;
-    right: 18%;
-    top: 48%;
+    right: 49%;
+    top: 6%;
     width: 23vw;
     align-items: flex-start;
     flex-direction: column;

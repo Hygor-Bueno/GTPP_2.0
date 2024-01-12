@@ -1,13 +1,20 @@
+import Util from '../Util.js';
 export default class List{
     #listItems;
     #mandaroty = ["listItems"];
-    #linkItem;
-    #labelItem;
+
 
     constructor(configs){
-        this.#listItems = configs.listItems;
+        try {
+            const util = new Util();
+            let result = util.ValidatKeysComponent(this.#mandaroty,configs);
+          
+            this.#listItems = configs.listItems;
+        } catch (error) {
+            console.error(error);
+        }
     }
-
+    
     ul(){
         const ul = document.createElement('ul');
         this.#listItems.forEach(item => {
@@ -16,7 +23,18 @@ export default class List{
         return ul;
     };
 
-    li(elementItem){
-        const li = document.crea
+    li(item){
+        const li = document.createElement('li');
+        const p = document.createElement('p');
+        const icon = document.createElement('img');
+
+        icon.className='iconMenu';
+        icon.src = `../Assets/Image/${item.icon}`
+
+        p.innerText = item.label;
+
+        li.appendChild(icon);
+        li.appendChild(p);
+        return li;
     }
 }

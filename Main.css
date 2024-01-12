@@ -4,8 +4,8 @@
 @import './Styles/Button.css';
 @import './Styles/Modal.css';
 @import './Styles/Card.css';
+@import './Pages/Home/Home.css';
 @import './Styles/Menu.css';
-
 /* Retira as formatações iniciais dos componentes. */
 * {
     margin: 0px;
@@ -15,6 +15,11 @@
 fieldset {
     border: none;
 }
+ul, ol,li {
+    list-style: none; /* Remove marcadores/bolhas padrão */
+    padding: 0; /* Remove preenchimento padrão */
+    margin: 0; /* Remove margens padrão */
+}
 
 /* Formatações iniciais do Body */
 body {
@@ -23,7 +28,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #fafafa;
-    background: #000;
+    /* background: #000; */
 }
 
 /*Formatações do container principal*/
@@ -39,7 +44,8 @@ body {
     align-items: center;
     flex-grow: 0.025;
     border-bottom: var(--borderColor) solid var(--borderSize);
-    margin-bottom: var(--spaceDefault);
+    color:white;
+
 }
 
 #containerMain>section {
@@ -47,7 +53,6 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: var(--spaceDefault);
     overflow-y: auto;
     flex-grow: 0.95;
 }
@@ -57,7 +62,7 @@ body {
     align-items: center;
     flex-grow: 0.025;
     border-top: var(--borderColor) solid var(--borderSize);
-    margin-top: var(--spaceDefault);
+    color:white;
 }
 
 #loginContainer {

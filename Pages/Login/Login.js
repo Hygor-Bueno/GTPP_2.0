@@ -57,14 +57,14 @@ export default class Login {
             localStorage.setItem('tokenGTPP', response.data.session);
 
             let verifyDataUser = await this.getUser(parseInt(response.data.id));
-            if (verifyDataUser.error && verifyDataUser.message.toLowerCase().includes('not found')) await salveUserInIndexedDB(response);
+            if (verifyDataUser.error && verifyDataUser.message.toLowerCase().includes('not found')) await this.saveUserInIndexedDB(response);
             await router.navigation('Home');
         } catch (error) {
             console.log(error);
         }
     }
 
-    async salveUserInIndexedDB(user) {
+    async saveUserInIndexedDB(user) {
         const userData = new User(user.data.id, user.data.session);
         await userData.loadInfo();
 
