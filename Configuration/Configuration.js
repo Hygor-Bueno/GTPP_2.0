@@ -59,29 +59,3 @@ export const buttonCloseModal = {
     description: 'x',
     classButton: 'btn-close'
 }
-
-/**
- * Váriável de configuração para componentes html;
- * @date 12/01/2024 - 4:35:09 PM
- * @author Hygor Bueno.
- * @type {{ type: string; title: string; description: string; classButton: string; }}
- */
-export const buttonMenu = {
-    type: 'button',
-    title: 'Fechar menu',
-    description: '\u2630',
-    classButton: 'menuButton'
-}
-
-/**
- * Váriável de configuração para componentes html;
- * @date 12/01/2024 - 4:42:21 PM
- * @author Hygor Bueno.
- * @type {{ listItems: {label:string;icon:string}; }}
- */
-export const listItemsMenu = {
-    listItems: [
-        { label: 'Home', icon: 'House.svg' },
-        { label: 'Logoff', icon: 'Logout.svg' }
-    ],
-}

@@ -5,6 +5,7 @@ export default class List{
 
 
     constructor(configs){
+<<<<<<< HEAD
         try {
             const util = new Util();
             let result = util.ValidatKeysComponent(this.#mandaroty,configs);
@@ -13,6 +14,9 @@ export default class List{
         } catch (error) {
             console.error(error);
         }
+=======
+        this.#listItems = configs.listItems;
+>>>>>>> 0ca27cd8f3aaf1209c5c3fc14aee1ab973022ac0
     }
     
     ul(){

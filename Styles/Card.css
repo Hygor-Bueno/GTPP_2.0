@@ -1,9 +1,7 @@
 @import '../Root.css';
 
-
 #cardReturn {
-    width: 17vw;
-    height: 5vw; /*provavelmente vou ter que pensar em uma lógica para que quando eu for colocando mais itens na lista eu vou aumento a caixa com o conteúdo*/
+    width: 14vw;
     border-radius: 1vw;
     overflow: hidden;
     background-color: #FFF;
@@ -14,9 +12,7 @@
     list-style: none;
 }
 
-#menuReturn {
-
-}
+#menuReturn {}
 
 .subdivcard {
     display: flex;
