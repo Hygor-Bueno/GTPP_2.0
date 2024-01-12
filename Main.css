@@ -14,6 +14,11 @@
 fieldset {
     border: none;
 }
+ul, ol,li {
+    list-style: none; /* Remove marcadores/bolhas padrão */
+    padding: 0; /* Remove preenchimento padrão */
+    margin: 0; /* Remove margens padrão */
+}
 
 /* Formatações iniciais do Body */
 body {

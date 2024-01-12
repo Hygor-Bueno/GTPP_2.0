@@ -1,30 +1,52 @@
-#containerHome{
+#containerHome {
     display: flex;
     flex-direction: row;
     height: 100%;
     width: 100%;
 }
-#containerHome > nav{
+
+#navMenu {
     background-color: rgba(10, 149, 120);
-    width: clamp(1vw,30vw,200px);
+    width: clamp(1vw, 30vw, 200px);
     padding: var(--spaceDefault);
     border: white var(--borderSize) solid;
 }
-#containerHome > nav > ul >li{
+#navMenu > div{
+    display: flex;
+    justify-content: flex-end;
+    
+}
+.closeNavMenu{
+    width: auto!important;
+}
+
+#navMenu>ul>li {
+    position: relative;
+    display: flex;
+    align-items: center;
     font-size: var(--textSize);
-    color:white;
-    padding: var(--spaceDefault);
+    color: white;
     border-radius: var(--borderRadius);
-    background-color:rgb(245, 128, 38);
-    margin: var(--spaceDefault) 0px;
+    margin: calc(var(--spaceDefault)*2) 0px;
     font-weight: bold;
     transition: margin-left .8s;
 }
-#containerHome > nav > ul >li:hover{
-    cursor: pointer;
-    margin-left: var(--spaceDefault); 
+.closeListMenu{
+    display: none;
 }
-#containerHome > div{
+
+.iconMenu{
+    position: absolute;
+    margin-left: calc(var(--spaceDefault)*-4);
+    height: var(--imageSize);
+    width: var(--imageSize);
+}
+#navMenu>ul>li:hover {
+    cursor: pointer;
+    margin-left: calc(3*var(--spaceDefault));
+}
+
+#containerHome>div {
     width: 100%;
     overflow-y: hidden;
     overflow-x: auto;

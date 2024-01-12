@@ -30,6 +30,7 @@ export default class Button{
             button.innerText = configs.description;
             button.title = configs.title;
             button.onclick = configs.onAction;
+            if(configs?.id) button.id = configs.id;
             if(configs && configs.classButton) button.className = configs.classButton;
             return button;
         } catch (error) {

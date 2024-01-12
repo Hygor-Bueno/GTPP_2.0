@@ -15,9 +15,9 @@ export const inputsLogin = [
                 classInput: 'inputForm',
                 label: 'Usuário',
                 inputType: 'text',
-                inputId:'userInput',
-                iconLabel:true,
-                nameImageLabel:'User.svg'
+                inputId: 'userInput',
+                iconLabel: true,
+                nameImageLabel: 'User.svg'
             },
             {
                 classItemsForm: 'itemsForm',
@@ -26,9 +26,9 @@ export const inputsLogin = [
                 classInput: 'inputForm',
                 label: 'Senha',
                 inputType: 'password',
-                inputId:'passwordInput',
-                iconLabel:true,
-                nameImageLabel:'Lock.svg'
+                inputId: 'passwordInput',
+                iconLabel: true,
+                nameImageLabel: 'Lock.svg'
             }
         ]
     }
@@ -58,4 +58,30 @@ export const buttonCloseModal = {
     title: 'Click para entrar',
     description: 'x',
     classButton: 'btn-close'
+}
+
+/**
+ * Váriável de configuração para componentes html;
+ * @date 12/01/2024 - 4:35:09 PM
+ * @author Hygor Bueno.
+ * @type {{ type: string; title: string; description: string; classButton: string; }}
+ */
+export const buttonMenu = {
+    type: 'button',
+    title: 'Fechar menu',
+    description: '\u2630',
+    classButton: 'menuButton'
+}
+
+/**
+ * Váriável de configuração para componentes html;
+ * @date 12/01/2024 - 4:42:21 PM
+ * @author Hygor Bueno.
+ * @type {{ listItems: {label:string;icon:string}; }}
+ */
+export const listItemsMenu = {
+    listItems: [
+        { label: 'Home', icon: 'House.svg' },
+        { label: 'Logoff', icon: 'Logout.svg' }
+    ],
 }

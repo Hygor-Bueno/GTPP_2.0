@@ -8,6 +8,14 @@
     color:var(--textColor);
 }
 
+.menuButton{
+    color: white;
+    font-size: var(--MainTitleSize);
+    padding: var(--spaceDefault);
+    background: none;
+    border: none;
+    z-index: 10;
+}
 .btn-close {
     color: var(--primaryColor);
     background: transparent;

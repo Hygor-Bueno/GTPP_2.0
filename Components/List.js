@@ -8,10 +8,10 @@ export default class List{
         try {
             const util = new Util();
             let result = util.ValidatKeysComponent(this.#mandaroty,configs);
-            console.log(result);
+          
             this.#listItems = configs.listItems;
         } catch (error) {
-            
+            console.error(error);
         }
     }
     
@@ -25,7 +25,16 @@ export default class List{
 
     li(item){
         const li = document.createElement('li');
-        li.innerText = item.label;
+        const p = document.createElement('p');
+        const icon = document.createElement('img');
+
+        icon.className='iconMenu';
+        icon.src = `../Assets/Image/${item.icon}`
+
+        p.innerText = item.label;
+
+        li.appendChild(icon);
+        li.appendChild(p);
         return li;
     }
 }
