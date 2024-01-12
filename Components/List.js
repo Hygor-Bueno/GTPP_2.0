@@ -1,14 +1,20 @@
+import Util from '../Util.js';
 export default class List{
     #listItems;
     #mandaroty = ["listItems"];
-    #linkItem;
-    #labelItem;
+
 
     constructor(configs){
-        this.#listItems = configs.listItems;
-        
+        try {
+            const util = new Util();
+            let result = util.ValidatKeysComponent(this.#mandaroty,configs);
+            console.log(result);
+            this.#listItems = configs.listItems;
+        } catch (error) {
+            
+        }
     }
-
+    
     ul(){
         const ul = document.createElement('ul');
         this.#listItems.forEach(item => {
@@ -17,7 +23,9 @@ export default class List{
         return ul;
     };
 
-    li(elementItem){
-        const li = document.crea
+    li(item){
+        const li = document.createElement('li');
+        li.innerText = item.label;
+        return li;
     }
 }

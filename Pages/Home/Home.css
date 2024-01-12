@@ -1,0 +1,33 @@
+#containerHome{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+}
+#containerHome > nav{
+    background-color: rgba(10, 149, 120);
+    width: clamp(1vw,30vw,200px);
+    padding: var(--spaceDefault);
+    border: white var(--borderSize) solid;
+}
+#containerHome > nav > ul >li{
+    font-size: var(--textSize);
+    color:white;
+    padding: var(--spaceDefault);
+    border-radius: var(--borderRadius);
+    background-color:rgb(245, 128, 38);
+    margin: var(--spaceDefault) 0px;
+    font-weight: bold;
+    transition: margin-left .8s;
+}
+#containerHome > nav > ul >li:hover{
+    cursor: pointer;
+    margin-left: var(--spaceDefault); 
+}
+#containerHome > div{
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: auto;
+    /* background-color: blue; */
+    padding: var(--spaceDefault);
+}

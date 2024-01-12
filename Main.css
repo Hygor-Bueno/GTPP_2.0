@@ -4,7 +4,7 @@
 @import './Styles/Button.css';
 @import './Styles/Modal.css';
 @import './Styles/Card.css';
-
+@import './Pages/Home/Home.css';
 /* Retira as formatações iniciais dos componentes. */
 * {
     margin: 0px;
@@ -37,7 +37,8 @@ body {
     align-items: center;
     flex-grow: 0.025;
     border-bottom: var(--borderColor) solid var(--borderSize);
-    margin-bottom: var(--spaceDefault);
+    color:white;
+
 }
 
 #containerMain>section {
@@ -45,7 +46,6 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: var(--spaceDefault);
     overflow-y: auto;
     flex-grow: 0.95;
 }
@@ -55,7 +55,7 @@ body {
     align-items: center;
     flex-grow: 0.025;
     border-top: var(--borderColor) solid var(--borderSize);
-    margin-top: var(--spaceDefault);
+    color:white;
 }
 
 #loginContainer {
