@@ -1,0 +1,14 @@
+@import '../Root.css';
+
+.menu {
+    position: fixed;
+    gap: 0.2vw;
+    background-color: transparent;
+    right: 16%;
+    width: 23vw;
+    align-items: flex-start;
+    flex-direction: column;
+    display: flex;
+    border-radius: var(--spaceDefault);
+    padding: var(--spaceDefault);
+}

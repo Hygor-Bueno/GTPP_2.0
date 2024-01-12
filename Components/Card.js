@@ -3,6 +3,8 @@
  * @class Card
  * @export
  * @date 1/11/2024 - 11:27:17 AM
+ * 
+ * @todo fazer a separação de funções que normalmente os modais terão que fazer por exemplo: funcção que ira ter que fazer , passar para o próximo modal que sera para fazendo e depois para analise, parado. bloqueado. feito e cancelado
  */
 export default class Card {
     /**
@@ -95,11 +97,15 @@ export default class Card {
         cardMenu.className = 'menu';
         cardMenu.id = 'menuReturn';
 
-        const title = document.createElement('p');
-        title.className = 'titleMenu';
-        title.innerText = 'Teste';
+        const btn1 = document.createElement('button');
+        btn1.className = 'btn-submenu';
+        btn1.innerText = 'Teste';
+        btn1.onclick = () => {
+            console.log('olá mundo!');
+        }
 
-        cardMenu.appendChild(title);
+        cardMenu.appendChild(btn1);
+
         console.log(cardMenu);
 
         return cardMenu;

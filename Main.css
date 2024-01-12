@@ -4,6 +4,7 @@
 @import './Styles/Button.css';
 @import './Styles/Modal.css';
 @import './Styles/Card.css';
+@import './Styles/Menu.css';
 
 /* Retira as formatações iniciais dos componentes. */
 * {
@@ -22,6 +23,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #fafafa;
+    background-color: black;
 }
 
 /*Formatações do container principal*/
