@@ -59,3 +59,46 @@ export const buttonCloseModal = {
     description: 'x',
     classButton: 'btn-close'
 }
+
+
+/**
+ * Description placeholder
+ * @date 1/12/2024 - 11:44:29 AM
+ * @author Jonatas Silva.
+ * @type {{ type: string; title: string; description: string; classButton: string; }}
+ */
+export const buttonPDF={
+    type: 'button',
+    title: 'Criar um arquivo PDF',
+    description: 'PDF',
+    id: 'btnPDF',
+    classButton: 'btn-submenu'
+}
+
+/**
+ * Description placeholder
+ * @date 1/12/2024 - 11:50:37 AM
+ * @author Jonatas Silva.
+ * @type {{ type: string; title: string; description: string; classButton: string; }}
+ */
+
+export const buttonCSV = {
+    type: 'button',
+    title: 'Criar um arquivo CSV',
+    description: 'CSV',
+    classButton: 'btn-submenu'
+}
+
+
+/**
+ * Description placeholder
+ * @date 1/12/2024 - 11:52:24 AM
+ * @author Jonatas Silva.
+ * @type {{ type: string; title: string; description: string; classButton: string; }}
+ */
+export const buttonAdd = {
+    type: 'button',
+    title: 'Clique para adicionar um item a lista!',
+    description: 'Adicionar Item',
+    classButton: 'btn-submenu'
+}

@@ -6,7 +6,6 @@ export default class List{
 
     constructor(configs){
         this.#listItems = configs.listItems;
-        
     }
 
     ul(){

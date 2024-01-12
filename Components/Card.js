@@ -1,7 +1,11 @@
+import { buttonAdd, buttonCSV, buttonPDF } from "../Configuration/Configuration.js";
+import Button from "./Button.js";
+
 /**
  * Classe que representa um card com funcionalidades relacionadas.
  * @class Card
  * @export
+ * @author Jonatas Silva.
  * @date 1/11/2024 - 11:27:17 AM
  * 
  * @todo fazer a separação de funções que normalmente os modais terão que fazer por exemplo: funcção que ira ter que fazer , passar para o próximo modal que sera para fazendo e depois para analise, parado. bloqueado. feito e cancelado
@@ -95,18 +99,91 @@ export default class Card {
         const cardMenu = document.createElement('div');
         cardMenu.className = 'menu';
         cardMenu.id = 'menuReturn';
-
-        const btn1 = document.createElement('button');
-        btn1.className = 'btn-submenu';
-        btn1.innerText = 'Teste';
-        btn1.onclick = () => {
-            console.log('olá mundo!');
-        }
-
-        cardMenu.appendChild(btn1);
-
+        this.configButton(cardMenu);
         console.log(cardMenu);
-
         return cardMenu;
+    }
+
+    /**
+     * Manipula a criação de um arquivo PDF
+     * @date 1/12/2024 - 4:40:33 PM
+     */
+    onPDF() {
+         // Cria um elemento <script>
+        let scriptElement = document.createElement('script');
+
+        // Define o atributo src com a URL do script externo (html2pdf)
+        scriptElement.src = 'https://rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js';
+
+        // Adiciona o elemento <script> ao final do corpo do documento
+        document.body.appendChild(scriptElement);
+
+        // Função que será chamada quando o script externo for carregado
+        scriptElement.onload = function() {
+            // O código dentro deste bloco será executado quando o script externo for completamente carregado
+
+            // Adiciona um ouvinte de evento ao botão para gerar o PDF
+            document.querySelector('#').addEventListener('click', function() {
+                // Seleciona o elemento que você deseja exportar para PDF (pode ser um ID, classe, etc.)
+                var content = document.body;
+
+                // Configurações para a geração do PDF
+                var pdfOptions = {
+                    margin: 10,
+                    filename: 'documento.pdf',
+                    // image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+
+                // Gera o PDF usando a biblioteca html2pdf
+                html2pdf(content, pdfOptions);
+            });
+        };
+
+        html2pdf().from(content).set(options).outputPdf();
+    }
+
+     
+    /**
+     * Manipula uma criação de um arquivo CSV
+     * @date 1/12/2024 - 4:41:26 PM
+     */
+    onCSV() {
+        console.log('Criando um arquivo csv....');
+    }
+
+
+    /**
+     * Manipula a criação de uma nova tarefa
+     * @date 1/12/2024 - 4:41:51 PM
+     */
+    addItem() {
+        console.log('Criando um novo item....');
+    }
+
+    
+    
+    /**
+     * Configuração dos botões
+     * @date 1/12/2024 - 4:42:44 PM 
+     * @param {HTMLDivElement} local - O elemento onde os botões serão adicionados.
+     */
+    configButton(local) {
+        const btnPDF = new Button();
+        const btnCSV = new Button();
+        const btnADD = new Button();
+    
+        const configBtnPDF = buttonPDF;
+        configBtnPDF.onAction = this.onPDF;
+        local.appendChild(btnPDF.Button(configBtnPDF));
+
+        const configBtnCSV = buttonCSV;
+        configBtnCSV.onAction = this.onCSV;
+        local.appendChild(btnCSV.Button(configBtnCSV));
+
+        const configBtnAdd = buttonAdd;
+        configBtnAdd.onAction = this.addItem;
+        local.appendChild(btnADD.Button(configBtnAdd));
     }
 }
