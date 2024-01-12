@@ -4,12 +4,11 @@
 @import './Styles/Button.css';
 @import './Styles/Modal.css';
 @import './Styles/Card.css';
-<<<<<<< HEAD
+
 @import './Pages/Home/Home.css';
-=======
+@import './Styles/Menu.css';
 @import './Styles/Menu.css';
 
->>>>>>> 0ca27cd8f3aaf1209c5c3fc14aee1ab973022ac0
 /* Retira as formatações iniciais dos componentes. */
 * {
     margin: 0px;
@@ -32,7 +31,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #fafafa;
-    background: #000;
+    /* background: #000; */
 }
 
 /*Formatações do container principal*/

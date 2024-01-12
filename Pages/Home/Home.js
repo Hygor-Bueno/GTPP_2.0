@@ -1,4 +1,5 @@
 import Card from "../../Components/Card.js";
+import Menu from "../../Components/Menu.js";
 import Containers from "../../Components/Containers.js";
 
 /**
@@ -17,16 +18,6 @@ export default class Home {
         const card = new Card();
         const menu = new Menu({idNavMenu:'navMenu'});
 
-<<<<<<< HEAD
-        const elementHome = containerHome.containerBasic({
-            id: 'containerHome',
-            element: container.containerBasic({
-                element: card.createCard()
-            })
-        });
-        elementHome.insertBefore(menu.nav(), elementHome.firstElementChild), menu.nav();
-        return elementHome;
-=======
         const elementCard = card.createCard();
         // this.configButton(elementCard);
 
@@ -40,7 +31,6 @@ export default class Home {
         });
 
         // elementHome.innerHTML+=menu.main();
->>>>>>> 0ca27cd8f3aaf1209c5c3fc14aee1ab973022ac0
     }
 }
 
