@@ -107,5 +107,20 @@ export default class Modal {
       // Anexa o modal a um certo local fornecido na DOM
       local.appendChild(modalDiv);
     }
+
+    // Adiciona um ouvinte de evento para capturar cliques fora do modal
+    document.addEventListener('click', this.handleOutsideClick.bind(this));
+  }
+
+  handleOutsideClick(event) {
+    const modalDiv = document.getElementById('ModalReturn');
+    if(modalDiv && !modalDiv.contains(event.target)) {
+
+      // Remove o modal se o clique ocorreu fora dele
+      modalDiv.remove();
+
+      // Remove o ouvinte de evento após fechar o modal
+      document.removeEventListener('click', this.handleOutsideClick.bind(this));
+    }
   }
 }
