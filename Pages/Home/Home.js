@@ -18,19 +18,14 @@ export default class Home {
         const card = new Card();
         const menu = new Menu({idNavMenu:'navMenu'});
 
-        const elementCard = card.createCard();
-        // this.configButton(elementCard);
-
-        // const menu = new Menu();
-
-        return containerHome.containerBasic({
+        const elementHome = containerHome.containerBasic({
             id: 'containerHome',
             element: container.containerBasic({
-                element: elementCard,
+                element: card.createCard()
             })
         });
-
-        // elementHome.innerHTML+=menu.main();
+        elementHome.insertBefore(menu.nav(), elementHome.firstElementChild), menu.nav();
+        return elementHome;
     }
 }
 
