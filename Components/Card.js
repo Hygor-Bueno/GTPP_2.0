@@ -29,7 +29,6 @@ export default class Card {
         cardDiv.appendChild(subCards);
         subCards.appendChild(this.createNewList());
 
-        console.log(cardDiv);
         return cardDiv;
     }
 

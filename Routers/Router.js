@@ -4,6 +4,7 @@ import { Connection } from "../Connection/Connection.js";
 import Login from "../Pages/Login/Login.js";
 import Home from "../Pages/Home/Home.js";
 
+
 /**
  * Classe de rotas.
  * @date 12/01/2024 - 9:14:47 AM
@@ -63,7 +64,11 @@ export default class Router {
      */
     pageBuild(local, pageElement) {
         const header = new Header("Gerenciado de Tarefas Peg Pese");
-        document.querySelector("#containerMain").insertBefore(header.main(), document.querySelector("#containerMain").firstElementChild);
+ 
+        const isHeader = "#containerMain header";
+        const container = document.querySelector("#containerMain");
+        
+        isHeader && container.insertBefore(header.main(), container.firstElementChild);
         local.appendChild(pageElement);
     }
 }
