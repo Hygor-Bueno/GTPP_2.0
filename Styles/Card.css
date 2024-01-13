@@ -3,16 +3,16 @@
 #cardReturn {
     width: 14vw;
     border-radius: 1vw;
-    overflow: hidden;
     background-color: #FFF;
     padding: 1vw;
+    position: relative;
 }
 
 #cardReturn ul {
     list-style: none;
 }
 
-#menuReturn {}
+
 
 .subdivcard {
     display: flex;

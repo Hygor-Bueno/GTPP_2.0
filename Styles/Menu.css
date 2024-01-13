@@ -1,15 +1,8 @@
 @import '../Root.css';
 
-.menu {
+#menuReturn {
     position: absolute;
-    gap: 0.2vw;
-    background-color: transparent;
-    right: 49%;
-    top: 6%;
-    width: 23vw;
-    align-items: flex-start;
-    flex-direction: column;
-    display: flex;
-    border-radius: var(--spaceDefault);
-    padding: var(--spaceDefault);
+    z-index: 1;
+    left: 16.5vw;
+    top: 2vw;
 }
