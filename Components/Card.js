@@ -109,42 +109,9 @@ export default class Card {
      * @date 1/12/2024 - 4:40:33 PM
      */
     onPDF() {
-         // Cria um elemento <script>
-        let scriptElement = document.createElement('script');
-
-        // Define o atributo src com a URL do script externo (html2pdf)
-        scriptElement.src = 'https://rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js';
-
-        // Adiciona o elemento <script> ao final do corpo do documento
-        document.body.appendChild(scriptElement);
-
-        // Função que será chamada quando o script externo for carregado
-        scriptElement.onload = function() {
-            // O código dentro deste bloco será executado quando o script externo for completamente carregado
-
-            // Adiciona um ouvinte de evento ao botão para gerar o PDF
-            document.querySelector('#').addEventListener('click', function() {
-                // Seleciona o elemento que você deseja exportar para PDF (pode ser um ID, classe, etc.)
-                var content = document.body;
-
-                // Configurações para a geração do PDF
-                var pdfOptions = {
-                    margin: 10,
-                    filename: 'documento.pdf',
-                    // image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { scale: 2 },
-                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                };
-
-                // Gera o PDF usando a biblioteca html2pdf
-                html2pdf(content, pdfOptions);
-            });
-        };
-
-        html2pdf().from(content).set(options).outputPdf();
+        window.print();
     }
 
-     
     /**
      * Manipula uma criação de um arquivo CSV
      * @date 1/12/2024 - 4:41:26 PM
