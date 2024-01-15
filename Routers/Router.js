@@ -4,6 +4,7 @@ import { Connection } from "../Connection/Connection.js";
 import Login from "../Pages/Login/Login.js";
 import Home from "../Pages/Home/Home.js";
 import Loading from "../Components/Loading.js";
+import Footer from "../Components/Footer.js";
 
 
 /**
@@ -72,11 +73,13 @@ export default class Router {
      */
     pageBuild(local, pageElement,titleHeader) {
         const header = new Header(titleHeader);
+        const footer = new Footer('CLPP versão 1.0','Criado por Hygor Bueno e Jonatas')
  
         const isHeader = "#containerMain header";
         const container = document.querySelector("#containerMain");
         
-        !document.querySelector(isHeader) && container.insertBefore(header.main(), container.firstElementChild);
+        !document.querySelector(isHeader) && container.insertBefore(header.main(), container.lastElementChild);
         local.appendChild(pageElement);
+        container.appendChild(footer.main())
     }
 }

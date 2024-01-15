@@ -67,10 +67,18 @@ body {
 
 #containerMain>footer {
     display: flex;
-    align-items: center;
     flex-grow: 0.025;
     border-top: var(--borderColor) solid var(--borderSize);
-    color: white;
+    color: var(--labelColor);
+}
+#containerMain>footer>div {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    font-size:var(--textSize);
+}
+#footerDivRigth{
+    justify-content: flex-end;
 }
 
 #loginContainer {
