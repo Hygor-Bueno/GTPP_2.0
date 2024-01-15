@@ -91,12 +91,11 @@ export default class Login {
      * @author Hygor Bueno.
      *
      * @async
-     * @param {number} idUser
      */
-    async logoff(idUser) {
+    async logoff() {
         let db = new IndexedDBManager();
         await db.openDatabase();
-        db.deleteUserForID(idUser);
+        await db.deleteUserForID(parseInt(localStorage.getItem('userGTPP')) || 0);
         localStorage.removeItem('userGTPP');
         localStorage.removeItem('tokenGTPP');
     }

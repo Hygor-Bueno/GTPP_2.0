@@ -1,4 +1,4 @@
-@import '../Root.css';
+/* @import '../Root.css'; */
 
 .modal {
     width: clamp(10vw,calc(100vw - (2*var(--spaceDefault))),calc(400px - (2*var(--spaceDefault))));

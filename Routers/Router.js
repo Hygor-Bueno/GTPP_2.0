@@ -3,6 +3,7 @@ import Header from "../Components/Header.js";
 import { Connection } from "../Connection/Connection.js";
 import Login from "../Pages/Login/Login.js";
 import Home from "../Pages/Home/Home.js";
+import Loading from "../Components/Loading.js";
 
 
 /**
@@ -22,8 +23,12 @@ export default class Router {
      * @returns {object}
      */
     async onToken() {
-        const connection = new Connection();
-        return connection.get(`&user_id=${localStorage.getItem("userGTPP")}&application_id=3`, "CCPP/Token.php");
+        let result = {error:true};
+        if(localStorage.getItem('userGTPP') && localStorage.getItem('tokenGTPP')){
+            const connection = new Connection();
+            result = await connection.get(`&user_id=${localStorage.getItem("userGTPP")}&application_id=3`, "CCPP/Token.php");    
+        }
+        return result;
     }
 
     /**
@@ -44,10 +49,13 @@ export default class Router {
         switch (page) {
             case "Home":
                 const home = new Home();
-                this.pageBuild(local, home.main())
+                this.pageBuild(local, home.main(),'Bem vindo a Home.');
                 break;
             case "Login":
+                const header = document.querySelector('#containerMain header');
+                if(header) header.remove();
                 const login = new Login();
+                await login.logoff();
                 local.appendChild(login.login());
                 break;
             default:
@@ -62,8 +70,8 @@ export default class Router {
      * @param {HTMLElement} local
      * @param {HTMLElement} pageElement
      */
-    pageBuild(local, pageElement) {
-        const header = new Header("Gerenciado de Tarefas Peg Pese");
+    pageBuild(local, pageElement,titleHeader) {
+        const header = new Header(titleHeader);
  
         const isHeader = "#containerMain header";
         const container = document.querySelector("#containerMain");

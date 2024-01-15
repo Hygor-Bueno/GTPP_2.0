@@ -17,10 +17,16 @@
 fieldset {
     border: none;
 }
-ul, ol,li {
-    list-style: none; /* Remove marcadores/bolhas padrão */
-    padding: 0; /* Remove preenchimento padrão */
-    margin: 0; /* Remove margens padrão */
+
+ul,
+ol,
+li {
+    list-style: none;
+    /* Remove marcadores/bolhas padrão */
+    padding: 0;
+    /* Remove preenchimento padrão */
+    margin: 0;
+    /* Remove margens padrão */
 }
 
 /* Formatações iniciais do Body */
@@ -46,7 +52,7 @@ body {
     align-items: center;
     flex-grow: 0.025;
     border-bottom: var(--borderColor) solid var(--borderSize);
-    color:white;
+    color: white;
 
 }
 
@@ -64,7 +70,7 @@ body {
     align-items: center;
     flex-grow: 0.025;
     border-top: var(--borderColor) solid var(--borderSize);
-    color:white;
+    color: white;
 }
 
 #loginContainer {
@@ -86,4 +92,45 @@ body {
 img.iconImg {
     width: var(--imageSize);
     height: var(--imageSize);
+}
+
+#containerModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    background-color: rgba(0, 0, 0, .2);
+    width: 100vw;
+    height: 100vh;
+    z-index: 20;
+}
+
+#containerModal h1 {
+    background-color: #F3520A;
+    padding: 0 var(--spaceDefault);
+    border-radius: var(--spaceDefault);
+    color: white;
+    position: relative;
+    margin:var(--spaceDefault) 0px;
+
+}
+
+.spinner {
+    border: var(--borderSizeXL) solid #F3520A;
+    border-top: var(--borderSizeXL) solid var(--primaryColor);
+    border-radius: 50%;
+    width: clamp(3vmin,6vmin,40px);
+    height: clamp(3vmin,6vmin,40px);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

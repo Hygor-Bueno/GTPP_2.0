@@ -11,6 +11,7 @@
     /*Váriáveis de bordas.*/
     --borderSize:clamp(0.2vmin,0.5vmin,1px);
     --borderSizeL:clamp(0.2vmin,0.5vmin,2px);
+    --borderSizeXL:clamp(0.6vmin,1.5vmin,2px);
     --borderColor:#ccc;
     --borderRadius:clamp(1vmin,2vmin,10px);
 

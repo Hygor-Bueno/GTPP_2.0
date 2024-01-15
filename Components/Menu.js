@@ -46,7 +46,6 @@ export default class Menu {
         const container = new Containers();
         listItemsMenu.listItems.forEach(menu => {
             menu.onAction = ()=>{
-                console.log(menu.router);
                 const router = new Router();
                 router.navigation(menu.router);
             }
