@@ -1,4 +1,5 @@
 
+import Loading from "../Components/Loading.js";
 import Modal from "../Components/Modal.js";
 import Translator from "./Translator.js";
 
@@ -19,6 +20,7 @@ export class Connection {
         error: true,
         exception: ''
     };
+    load = new Loading('Testando API Rest');
 
     /**
      * Método GET - realiza a busca de informações no servidor.
@@ -32,6 +34,7 @@ export class Connection {
      * @returns {{error:boolean;data:Object}}
      */
     async get(params, pathFile, err) {
+        this.load.open();
         this.validationParams(params, pathFile, err);
         await this.settingUrl(`/Controller/${this.pathFile}?app_id=3&AUTH=`, params)
         let req;
@@ -45,6 +48,7 @@ export class Connection {
                 req = this.prepareCatchReturn(messageErr);
             })
         this.cleanParams();
+        this.load.close();
         return req;
     }
 
@@ -60,6 +64,7 @@ export class Connection {
      * @returns {{error:boolean;data:object}}
      */
     async post(params, pathFile, err) {
+        this.load.open();
         this.validationParams(params, pathFile, err);
         await this.settingUrl(`/Controller/${this.pathFile}?app_id=3&AUTH=`)
         let req;
@@ -74,6 +79,7 @@ export class Connection {
                 req = this.prepareCatchReturn(messageErr);
             })
         this.cleanParams();
+        this.load.close();
         return req;
     }
 
@@ -89,6 +95,7 @@ export class Connection {
      * @returns {{error:boolean;data:Object}}
      */
     async postLogin(params, pathFile, err) {
+        this.load.open();
         this.validationParams(params, pathFile, err);
         await this.settingUrl(`/Controller/${this.pathFile}?app_id=3&login=&AUTH=`)
         let req;
@@ -96,16 +103,17 @@ export class Connection {
             method: 'POST',
             body: JSON.stringify(this.params)
         }).then(response => response.json())
-            .then(body => {
-                if (body.error) throw Error(body.message);
-                req = body;
-            }).catch(messageErr => {
-                req = this.prepareCatchReturn(messageErr);
-            })
+        .then(body => {
+            if (body.error) throw Error(body.message);
+            req = body;
+        }).catch(messageErr => {
+            req = this.prepareCatchReturn(messageErr);
+        })
         this.cleanParams();
+        this.load.close();
         return req;
     }
-
+    
     /**
      * Método PUT - realiza a alteração de uma informações no servidor. 
      * @date 11/01/2023 - 8:07:59 AM
@@ -118,6 +126,7 @@ export class Connection {
      * @returns {{error:boolean;data:Object}}
      */
     async put(params, pathFile, err) {
+        this.load.open();
         this.validationParams(params, pathFile, err);
         await this.settingUrl(`/Controller/${this.pathFile}?app_id=3&AUTH=`)
         let req;
@@ -132,6 +141,7 @@ export class Connection {
                 req = this.prepareCatchReturn(messageErr);
             })
         this.cleanParams();
+        this.load.close();
         return req;
     }
     /**
@@ -245,7 +255,7 @@ export class Connection {
             const modal = new Modal();
             modal.openModal('Erro!', translator.getMessagePT(), document.querySelector("#containerMain section"));
         }
-        console.log({ "error": true, "message": messageErr["message"] },this.URL);
+        console.log({ "error": true, "message": messageErr["message"] }, this.URL);
         return { "error": true, "message": messageErr["message"] }
     }
 }

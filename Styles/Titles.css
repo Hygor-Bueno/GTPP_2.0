@@ -1,8 +1,9 @@
-@import '../Root.css';
+/* @import '../Root.css'; */
 
 .mainTitle {
     color: var(--MainTitleColor);
     font-size: var(--MainTitleSize);
+    margin: 0px var(--spaceDefault);
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;

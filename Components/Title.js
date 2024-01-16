@@ -9,6 +9,7 @@
 export default class Title {
     #title;
     constructor(title){
+
         this.#title = title;
     }
     main(){
