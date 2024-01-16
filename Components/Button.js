@@ -16,7 +16,7 @@ export default class Button{
      * @date 10/01/2024 - 4:44:45 PM
      * @author Hygor Bueno.
      * @param {Object} configs
-     * @returns {HTMLElement} Elemento Button
+     * @returns {HTMLButtonElement} Elemento Button
      */
     Button(configs){
         try {

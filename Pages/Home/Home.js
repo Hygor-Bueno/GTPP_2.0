@@ -21,7 +21,7 @@ export default class Home {
         const elementHome = containerHome.containerBasic({
             id: 'containerHome',
             element: container.containerBasic({
-                element: card.createCard()
+                element: card.createCard(2),
             })
         });
         elementHome.insertBefore(menu.nav(), elementHome.firstElementChild), menu.nav();
