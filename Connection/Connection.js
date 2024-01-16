@@ -20,7 +20,7 @@ export class Connection {
         error: true,
         exception: ''
     };
-    load = new Loading('Testando API Rest');
+    load = new Loading();
 
     /**
      * Método GET - realiza a busca de informações no servidor.

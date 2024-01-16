@@ -1,6 +1,6 @@
 /* @import '../Root.css'; */
 
-#menuReturn {
+.menu {
     position: absolute;
     z-index: 1;
     left: 16.5vw;

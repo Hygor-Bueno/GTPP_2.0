@@ -1,18 +1,19 @@
 /* @import '../Root.css'; */
 
-#cardReturn {
+.card {
     width: 14vw;
     border-radius: 1vw;
     background-color: #FFF;
     padding: 1vw;
     position: relative;
+    margin: 0px var(--spaceDefault);
+    overflow: auto;
+    min-width: 250px;
 }
 
-#cardReturn ul {
+.card > ul {
     list-style: none;
 }
-
-
 
 .subdivcard {
     display: flex;
@@ -20,8 +21,9 @@
     justify-content: space-between;
 }
 
-.father-div {
+.item {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 1vw;
     margin: 1vw 0;
