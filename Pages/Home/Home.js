@@ -1,6 +1,7 @@
 import Card from "../../Components/Card.js";
 import Menu from "../../Components/Menu.js";
 import Containers from "../../Components/Containers.js";
+import { Connection } from "../../Connection/Connection.js";
 
 /**
  * Classe Pagina Home
@@ -11,20 +12,44 @@ import Containers from "../../Components/Containers.js";
  * @classdesc Uma classe destinada para crianção de uma página html
  */
 export default class Home {
-    main() {
-        const containerHome = new Containers();
-        const container = new Containers();
+    async main() {
+        try {
+            const connection = new Connection();
+            const listTaskState = await connection.get('', 'GTPP/TaskState.php');
+            if (listTaskState.error) throw new Error(listTaskState.message);
 
-        const card = new Card();
-        const menu = new Menu({idNavMenu:'navMenu'});
+            const menu = new Menu({ idNavMenu: 'navMenu' });
+
+            const elementHome = this.renderCards(listTaskState.data);
+            elementHome.insertBefore(menu.nav(), elementHome.firstElementChild), menu.nav();
+            return elementHome;
+
+        } catch (error) {
+
+        }
+    }
+
+    renderCards(list) {
+        const containerHome = new Containers();
+
+        const container = new Containers();
+        console.log(list);
+        
+        const div = document.createElement('div');
+        
+        
+        list.forEach(item => {
+            const card = new Card();
+            div.appendChild(card.createCard({id:`task_state_${item.id}`,label:item.description}))
+        });
 
         const elementHome = containerHome.containerBasic({
             id: 'containerHome',
             element: container.containerBasic({
-                element: card.createCard(2),
-            })
+                element: div,
+            }),
         });
-        elementHome.insertBefore(menu.nav(), elementHome.firstElementChild), menu.nav();
+
         return elementHome;
     }
 }

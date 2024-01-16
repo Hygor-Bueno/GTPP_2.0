@@ -16,27 +16,22 @@ export default class Card {
      * @date 1/11/2024
      * @returns {HTMLElement} - Elemento DOM representando o card.
      */
-    createCard = (numSubCards) => {
+    createCard(configs) {
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
-        cardDiv.id = 'cardReturn';
+        if(configs?.id) cardDiv.id = configs.id;
 
-        // Cria os elementos de título e parágrafo
-        const subCards = document.createElement('ul');
-        const subDivCard = this.createSubDivCard();
-        const inputCheckbox = this.createButtonHamburger();
-
-        subCards.className = 'subCard';
+        const subDivCard = this.createSubDivCard(configs.label);
+        const inputCheckbox = this.createButtonHamburger(configs.id);
 
         // Adiciona os elementos filhos
         cardDiv.appendChild(subDivCard);
         subDivCard.appendChild(inputCheckbox);
-        cardDiv.appendChild(subCards);
 
-        for(let i=0; i < numSubCards; i++) {
-            subCards.appendChild(this.createNewList());
-        }
+        // chamando um grupo de lista
+        cardDiv.appendChild(this.loadTaskList([]))
 
+        console.log(cardDiv)
         return cardDiv;
     }
 
@@ -45,24 +40,29 @@ export default class Card {
      * @date 1/11/2024
      * @returns {HTMLLIElement} - Elemento li representando um item de lista.
      */
-    createNewList = () => {
-        const buttonSublist = document.createElement('li');
-        buttonSublist.className = 'btn-sublist';
-        
-        buttonSublist.appendChild(this.openCardAddItem());
-        return buttonSublist;
+    loadTaskList(tasks) {
+        console.log(tasks)
+        const ul = document.createElement('ul');
+        ul.className = 'btn-sublist';
+
+        // Aqui vamos fazer com que esse grupo de tarefas venha se relevante para nós
+        for(let i = 0; i < tasks.length ; i++) {
+            ul.appendChild(this.openCardAddItem());
+        }
+
+        return ul;
     }
 
     /**
      * Cria e retorna um novo elemento div para o subcard.
      * @returns {HTMLDivElement} - Elemento div representando o subcard.
      */
-    createSubDivCard = () => {
+    createSubDivCard(label) {
         const subCardDiv = document.createElement('div');
         subCardDiv.className = 'subdivcard';
 
         const title = document.createElement('h4');
-        title.innerText = 'Title';
+        title.innerText = label;
 
         subCardDiv.appendChild(title);
 
@@ -74,35 +74,38 @@ export default class Card {
      * Adiciona um ouvinte de evento para exibir ou ocultar o menu quando o checkbox é clicado.
      * @returns {HTMLInputElement} - Elemento input representando o botão hamburger.
      */
-    createButtonHamburger = () => {
+    createButtonHamburger(id) {
         const inputHamburger = document.createElement('input');
         inputHamburger.type = 'checkbox';
         inputHamburger.checked = false;
 
         inputHamburger.addEventListener('change', (e) => {
-            const cardReturn = document.getElementById('cardReturn');
-            if (e.target.checked) {
-                cardReturn.appendChild(this.createMenu());
-            } else {
-                const menuReturn = document.getElementById('menuReturn');
-                if (menuReturn) {
-                    menuReturn.remove();
-                }
-            }
+            const cardReturn = document.getElementById(id);
+            e.target.checked ? this.openConfigCard(cardReturn,id) : this.closeConfigCard(id);            
         });
 
         return inputHamburger;
+    }
+
+    openConfigCard(local,id) {
+        local.appendChild(this.createMenu(id));
+    }
+    
+    closeConfigCard(id) {
+        const menuReturn = document.querySelector(`#${id} .menu`);
+        if (menuReturn) {
+            menuReturn.remove();
+        }
     }
 
     /**
      * Cria e retorna um novo elemento div representando o menu.
      * @returns {HTMLDivElement} Elemento div representando o menu.
      */
-    createMenu = () => {
+    createMenu(id) {
         const cardMenu = document.createElement('div');
         cardMenu.className = 'menu';
-        cardMenu.id = 'menuReturn';
-        this.configButton(cardMenu);
+        this.configButton(cardMenu,id);
         console.log(cardMenu);
         return cardMenu;
     }
@@ -111,27 +114,33 @@ export default class Card {
      * Manipula a criação de um arquivo PDF
      * @date 1/12/2024 - 4:40:33 PM
      */
-    onPDF = () => {
-        window.print();
+    onPDF() {
+        const h1 = document.createElement('h1');
+        h1.innerText = "I'm here";
+        var mywindow = window.open('', '_blank');
+        mywindow.document.write(h1.innerText);
+        mywindow.print();  
+        mywindow.close();
     }
 
     /**
      * Manipula uma criação de um arquivo CSV
      * @date 1/12/2024 - 4:41:26 PM
      */
-    onCSV = () => {
+    onCSV() {
         console.log('Criando um arquivo csv....');
     }
-
-
+    
     /**
-     * Manipula a criação de uma nova tarefa
-     * @date 1/12/2024 - 4:41:51 PM
+     * Description placeholder
+     * @date 1/16/2024 - 10:25:18 AM
+     *
+     * @returns {*}
      */
-    openCardAddItem = () => {
+     openCardAddItem() {
         // div pai
-        let fatherDiv = document.createElement('div');
-        fatherDiv.className = 'father-div';
+        let fatherDiv = document.createElement('li');
+        fatherDiv.className = 'item';
 
         //divisoria para area de texto
         let divTextArea = document.createElement('div');
@@ -154,7 +163,7 @@ export default class Card {
 
         // envolvedo textarea no divisor
         divTextArea.appendChild(divTask);
-        
+
         // envolvedo input checkbox no divisor
         divCheckbox.appendChild(button);
 
@@ -165,25 +174,45 @@ export default class Card {
     }
 
     /**
+     * Manipula a criação de uma nova tarefa
+     * @date 1/12/2024 - 4:41:51 PM
+     */
+    addTask(local) {
+        const tasks = ['a'];
+        local.appendChild(this.loadTaskList(tasks))
+    }
+
+    reloadTaskList(id){
+        const isList = document.querySelector(`${id} ul`);
+        if(isList){
+            isList.remove();
+        }
+        const local = document.getElementById(`${id}`);
+        
+        this.addTask(local);
+    }
+
+    /**
      * Configuração dos botões
      * @date 1/12/2024 - 4:42:44 PM 
      * @param {HTMLDivElement} local - O elemento onde os botões serão adicionados.
      */
-    configButton = (local) => {
+    configButton(local,id) {
         const btnPDF = new Button();
         const btnCSV = new Button();
         const btnADD = new Button();
-    
+
         const configBtnPDF = buttonPDF;
-        configBtnPDF.onAction = this.onPDF.bind(this);
+        configBtnPDF.onAction = this.onPDF;
         local.appendChild(btnPDF.Button(configBtnPDF));
 
         const configBtnCSV = buttonCSV;
-        configBtnCSV.onAction = this.onCSV.bind(this);
+        configBtnCSV.onAction = this.onCSV;
         local.appendChild(btnCSV.Button(configBtnCSV));
 
         const configBtnAdd = buttonAdd;
-        configBtnAdd.onAction = this.openCardAddItem.bind(this);
+        configBtnAdd.onAction = ()=> this.reloadTaskList(id);
+    
         local.appendChild(btnADD.Button(configBtnAdd));
     }
 }

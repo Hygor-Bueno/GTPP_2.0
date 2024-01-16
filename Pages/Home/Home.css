@@ -56,3 +56,9 @@
     overflow-x: auto;
     padding: var(--spaceDefault);
 }
+
+#containerHome>div >div{
+    display: flex;
+    flex-direction: row;
+    height: 50%;
+}

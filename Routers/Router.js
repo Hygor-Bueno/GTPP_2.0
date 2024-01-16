@@ -71,7 +71,7 @@ export default class Router {
      * @param {HTMLElement} local
      * @param {HTMLElement} pageElement
      */
-    pageBuild(local, pageElement,titleHeader) {
+    async pageBuild(local, pageElement,titleHeader) {
         const header = new Header(titleHeader);
         const footer = new Footer('CLPP versão 1.0','Criado por Hygor Bueno e Jonatas')
  
@@ -79,7 +79,7 @@ export default class Router {
         const container = document.querySelector("#containerMain");
         
         !document.querySelector(isHeader) && container.insertBefore(header.main(), container.lastElementChild);
-        local.appendChild(pageElement);
+        local.appendChild(await pageElement);
         container.appendChild(footer.main())
     }
 }
