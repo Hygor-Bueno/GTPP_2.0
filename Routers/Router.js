@@ -76,6 +76,7 @@ export default class Router {
      * @param {HTMLElement} pageElement
      */
     async pageBuild(local, pageElement,titleHeader) {
+
         const header = new Header(titleHeader);
         const footer = new Footer('CLPP versão 1.0','Criado por Hygor Bueno e Jonatas')
  

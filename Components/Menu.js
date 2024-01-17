@@ -14,6 +14,7 @@ import List from "./List.js";
  */
 export default class Menu {
     #idNavMenu;
+    #class;
     #mandaroty = ["idNavMenu"];
 
     /**
@@ -22,7 +23,7 @@ export default class Menu {
      * @author Hygor Bueno.
      *
      * @constructor
-     * @param {object} configs
+     * @param {{idNavMenu:string;class?:string}} configs
      */
     constructor(configs) {
         try {
@@ -30,6 +31,7 @@ export default class Menu {
             let result = util.ValidatKeysComponent(this.#mandaroty, configs);
             if(!result)throw new Error("token idNavMenu is broken");
             this.#idNavMenu = configs.idNavMenu;
+            this.#class = configs.class;
         } catch (error) {
             console.error(error)
         }
@@ -54,6 +56,8 @@ export default class Menu {
 
         const nav = document.createElement('nav');
         nav.id = this.#idNavMenu;
+
+        if(this.#class) nav.className = this.#class;
 
         const button = new Button();
         buttonMenu.onAction = this.changeVisibilityOfModal;

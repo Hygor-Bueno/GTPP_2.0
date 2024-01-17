@@ -1,8 +1,28 @@
 #containerHome {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
+    display: grid;
+    grid-template-areas:
+        'gridLeftTop gridLeftTop'
+        'gridLeftHome gridRightHome'
+    ;
+    grid-template-rows: 5% 95%; /* Ajuste conforme necessário */
+    height: 100%; /* 100% da altura da viewport */
     width: 100%;
+}
+
+
+.gridLeftTop {
+    grid-area: gridLeftTop;
+
+}
+
+.gridLeftHome {
+    grid-area: gridLeftHome;
+
+}
+
+.gridRightHome {
+    grid-area: gridRightHome;
+
 }
 
 #navMenu {
@@ -51,13 +71,13 @@
 }
 
 #containerHome>div {
-    width: 100%;
+    width: calc(100% - var(--spaceDefault)*2);
     overflow-y: hidden;
     overflow-x: auto;
     padding: var(--spaceDefault);
 }
 
-#containerHome>div >div{
+#containerHome>div>div {
     display: flex;
     flex-direction: row;
     height: 50%;
