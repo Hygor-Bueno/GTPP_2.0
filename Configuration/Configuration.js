@@ -125,6 +125,6 @@ export const buttonCSV = {
 export const buttonAdd = {
     type: 'button',
     title: 'Clique para adicionar um item a lista!',
-    description: 'Adicionar Item',
+    description: 'Adicione um item',
     classButton: 'btn-submenu'
 }

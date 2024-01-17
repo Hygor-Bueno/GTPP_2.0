@@ -41,7 +41,7 @@ export default class Home {
         
         list.forEach(item => {
             const card = new Card();
-            div.appendChild(card.createCard({id:`task_state_${item.id}`,label:item.description}))
+            div.appendChild(card.createCard({id:`task_state_${item.id}`,label:item.description, isAddTasks: true}))
         });
 
         const elementHome = containerHome.containerBasic({
