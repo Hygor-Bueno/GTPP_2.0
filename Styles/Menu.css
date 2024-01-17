@@ -1,4 +1,4 @@
-@import '../Root.css';
+
 
 .menu {
     position: absolute;
@@ -8,7 +8,6 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    width: 4vw;
     gap: 0.5vw;
     background-color: #00000088;
     padding: var(--spaceDefault);

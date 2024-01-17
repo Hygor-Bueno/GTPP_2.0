@@ -108,7 +108,6 @@ export default class Card {
             label.appendChild(spanIconBar2);
             label.appendChild(spanIconBar3);
 
-
             inputHamburger.addEventListener('change', (e) => {
                 const cardReturn = document.getElementById(id);
                 e.target.checked ? this.openConfigCard(cardReturn,id) : this.closeConfigCard(id);            
