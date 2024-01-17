@@ -12,17 +12,14 @@
 
 .gridLeftTop {
     grid-area: gridLeftTop;
-
 }
 
 .gridLeftHome {
     grid-area: gridLeftHome;
-
 }
 
 .gridRightHome {
     grid-area: gridRightHome;
-
 }
 
 #navMenu {
