@@ -128,3 +128,10 @@ export const buttonAdd = {
     description: 'Adicione um item',
     classButton: 'btn-submenu'
 }
+
+export const buttonToTask = {
+    type: 'button',
+    title: 'Clique para mover essa tarefa para fazendo!',
+    description: 'Fazendo',
+    classButton: 'btn-toTask'
+}

@@ -10,6 +10,10 @@
     box-shadow:  calc(0.9 * var(--spaceDefault)) var(--spaceDefault) var(--spaceDefault) rgb(188 187 187 / 84%);
 }
 
+.card:hover {
+    transition: all ease-in-out .5s;
+}
+
 .card > ul {
     list-style: none;
 }
@@ -43,6 +47,11 @@
     
     overflow: auto;
 }
+
+div-task {
+    font-size: var(--textSize);
+}
+
 
 /* input hamburger*/
   

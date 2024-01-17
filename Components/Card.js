@@ -1,21 +1,30 @@
 import SimpleTask from "../Class/SimpleTask.js";
-import { buttonAdd, buttonCSV, buttonPDF } from "../Configuration/Configuration.js";
+import { buttonAdd, buttonCSV, buttonPDF, buttonToTask } from "../Configuration/Configuration.js";
 import Button from "./Button.js";
 
 /**
+ * Classe que representa um card para visualização de tarefas pendentes e interação do usuário.
+ *
  * @class Card
  * @export
- * @author Jonatas Silva.
+ * @author Jonatas Silva
  * @date 1/11/2024 - 11:27:17 AM
- * 
- * @description essa classe tem a função de representar aonde vamos poder olhar as tarefas pendentes e fazer novas tarefas, podemos extrair informações, de PDF e também de CSV
+ *
+ * @description Esta classe tem a função de representar onde podemos olhar as tarefas pendentes e fazer novas tarefas.
+ * Podemos extrair informações de PDF e também de CSV.
  */
 export default class Card {
     #taskList=[];
-    /**
+
+     /**
      * Cria um novo card e retorna o elemento DOM correspondente.
      * Esta funcionalidade faz a primeira renderização do componente na DOM.
+     *
      * @date 1/11/2024
+     * @param {Object} configs - Configurações opcionais para o card.
+     * @param {string} configs.id - ID do card.
+     * @param {string} configs.label - Rótulo do card.
+     * @param {boolean} configs.isAddTasks - Indica se o card é para adicionar tarefas.
      * @returns {HTMLElement} - Elemento DOM representando o card.
      */
     createCard(configs) {
@@ -34,7 +43,8 @@ export default class Card {
     }
 
     /**
-     * Cria e retorna um novo elemento.
+     * Cria e retorna um novo elemento li representando um item de lista de tarefas.
+     *
      * @date 1/11/2024
      * @returns {HTMLLIElement} - Elemento li representando um item de lista.
      */
@@ -53,6 +63,8 @@ export default class Card {
 
     /**
      * Cria e retorna um novo elemento div para o subcard.
+     *
+     * @param {string} label - Rótulo do subcard.
      * @returns {HTMLDivElement} - Elemento div representando o subcard.
      */
     createSubDivCard(label) {
@@ -70,6 +82,9 @@ export default class Card {
     /**
      * Cria e retorna um novo elemento input do tipo checkbox (hamburger button).
      * Adiciona um ouvinte de evento para exibir ou ocultar o menu quando o checkbox é clicado.
+     *
+     * @param {string} id - ID do card.
+     * @param {boolean} isListTask - Indica se é um card de lista de tarefas.
      * @returns {HTMLInputElement} - Elemento input representando o botão hamburger.
      */
     createButtonHamburger(id, isListTask) {
@@ -118,17 +133,21 @@ export default class Card {
         }
     }
 
+    /**
+     * Abre o menu de configuração no card especificado.
+     *
+     * @param {HTMLElement} local - Elemento DOM onde o menu será adicionado.
+     * @param {string} id - ID do card.
+     */
     openConfigCard(local,id) {
         local.appendChild(this.createMenu(id));
     }
     
     
     /**
-     * Esse componente fecha o modal
-     * @date 1/17/2024 - 8:48:16 AM
+     * Fecha o menu de configuração no card especificado.
      *
-     * @param {*} id 
-     * @return {*}
+     * @param {string} id - ID do card.
      */
     closeConfigCard(id) {
         const menuReturn = document.querySelector(`#${id} .fatherMenu`);
@@ -138,8 +157,10 @@ export default class Card {
     }
 
     /**
-     * Cria e retorna um novo elemento div representando o menu.
-     * @returns {HTMLDivElement} Elemento div representando o menu.
+     * Cria e retorna um novo elemento div representando o menu de configuração.
+     *
+     * @param {string} id - ID do card.
+     * @returns {HTMLDivElement} - Elemento div representando o menu.
      */
     createMenu(id) {
         const fatherMenu = document.createElement("div");
@@ -155,7 +176,8 @@ export default class Card {
     }
 
     /**
-     * Manipula a criação de um arquivo PDF
+     * Manipula a criação de um arquivo PDF.
+     *
      * @date 1/12/2024 - 4:40:33 PM
      */
     onPDF() {
@@ -168,7 +190,8 @@ export default class Card {
     }
 
     /**
-     * Manipula uma criação de um arquivo CSV
+     * Manipula a criação de um arquivo CSV.
+     *
      * @date 1/12/2024 - 4:41:26 PM
      */
     onCSV() {
@@ -176,36 +199,40 @@ export default class Card {
     }
     
     /**
-     * Description placeholder
-     * @date 1/16/2024 - 10:25:18 AM
+     * Abre o card para adicionar um novo item à lista de tarefas.
      *
-     * @returns {*}
+     * @param {*} item - Item a ser adicionado à lista de tarefas.
+     * @returns {HTMLLIElement} - Elemento li representando o item adicionado.
      */
      openCardAddItem(item) {
-        // div pai
         let fatherDiv = document.createElement('li');
         fatherDiv.className = 'item';
 
-        //divisoria para area de texto
         let divTextArea = document.createElement('div');
         divTextArea.className = 'div-textarea';
 
-        // divisoria para inputcheck
+        let buttonLocattor = document.createElement('div');
+
         let divCheckbox = document.createElement('div');
         divCheckbox.className = 'div-checkbox';
 
-        // divisoria de tarefas
         let divTask = document.createElement('div');
         divTask.className = 'div-task';
         divTask.innerText = `${item.description} - ${item.priority} \n Data Inicial: ${item.initial_date} \n Data Final: ${item.final_date}`;
 
-        // envolvedo textarea no divisor
         divTextArea.appendChild(divTask);
+        divTextArea.appendChild(buttonLocattor);
+
+        this.buttonMovTask(buttonLocattor);
 
         fatherDiv.appendChild(divTextArea);
         fatherDiv.appendChild(divCheckbox);
 
         return fatherDiv;
+    }
+
+    moveToDoingTask() {
+        console.log("passando para frente...");
     }
 
     /**
@@ -219,6 +246,11 @@ export default class Card {
         local.appendChild(this.loadTaskList())
     }
 
+    /**
+     * Recarrega a lista de tarefas no card especificado.
+     *
+     * @param {string} id - ID do card.
+     */
     reloadTaskList(id){
         const isList = document.querySelector(`#${id} ul`);
         if(isList){
@@ -230,9 +262,10 @@ export default class Card {
     }
 
     /**
-     * Configuração dos botões
-     * @date 1/12/2024 - 4:42:44 PM 
-     * @param {HTMLDivElement} local - O elemento onde os botões serão adicionados.
+     * Configuração dos botões no menu de configuração.
+     *
+     * @param {HTMLDivElement} local - Elemento DOM onde os botões serão adicionados.
+     * @param {string} id - ID do card.
      */
     configButton(local,id) {
         const btnPDF = new Button();
@@ -250,5 +283,18 @@ export default class Card {
         const configBtnAdd = buttonAdd;
         configBtnAdd.onAction = ()=> this.reloadTaskList(id);
         local.appendChild(btnADD.Button(configBtnAdd));
+    }
+
+    /**
+     * Configuração do botão de movimentação de tarefa.
+     *
+     * @param {HTMLDivElement} local - Elemento DOM onde o botão será adicionado.
+     */
+    buttonMovTask(local) {
+        const btnTask = new Button();
+        
+        const configTaskBtn = buttonToTask;
+        configTaskBtn.onAction = () => this.moveToDoingTask();
+        local.appendChild(btnTask.Button(configTaskBtn));
     }
 }
