@@ -3,22 +3,20 @@
 .menu {
     position: absolute;
     z-index: 1;
-    left: 16.5vw;
+    left: calc(100% - var(--spaceDefault));
     top: 2vw;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     width: 4vw;
     gap: 0.5vw;
+    background-color: #00000088;
+    padding: var(--spaceDefault);
+    border-radius: var(--spaceDefault);
+
+    font-size: var(--textSize);
 }
 
-.fatherMenu {
-    background-color: #00000088;
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    z-index: 1;
-
-    top: 0;
-    left: 0;
+.menu button {
+    font-size: calc(var(--textSize) - 2px);
 }

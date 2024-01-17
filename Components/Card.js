@@ -74,15 +74,46 @@ export default class Card {
      */
     createButtonHamburger(id, isListTask) {
         if(isListTask) {
+            const fatherNav = document.createElement('nav');
+            fatherNav.className = 'fatherNav';
+
             const inputHamburger = document.createElement('input');
+            inputHamburger.id = 'dropdown';
+            inputHamburger.className = 'input-box';
+            inputHamburger.style="display: none;";
             inputHamburger.type = 'checkbox';
             inputHamburger.checked = false;
+
+            const label = document.createElement('label');
+            label.setAttribute("for", "dropdown");
+            label.className = 'dropdown';
+
+            const spanHamburger = document.createElement('span');
+            spanHamburger.className = 'hamburger';
+
+            const spanIconBar1 = document.createElement('span');
+            spanIconBar1.className = 'icon-bar top-bar';
+            
+            const spanIconBar2 = document.createElement('span');
+            spanIconBar2.className = 'icon-bar middle-bar';
+
+            const spanIconBar3 = document.createElement('span');
+            spanIconBar3.className = 'icon-bar bottom-bar';
+
+            fatherNav.appendChild(inputHamburger);
+            fatherNav.appendChild(label);
+            
+            label.appendChild(spanHamburger);
+            label.appendChild(spanIconBar1);
+            label.appendChild(spanIconBar2);
+            label.appendChild(spanIconBar3);
+
 
             inputHamburger.addEventListener('change', (e) => {
                 const cardReturn = document.getElementById(id);
                 e.target.checked ? this.openConfigCard(cardReturn,id) : this.closeConfigCard(id);            
             });
-            return inputHamburger;
+            return fatherNav;
         } else {
           return null;
         }
