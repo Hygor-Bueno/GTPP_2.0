@@ -1,7 +1,7 @@
 #containerHome {
     display: grid;
     grid-template-areas:
-        'gridLeftTop gridLeftTop'
+        'gridLeftHome gridLeftTop'
         'gridLeftHome gridRightHome'
     ;
     grid-template-rows: 5% 95%; /* Ajuste conforme necessário */
