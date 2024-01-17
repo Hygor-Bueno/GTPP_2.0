@@ -29,8 +29,7 @@ export default class Card {
         // Adiciona os elementos filhos
         cardDiv.appendChild(subDivCard);
         subDivCard.appendChild(inputCheckbox);
-        
-        // console.log(cardDiv)
+
         return cardDiv;
     }
 

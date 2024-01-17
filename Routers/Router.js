@@ -54,7 +54,11 @@ export default class Router {
                 break;
             case "Login":
                 const header = document.querySelector('#containerMain header');
+                const footer = document.querySelector('#containerMain footer');
+
                 if(header) header.remove();
+                if(footer) footer.remove();
+
                 const login = new Login();
                 await login.logoff();
                 local.appendChild(login.login());
@@ -72,10 +76,12 @@ export default class Router {
      * @param {HTMLElement} pageElement
      */
     async pageBuild(local, pageElement,titleHeader) {
+
         const header = new Header(titleHeader);
         const footer = new Footer('CLPP versão 1.0','Criado por Hygor Bueno e Jonatas')
  
         const isHeader = "#containerMain header";
+        const isFooter = "#containerMain footer";
         const container = document.querySelector("#containerMain");
         
         !document.querySelector(isHeader) && container.insertBefore(header.main(), container.lastElementChild);
