@@ -1,4 +1,4 @@
-/* @import '../Root.css'; */
+@import '../Root.css';
 
 .card {
     width: 14vw;
@@ -7,7 +7,6 @@
     padding: 1vw;
     position: relative;
     margin: 0px var(--spaceDefault);
-    overflow: auto;
     min-width: 250px;
 }
 
@@ -27,4 +26,9 @@
     align-items: center;
     gap: 1vw;
     margin: 1vw 0;
+}
+
+.btn-sublist {
+    width: 100%;
+    
 }

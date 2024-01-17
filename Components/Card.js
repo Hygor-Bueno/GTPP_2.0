@@ -1,3 +1,4 @@
+import SimpleTask from "../Class/SimpleTask.js";
 import { buttonAdd, buttonCSV, buttonPDF } from "../Configuration/Configuration.js";
 import Button from "./Button.js";
 
@@ -10,6 +11,7 @@ import Button from "./Button.js";
  * @description essa classe tem a função de representar aonde vamos poder olhar as tarefas pendentes e fazer novas tarefas, podemos extrair informações, de PDF e também de CSV
  */
 export default class Card {
+    #taskList=[];
     /**
      * Cria um novo card e retorna o elemento DOM correspondente.
      * Esta funcionalidade faz a primeira renderização do componente na DOM.
@@ -22,15 +24,12 @@ export default class Card {
         if(configs?.id) cardDiv.id = configs.id;
 
         const subDivCard = this.createSubDivCard(configs.label);
-        const inputCheckbox = this.createButtonHamburger(configs.id);
+        const inputCheckbox = this.createButtonHamburger(configs.id, configs.isAddTasks);
 
         // Adiciona os elementos filhos
         cardDiv.appendChild(subDivCard);
         subDivCard.appendChild(inputCheckbox);
-
-        // chamando um grupo de lista
-        cardDiv.appendChild(this.loadTaskList([]))
-
+        
         console.log(cardDiv)
         return cardDiv;
     }
@@ -40,14 +39,14 @@ export default class Card {
      * @date 1/11/2024
      * @returns {HTMLLIElement} - Elemento li representando um item de lista.
      */
-    loadTaskList(tasks) {
-        console.log(tasks)
+    loadTaskList() {
+        console.log(this.#taskList)
         const ul = document.createElement('ul');
         ul.className = 'btn-sublist';
 
         // Aqui vamos fazer com que esse grupo de tarefas venha se relevante para nós
-        for(let i = 0; i < tasks.length ; i++) {
-            ul.appendChild(this.openCardAddItem());
+        for(let i = 0; i < this.#taskList.length ; i++) {
+            ul.appendChild(this.openCardAddItem(this.#taskList[i]));
         }
 
         return ul;
@@ -74,17 +73,20 @@ export default class Card {
      * Adiciona um ouvinte de evento para exibir ou ocultar o menu quando o checkbox é clicado.
      * @returns {HTMLInputElement} - Elemento input representando o botão hamburger.
      */
-    createButtonHamburger(id) {
-        const inputHamburger = document.createElement('input');
-        inputHamburger.type = 'checkbox';
-        inputHamburger.checked = false;
+    createButtonHamburger(id, isListTask) {
+        if(isListTask) {
+            const inputHamburger = document.createElement('input');
+            inputHamburger.type = 'checkbox';
+            inputHamburger.checked = false;
 
-        inputHamburger.addEventListener('change', (e) => {
-            const cardReturn = document.getElementById(id);
-            e.target.checked ? this.openConfigCard(cardReturn,id) : this.closeConfigCard(id);            
-        });
-
-        return inputHamburger;
+            inputHamburger.addEventListener('change', (e) => {
+                const cardReturn = document.getElementById(id);
+                e.target.checked ? this.openConfigCard(cardReturn,id) : this.closeConfigCard(id);            
+            });
+            return inputHamburger;
+        } else {
+          return null;
+        }
     }
 
     openConfigCard(local,id) {
@@ -137,7 +139,7 @@ export default class Card {
      *
      * @returns {*}
      */
-     openCardAddItem() {
+     openCardAddItem(item) {
         // div pai
         let fatherDiv = document.createElement('li');
         fatherDiv.className = 'item';
@@ -153,19 +155,19 @@ export default class Card {
         // divisoria de tarefas
         let divTask = document.createElement('div');
         divTask.className = 'div-task';
-        divTask.innerText = 'task'
+        divTask.innerText = `${item.description} - ${item.priority} \n Data Inicial: ${item.initial_date} \n Data Final: ${item.final_date}`;
 
         // button button-check
-        let button = document.createElement('button');
-        button.className = 'btn-check';
-        button.innerText = 'Fazendo';
+        // let button = document.createElement('button');
+        // button.className = 'btn-check';
+        // button.innerText = 'Fazendo';
 
 
         // envolvedo textarea no divisor
         divTextArea.appendChild(divTask);
 
         // envolvedo input checkbox no divisor
-        divCheckbox.appendChild(button);
+        // divCheckbox.appendChild(button);
 
         fatherDiv.appendChild(divTextArea);
         fatherDiv.appendChild(divCheckbox);
@@ -178,16 +180,17 @@ export default class Card {
      * @date 1/12/2024 - 4:41:51 PM
      */
     addTask(local) {
-        const tasks = ['a'];
-        local.appendChild(this.loadTaskList(tasks))
+        const simpleTask = new SimpleTask();
+        this.#taskList.push(simpleTask);
+        local.appendChild(this.loadTaskList())
     }
 
     reloadTaskList(id){
-        const isList = document.querySelector(`${id} ul`);
+        const isList = document.querySelector(`#${id} ul`);
         if(isList){
             isList.remove();
         }
-        const local = document.getElementById(`${id}`);
+        const local = document.querySelector(`#${id}`);
         
         this.addTask(local);
     }
@@ -212,7 +215,6 @@ export default class Card {
 
         const configBtnAdd = buttonAdd;
         configBtnAdd.onAction = ()=> this.reloadTaskList(id);
-    
         local.appendChild(btnADD.Button(configBtnAdd));
     }
 }
