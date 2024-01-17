@@ -16,6 +16,7 @@ export default class Home {
         try {
             const connection = new Connection();
             const listTaskState = await connection.get('', 'GTPP/TaskState.php');
+            console.log(listTaskState);
             if (listTaskState.error) throw new Error(listTaskState.message);
 
             const menu = new Menu({ idNavMenu: 'navMenu' });
