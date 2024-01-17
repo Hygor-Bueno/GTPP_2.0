@@ -16,7 +16,7 @@ export default class SimpleTask{
         try {
             if(this.initial_date > this.final_date) throw new Error('Invalid date')
         } catch (error) {
-            
+            console.error(error.message);
         }
     }
     

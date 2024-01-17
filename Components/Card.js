@@ -30,17 +30,17 @@ export default class Card {
         cardDiv.appendChild(subDivCard);
         subDivCard.appendChild(inputCheckbox);
         
-        console.log(cardDiv)
+        // console.log(cardDiv)
         return cardDiv;
     }
 
     /**
-     * Cria e retorna um novo elemento li.
+     * Cria e retorna um novo elemento.
      * @date 1/11/2024
      * @returns {HTMLLIElement} - Elemento li representando um item de lista.
      */
     loadTaskList() {
-        console.log(this.#taskList)
+        // console.log(this.#taskList)
         const ul = document.createElement('ul');
         ul.className = 'btn-sublist';
 
@@ -93,8 +93,16 @@ export default class Card {
         local.appendChild(this.createMenu(id));
     }
     
+    
+    /**
+     * Esse componente fecha o modal
+     * @date 1/17/2024 - 8:48:16 AM
+     *
+     * @param {*} id 
+     * @return {*}
+     */
     closeConfigCard(id) {
-        const menuReturn = document.querySelector(`#${id} .menu`);
+        const menuReturn = document.querySelector(`#${id} .fatherMenu`);
         if (menuReturn) {
             menuReturn.remove();
         }
@@ -105,11 +113,16 @@ export default class Card {
      * @returns {HTMLDivElement} Elemento div representando o menu.
      */
     createMenu(id) {
+        const fatherMenu = document.createElement("div");
+        fatherMenu.className = "fatherMenu";
+
         const cardMenu = document.createElement('div');
         cardMenu.className = 'menu';
+
+        fatherMenu.appendChild(cardMenu);
         this.configButton(cardMenu,id);
-        console.log(cardMenu);
-        return cardMenu;
+
+        return fatherMenu;
     }
 
     /**
@@ -157,17 +170,8 @@ export default class Card {
         divTask.className = 'div-task';
         divTask.innerText = `${item.description} - ${item.priority} \n Data Inicial: ${item.initial_date} \n Data Final: ${item.final_date}`;
 
-        // button button-check
-        // let button = document.createElement('button');
-        // button.className = 'btn-check';
-        // button.innerText = 'Fazendo';
-
-
         // envolvedo textarea no divisor
         divTextArea.appendChild(divTask);
-
-        // envolvedo input checkbox no divisor
-        // divCheckbox.appendChild(button);
 
         fatherDiv.appendChild(divTextArea);
         fatherDiv.appendChild(divCheckbox);
@@ -178,6 +182,7 @@ export default class Card {
     /**
      * Manipula a criação de uma nova tarefa
      * @date 1/12/2024 - 4:41:51 PM
+     * @param {HTMLDivElement} local 
      */
     addTask(local) {
         const simpleTask = new SimpleTask();
