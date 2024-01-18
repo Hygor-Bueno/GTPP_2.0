@@ -1,12 +1,12 @@
 .card {
     width: 14vw;
-    border-radius: 1vw;
+    border-radius: var(--spaceDefault);
     background-color: #FFF;
-    padding: 1vw;
+    padding: var(--spaceDefault);
     position: relative;
-    margin: 0px var(--spaceDefault);
+    margin: 0 var(--spaceDefault);
     min-width: clamp(10vw,50vw,190px);
-    border: 1px solid #0000004f;
+    border: var(--borderSize) solid #0000004f;
     box-shadow:  calc(0.9 * var(--spaceDefault)) var(--spaceDefault) var(--spaceDefault) rgb(188 187 187 / 84%);
 }
 
@@ -20,7 +20,7 @@
 
 .subdivcard {
     display: flex;
-    width: 100%;
+    /* width: 100%; */
     align-items: center;
     justify-content: space-between;
 }
@@ -30,25 +30,24 @@
 }
 
 .subdivcard h4 {
-    font-size: calc(var(--textSize) - 1%);
-}
-
-.item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1vw;
-    margin: 1vw 0;
+    font-size: var(--textSize);
 }
 
 .btn-sublist {
     width: 100%;
-    height: 100%;
-    
+    height: 85%;
     overflow: auto;
 }
+/* 
+.div-task {
+    font-size: var(--textSize);
+} */
 
-div-task {
+.div-textarea {
+    font-size: var(--textSize);
+}
+
+.btn-toTask{
     font-size: var(--textSize);
 }
 
@@ -110,3 +109,27 @@ div-task {
       opacity: 0;
     }
   }
+
+/*DIV OCULTA*/
+.hiddenDiv {
+  display: flex;
+  width: clamp(20vmin, 64vmin, 1000px);
+  height: clamp(20vmin, 60vmin, 600px);
+
+  font-size: var(--textSize);
+
+  background: #fff;
+  margin: 13vh auto;
+
+  padding: var(--spaceDefault);
+
+  overflow: hidden;
+}
+
+.backgroundHiddenDiv {
+  position: absolute;
+  background: #0004;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+}
