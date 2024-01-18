@@ -1,3 +1,4 @@
+
 export default class SimpleTask{
     description;
     priority;
@@ -19,5 +20,29 @@ export default class SimpleTask{
             console.error(error.message);
         }
     }
+
+    validateIsEmpty(){
+        try {
+            if(this.description.length <= 0) throw new Error('Invalid description');
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+
+    validatePriority() {
+        try{
+            if(this.priority.length <= 0) throw new Error('Invalid priority');
+        } catch (error) {
+            console.error(error.mesage);
+        }
+    }
+
+    validateFinalDate() {
+      try {
+        if(this.final_date < this.initial_date) throw new Error('Invalid final_date');
+      } catch (error) {
+        console.error(error.message);
+      }
+    } 
     
 }
