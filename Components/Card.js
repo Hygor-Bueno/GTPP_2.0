@@ -53,7 +53,7 @@ export default class Card {
         const ul = document.createElement('ul');
         ul.className = 'btn-sublist';
 
-        // Aqui vamos fazer com que esse grupo de tarefas venha se relevante para nós
+        // Aqui vamos fazer com que esse grupo de card venha até nois.
         for(let i = 0; i < this.#taskList.length ; i++) {
             ul.appendChild(this.openCardAddItem(this.#taskList[i]));
         }
@@ -202,7 +202,7 @@ export default class Card {
      * Abre o card para adicionar um novo item à lista de tarefas.
      *
      * @param {*} item - Item a ser adicionado à lista de tarefas.
-     * @returns {HTMLLIElement} - Elemento li representando o item adicionado.
+     * @returns {HTMLDivElement} - Elemento li representando o item adicionado.
      */
      openCardAddItem(item) {
         let fatherDiv = document.createElement('li');
@@ -211,8 +211,6 @@ export default class Card {
         let divTextArea = document.createElement('div');
         divTextArea.className = 'div-textarea';
 
-        let buttonLocattor = document.createElement('div');
-
         let divCheckbox = document.createElement('div');
         divCheckbox.className = 'div-checkbox';
 
@@ -220,10 +218,38 @@ export default class Card {
         divTask.className = 'div-task';
         divTask.innerText = `${item.description} - ${item.priority} \n Data Inicial: ${item.initial_date} \n Data Final: ${item.final_date}`;
 
-        divTextArea.appendChild(divTask);
-        divTextArea.appendChild(buttonLocattor);
+        // Adiciona um ouvinte de eventos de clique à div clicável
+        divTask.addEventListener('click', function(event) {
+            let divBackground = document.getElementById('modalTask');
+            
+            if (!divBackground) {
+                let hiddenDiv;
+                // Cria a div oculta se não existir
+                hiddenDiv = document.createElement('div');
+                divBackground = document.createElement('div');
+                
+                divBackground.className = "backgroundHiddenDiv";
 
-        this.buttonMovTask(buttonLocattor);
+                divBackground.id = 'modalTask';
+                divBackground.addEventListener('click', event=> {
+                    if(event.target.id == 'modalTask') document.getElementById('modalTask').remove();
+                })
+
+                
+                hiddenDiv.className = 'hiddenDiv';
+                hiddenDiv.innerHTML = '<p>Esta é a div oculta.</p>';
+                
+                divBackground.appendChild(hiddenDiv);
+                document.body.appendChild(divBackground);
+            } else {
+                if (divBackground) {
+
+                }
+            }
+        });  
+
+
+        divTextArea.appendChild(divTask);
 
         fatherDiv.appendChild(divTextArea);
         fatherDiv.appendChild(divCheckbox);
@@ -283,18 +309,5 @@ export default class Card {
         const configBtnAdd = buttonAdd;
         configBtnAdd.onAction = ()=> this.reloadTaskList(id);
         local.appendChild(btnADD.Button(configBtnAdd));
-    }
-
-    /**
-     * Configuração do botão de movimentação de tarefa.
-     *
-     * @param {HTMLDivElement} local - Elemento DOM onde o botão será adicionado.
-     */
-    buttonMovTask(local) {
-        const btnTask = new Button();
-        
-        const configTaskBtn = buttonToTask;
-        configTaskBtn.onAction = () => this.moveToDoingTask();
-        local.appendChild(btnTask.Button(configTaskBtn));
     }
 }
