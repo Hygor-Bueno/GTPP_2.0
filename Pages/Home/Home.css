@@ -11,6 +11,7 @@
 
 
 .gridLeftTop {
+    background-color: red;
     grid-area: gridLeftTop;
 }
 
@@ -24,7 +25,7 @@
 
 #navMenu {
     background-color: rgba(10, 149, 120);
-    width: clamp(1vw, 30vw, 200px);
+    width: clamp(1vw, 30vw, 134px);
     padding: var(--spaceDefault);
     border: white var(--borderSize) solid;
 }
@@ -67,15 +68,15 @@
     margin-left: var(--spaceDefault);
 }
 
-#containerHome>div {
+#containerHome>.gridRightHome {
     width: calc(100% - var(--spaceDefault)*2);
     overflow-y: hidden;
     overflow-x: auto;
     padding: var(--spaceDefault);
 }
 
-#containerHome>div>div {
+#containerHome>.gridRightHome>div {
     display: flex;
     flex-direction: row;
-    height: 50%;
+    height:100%;
 }

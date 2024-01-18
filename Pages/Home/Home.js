@@ -56,5 +56,8 @@ export default class Home {
         });
         return div;
     }
+    controllerStateTask(listState){
+        
+    }
 }
 
