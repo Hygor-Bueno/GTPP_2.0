@@ -1,5 +1,3 @@
-@import '../Root.css';
-
 .card {
     width: 14vw;
     border-radius: 1vw;
@@ -7,7 +5,13 @@
     padding: 1vw;
     position: relative;
     margin: 0px var(--spaceDefault);
-    min-width: 250px;
+    min-width: clamp(10vw,50vw,190px);
+    border: 1px solid #0000004f;
+    box-shadow:  calc(0.9 * var(--spaceDefault)) var(--spaceDefault) var(--spaceDefault) rgb(188 187 187 / 84%);
+}
+
+.card:hover {
+    transition: all ease-in-out .5s;
 }
 
 .card > ul {
@@ -17,7 +21,16 @@
 .subdivcard {
     display: flex;
     width: 100%;
+    align-items: center;
     justify-content: space-between;
+}
+
+.subdivcard input[type="checkbox"] {
+    border: none;
+}
+
+.subdivcard h4 {
+    font-size: calc(var(--textSize) - 1%);
 }
 
 .item {
@@ -30,5 +43,70 @@
 
 .btn-sublist {
     width: 100%;
+    height: 100%;
     
+    overflow: auto;
 }
+
+div-task {
+    font-size: var(--textSize);
+}
+
+
+/* input hamburger*/
+  
+  .fatherNav { 
+    display: block;
+    background: transparent;
+    text-transform: uppercase;
+    color: #fff;
+    /* padding: 10px 10px; */
+  }
+  
+  .dropdown { 
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  
+  .fatherNav label {
+    cursor: pointer;
+    padding: var(--spaceDefault);
+    width: var(--textSize);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  input[type=checkbox] + label {
+    .icon-bar {
+        display: block;
+        width: 100%;
+        height: 0.2vmin;
+        background-color: #000;
+        margin: var(--spaceDefault);
+        margin: 14%;
+        transition: all 0.2s;    
+    }
+    .top-bar {
+      transform: rotate(0);
+    }
+    .middle-bar {
+      opacity: 1;
+    }
+  }
+  
+  input[type=checkbox]:checked + label {
+    .top-bar {
+      transform: rotate(45deg);
+      transform-origin: 10% 208%;
+    }
+
+    .bottom-bar {
+        transform: rotate(-45deg);
+        transform-origin: 10% -74%;
+    }
+
+    .middle-bar {
+      opacity: 0;
+    }
+  }

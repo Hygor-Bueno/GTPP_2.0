@@ -37,6 +37,10 @@
     font-weight: 600;
 }
 
+btn-sublist {
+    background-color: #000;
+    color: #FFF;
+}
 
 button:active {
     border: 1px solid var(--borderColor);
