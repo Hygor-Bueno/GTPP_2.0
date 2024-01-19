@@ -9,10 +9,10 @@
 
         4 - Card dos status. 
             // complexidade media
-            4.1 - Botão adicionar tarefas deve aparecer somente no primeiro estado da tarefa. [];
             4.2 - Botão CSV. Criar funcionalidade para donwload. []
 
             // complexidade avançada
+            4.1 - Botão adicionar tarefas deve aparecer somente no primeiro estado da tarefa. [];
             5.5 - Buscar lista de tarefas no BD e popular a interface. [];
             5.3 - Validar os dados exibidos. [];
         

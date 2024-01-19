@@ -24,7 +24,6 @@ export default class Card {
      * @param {Object} configs - Configurações opcionais para o card.
      * @param {string} configs.id - ID do card.
      * @param {string} configs.label - Rótulo do card.
-     * @param {boolean} configs.isAddTasks - Indica se o card é para adicionar tarefas.
      * @returns {HTMLElement} - Elemento DOM representando o card.
      */
     createCard(configs) {
@@ -33,7 +32,7 @@ export default class Card {
         if(configs?.id) cardDiv.id = configs.id;
 
         const subDivCard = this.createSubDivCard(configs.label);
-        const inputCheckbox = this.createButtonHamburger(configs.id, configs.isAddTasks);
+        const inputCheckbox = this.createButtonHamburger(configs.id);
 
         // Adiciona os elementos filhos
         cardDiv.appendChild(subDivCard);
@@ -87,50 +86,47 @@ export default class Card {
      * @param {boolean} isListTask - Indica se é um card de lista de tarefas.
      * @returns {HTMLInputElement} - Elemento input representando o botão hamburger.
      */
-    createButtonHamburger(id, isListTask) {
-        if(isListTask) {
-            const fatherNav = document.createElement('nav');
-            fatherNav.className = 'fatherNav';
+    createButtonHamburger(id) {
+        const fatherNav = document.createElement('nav');
+        fatherNav.className = 'fatherNav';
 
-            const inputHamburger = document.createElement('input');
-            inputHamburger.id = 'dropdown';
-            inputHamburger.className = 'input-box';
-            inputHamburger.style="display: none;";
-            inputHamburger.type = 'checkbox';
-            inputHamburger.checked = false;
+        const inputHamburger = document.createElement('input');
+        inputHamburger.id = `dropdown_${id}`;
+        inputHamburger.className = 'input-box';
+        inputHamburger.style="display: none;";
+        inputHamburger.type = 'checkbox';
+        inputHamburger.checked = false;
 
-            const label = document.createElement('label');
-            label.setAttribute("for", "dropdown");
-            label.className = 'dropdown';
 
-            const spanHamburger = document.createElement('span');
-            spanHamburger.className = 'hamburger';
+        const label = document.createElement('label');
+        label.setAttribute("for", `dropdown_${id}`);
+        label.className = 'dropdown';
 
-            const spanIconBar1 = document.createElement('span');
-            spanIconBar1.className = 'icon-bar top-bar';
-            
-            const spanIconBar2 = document.createElement('span');
-            spanIconBar2.className = 'icon-bar middle-bar';
+        const spanHamburger = document.createElement('span');
+        spanHamburger.className = 'hamburger';
 
-            const spanIconBar3 = document.createElement('span');
-            spanIconBar3.className = 'icon-bar bottom-bar';
+        const spanIconBar1 = document.createElement('span');
+        spanIconBar1.className = 'icon-bar top-bar';
+        
+        const spanIconBar2 = document.createElement('span');
+        spanIconBar2.className = 'icon-bar middle-bar';
 
-            fatherNav.appendChild(inputHamburger);
-            fatherNav.appendChild(label);
-            
-            label.appendChild(spanHamburger);
-            label.appendChild(spanIconBar1);
-            label.appendChild(spanIconBar2);
-            label.appendChild(spanIconBar3);
+        const spanIconBar3 = document.createElement('span');
+        spanIconBar3.className = 'icon-bar bottom-bar';
 
-            inputHamburger.addEventListener('change', (e) => {
-                const cardReturn = document.getElementById(id);
-                e.target.checked ? this.openConfigCard(cardReturn,id) : this.closeConfigCard(id);            
-            });
-            return fatherNav;
-        } else {
-          return null;
-        }
+        fatherNav.appendChild(inputHamburger);
+        fatherNav.appendChild(label);
+        
+        label.appendChild(spanHamburger);
+        label.appendChild(spanIconBar1);
+        label.appendChild(spanIconBar2);
+        label.appendChild(spanIconBar3);
+
+        inputHamburger.addEventListener('change', (e) => {
+            const cardReturn = document.getElementById(id);
+            e.target.checked ? this.openConfigCard(cardReturn,id) : this.closeConfigCard(id);            
+        });
+        return fatherNav;
     }
 
     /**
@@ -306,8 +302,10 @@ export default class Card {
         configBtnCSV.onAction = this.onCSV;
         local.appendChild(btnCSV.Button(configBtnCSV));
 
-        const configBtnAdd = buttonAdd;
-        configBtnAdd.onAction = ()=> this.reloadTaskList(id);
-        local.appendChild(btnADD.Button(configBtnAdd));
+        if(id === 'task_state_1') {    
+            const configBtnAdd = buttonAdd;
+            configBtnAdd.onAction = ()=> this.reloadTaskList(id);
+            local.appendChild(btnADD.Button(configBtnAdd));
+        }
     }
 }

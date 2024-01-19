@@ -22,7 +22,7 @@ export default class Home {
             const listTaskState = await connection.get('', 'GTPP/TaskState.php');
             if (listTaskState.error) throw new Error(listTaskState.message);
             
-            //Cria o Elemento de Menu.
+            // Cria o Elemento de Menu.
             const menu = new Menu({ idNavMenu: 'navMenu', class:'gridLeftHome' });
             
             const elementHome = containerHome.containerBasic({
@@ -41,6 +41,7 @@ export default class Home {
 
         }
     }
+
     settingsHome(){
         const div = document.createElement('div');
         div.innerText = 'Menu da Home';
@@ -48,11 +49,12 @@ export default class Home {
         div.className ='gridLeftTop';
         return div;
     }
+
     renderCards(list) {              
         const div = document.createElement('div');        
         list.forEach(item => {
             const card = new Card();
-            div.appendChild(card.createCard({id:`task_state_${item.id}`,label:item.description, isAddTasks: true}))
+            div.appendChild(card.createCard({id:`task_state_${item.id}`,label:item.description}))
         });
         return div;
     }
