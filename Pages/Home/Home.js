@@ -2,6 +2,7 @@ import Card from "../../Components/Card.js";
 import Menu from "../../Components/Menu.js";
 import Containers from "../../Components/Containers.js";
 import { Connection } from "../../Connection/Connection.js";
+import Title from "../../Components/Title.js";
 
 /**
  * Classe Pagina Home
@@ -34,18 +35,17 @@ export default class Home {
             });
             
             elementHome.insertBefore(menu.nav(), elementHome.firstElementChild);
-            elementHome.insertBefore(this.settingsHome(), elementHome.firstElementChild);
+            elementHome.insertBefore(this.settingsHome(listTaskState.data), elementHome.firstElementChild);
+            
             return elementHome;
 
         } catch (error) {
 
         }
     }
-
-    settingsHome(){
+    settingsHome(listState){
         const div = document.createElement('div');
-        div.innerText = 'Menu da Home';
-        div.style.fontSize ='var(--labelSize)';
+        div.appendChild(this.controllerStateTask(listState));
         div.className ='gridLeftTop';
         return div;
     }
@@ -57,6 +57,12 @@ export default class Home {
             div.appendChild(card.createCard({id:`task_state_${item.id}`,label:item.description}))
         });
         return div;
+    }
+    controllerStateTask(listState){
+        console.log(listState);
+        const div = new Containers();
+        const h1 = new Title("Menu da Home");
+        return div.containerBasic({element:h1.main()});
     }
 }
 
