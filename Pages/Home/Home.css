@@ -4,13 +4,16 @@
         'gridLeftHome gridLeftTop'
         'gridLeftHome gridRightHome'
     ;
-    grid-template-rows: 5% 95%; /* Ajuste conforme necessário */
+    grid-template-rows: clamp(0px, 8vh, 50px) clamp(0px, 92vh, 92vh - 50px - 2*var(--spaceDefault)); /* Ajuste conforme necessário */
     height: 100%; /* 100% da altura da viewport */
     width: 100%;
 }
 
 
 .gridLeftTop {
+    display: flex;
+    align-items: center;
+    margin-left: var(--spaceDefault);
     grid-area: gridLeftTop;
 }
 
@@ -78,4 +81,7 @@
     display: flex;
     flex-direction: row;
     height:100%;
+}
+#containerConfigHome{
+
 }

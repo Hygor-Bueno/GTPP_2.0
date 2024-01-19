@@ -3,9 +3,14 @@
     border: solid var(--borderColor);
     border-width: var(--borderSize);
     border-radius: clamp(0.2vmin,2vmin,8px);
-    background: none;
     font-size: var(--textSize);
     color:var(--textColor);
+    background: none;
+}
+
+.btn{
+    background: none;
+    border:none;
 }
 
 .menuButton{
@@ -37,7 +42,7 @@
     font-weight: 600;
 }
 
-btn-sublist {
+.btn-sublist {
     background-color: #000;
     color: #FFF;
 }
@@ -49,4 +54,8 @@ button:active {
 
 button:hover{
     cursor: pointer;
+}
+
+.arrowsClose{
+    rotate: 180deg;
 }

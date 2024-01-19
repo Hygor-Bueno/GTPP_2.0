@@ -24,7 +24,9 @@
     --labelColor:#757575;
 
     /*Outras formatações.*/
-    --spaceDefault:clamp(1vmin, 2vmin, 10px);
+    --spaceDefaultPP:clamp(1px, 1vmin, 5px);
+    --spaceDefaultP:clamp(1px, 1.5vmin, 7.5px);
+    --spaceDefault:clamp(1px, 2vmin, 10px);
 
     /*Cores*/
     --dangerColor: #DC3545;
