@@ -15,7 +15,7 @@ export default class Button{
      * Cria e retonar um elemento html button totalmente configurado.
      * @date 10/01/2024 - 4:44:45 PM
      * @author Hygor Bueno.
-     * @param {Object} configs
+     * @param {{type:string;title:string;description:string;onAction:()=>,id?:string}} configs
      * @returns {HTMLButtonElement} Elemento Button
      */
     Button(configs){
@@ -27,7 +27,7 @@ export default class Button{
             // Criando o componente botão.
             const button = document.createElement('button');
             button.type = configs.type;
-            button.innerText = configs.description;
+            (typeof configs.description == 'string') ? button.innerText = configs.description : button.appendChild(configs.description);
             button.title = configs.title;
             button.onclick = configs.onAction;
             if(configs?.id) button.id = configs.id;

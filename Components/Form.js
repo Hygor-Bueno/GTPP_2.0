@@ -74,7 +74,7 @@ export default class Form {
                 throw new Error('key label not found.');
             }
             const div = document.createElement('div');
-            if(configs.iconLabel) div.className = 'divLabelForm';
+            if (configs.iconLabel) div.className = 'divLabelForm';
 
             const label = document.createElement('label');
             label.innerText = configs.label;
@@ -102,10 +102,10 @@ export default class Form {
         return label;
     }
 
-    iconLabel(nameImg){
+    iconLabel(nameImg) {
         const img = document.createElement('img');
-        img.className='iconImg'
-        img.src= `../Assets/Image/${nameImg}`;
+        img.className = 'iconImg'
+        img.src = `../Assets/Image/${nameImg}`;
         return img;
     }
 
@@ -126,9 +126,17 @@ export default class Form {
             input.id = configs.inputId;
             if (configs.requiredInput) input.dataset.required = 1
             if (configs?.classInput) input.className = configs.classInput;
+            if (configs?.onAction) input.addEventListener('click',configs.onAction);
             return input;
         } catch (error) {
             console.error(error)
         }
+    }
+    simpleLabel(configs) {
+        const label = document.createElement('label');
+        label.className = configs.classLabel;
+        label.innerText = configs.description;
+        label.setAttribute('for', configs.for);
+        return label;
     }
 }
