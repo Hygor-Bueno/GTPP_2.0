@@ -10,7 +10,6 @@ export default class SimpleTask{
         this.priority = prompt('prioridade',priority);
         this.initial_date = prompt('Data inicial',initial_date);
         this.final_date = prompt('Data final',final_date);
-
     }
 
     validateDate(){

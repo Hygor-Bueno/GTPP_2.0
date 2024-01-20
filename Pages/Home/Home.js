@@ -21,6 +21,8 @@ export default class Home {
 
             // Busca os estados das tarefas.
             const listTaskState = await connection.get('', 'GTPP/TaskState.php');
+            const postTask = await connection.get('', 'GTPP/Task.php');
+
             if (listTaskState.error) throw new Error(listTaskState.message);
             
             // Cria o Elemento de Menu.
@@ -29,7 +31,7 @@ export default class Home {
             const elementHome = containerHome.containerBasic({
                 id: 'containerHome',
                 element: container.containerBasic({
-                    element: this.renderCards(listTaskState.data),
+                    element: this.renderCards(listTaskState.data, postTask.data),
                     class:'gridRightHome'
                 }),
             });
@@ -50,11 +52,11 @@ export default class Home {
         return div;
     }
 
-    renderCards(list) {              
+    renderCards(list, task) {              
         const div = document.createElement('div');        
         list.forEach(item => {
             const card = new Card();
-            div.appendChild(card.createCard({id:`task_state_${item.id}`,label:item.description}))
+            div.appendChild(card.createCard({id:`task_state_${item.id}`,label:item.description}, task))
         });
         return div;
     }
