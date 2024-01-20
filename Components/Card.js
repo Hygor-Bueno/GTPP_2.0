@@ -32,16 +32,10 @@ export default class Card {
     createCard(configs, tasks) {
         this.#postsTasks = tasks;
 
-        console.log(this.#postsTasks)
-
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
-<<<<<<< HEAD
-        if (configs?.id) cardDiv.id = configs.id;
-=======
         if(configs?.id) cardDiv.id = configs.id;
         cardDiv.style.display = configs.view ? 'block' : 'none';
->>>>>>> 14bd95803d39efc51a149a1c343294a1a7c281de
 
         const subDivCard = this.createSubDivCard(configs.label);
     
@@ -59,7 +53,7 @@ export default class Card {
         }
     
         cardDiv.appendChild(taskDiv);
-    
+
         return cardDiv;
     }
     

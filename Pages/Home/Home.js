@@ -35,13 +35,8 @@ export default class Home {
             const elementHome = containerHome.containerBasic({
                 id: 'containerHome',
                 element: container.containerBasic({
-<<<<<<< HEAD
-                    element: this.renderCards(listTaskState.data, postTask.data),
-                    class:'gridRightHome'
-=======
-                    element: this.renderCards(JSON.parse(localStorage?.stateTaskGTPP) || []),
+                    element: this.renderCards(JSON.parse(localStorage?.stateTaskGTPP) || [], postTask.data),
                     class: 'gridRightHome'
->>>>>>> 14bd95803d39efc51a149a1c343294a1a7c281de
                 }),
             });
 
@@ -60,20 +55,15 @@ export default class Home {
         return div;
     }
 
-<<<<<<< HEAD
-    renderCards(list, task) {              
-        const div = document.createElement('div');        
-        list.forEach(item => {
-            const card = new Card();
-            div.appendChild(card.createCard({id:`task_state_${item.id}`,label:item.description}, task))
-=======
-    renderCards(list) {
+    renderCards(list, postTask) {
         const div = document.createElement('div');
+
         list.forEach(item => {
             const card = new Card();
-            div.appendChild(card.createCard({ id: `task_state_${item.id}`, label: item.description,view:item.view }))
->>>>>>> 14bd95803d39efc51a149a1c343294a1a7c281de
+            div.appendChild(card.createCard({ id: `task_state_${item.id}`, label: item.description,view:item.view }, postTask))
         });
+
+        console.log(div);
         return div;
     }
     controllerStateTask() {
