@@ -6,7 +6,7 @@
             5.1 - Abertura do modal e fechamento dele. [x]
             5.2-  responsividade. [x]
             5.4 - Ajustar a estrutura HTML. [x];
-            5.5 - Buscar lista de tarefas no BD e popular a interface. [x];
+            5.5 - Buscar lista de tarefas no BD e popular a interface. [];
             5.3 - Validar os dados exibidos. [];
 
         4 - Card dos status. 

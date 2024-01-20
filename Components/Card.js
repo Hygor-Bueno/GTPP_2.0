@@ -77,9 +77,6 @@ export default class Card {
         const ul = document.createElement('ul');
         ul.id = 'btn-sublist';
 
-        let postTaskId = document.getElementById('taskDiv');
-        console.log(postTaskId.innerHTML);
-
         for(let i = 0; i < this.#taskList.length ; i++) {
             ul.appendChild(this.openCardAddItem(this.#taskList[i]));
         }
