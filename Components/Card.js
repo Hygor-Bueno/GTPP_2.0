@@ -1,6 +1,8 @@
 import SimpleTask from "../Class/SimpleTask.js";
 import { buttonAdd, buttonCSV, buttonPDF, buttonToTask } from "../Configuration/Configuration.js";
+import Util from "../Util.js";
 import Button from "./Button.js";
+import GeneratorCSV from "./FileGenerator.js";
 
 /**
  * Classe que representa um card para visualização de tarefas pendentes e interação do usuário.
@@ -15,8 +17,9 @@ import Button from "./Button.js";
  */
 export default class Card {
     #taskList=[];
+    #postsTasks=[];
 
-     /**
+    /**
      * Cria um novo card e retorna o elemento DOM correspondente.
      * Esta funcionalidade faz a primeira renderização do componente na DOM.
      *
@@ -26,21 +29,42 @@ export default class Card {
      * @param {string} configs.label - Rótulo do card.
      * @returns {HTMLElement} - Elemento DOM representando o card.
      */
-    createCard(configs) {
+    createCard(configs, tasks) {
+        this.#postsTasks = tasks;
+
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
         if(configs?.id) cardDiv.id = configs.id;
         cardDiv.style.display = configs.view ? 'block' : 'none';
 
         const subDivCard = this.createSubDivCard(configs.label);
+    
         const inputCheckbox = this.createButtonHamburger(configs.id);
-
-        // Adiciona os elementos filhos
+    
         cardDiv.appendChild(subDivCard);
         subDivCard.appendChild(inputCheckbox);
+    
+        const taskDiv = document.createElement('div');
+        taskDiv.id = 'taskDiv';
+    
+        for (let i = 0; i < this.#postsTasks.length; i++) {
+            const taskElement = this.createTaskElement(this.#postsTasks[i]);
+            configs.id === 'task_state_1' ? taskDiv.appendChild(taskElement) : null;
+        }
+    
+        cardDiv.appendChild(taskDiv);
 
         return cardDiv;
     }
+    
+    createTaskElement(taskData) {
+        const taskElement = document.createElement('div');
+        taskElement.className = 'task';
+        taskElement.textContent = taskData.description;
+    
+        return taskElement;
+    }
+    
 
     /**
      * Cria e retorna um novo elemento li representando um item de lista de tarefas.
@@ -49,11 +73,9 @@ export default class Card {
      * @returns {HTMLLIElement} - Elemento li representando um item de lista.
      */
     loadTaskList() {
-        // console.log(this.#taskList)
         const ul = document.createElement('ul');
-        ul.className = 'btn-sublist';
+        ul.id = 'btn-sublist';
 
-        // Aqui vamos fazer com que esse grupo de card venha até nois.
         for(let i = 0; i < this.#taskList.length ; i++) {
             ul.appendChild(this.openCardAddItem(this.#taskList[i]));
         }
@@ -91,6 +113,7 @@ export default class Card {
         const fatherNav = document.createElement('nav');
         fatherNav.className = 'fatherNav';
 
+        
         const inputHamburger = document.createElement('input');
         inputHamburger.id = `dropdown_${id}`;
         inputHamburger.className = 'input-box';
@@ -178,22 +201,34 @@ export default class Card {
      * @date 1/12/2024 - 4:40:33 PM
      */
     onPDF() {
-        const h1 = document.createElement('h1');
-        h1.innerText = "I'm here";
-        var mywindow = window.open('', '_blank');
-        mywindow.document.write(h1.innerText);
-        mywindow.print();  
-        mywindow.close();
+        const util = new Util();
+        util.onPDF();
     }
 
     /**
-     * Manipula a criação de um arquivo CSV.
-     *
-     * @date 1/12/2024 - 4:41:26 PM
-     */
+    * Manipula a criação de um arquivo CSV.
+    *
+    * @date 1/12/2024 - 4:41:26 PM
+    */
+
     onCSV() {
-        console.log('Criando um arquivo csv....');
-    }
+        const taskInfoElements = document.querySelectorAll('.task-info');
+        const taskData = {};
+     
+        taskInfoElements.forEach((element) => {
+           const fieldName = element.getAttribute('data-field');
+           const fieldValue = element.innerText.split(':')[1].trim();
+           taskData[fieldName] = fieldValue;
+        });
+     
+        // Agora você tem um objeto taskData com as informações extraídas do modal.
+        console.log(taskData);
+     
+        // Aqui você pode usar as informações para gerar o CSV ou fazer o que for necessário.
+        const wordMatrix = Object.values(taskData).map((value) => [value]);
+        const generateCSV = new GeneratorCSV();
+        generateCSV.generateCSV(wordMatrix);
+     }
     
     /**
      * Abre o card para adicionar um novo item à lista de tarefas.
@@ -201,58 +236,52 @@ export default class Card {
      * @param {*} item - Item a ser adicionado à lista de tarefas.
      * @returns {HTMLDivElement} - Elemento li representando o item adicionado.
      */
-     openCardAddItem(item) {
-        let fatherDiv = document.createElement('li');
-        fatherDiv.className = 'item';
-
-        let divTextArea = document.createElement('div');
+    openCardAddItem(item) {
+        const listItem = document.createElement('li');
+        listItem.className = 'item';
+    
+        const divTextArea = document.createElement('div');
         divTextArea.className = 'div-textarea';
+    
+        const taskDiv = document.createElement('div');
+        taskDiv.className = 'task-info';
+    
+        taskDiv.innerText = `
+            Description: ${item.description}
+            Prioridade: ${item.priority}
+            DataInicial: ${item.initial_date}
+            DataFinal: ${item.final_date}
+        `;
+    
+        taskDiv.addEventListener('click', function () {
+            const modalTask = document.getElementById('modalTask');
+            if (!modalTask) {
+                const modalBackground = document.createElement('div');
+                modalBackground.className = 'backgroundHiddenDiv';
+                modalBackground.id = 'modalTask';
+    
+                const modalContent = document.createElement('div');
+                modalContent.className = 'hiddenDiv';
+                modalContent.innerHTML = '<p>Esta é a div oculta.</p>';
+    
+                modalBackground.appendChild(modalContent);
+                document.body.appendChild(modalBackground);
 
-        let divCheckbox = document.createElement('div');
-        divCheckbox.className = 'div-checkbox';
-
-        let divTask = document.createElement('div');
-        divTask.className = 'div-task';
-        divTask.innerText = `${item.description} - ${item.priority} \n Data Inicial: ${item.initial_date} \n Data Final: ${item.final_date}`;
-
-        // Adiciona um ouvinte de eventos de clique à div clicável
-        divTask.addEventListener('click', function(event) {
-            let divBackground = document.getElementById('modalTask');
-            
-            if (!divBackground) {
-                let hiddenDiv;
-                // Cria a div oculta se não existir
-                hiddenDiv = document.createElement('div');
-                divBackground = document.createElement('div');
-                
-                divBackground.className = "backgroundHiddenDiv";
-
-                divBackground.id = 'modalTask';
-                divBackground.addEventListener('click', event=> {
-                    if(event.target.id == 'modalTask') document.getElementById('modalTask').remove();
-                })
-
-                
-                hiddenDiv.className = 'hiddenDiv';
-                hiddenDiv.innerHTML = '<p>Esta é a div oculta.</p>';
-                
-                divBackground.appendChild(hiddenDiv);
-                document.body.appendChild(divBackground);
-            } else {
-                if (divBackground) {
-
-                }
+                modalBackground.addEventListener('click', function (event) {
+                    if (event.target.id === 'modalTask') {
+                        modalBackground.remove();
+                    }
+                });
             }
-        });  
-
-
-        divTextArea.appendChild(divTask);
-
-        fatherDiv.appendChild(divTextArea);
-        fatherDiv.appendChild(divCheckbox);
-
-        return fatherDiv;
+        });
+    
+        divTextArea.appendChild(taskDiv);
+    
+        listItem.appendChild(divTextArea);
+    
+        return listItem;
     }
+    
 
     moveToDoingTask() {
         console.log("passando para frente...");
@@ -279,8 +308,8 @@ export default class Card {
         if(isList){
             isList.remove();
         }
+
         const local = document.querySelector(`#${id}`);
-        
         this.addTask(local);
     }
 
@@ -300,7 +329,7 @@ export default class Card {
         local.appendChild(btnPDF.Button(configBtnPDF));
 
         const configBtnCSV = buttonCSV;
-        configBtnCSV.onAction = this.onCSV;
+        configBtnCSV.onAction = () => this.onCSV(id);
         local.appendChild(btnCSV.Button(configBtnCSV));
 
         if(id === 'task_state_1') {    

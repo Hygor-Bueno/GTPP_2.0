@@ -39,4 +39,17 @@ export default class Util {
             if(!element.value) element.classList.add('borderDanger');
         })
     }
+
+    onCSV() {
+        console.log('fazendo download do csv...');
+    }
+
+    onPDF() {
+        const h1 = document.createElement('h1');
+        h1.innerText = "I'm here";
+        var mywindow = window.open('', '_blank');
+        mywindow.document.write(h1.innerText);
+        mywindow.print();  
+        mywindow.close();
+    }
 }

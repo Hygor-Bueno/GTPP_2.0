@@ -24,6 +24,8 @@ export default class Home {
 
             // Busca os estados das tarefas.
             const listTaskState = await connection.get('', 'GTPP/TaskState.php');
+            const postTask = await connection.get('', 'GTPP/Task.php');
+
             if (listTaskState.error) throw new Error(listTaskState.message);
             this.stateStoraga(listTaskState.data);
 
@@ -33,7 +35,7 @@ export default class Home {
             const elementHome = containerHome.containerBasic({
                 id: 'containerHome',
                 element: container.containerBasic({
-                    element: this.renderCards(JSON.parse(localStorage?.stateTaskGTPP) || []),
+                    element: this.renderCards(JSON.parse(localStorage?.stateTaskGTPP) || [], postTask.data),
                     class: 'gridRightHome'
                 }),
             });
@@ -53,12 +55,15 @@ export default class Home {
         return div;
     }
 
-    renderCards(list) {
+    renderCards(list, postTask) {
         const div = document.createElement('div');
+
         list.forEach(item => {
             const card = new Card();
-            div.appendChild(card.createCard({ id: `task_state_${item.id}`, label: item.description, view: item.view }))
+            div.appendChild(card.createCard({ id: `task_state_${item.id}`, label: item.description,view:item.view }, postTask))
         });
+
+        console.log(div);
         return div;
     }
     controllerStateTask() {
