@@ -137,6 +137,11 @@ img.iconImg {
     width: var(--imageSize);
     transition: all 0.4s;
 }
+.simpleParagraph{
+    font-size: var(--textSize);
+    font-weight: bolder;
+
+}
 @keyframes spin {
     0% {
         transform: rotate(0deg);

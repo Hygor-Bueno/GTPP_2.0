@@ -30,6 +30,7 @@ export default class Card {
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
         if(configs?.id) cardDiv.id = configs.id;
+        cardDiv.style.display = configs.view ? 'block' : 'none';
 
         const subDivCard = this.createSubDivCard(configs.label);
         const inputCheckbox = this.createButtonHamburger(configs.id);

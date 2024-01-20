@@ -4,7 +4,8 @@
         'gridLeftHome gridLeftTop'
         'gridLeftHome gridRightHome'
     ;
-    grid-template-rows: clamp(0px, 8vh, 50px) clamp(0px, 92vh, 92vh - 50px - 2*var(--spaceDefault)); /* Ajuste conforme necessário */
+    grid-template-rows: clamp(0px, 8vh, 50px) clamp(0px, 92vh, 92vh); /* Ajuste conforme necessário */
+    grid-template-columns: calc(clamp(1vw, 30vw, 134px) + (2 * var(--spaceDefault))); /* Ajuste conforme necessário */
     height: 100%; /* 100% da altura da viewport */
     width: 100%;
 }

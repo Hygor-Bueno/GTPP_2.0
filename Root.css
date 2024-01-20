@@ -21,6 +21,7 @@
 
     /*Configurações do Label.*/
     --labelSize:clamp(1.8vmin,4.8vmin,20px);
+    --labelSizeP:clamp(1.2vmin,4.2vmin,14px);
     --labelColor:#757575;
 
     /*Outras formatações.*/

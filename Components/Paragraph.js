@@ -7,5 +7,16 @@
  * @class Paragraph
  */
 export default class Paragraph {
-    constructor(){}
+    #title;
+    #class;
+    constructor(title) {
+        this.#title = title;
+    }
+    simpleParagraph() {
+        const p = document.createElement('p');
+        p.innerText = this.#title;
+        p.className = this.#class || 'simpleParagraph';
+        return p;
+    }
+
 }

@@ -5,6 +5,23 @@
     padding: var(--spaceDefault);
     border:none;
 }
+.itemsFormRow{
+    display: flex;
+    flex-direction: row;
+    padding: var(--spaceDefault);
+    border:none;
+}
+.itemsFormRow:hover, .itemsFormRow:hover label{
+    background-color: #f1f2f5;
+    /* background-color: #Fff; */
+    cursor: pointer;
+}
+.itemsFormRow input{
+    margin-right: var(--spaceDefaultP);
+}
+.itemsFormRow > label{
+    font-weight: normal;
+}
 
 .labelForm{
     color:var(--labelColor);
