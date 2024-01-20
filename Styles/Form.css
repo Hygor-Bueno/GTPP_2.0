@@ -13,7 +13,6 @@
 }
 .itemsFormRow:hover, .itemsFormRow:hover label{
     background-color: #f1f2f5;
-    /* background-color: #Fff; */
     cursor: pointer;
 }
 .itemsFormRow input{
