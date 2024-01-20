@@ -13,20 +13,18 @@
 }
 .itemsFormRow:hover, .itemsFormRow:hover label{
     background-color: #f1f2f5;
-    /* background-color: #Fff; */
     cursor: pointer;
 }
 .itemsFormRow input{
     margin-right: var(--spaceDefaultP);
 }
-.itemsFormRow > label{
-    font-weight: normal;
-}
+
 
 .labelForm{
     color:var(--labelColor);
     font-size:var(--labelSize);
     font-weight: bold;
+    width: 100%;
 }
 
 .labelFormP{
