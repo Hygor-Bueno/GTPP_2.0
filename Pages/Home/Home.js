@@ -41,9 +41,7 @@ export default class Home {
             elementHome.insertBefore(menu.nav(), elementHome.firstElementChild);
             elementHome.insertBefore(this.settingsHome(JSON.parse(localStorage?.stateTaskGTPP) || []), elementHome.firstElementChild);
 
-
             return elementHome;
-
         } catch (error) {
             console.error(error)
         }
