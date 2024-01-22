@@ -40,14 +40,13 @@ export default class Card {
         const subDivCard = this.createSubDivCard(configs.label);
     
         const inputCheckbox = this.createButtonHamburger(configs.id);
-        
-        
+    
         cardDiv.appendChild(subDivCard);
         subDivCard.appendChild(inputCheckbox);
-        
+    
         const taskDiv = document.createElement('div');
         taskDiv.id = 'taskDiv';
-        
+    
         for (let i = 0; i < this.#postsTasks.length; i++) {
             const taskElement = this.createTaskElement(this.#postsTasks[i]);
             configs.id === 'task_state_1' ? taskDiv.appendChild(taskElement) : null;
@@ -62,6 +61,8 @@ export default class Card {
         const taskElement = document.createElement('div');
         taskElement.className = 'task';
         taskElement.textContent = taskData.description;
+
+        this.taskModalClick(taskElement, 'modalTask')
     
         return taskElement;
     }
@@ -252,9 +253,42 @@ export default class Card {
             DataInicial: ${item.initial_date}
             DataFinal: ${item.final_date}
         `;
+        
+        this.taskModalClick(taskDiv, 'modalTask');
+        
     
-        taskDiv.addEventListener('click', function () {
-            const modalTask = document.getElementById('modalTask');
+        divTextArea.appendChild(taskDiv);
+    
+        listItem.appendChild(divTextArea);
+    
+        return listItem;
+    }
+    
+
+    moveToDoingTask() {
+        console.log("passando para frente...");
+    }
+
+    /**
+     * Manipula a criação de uma nova tarefa
+     * @date 1/12/2024 - 4:41:51 PM
+     * @param {HTMLDivElement} local 
+     */
+    /**
+     * Manipula a criação de uma nova tarefa
+     * @date 1/12/2024 - 4:41:51 PM
+     * @param {HTMLDivElement} local 
+     */
+    addTask(local) {
+        const simpleTask = new SimpleTask();
+        this.#taskList.push(simpleTask);
+        local.appendChild(this.loadTaskList())
+    }
+
+
+    taskModalClick(local, ElementId) {
+        local.addEventListener('click', function () {
+            const modalTask = document.getElementById(`${ElementId}`);
             if (!modalTask) {
                 const modalBackground = document.createElement('div');
                 modalBackground.className = 'backgroundHiddenDiv';
@@ -274,28 +308,6 @@ export default class Card {
                 });
             }
         });
-    
-        divTextArea.appendChild(taskDiv);
-    
-        listItem.appendChild(divTextArea);
-    
-        return listItem;
-    }
-    
-
-    moveToDoingTask() {
-        console.log("passando para frente...");
-    }
-
-    /**
-     * Manipula a criação de uma nova tarefa
-     * @date 1/12/2024 - 4:41:51 PM
-     * @param {HTMLDivElement} local 
-     */
-    addTask(local) {
-        const simpleTask = new SimpleTask();
-        this.#taskList.push(simpleTask);
-        local.appendChild(this.loadTaskList())
     }
 
     /**
