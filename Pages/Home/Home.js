@@ -31,13 +31,9 @@ export default class Home {
 
             // Cria o Elemento de Menu.
             const menu = new Menu({ idNavMenu: 'navMenu', class: 'gridLeftHome' });
-
             const elementHome = containerHome.containerBasic({
                 id: 'containerHome',
-                element: container.containerBasic({
-                    element: this.renderCards(JSON.parse(localStorage?.stateTaskGTPP) || [], postTask.data),
-                    class: 'gridRightHome'
-                }),
+                element: container.containerBasic({element: this.renderCards(JSON.parse(localStorage?.stateTaskGTPP) || [], postTask.data),class: 'gridRightHome'})
             });
 
             elementHome.insertBefore(menu.nav(), elementHome.firstElementChild);
@@ -57,13 +53,10 @@ export default class Home {
 
     renderCards(list, postTask) {
         const div = document.createElement('div');
-
         list.forEach(item => {
             const card = new Card();
             div.appendChild(card.createCard({ id: `task_state_${item.id}`, label: item.description,view:item.view }, postTask))
         });
-
-        console.log(div);
         return div;
     }
     controllerStateTask() {
@@ -86,6 +79,7 @@ export default class Home {
             console.error(error);
         }
     }
+
     settingsButtonState() {
         const img = document.querySelector('#buttoStateTask img');
         const local = document.querySelector('.labelFormP');
@@ -98,6 +92,7 @@ export default class Home {
             local.appendChild(this.optionStateTask());
         }
     }
+
     optionStateTask() {
         let data = localStorage.stateTaskGTPP || '[]';
         let listStorage = JSON.parse(data);
@@ -130,12 +125,14 @@ export default class Home {
             localStorage.setItem('stateTaskGTPP', JSON.stringify(result));
         }
     }
+
     reloadStorage(id, view) {
         let listStorage = JSON.parse(localStorage.stateTaskGTPP);
         listStorage.forEach(item => { if (item.id == id) item.view = view });
         localStorage.setItem('stateTaskGTPP', JSON.stringify(listStorage));
         this.reloadSate();
     }
+    
     reloadSate() {
         let data = localStorage.stateTaskGTPP || '[]';
         let listStorage = JSON.parse(data);
