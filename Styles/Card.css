@@ -133,3 +133,24 @@
   height: 100vh;
   z-index: 99999;
 }
+
+.task {
+  padding: 1vw 0;
+  width: 100%;
+  font-size: var(--textSize);
+
+  /* text-decoration: line-through; */
+  transition: all ease-in-out .5s;
+}
+
+.task:active {
+  background-color: #f2f2f2f2;
+  padding: var(--spaceDefault);
+  transition: all ease .6s;
+  overflow: auto;
+}
+
+#taskDiv {
+  overflow: auto;
+  height: 96%;
+}
