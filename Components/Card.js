@@ -2,7 +2,6 @@ import SimpleTask from "../Class/SimpleTask.js";
 import { buttonAdd, buttonCSV, buttonPDF, buttonToTask } from "../Configuration/Configuration.js";
 import Util from "../Util.js";
 import Button from "./Button.js";
-import SImpleCard from "./ComponentES6/SImpleCard.js";
 import GeneratorCSV from "./FileGenerator.js";
 
 /**
@@ -58,18 +57,46 @@ export default class Card {
         return cardDiv;
     }
     
-    createTaskElement(taskData, item= this.#postsTasks) {
+    createTaskElement(taskData) {
         const taskElement = document.createElement('div');
         taskElement.className = 'task';
-        taskElement.textContent = taskData.description;
+        taskElement.appendChild(this.createTaskElementDescription(taskData));
+        taskElement.appendChild(this.createTaskElementPriority(taskData));
+        taskElement.appendChild(this.createElementInicialDateAndFinalDate(taskData));
 
-        taskElement.innerHTML = SImpleCard(taskData);
+        console.log(this.#taskList);
 
+        for(let i = 0; i < this.#taskList.length ; i++) {
+            taskElement.appendChild(this.openCardAddItem(this.#taskList[i]));
+        }
+        
         this.taskModalClick(taskElement, 'modalTask');
     
         return taskElement;
     }
-    
+
+
+    createElementInicialDateAndFinalDate(local) {
+        const taskElementDate = document.createElement('div');
+        taskElementDate.className = 'task-inital';
+        taskElementDate.innerText = `Data Inicial: ${local.initial_date} \n Data final: ${local.final_date}`;
+        return taskElementDate;
+    }
+
+    createTaskElementPriority(local) {
+        const taskElementPriority = document.createElement('div');
+        taskElementPriority.className = 'task-priority';
+        taskElementPriority.innerText = `Prioridade: ${local.priority == 0 ? 'baixa' : local.priority  == 1 ? 'media' : local.priority == 2 ? 'alta' : 'Não foi especificado o nivel'}`;
+        return taskElementPriority;
+    }
+
+    createTaskElementDescription(local) {
+        const tasksElementDescription = document.createElement('div');
+        tasksElementDescription.className = 'task-description';
+        tasksElementDescription.innerText = `Descrição: ${local.description}`;
+        return tasksElementDescription;
+    }
+
 
     /**
      * Cria e retorna um novo elemento li representando um item de lista de tarefas.
@@ -77,16 +104,12 @@ export default class Card {
      * @date 1/11/2024
      * @returns {HTMLLIElement} - Elemento li representando um item de lista.
      */
-    loadTaskList() {
-        const ul = document.createElement('ul');
-        ul.id = 'btn-sublist';
-
-        for(let i = 0; i < this.#taskList.length ; i++) {
-            ul.appendChild(this.openCardAddItem(this.#taskList[i]));
-        }
-
-        return ul;
-    }
+    
+    // loadTaskList() {
+    //     const ul = document.createElement('div');
+    //     ul.id = 'btn-sublist';
+    //     return ul;
+    // }
 
     /**
      * Cria e retorna um novo elemento div para o subcard.
@@ -241,6 +264,8 @@ export default class Card {
      * @returns {HTMLDivElement} - Elemento li representando o item adicionado.
      */
     openCardAddItem(item) {
+        console.log(item);
+
         const listItem = document.createElement('li');
         listItem.className = 'item';
     
@@ -250,15 +275,14 @@ export default class Card {
         const taskDiv = document.createElement('div');
         taskDiv.className = 'task-info';
     
-        taskDiv.innerText = `
-            Description: ${item.description}
-            Prioridade: ${item.priority}
-            DataInicial: ${item.initial_date}
-            DataFinal: ${item.final_date}
-        `;
+        // taskDiv.innerText = `
+        //     Description: ${item.description}
+        //     Prioridade: ${item.priority}
+        //     DataInicial: ${item.initial_date}
+        //     DataFinal: ${item.final_date}
+        // `;
         
-        this.taskModalClick(taskDiv, 'modalTask');
-        
+        this.taskModalClick(taskDiv, 'modalTask');    
     
         divTextArea.appendChild(taskDiv);
     
@@ -275,7 +299,7 @@ export default class Card {
     addTask(local) {
         const simpleTask = new SimpleTask();
         this.#taskList.push(simpleTask);
-        local.appendChild(this.loadTaskList());
+        local.appendChild(this.createTaskElement());
     }
 
 
