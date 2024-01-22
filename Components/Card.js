@@ -62,7 +62,7 @@ export default class Card {
         taskElement.className = 'task';
         taskElement.textContent = taskData.description;
 
-        this.taskModalClick(taskElement, 'modalTask')
+        this.taskModalClick(taskElement, 'modalTask');
     
         return taskElement;
     }
