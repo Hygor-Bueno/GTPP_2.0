@@ -2,6 +2,7 @@ import SimpleTask from "../Class/SimpleTask.js";
 import { buttonAdd, buttonCSV, buttonPDF, buttonToTask } from "../Configuration/Configuration.js";
 import Util from "../Util.js";
 import Button from "./Button.js";
+import SImpleCard from "./ComponentES6/SImpleCard.js";
 import GeneratorCSV from "./FileGenerator.js";
 
 /**
@@ -57,10 +58,12 @@ export default class Card {
         return cardDiv;
     }
     
-    createTaskElement(taskData) {
+    createTaskElement(taskData, item= this.#postsTasks) {
         const taskElement = document.createElement('div');
         taskElement.className = 'task';
         taskElement.textContent = taskData.description;
+
+        taskElement.innerHTML = SImpleCard(taskData);
 
         this.taskModalClick(taskElement, 'modalTask');
     
@@ -269,20 +272,10 @@ export default class Card {
         console.log("passando para frente...");
     }
 
-    /**
-     * Manipula a criação de uma nova tarefa
-     * @date 1/12/2024 - 4:41:51 PM
-     * @param {HTMLDivElement} local 
-     */
-    /**
-     * Manipula a criação de uma nova tarefa
-     * @date 1/12/2024 - 4:41:51 PM
-     * @param {HTMLDivElement} local 
-     */
     addTask(local) {
         const simpleTask = new SimpleTask();
         this.#taskList.push(simpleTask);
-        local.appendChild(this.loadTaskList())
+        local.appendChild(this.loadTaskList());
     }
 
 
