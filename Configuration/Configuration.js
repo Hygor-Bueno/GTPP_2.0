@@ -135,3 +135,10 @@ export const buttonToTask = {
     description: 'Fazendo',
     classButton: 'btn-toTask'
 }
+
+export const buttonStateTask ={
+    title: 'Abrir lista de status', 
+    type: 'button', 
+    classButton: 'btn',
+    id: 'buttoStateTask'
+}

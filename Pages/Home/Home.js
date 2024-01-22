@@ -2,10 +2,10 @@ import Card from "../../Components/Card.js";
 import Menu from "../../Components/Menu.js";
 import Containers from "../../Components/Containers.js";
 import { Connection } from "../../Connection/Connection.js";
-import Title from "../../Components/Title.js";
 import Button from "../../Components/Button.js";
 import Form from "../../Components/Form.js";
 import Paragraph from "../../Components/Paragraph.js";
+import { buttonStateTask } from "../../Configuration/Configuration.js";
 
 /**
  * Classe Pagina Home
@@ -69,41 +69,33 @@ export default class Home {
     controllerStateTask() {
         try {
             const div = new Containers();
-            const containerHeader = document.createElement('div');
             const button = new Button();
-
-            const p = new Paragraph("Status");
-
+            const p = new Paragraph("Status");            
+            const containerHeader = document.createElement('div');       
             const img = document.createElement('img');
             img.src = '../../Assets/Image/arrowsBottom.svg';
             img.className = 'imageIcon';
-
             containerHeader.appendChild(p.simpleParagraph());
-
-            containerHeader.appendChild(button.Button({
-                title: 'Abrir lista de status', type: 'button', description: img, onAction: () => {
-                    const img = document.querySelector('#buttoStateTask img');
-                    const local = document.querySelector('.labelFormP');
-                    const divList = document.querySelector('.labelFormP section');
-                    if (divList) {
-                        img.classList.remove('arrowsClose')
-                        divList.remove()
-                    } else {
-                        img.classList.add('arrowsClose')
-                        local.appendChild(this.optionStateTask());
-                    }
-                },
-                classButton: 'btn',
-                id: 'buttoStateTask'
-            }));
-
+            buttonStateTask.onAction = () => this.settingsButtonState();
+            buttonStateTask.description = img;
+            containerHeader.appendChild(button.Button(buttonStateTask));
             const elementDiv = div.containerBasic({ element: containerHeader });
-
             elementDiv.className = 'labelFormP';
-
             return elementDiv;
         } catch (error) {
             console.error(error);
+        }
+    }
+    settingsButtonState() {
+        const img = document.querySelector('#buttoStateTask img');
+        const local = document.querySelector('.labelFormP');
+        const divList = document.querySelector('.labelFormP section');
+        if (divList) {
+            img.classList.remove('arrowsClose')
+            divList.remove()
+        } else {
+            img.classList.add('arrowsClose')
+            local.appendChild(this.optionStateTask());
         }
     }
     optionStateTask() {
