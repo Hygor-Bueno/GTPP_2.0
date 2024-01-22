@@ -60,18 +60,20 @@
     display: flex;
     flex-direction: column;
     width: calc(100% - var(--spaceDefault)*2);
-    overflow-y: hidden;
-    overflow-x: auto;
+    height: calc(100% - var(--spaceDefault)*2);
+    overflow: hidden;
     padding: var(--spaceDefault);
 }
 
 #containerHome>.gridRightHome>section {
     position: relative;
-    flex-grow: 0.1;
+    height: 10%;
     margin: 0 var(--spaceDefault);
 }
 #containerHome>.gridRightHome>div {
     display: flex;
     flex-direction: row;
-    flex-grow: 0.9;
+    height: 90%;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
