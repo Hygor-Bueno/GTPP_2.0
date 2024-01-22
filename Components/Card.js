@@ -40,13 +40,14 @@ export default class Card {
         const subDivCard = this.createSubDivCard(configs.label);
     
         const inputCheckbox = this.createButtonHamburger(configs.id);
-    
+        
+        
         cardDiv.appendChild(subDivCard);
         subDivCard.appendChild(inputCheckbox);
-    
+        
         const taskDiv = document.createElement('div');
         taskDiv.id = 'taskDiv';
-    
+        
         for (let i = 0; i < this.#postsTasks.length; i++) {
             const taskElement = this.createTaskElement(this.#postsTasks[i]);
             configs.id === 'task_state_1' ? taskDiv.appendChild(taskElement) : null;
@@ -112,7 +113,6 @@ export default class Card {
     createButtonHamburger(id) {
         const fatherNav = document.createElement('nav');
         fatherNav.className = 'fatherNav';
-
         
         const inputHamburger = document.createElement('input');
         inputHamburger.id = `dropdown_${id}`;
@@ -325,7 +325,7 @@ export default class Card {
         const btnADD = new Button();
 
         const configBtnPDF = buttonPDF;
-        configBtnPDF.onAction = this.onPDF;
+        configBtnPDF.onAction = () => this.onPDF(id);
         local.appendChild(btnPDF.Button(configBtnPDF));
 
         const configBtnCSV = buttonCSV;
@@ -334,7 +334,7 @@ export default class Card {
 
         if(id === 'task_state_1') {    
             const configBtnAdd = buttonAdd;
-            configBtnAdd.onAction = ()=> this.reloadTaskList(id);
+            configBtnAdd.onAction = () => this.reloadTaskList(id);
             local.appendChild(btnADD.Button(configBtnAdd));
         }
     }

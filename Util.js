@@ -44,12 +44,12 @@ export default class Util {
         console.log('fazendo download do csv...');
     }
 
-    onPDF() {
+    onPDF(tasks) {
         const h1 = document.createElement('h1');
-        h1.innerText = "I'm here";
+        h1.innerText = tasks;
         var mywindow = window.open('', '_blank');
         mywindow.document.write(h1.innerText);
-        mywindow.print();  
+        mywindow.print();
         mywindow.close();
     }
 }
