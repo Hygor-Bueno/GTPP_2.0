@@ -53,7 +53,7 @@ body {
     flex-grow: 0.025;
     border-bottom: var(--borderColor) solid var(--borderSize);
     color: white;
-
+    background: #fff;;
 }
 
 #containerMain>section {
@@ -70,6 +70,7 @@ body {
     flex-grow: 0.025;
     border-top: var(--borderColor) solid var(--borderSize);
     color: var(--labelColor);
+    background: #fff;;
 }
 #containerMain>footer>div {
     width: 50%;
@@ -87,6 +88,7 @@ body {
     border-width: var(--borderSizeL);
     border-radius: var(--borderRadius);
     padding: var(--spaceDefault);
+    background-color: rgba(255,255,255,0.65);
     min-height: 40%;
 }
 
@@ -142,6 +144,15 @@ img.iconImg {
     font-weight: bolder;
 
 }
+
+#containerMain {
+    background-image: url('./Assets/Image/pegpese_bolonha.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    overflow-y: auto;
+}
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);
