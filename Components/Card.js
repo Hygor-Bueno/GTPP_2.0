@@ -64,7 +64,7 @@ export default class Card {
         taskElement.appendChild(this.createTaskElementPriority(taskData));
         taskElement.appendChild(this.createElementInicialDateAndFinalDate(taskData));
 
-        console.log(this.#taskList);
+        // console.log(this.#taskList);
 
         for(let i = 0; i < this.#taskList.length ; i++) {
             taskElement.appendChild(this.openCardAddItem(this.#taskList[i]));
