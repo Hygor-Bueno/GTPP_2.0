@@ -46,6 +46,10 @@ export default class Modal {
     return modalDiv;
   }
 
+  modalDark(){
+    
+  }
+
   /**
    * @extends Button está estendendo as funções que precisamos para criar um componente de botão.
    * @returns {HTMLButtonElement} retorna um botão para fechar o modal
