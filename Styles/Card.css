@@ -1,9 +1,10 @@
 .card {
-    width: 14vw;
+    max-width: 14vw;
     border-radius: var(--spaceDefault);
     background-color: #FFF;
     padding: var(--spaceDefault);
     position: relative;
+    overflow: hidden;
     margin: 0 var(--spaceDefault);
     min-width: clamp(10vw,50vw,190px);
     border: var(--borderSize) solid #0000004f;
@@ -20,7 +21,6 @@
 
 .subdivcard {
     display: flex;
-    /* width: 100%; */
     align-items: center;
     justify-content: space-between;
 }
@@ -135,22 +135,28 @@
 }
 
 .task {
-  padding: 1vw 0;
-  width: 100%;
+  padding: 1vw 1vw 1vw 0;
+  cursor: pointer;
+  overflow: hidden;
+  /* width: 100%; */
   font-size: var(--textSize);
 
-  /* text-decoration: line-through; */
-  transition: all ease-in-out .5s;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0.5vw;
+
+  transition: all ease-out .5s;
 }
 
 .task:hover {
-  background-color: #f2f2f2f2;
-  padding: var(--spaceDefault);
-  transition: all ease .6s;
-  overflow: auto;
+  background-color: var(--simplecardColor);
+  padding-left: 1vw;
+  
+  transition: all .6s;
 }
 
 #taskDiv {
-  overflow: auto;
-  height: 96%;
+  overflow-y: auto;
+  height: 93%;
 }

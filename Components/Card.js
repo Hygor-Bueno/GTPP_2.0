@@ -56,21 +56,21 @@ export default class Card {
   createElementInicialDateAndFinalDate(local) {
     const taskElementDate = document.createElement('div');
     taskElementDate.className = 'task-date';
-    taskElementDate.innerText = `${local.initial_date} | ${local.final_date}`;
+    taskElementDate.innerHTML = `${local.initial_date} | ${local.final_date}`;
     return taskElementDate;
   }
 
   createTaskElementPriority(local) {
     const taskElementPriority = document.createElement('div');
     taskElementPriority.className = 'task-priority';
-    taskElementPriority.innerText = `Prioridade: ${this.getPriorityText(local.priority)}`;
+    taskElementPriority.innerHTML = `${this.getPriorityText(local.priority)}`;
     return taskElementPriority;
   }
 
   createTaskElementDescription(local) {
     const tasksElementDescription = document.createElement('div');
     tasksElementDescription.className = 'task-description';
-    tasksElementDescription.innerText = `Descrição: ${local.description}`;
+    tasksElementDescription.innerHTML = `<b>${local.description}</b>`;
     return tasksElementDescription;
   }
 
@@ -232,4 +232,4 @@ export default class Card {
   getPriorityText(priority) {
     return priority == 0 ? 'baixa' : priority == 1 ? 'média' : priority == 2 ? 'alta' : 'Não foi especificado o nível';
   }
-}
+2}
