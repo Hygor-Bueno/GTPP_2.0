@@ -1,10 +1,11 @@
 .card {
-    max-width: 14vw;
+    max-width: 260px;
+    width: 100%;
     border-radius: var(--spaceDefault);
     background-color: #FFF;
     padding: var(--spaceDefault);
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
     margin: 0 var(--spaceDefault);
     min-width: clamp(10vw,50vw,190px);
     border: var(--borderSize) solid #0000004f;
@@ -140,7 +141,7 @@
 .task {
   padding: 1vw 1vw 1vw 0;
   cursor: pointer;
-  overflow: hidden;
+  overflow-x: auto;
   /* width: 100%; */
   font-size: var(--textSize);
 
@@ -154,8 +155,7 @@
 
 .task:hover {
   background-color: var(--simplecardColor);
-  padding-left: 1vw;
-  
+  /* padding-left: 1vw; */
   transition: all .6s;
 }
 

@@ -14,6 +14,23 @@
     padding: 0px;
 }
 
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--pegpeseColor) var(--primaryColor);
+}
+  
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+}
+  
+*::-webkit-scrollbar-thumb {
+    background-color: var(--pegpeseColor);
+    border-radius: 25px;
+    border: 3px solid var(--primaryColor);
+}
+
 fieldset {
     border: none;
 }
