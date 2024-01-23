@@ -1,6 +1,6 @@
 #containerHome {
     display: flex;
-    height: 100%; /* 100% da altura da viewport */
+    height: 100%;
     width: 100%;
 }
 

@@ -36,6 +36,7 @@
     --warningColor: #FFC107;
     --successColor: #28A745;
     --primaryColor: #FFFF;
+    --simplecardColor: #f2f2f2f2;
 
     /*Imagens*/
     --imageSize: clamp(2vmin,7.2vmin,32px);
