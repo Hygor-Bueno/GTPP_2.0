@@ -1,4 +1,5 @@
 import SimpleTask from "../Class/SimpleTask.js";
+import Tasks from "../Class/Tasks.js";
 import { buttonAdd, buttonCSV, buttonPDF, buttonToTask } from "../Configuration/Configuration.js";
 import Util from "../Util.js";
 import Button from "./Button.js";
@@ -26,7 +27,7 @@ export default class Card {
 
     for (let i = 0; i < this.#getTasks.length; i++) {
       const taskElement = this.createTaskElement(this.#getTasks[i]);
-      if(configs.id === `task_state_${this.#getTasks[i].state_id}`) {
+      if (configs.id === `task_state_${this.#getTasks[i].state_id}`) {
         taskDiv.appendChild(taskElement);
       }
     }
@@ -44,8 +45,12 @@ export default class Card {
     taskElement.appendChild(this.createTaskElementDescription(taskData));
     taskElement.appendChild(this.createTaskElementPriority(taskData));
     taskElement.appendChild(this.createElementInicialDateAndFinalDate(taskData));
-
-    // this.taskModalClick(taskElement, 'modalTask');
+    
+    taskElement.addEventListener('click', () => {
+      const task = new Tasks(taskData);
+      const modal = new Modal(task.taskElement());
+      modal.modalDark();
+    })
     return taskElement;
   }
 
@@ -80,7 +85,7 @@ export default class Card {
     const elementTask = document.getElementById('taskDiv');
 
     for (let i = 0; i < this.#taskList.length; i++) {
-       elementTask.appendChild(this.createTaskElement(this.#taskList[i]));
+      elementTask.appendChild(this.createTaskElement(this.#taskList[i]));
     }
 
     return ul;
@@ -179,28 +184,6 @@ export default class Card {
     console.log("passando para frente...");
   }
 
-  taskModalClick(local, ElementId) {
-    local.addEventListener('click', function () {
-      const modalTask = document.getElementById(`${ElementId}`);
-      if (!modalTask) {
-        const modalBackground = document.createElement('div');
-        modalBackground.className = 'backgroundHiddenDiv';
-        modalBackground.id = 'modalTask';
-        const modalContent = document.createElement('div');
-        modalContent.className = 'hiddenDiv';
-        modalContent.innerHTML = '<p>Esta é a div oculta.</p>';
-        modalBackground.appendChild(modalContent);
-        document.body.appendChild(modalBackground);
-
-        modalBackground.addEventListener('click', function (event) {
-          if (event.target.id === 'modalTask') {
-            modalBackground.remove();
-          }
-        });
-      }
-    });
-  }
-
   reloadTaskList(id) {
     const isList = document.querySelector(`#${id} ul`);
     if (isList) {
@@ -230,7 +213,7 @@ export default class Card {
       local.appendChild(btnADD.Button(configBtnAdd));
     }
   }
-  
+
   getPriorityText(priority) {
     return priority == 0 ? 'baixa' : priority == 1 ? 'média' : priority == 2 ? 'alta' : 'Não foi especificado o nível';
   }

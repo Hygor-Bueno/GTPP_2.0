@@ -1,7 +1,7 @@
 /* @import '../Root.css'; */
 
 .modal {
-    width: clamp(10vw,calc(100vw - (2*var(--spaceDefault))),calc(400px - (2*var(--spaceDefault))));
+    width: clamp(10vw, calc(100vw - (2*var(--spaceDefault))), calc(400px - (2*var(--spaceDefault))));
     border-radius: 0.5vw;
     overflow: hidden;
     background-color: var(--dangerColor);
@@ -9,13 +9,13 @@
 
 .modal-absolute {
     position: absolute;
-    left: 0;   
+    left: 0;
     bottom: 0;
-    margin:var(--spaceDefault);
+    margin: var(--spaceDefault);
 }
 
 .modal-content {
-    padding: var(--spaceDefault);    
+    padding: var(--spaceDefault);
 }
 
 .modal-content h1 {
@@ -27,4 +27,39 @@
 .modal-content p {
     font-size: var(--textSize);
     color: var(--primaryColor);
+}
+
+#modalTask>div {
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    width: 80%;
+    background: white;
+    border-radius: var(--spaceDefault);
+    padding: var(--spaceDefault);
+}
+
+#taskHeader {
+    height: clamp(5px,8%,50px);
+}
+#taskHeader >div{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+#taskBody {
+    display: flex;
+    height: clamp(110px,92%,1100px);
+}
+#taskBody > section{
+    background-color: red;
+    height: 100%;
+    width: 20%;
+    
+}
+#taskBody > article{
+    background-color: blue;
+    height: 100%;
+    width: 80%;
 }

@@ -52,4 +52,12 @@ export default class Util {
         mywindow.print();
         mywindow.close();
     }
+
+    removeElementClikAway(element, id){
+        element.addEventListener('click', function (event) {
+            if (event.target.id === id) {
+              element.remove();
+            }
+          });
+    }
 }

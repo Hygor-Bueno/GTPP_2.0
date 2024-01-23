@@ -1,6 +1,8 @@
 //import { buttonLogin } from "../Configuration/Configuration";
 import Button from "./Button.js";
 import {buttonCloseModal} from "../Configuration/Configuration.js";
+import Containers from "./Containers.js";
+import Util from "../Util.js";
 
 /**
  * @date 11/01/2024
@@ -11,6 +13,11 @@ import {buttonCloseModal} from "../Configuration/Configuration.js";
  * @classdesc Representa um componente modal simples para exibir mensagens.
  */
 export default class Modal {
+  #elementModal;
+  constructor(elementModal){
+    this.#elementModal = elementModal;
+  }
+
   /**
    * Cria um novo elemento de modal.
    * @public
@@ -47,7 +54,12 @@ export default class Modal {
   }
 
   modalDark(){
-    
+    const util = new Util();
+    const container = new Containers();
+    const elementModal =container.containerBasic({element:this.#elementModal,class:'darkModal',id:'modalTask'});
+    util.removeElementClikAway(elementModal,'modalTask');
+    document.querySelector('body').appendChild(elementModal);
+    return elementModal;
   }
 
   /**
