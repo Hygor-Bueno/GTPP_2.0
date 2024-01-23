@@ -3,6 +3,7 @@ import { buttonAdd, buttonCSV, buttonPDF, buttonToTask } from "../Configuration/
 import Util from "../Util.js";
 import Button from "./Button.js";
 import GeneratorCSV from "./FileGenerator.js";
+import Modal from "./Modal.js";
 
 export default class Card {
   #taskList = [];
@@ -13,6 +14,7 @@ export default class Card {
     const cardDiv = document.createElement('div');
     cardDiv.className = 'card';
     if (configs?.id) cardDiv.id = configs.id;
+
     cardDiv.style.display = configs.view ? 'block' : 'none';
     const subDivCard = this.createSubDivCard(configs.label);
     const inputCheckbox = this.createButtonHamburger(configs.id);
@@ -38,12 +40,13 @@ export default class Card {
     const taskElement = document.createElement('div');
     taskElement.setAttribute('draggable', 'true');
     taskElement.className = 'task';
+    taskElement.dataset.taskid = taskData.id;
 
     taskElement.appendChild(this.createTaskElementDescription(taskData));
     taskElement.appendChild(this.createTaskElementPriority(taskData));
     taskElement.appendChild(this.createElementInicialDateAndFinalDate(taskData));
 
-    this.taskModalClick(taskElement, 'modalTask');
+    // this.taskModalClick(taskElement, 'modalTask');
     return taskElement;
   }
 
