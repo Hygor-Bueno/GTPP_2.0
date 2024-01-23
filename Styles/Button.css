@@ -21,6 +21,7 @@
     border: none;
     z-index: 10;
 }
+
 .btn-close {
     color: var(--primaryColor);
     background: transparent;

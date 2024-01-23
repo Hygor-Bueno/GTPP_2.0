@@ -42,7 +42,7 @@ export default class Card {
     taskElement.setAttribute('draggable', 'true');
     taskElement.className = 'task';
     taskElement.dataset.taskid = taskData.id;
-
+    
     taskElement.appendChild(this.createTaskElementDescription(taskData));
     taskElement.appendChild(this.createTaskElementPriority(taskData));
     taskElement.appendChild(this.createElementInicialDateAndFinalDate(taskData));
@@ -51,7 +51,7 @@ export default class Card {
       const task = new Tasks(taskData);
       const modal = new Modal(task.taskElement());
       modal.modalDark();
-    })
+    });
     return taskElement;
   }
 
