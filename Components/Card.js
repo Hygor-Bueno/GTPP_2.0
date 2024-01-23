@@ -3,7 +3,6 @@ import { buttonAdd, buttonCSV, buttonPDF, buttonToTask } from "../Configuration/
 import Util from "../Util.js";
 import Button from "./Button.js";
 import GeneratorCSV from "./FileGenerator.js";
-import Modal from "./Modal.js";
 
 export default class Card {
   #taskList = [];
