@@ -30,6 +30,7 @@
     --spaceDefault:clamp(1px, 2vmin, 10px);
 
     /*Cores*/
+    --pegpeseColor: #9A9EA6;
     --dangerColor: #DC3545;
     --infoColor: #007BFF;
     --warningColor: #FFC107;
