@@ -7,7 +7,7 @@
     margin: 0 var(--spaceDefault);
     min-width: clamp(10vw,50vw,190px);
     border: var(--borderSize) solid #0000004f;
-    box-shadow:  calc(0.9 * var(--spaceDefault)) var(--spaceDefault) var(--spaceDefault) rgb(188 187 187 / 84%);
+    box-shadow:  calc(0.9 * var(--spaceDefault)) var(--spaceDefault) var(--spaceDefault) rgba(0, 0, 0, 0.35);
 }
 
 .card:hover {
@@ -143,7 +143,7 @@
   transition: all ease-in-out .5s;
 }
 
-.task:active {
+.task:hover {
   background-color: #f2f2f2f2;
   padding: var(--spaceDefault);
   transition: all ease .6s;

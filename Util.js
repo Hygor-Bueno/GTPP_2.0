@@ -46,7 +46,7 @@ export default class Util {
 
     onPDF(tasks) {
         const h1 = document.createElement('h1');
-        h1.innerText = tasks;
+        h1.innerHTML = tasks;
         var mywindow = window.open('', '_blank');
         mywindow.document.write(h1.innerText);
         mywindow.print();

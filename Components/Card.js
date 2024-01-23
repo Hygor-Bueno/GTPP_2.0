@@ -6,10 +6,10 @@ import GeneratorCSV from "./FileGenerator.js";
 
 export default class Card {
   #taskList = [];
-  #postsTasks = [];
+  #getTasks = [];
 
   createCard(configs, tasks) {
-    this.#postsTasks = tasks;
+    this.#getTasks = tasks;
     const cardDiv = document.createElement('div');
     cardDiv.className = 'card';
     if (configs?.id) cardDiv.id = configs.id;
@@ -23,9 +23,11 @@ export default class Card {
     const taskDiv = document.createElement('div');
     taskDiv.id = 'taskDiv';
 
-    for (let i = 0; i < this.#postsTasks.length; i++) {
-      const taskElement = this.createTaskElement(this.#postsTasks[i]);
-      configs.id === 'task_state_1' ? taskDiv.appendChild(taskElement) : null;
+    for (let i = 0; i < this.#getTasks.length; i++) {
+      const taskElement = this.createTaskElement(this.#getTasks[i]);
+      if(configs.id === `task_state_${this.#getTasks[i].state_id}`) {
+        taskDiv.appendChild(taskElement);
+      }
     }
 
     cardDiv.appendChild(taskDiv);
@@ -151,7 +153,7 @@ export default class Card {
 
   onPDF() {
     const util = new Util();
-    util.onPDF();
+    util.onPDF(`hello world`);
   }
 
   onCSV() {
