@@ -5,7 +5,6 @@ export default class Footer{
     #title;
     #creators;
     constructor(title,creators){
-        console.log(title,creators)
         this.#creators = creators;
         this.#title = title;
     }

@@ -1,4 +1,5 @@
 import Router from "./Routers/Router.js";
+import { WebSocketGTPP } from "./Socket.js";
 
 init();
 
@@ -11,4 +12,6 @@ init();
 async function init() {
     const router = new Router();
     router.navigation("Home");
+    const web = new WebSocketGTPP();
+    web.Connect();
 };

@@ -53,7 +53,8 @@ body {
     flex-grow: 0.025;
     border-bottom: var(--borderColor) solid var(--borderSize);
     color: white;
-    background: #fff;;
+    background: #fff;
+    height: 5vh;
 }
 
 #containerMain>section {
@@ -62,7 +63,7 @@ body {
     justify-content: center;
     position: relative;
     overflow-y: auto;
-    flex-grow: 0.95;
+    height: 90vh;
 }
 
 #containerMain>footer {
@@ -70,7 +71,9 @@ body {
     flex-grow: 0.025;
     border-top: var(--borderColor) solid var(--borderSize);
     color: var(--labelColor);
-    background: #fff;;
+    background: #fff;
+    height: 5vh;
+
 }
 #containerMain>footer>div {
     width: 50%;
