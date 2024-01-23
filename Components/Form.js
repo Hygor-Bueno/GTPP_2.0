@@ -81,7 +81,7 @@ export default class Form {
             configs.iconLabel && div.appendChild(this.iconLabel(configs.nameImageLabel))
             div.appendChild(label);
             if (configs.requiredInput) div.appendChild(this.mandatory());
-            if (configs?.classLabel) label.className = configs.classLabel;
+            label.className = (configs?.classLabel) ? configs.classLabel : 'labelForm';
             return div;
         } catch (error) {
             console.error(error)
@@ -126,7 +126,7 @@ export default class Form {
             input.id = configs.inputId;
             if (configs.requiredInput) input.dataset.required = 1
             if (configs?.classInput) input.className = configs.classInput;
-            if (configs?.onAction) input.addEventListener('click',configs.onAction);
+            if (configs?.onAction) input.addEventListener('click', configs.onAction);
             return input;
         } catch (error) {
             console.error(error)

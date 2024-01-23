@@ -126,12 +126,15 @@
   overflow: hidden;
 }
 
-.backgroundHiddenDiv {
+.darkModal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   background: #0004;
   width: 100vw;
   height: 100vh;
-  z-index: 99999;
+  z-index: 400;
 }
 
 .task {
