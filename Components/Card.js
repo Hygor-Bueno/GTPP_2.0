@@ -166,15 +166,15 @@ export default class Card {
 
   onCSV() {
     const jsonData = this.#getTasks.map(item => ({
-      description: item.description,
-      state_description: item.state_description,
-      priority: item.priority == 0 ? 'baixa' : item.priority == 1 ? 'media' : item.priority == 2 ? 'alta' : 0,
-      initial_date: item.initial_date,
-      final_date: item.final_date,
+      "Tarefas": item.description,
+      "Estado das Tarefas": item.state_description,
+      "Priopridade das Tarefas": item.priority == 0 ? 'baixa' : item.priority == 1 ? 'media' : item.priority == 2 ? 'alta' : 0,
+      "Data de Inicio das Tarefas": item.initial_date,
+      "Data final das Tarefas": item.final_date,
     }));
 
     const csvData = convertToCSV(jsonData);
-    downloadCSV(csvData, 'teste1.csv');
+    downloadCSV(csvData, 'documento.csv');
 
     function convertToCSV(data) {
       const header = Object.keys(data[0]).join(',');
