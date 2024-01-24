@@ -177,7 +177,7 @@ export default class Card {
     downloadCSV(csvData, 'documento.csv');
 
     function convertToCSV(data) {
-      const header = Object.keys(data[0]).join(',');
+      const header = Object.keys(data[0]).join('\t');
       const rows = data.map(obj => Object.values(obj).join(','));
       console.log(header, rows);
 
@@ -186,7 +186,7 @@ export default class Card {
 
 
     function downloadCSV(csv, filename) {
-      const blob = new Blob([csv], { type: 'text/csv' });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
       const url = URL.createObjectURL(blob);
 
       const a = document.createElement('a');
