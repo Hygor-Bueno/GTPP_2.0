@@ -1,6 +1,6 @@
 import Util from "../Util.js";
 
-export default class CSVGenerator {
+export class CSVGenerator {
     constructor(getTasks, configId) {
       this.getTasks = getTasks;
       this.configId = configId;

@@ -3,17 +3,17 @@ import Tasks from "../Class/Tasks.js";
 import { buttonAdd, buttonCSV, buttonPDF, buttonToTask } from "../Configuration/Configuration.js";
 import Util from "../Util.js";
 import Button from "./Button.js";
-import CSVGenerator from "./FileGenerator.js";
+import { CSVGenerator } from "./FileGenerator.js";
 import Modal from "./Modal.js";
 
 export default class Card {
-  taskList = [];
-  getTasks = [];
-  getConfigId;
+  #taskList = [];
+  #getTasks = [];
+  #getConfigId;
 
   createCard(configs, tasks) {
-    this.getConfigId = configs.id;
-    this.getTasks = tasks;
+    this.#getConfigId = configs.id;
+    this.#getTasks = tasks;
     const cardDiv = document.createElement('div');
     cardDiv.className = 'card';
     if (configs?.id) cardDiv.id = configs.id;
@@ -28,9 +28,9 @@ export default class Card {
     const taskDiv = document.createElement('div');
     taskDiv.id = 'taskDiv';
 
-    for (let i = 0; i < this.getTasks.length; i++) {
-      const taskElement = this.createTaskElement(this.getTasks[i]);
-      if (configs.id === `task_state_${this.getTasks[i].state_id}`) {
+    for (let i = 0; i < this.#getTasks.length; i++) {
+      const taskElement = this.createTaskElement(this.#getTasks[i]);
+      if (configs.id === `task_state_${this.#getTasks[i].state_id}`) {
         taskDiv.appendChild(taskElement);
       }
     }
@@ -59,7 +59,7 @@ export default class Card {
 
   addTask(local) {
     const simpleTask = new SimpleTask();
-    this.taskList.push(simpleTask);
+    this.#taskList.push(simpleTask);
     local.appendChild(this.loadTaskList());
   }
 
@@ -87,8 +87,8 @@ export default class Card {
   loadTaskList() {
     const elementTask = document.getElementById('taskDiv');
 
-    for (let i = 0; i < this.taskList.length; i++) {
-      elementTask.appendChild(this.createTaskElement(this.taskList[i]));
+    for (let i = 0; i < this.#taskList.length; i++) {
+      elementTask.appendChild(this.createTaskElement(this.#taskList[i]));
     }
 
     return elementTask;
@@ -167,7 +167,7 @@ export default class Card {
   }
 
   onCSV() {
-    const csvGenerator = new CSVGenerator(this.getTasks, this.getConfigId);
+    const csvGenerator = new CSVGenerator(this.#getTasks, this.#getConfigId);
     csvGenerator.generateCSV();
   }
 
