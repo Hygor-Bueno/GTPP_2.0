@@ -50,12 +50,96 @@ export class CSVGenerator {
     }
 }
 
-export class GeneratePDF {
-
-    onPDF() {
-        var mywindow = window.open('', '_blank');
-        mywindow.document.write(this.criarTabela());
-        mywindow.print();
-        mywindow.close();
+// terminar esse código até sexta-feira
+export class PDFGenerator {
+    constructor(data) {
+      this.content = document.createElement('div');
+      this.printWindow = window.open('', '_blank');
+      this.printDocument = this.printWindow.document;
+      this.head = document.createElement('head');
+      this.setupHead();
+      this.setupContent(data);
     }
-}
+  
+    setupHead() {
+      // Adicionar meta tag viewport
+      const viewport = document.createElement('meta');
+      viewport.name = 'viewport';
+      viewport.content = 'width=device-width, initial-scale=1.0';
+      this.head.appendChild(viewport);
+  
+      // Adicionar charset ao cabeçalho
+      const charset = document.createElement('meta');
+      charset.charset = 'UTF-8';
+      this.head.appendChild(charset);
+  
+      const style = document.createElement('style');
+      style.appendChild(document.createTextNode(`
+        body {
+          background-color: #FFF;
+        }
+  
+        * {
+          font-family: monospace;
+          color: #000;
+        }
+      `));
+      this.head.appendChild(style);
+    }
+  
+    setupContent(data) {
+      const table = document.createElement('table');
+      const thead = document.createElement('thead');
+      const tbody = document.createElement('tbody');
+  
+      // Cabeçalho
+      const trHead = document.createElement('tr');
+      const th1 = document.createElement('th');
+      th1.innerText = 'Tarefas';
+      const th2 = document.createElement('th');
+      th2.innerText = 'Estado das Tarefas';
+      trHead.appendChild(th1);
+      trHead.appendChild(th2);
+      thead.appendChild(trHead);
+  
+    // Corpo
+    //   const data = [
+    //     { nome: 'Jonatas', idade: 23 },
+    //     { nome: 'Maria', idade: 30 },
+    //     { nome: 'Carlos', idade: 25 }
+    //   ];
+  
+      data.forEach(item => {
+        const trBody = document.createElement('tr');
+        const td1 = document.createElement('td');
+        td1.innerText = item.description;
+        const td2 = document.createElement('td');
+        td2.innerText = item.state_description;
+        trBody.appendChild(td1);
+        trBody.appendChild(td2);
+        tbody.appendChild(trBody);
+      });
+  
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      this.content.appendChild(table);
+    }
+  
+    generatePDF() {
+      this.printDocument.write('<html>');
+      this.printDocument.write(this.head.outerHTML);
+      this.printDocument.write('<body>');
+      this.printDocument.write(this.content.outerHTML);
+      this.printDocument.write('</body>');
+      this.printDocument.write('</html>');
+  
+      this.printWindow.print();
+      this.printDocument.close();
+    }
+
+    closeWindow() {
+        if (this.printWindow) {
+          this.printWindow.close();
+        }
+    }
+  }
