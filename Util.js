@@ -40,6 +40,11 @@ export default class Util {
         })
     }
 
+    removeStringAndUnderline(value) {
+      const result = value.replace(/[^0-9]/g,'');
+      return result;
+    }
+
     onCSV() {
         const fs = require('fs');
         const data = [

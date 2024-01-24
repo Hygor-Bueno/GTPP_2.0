@@ -3,14 +3,16 @@ import Tasks from "../Class/Tasks.js";
 import { buttonAdd, buttonCSV, buttonPDF, buttonToTask } from "../Configuration/Configuration.js";
 import Util from "../Util.js";
 import Button from "./Button.js";
-import GeneratorCSV from "./FileGenerator.js";
+import { CSVGenerator } from "./FileGenerator.js";
 import Modal from "./Modal.js";
 
 export default class Card {
   #taskList = [];
   #getTasks = [];
+  #getConfigId;
 
   createCard(configs, tasks) {
+    this.#getConfigId = configs.id;
     this.#getTasks = tasks;
     const cardDiv = document.createElement('div');
     cardDiv.className = 'card';
@@ -167,40 +169,8 @@ export default class Card {
   }
 
   onCSV() {
-    const jsonData = this.#getTasks.map(item => ({
-      "Tarefas": item.description,
-      "Estado das Tarefas": item.state_description,
-      "Priopridade das Tarefas": item.priority == 0 ? 'baixa' : item.priority == 1 ? 'media' : item.priority == 2 ? 'alta' : 0,
-      "Data de Inicio das Tarefas": item.initial_date,
-      "Data final das Tarefas": item.final_date,
-    }));
-
-    const csvData = convertToCSV(jsonData);
-    downloadCSV(csvData, 'documento.csv');
-
-    function convertToCSV(data) {
-      const header = Object.keys(data[0]).join(',');
-      const rows = data.map(obj => Object.values(obj).join(','));
-      console.log(header, rows);
-
-      return `${header}\n${rows.join('\n')}`;
-    }
-
-
-    function downloadCSV(csv, filename) {
-      const blob = new Blob([csv], { type: 'text/csv' });
-      const url = URL.createObjectURL(blob);
-
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-
-      document.body.appendChild(a);
-      a.click();
-
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
+    const csvGenerator = new CSVGenerator(this.#getTasks, this.#getConfigId);
+    csvGenerator.generateCSV();
   }
 
   moveToDoingTask() {
