@@ -35,7 +35,7 @@ export class CSVGenerator {
     }
   
     downloadCSV(csv, filename) {
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+      const blob = new Blob([csv], { type: `text/csv;charset=utf-8, ${encodeURIComponent(csv)}` });
       const url = URL.createObjectURL(blob);
   
       const a = document.createElement('a');
@@ -51,10 +51,6 @@ export class CSVGenerator {
 }
 
 export class GeneratePDF {
-    // constructor(taskId, filename) {
-    //     taskId = this.taskId;
-    //     filename = this.filename;
-    // }
 
     onPDF() {
         var mywindow = window.open('', '_blank');
