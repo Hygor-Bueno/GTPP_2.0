@@ -60,7 +60,8 @@
     
 }
 #taskBody > article{
-    background-color: blue;
+    /* background-color: blue; */
+    overflow-y: auto;
     height: 100%;
     width: 80%;
 }

@@ -65,7 +65,6 @@ export default class Tasks {
         return elementDiv;
     }
     taskHeader() {
-        const p = new Paragraph(this.description);
         const divHeader = document.createElement('div');
         divHeader.id = 'taskHeader';
         const label = new Form();
@@ -76,10 +75,22 @@ export default class Tasks {
     taskBody() {
         const divBody = document.createElement('div');
         divBody.id = 'taskBody';
-        const article = document.createElement('article');
+
+        divBody.appendChild(this.taskArticle());
+        
         const section = document.createElement('section');
-        divBody.appendChild(article);
         divBody.appendChild(section);
+        
         return divBody;
+    }
+    taskArticle(){
+        const article = document.createElement('article');
+        const div = document.createElement('div');
+        const desc = new Form();
+        const p = new Paragraph(this.full_description);        
+        div.appendChild(desc.label({label:'Detalhes:'}));
+
+        article.appendChild(div);
+        return article;
     }
 }
