@@ -3,14 +3,16 @@ import Tasks from "../Class/Tasks.js";
 import { buttonAdd, buttonCSV, buttonPDF, buttonToTask } from "../Configuration/Configuration.js";
 import Util from "../Util.js";
 import Button from "./Button.js";
-import GeneratorCSV from "./FileGenerator.js";
+import { CSVGenerator } from "./FileGenerator.js";
 import Modal from "./Modal.js";
 
 export default class Card {
   #taskList = [];
   #getTasks = [];
+  #getConfigId;
 
   createCard(configs, tasks) {
+    this.#getConfigId = configs.id;
     this.#getTasks = tasks;
     const cardDiv = document.createElement('div');
     cardDiv.className = 'card';
@@ -42,16 +44,18 @@ export default class Card {
     taskElement.setAttribute('draggable', 'true');
     taskElement.className = 'task';
     taskElement.dataset.taskid = taskData.id;
-
+    
     taskElement.appendChild(this.createTaskElementDescription(taskData));
     taskElement.appendChild(this.createTaskElementPriority(taskData));
     taskElement.appendChild(this.createElementInicialDateAndFinalDate(taskData));
     
     taskElement.addEventListener('click', () => {
       const task = new Tasks(taskData);
-      const modal = new Modal(task.taskElement());
-      modal.modalDark();
-    })
+      task.getDetails();
+      console.log(task)
+      const modal = new Modal();
+      modal.modalDark(task.taskElement());
+    });
     return taskElement;
   }
 
@@ -89,7 +93,7 @@ export default class Card {
       elementTask.appendChild(this.createTaskElement(this.#taskList[i]));
     }
 
-    return ul;
+    return elementTask;
   }
 
   createSubDivCard(label) {
@@ -165,20 +169,8 @@ export default class Card {
   }
 
   onCSV() {
-    const taskInfoElements = document.querySelectorAll('.task-info');
-    const taskData = {};
-
-    taskInfoElements.forEach((element) => {
-      const fieldName = element.getAttribute('data-field');
-      const fieldValue = element.innerText.split(':')[1].trim();
-      taskData[fieldName] = fieldValue;
-    });
-
-    console.log(taskData);
-
-    const wordMatrix = Object.values(taskData).map((value) => [value]);
-    const generateCSV = new GeneratorCSV();
-    generateCSV.generateCSV(wordMatrix);
+    const csvGenerator = new CSVGenerator(this.#getTasks, this.#getConfigId);
+    csvGenerator.generateCSV();
   }
 
   moveToDoingTask() {
@@ -218,4 +210,4 @@ export default class Card {
   getPriorityText(priority) {
     return priority == 0 ? 'baixa' : priority == 1 ? 'média' : priority == 2 ? 'alta' : 'Não foi especificado o nível';
   }
-2}
+}

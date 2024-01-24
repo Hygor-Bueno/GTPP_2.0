@@ -40,18 +40,47 @@ export default class Util {
         })
     }
 
-    onCSV() {
-        console.log('fazendo download do csv...');
+    removeStringAndUnderline(value) {
+      const result = value.replace(/[^0-9]/g,'');
+      return result;
     }
 
-    onPDF(tasks) {
-        const h1 = document.createElement('h1');
-        h1.innerHTML = tasks;
-        var mywindow = window.open('', '_blank');
-        mywindow.document.write(h1.innerText);
-        mywindow.print();
-        mywindow.close();
+    criarTabela() {
+        // Cria a tabela
+        var tabela = document.createElement("table");
+    
+        // Cria a linha do cabeçalho
+        var cabecalho = tabela.createTHead();
+        var cabecalhoLinha = cabecalho.insertRow();
+        var colunas = ["Nome", "Idade", "Cidade"];
+    
+        // Adiciona as colunas ao cabeçalho
+        for (var i = 0; i < colunas.length; i++) {
+          var th = document.createElement("th");
+          th.textContent = colunas[i];
+          cabecalhoLinha.appendChild(th);
+        }
+    
+        // Cria algumas linhas de dados
+        var dados = [
+          ["João", 25, "São Paulo"],
+          ["Maria", 30, "Rio de Janeiro"],
+          ["Carlos", 22, "Belo Horizonte"]
+        ];
+    
+        // Adiciona as linhas de dados à tabela
+        for (var i = 0; i < dados.length; i++) {
+          var linha = tabela.insertRow();
+          for (var j = 0; j < dados[i].length; j++) {
+            var cell = linha.insertCell();
+            cell.textContent = dados[i][j];
+          }
+        }
+    
+        // Adiciona a tabela ao corpo do documento
+        return document.body.appendChild(tabela);
     }
+    
 
     removeElementClikAway(element, id){
         element.addEventListener('click', function (event) {

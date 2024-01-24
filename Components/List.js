@@ -3,7 +3,6 @@ export default class List{
     #listItems;
     #mandaroty = ["listItems"];
 
-
     constructor(configs){
         this.#listItems = configs.listItems;
     }
