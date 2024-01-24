@@ -27,7 +27,7 @@ export class Connection {
      * @date 11/01/2023 - 8:07:59 AM
      * @author Hygor Bueno.
      * 
-     * @async
+     * @async async
      * @param {string} params
      * @param {string} pathFile
      * @param {{error:boolean;exception:string}} err
@@ -255,7 +255,7 @@ export class Connection {
             const modal = new Modal();
             modal.openModal('Erro!', translator.getMessagePT(), document.querySelector("#containerMain section"));
         }
-        console.log({ "error": true, "message": messageErr["message"] }, this.URL);
+        console.log({ "error": true, "message": messageErr["message"] });
         return { "error": true, "message": messageErr["message"] }
     }
 }

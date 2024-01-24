@@ -12,6 +12,7 @@
     left: 0;
     bottom: 0;
     margin: var(--spaceDefault);
+    z-index: 900;
 }
 
 .modal-content {
@@ -59,7 +60,8 @@
     
 }
 #taskBody > article{
-    background-color: blue;
+    /* background-color: blue; */
+    overflow-y: auto;
     height: 100%;
     width: 80%;
 }

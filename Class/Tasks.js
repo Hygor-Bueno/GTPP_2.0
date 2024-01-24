@@ -1,6 +1,7 @@
 import Containers from "../Components/Containers.js";
 import Form from "../Components/Form.js";
 import Paragraph from "../Components/Paragraph.js";
+import { Connection } from "../Connection/Connection.js";
 
 export default class Tasks {
     id;
@@ -41,28 +42,55 @@ export default class Tasks {
         this.final_date = configs.final_date;
     }
 
+    async getDetails() {
+        try {
+            const connect = new Connection();
+            let result = await connect.get(`&id=${this.id}`, 'GTPP/Task.php');
+            if(result.error) throw new Error(result.message || 'Generic error');
+            console.log(result);
+            this.full_description = result.data.full_description;
+            this.task_item = result.data.task_item;
+            this.task_user = result.data.task_user;
+            this.csds = result.data.csds;
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     taskElement() {
         const div = new Containers();
-        const elementDiv = div.containerBasic({element:this.taskHeader()});
+        const elementDiv = div.containerBasic({ element: this.taskHeader() });
         elementDiv.appendChild(this.taskBody());
         return elementDiv;
     }
-    taskHeader(){
-        const p = new Paragraph(this.description);
+    taskHeader() {
         const divHeader = document.createElement('div');
-        divHeader.id ='taskHeader';
+        divHeader.id = 'taskHeader';
         const label = new Form();
-        label.label({label:this.description});
-        divHeader.appendChild(label.label({label:this.description}));
+        label.label({ label: this.description });
+        divHeader.appendChild(label.label({ label: this.description }));
         return divHeader;
     }
-    taskBody(){
+    taskBody() {
         const divBody = document.createElement('div');
-        divBody.id ='taskBody';
-        const article = document.createElement('article');
+        divBody.id = 'taskBody';
+
+        divBody.appendChild(this.taskArticle());
+        
         const section = document.createElement('section');
-        divBody.appendChild(article);
         divBody.appendChild(section);
+        
         return divBody;
+    }
+    taskArticle(){
+        const article = document.createElement('article');
+        const div = document.createElement('div');
+        const desc = new Form();
+        const p = new Paragraph(this.full_description);        
+        div.appendChild(desc.label({label:'Detalhes:'}));
+
+        article.appendChild(div);
+        return article;
     }
 }
