@@ -255,7 +255,6 @@ export class Connection {
             const modal = new Modal();
             modal.openModal('Erro!', translator.getMessagePT(), document.querySelector("#containerMain section"));
         }
-        console.log({ "error": true, "message": messageErr["message"] }, this.URL);
         return { "error": true, "message": messageErr["message"] }
     }
 }
