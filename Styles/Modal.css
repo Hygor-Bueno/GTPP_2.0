@@ -12,6 +12,7 @@
     left: 0;
     bottom: 0;
     margin: var(--spaceDefault);
+    z-index: 900;
 }
 
 .modal-content {

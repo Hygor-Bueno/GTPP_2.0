@@ -49,8 +49,10 @@ export default class Card {
     
     taskElement.addEventListener('click', () => {
       const task = new Tasks(taskData);
-      const modal = new Modal(task.taskElement());
-      modal.modalDark();
+      task.getDetails();
+      console.log(task)
+      const modal = new Modal();
+      modal.modalDark(task.taskElement());
     });
     return taskElement;
   }
