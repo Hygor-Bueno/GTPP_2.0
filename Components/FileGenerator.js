@@ -27,8 +27,8 @@ export class CSVGenerator {
     }
   
     convertToCSV(data) {
-      const header = Object.keys(data[0]).join(',');
-      const rows = data.map(obj => Object.values(obj).join(','));
+      const header = Object.keys(data[0]).join('\t');
+      const rows = data.map(obj => Object.values(obj).join('\t'));
       console.log(header, rows);
   
       return `${header}\n${rows.join('\n')}`;
