@@ -89,7 +89,7 @@ export default class Card {
       elementTask.appendChild(this.createTaskElement(this.#taskList[i]));
     }
 
-    return ul;
+    return elementTask;
   }
 
   createSubDivCard(label) {
@@ -165,20 +165,40 @@ export default class Card {
   }
 
   onCSV() {
-    const taskInfoElements = document.querySelectorAll('.task-info');
-    const taskData = {};
+    const jsonData = this.#getTasks.map(item => ({
+      description: item.description,
+      state_description: item.state_description,
+      priority: item.priority == 0 ? 'baixa' : item.priority == 1 ? 'media' : item.priority == 2 ? 'alta' : 0,
+      initial_date: item.initial_date,
+      final_date: item.final_date,
+    }));
 
-    taskInfoElements.forEach((element) => {
-      const fieldName = element.getAttribute('data-field');
-      const fieldValue = element.innerText.split(':')[1].trim();
-      taskData[fieldName] = fieldValue;
-    });
+    const csvData = convertToCSV(jsonData);
+    downloadCSV(csvData, 'teste1.csv');
 
-    console.log(taskData);
+    function convertToCSV(data) {
+      const header = Object.keys(data[0]).join(',');
+      const rows = data.map(obj => Object.values(obj).join(','));
+      console.log(header, rows);
 
-    const wordMatrix = Object.values(taskData).map((value) => [value]);
-    const generateCSV = new GeneratorCSV();
-    generateCSV.generateCSV(wordMatrix);
+      return `${header}\n${rows.join('\n')}`;
+    }
+
+
+    function downloadCSV(csv, filename) {
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+
+      document.body.appendChild(a);
+      a.click();
+
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
   }
 
   moveToDoingTask() {
@@ -218,4 +238,4 @@ export default class Card {
   getPriorityText(priority) {
     return priority == 0 ? 'baixa' : priority == 1 ? 'média' : priority == 2 ? 'alta' : 'Não foi especificado o nível';
   }
-2}
+}

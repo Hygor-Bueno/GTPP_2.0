@@ -41,7 +41,27 @@ export default class Util {
     }
 
     onCSV() {
-        console.log('fazendo download do csv...');
+        const fs = require('fs');
+        const data = [
+          ['Nome', 'Idade', 'Cidade'],
+          ['João', 25, 'São Paulo'],
+          ['Maria', 30, 'Rio de Janeiro'],
+          ['Carlos', 22, 'Belo Horizonte'],
+        ];
+
+        const filePath = "exemplo.csv";
+
+        function convertToCsv(data) {
+          return data.map(row => row.join(',')).join('\n');
+        }
+
+        fs.writeFile(filePath, convertToCsv(data), 'utf-8', (err) => {
+          if (err) {
+            console.log('Erro ao criar o aquivo CSV: ' + err.message)
+          } else  {
+            console.log(`Arquivo CSV criado com sucesso em: ${filePath}`)
+          }
+        })
     }
 
     onPDF() {
