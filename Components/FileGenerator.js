@@ -48,4 +48,18 @@ export class CSVGenerator {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
     }
-  }
+}
+
+export class GeneratePDF {
+    // constructor(taskId, filename) {
+    //     taskId = this.taskId;
+    //     filename = this.filename;
+    // }
+
+    onPDF() {
+        var mywindow = window.open('', '_blank');
+        mywindow.document.write(this.criarTabela());
+        mywindow.print();
+        mywindow.close();
+    }
+}
