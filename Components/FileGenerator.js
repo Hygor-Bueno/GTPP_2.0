@@ -1,3 +1,4 @@
+import { styleTable } from "../Configuration/Configuration.js";
 import Util from "../Util.js";
 
 export class CSVGenerator {
@@ -9,7 +10,6 @@ export class CSVGenerator {
   
     generateCSV() {
       const filteredTasks = this.getTasks.filter(item => item.state_id == this.util.removeStringAndUnderline(this.configId));
-  
       if (filteredTasks.length > 0) {
         const jsonData = filteredTasks.map(item => ({
           "Tarefas": item.description,
@@ -18,7 +18,6 @@ export class CSVGenerator {
           "Data de Inicio das Tarefas": item.initial_date,
           "Data final das Tarefas": item.final_date,
         }));
-  
         const csvData = this.convertToCSV(jsonData);
         this.downloadCSV(csvData, 'documento.csv');
       } else {
@@ -65,136 +64,78 @@ export class PDFGenerator {
       viewport.name = 'viewport';
       viewport.content = 'width=device-width, initial-scale=1.0';
       this.head.appendChild(viewport);
-  
       const charset = document.createElement('meta');
       charset.charset = 'UTF-8';
       this.head.appendChild(charset);
-  
       const style = document.createElement('style');
-      style.appendChild(document.createTextNode(`
-        body {
-          background-color: #FFF;
-        }
-  
-        * {
-          font-family: monospace;
-          color: #000;
-          margin: 0;
-          padding: 0;
-        }
-
-        table {
-          border-collapse: collapse;
-          width: 100%;
-          margin-bottom: 20px;
-        }
-        
-        table, th, td {
-          border: 1px solid #ddd;
-        }
-        
-        th, td {
-          padding: 12px 5px;
-          text-align: left;
-        }
-        
-        th {
-          background-color: #f2f2f2;
-        }
-      `));
+      style.appendChild(document.createTextNode(styleTable));
       this.head.appendChild(style);
     }
   
     setupContent(data, configId) {
       console.log(data);
-
-      const util = new Util();
-
       const table = document.createElement('table');
       const thead = document.createElement('thead');
       const tbody = document.createElement('tbody');
-  
-      const trHead = document.createElement('tr');
-
-      const th1 = document.createElement('th');
-      th1.innerText = 'Tarefas';
-      trHead.appendChild(th1);
-      
-      const th2 = document.createElement('th');
-      th2.innerText = 'Estado das Tarefas';
-      trHead.appendChild(th2);
-      
-      const th3 = document.createElement('th');
-      th3.innerText = 'Prioridade';
-      trHead.appendChild(th3);
-      
-      const th4 = document.createElement('th');
-      th4.innerText = 'Data Inicial';
-      trHead.appendChild(th4);
-      
-      const th5 = document.createElement('th');
-      th5.innerText = 'Data Final';
-      trHead.appendChild(th5);
-
-      const th6 = document.createElement('th');
-      th6.innerText = 'Percentual';
-      trHead.appendChild(th6);
-      
-      thead.appendChild(trHead);
-
-      const filteredTasks = data.filter(item => item.state_id == util.removeStringAndUnderline(configId));
-
-      if (filteredTasks.length > 0) {
-        filteredTasks.forEach(item => {
-          const trBody = document.createElement('tr');
-      
-          const tdDescription = document.createElement('td');
-          tdDescription.innerText = item.description;
-          trBody.appendChild(tdDescription);
-      
-          const tdState = document.createElement('td');
-          tdState.innerText = item.state_description;
-          trBody.appendChild(tdState);
-      
-          const tdPriority = document.createElement('td');
-          tdPriority.innerText = item.priority == 0 ? 'baixa' : item.priority == 1 ? 'média' : 'alta';
-          trBody.appendChild(tdPriority);
-      
-          const tdInitialDate = document.createElement('td');
-          const dateInit = new Date(item.initial_date);
-          tdInitialDate.innerText = util.formaDateUTF8(dateInit);
-          trBody.appendChild(tdInitialDate);
-      
-          const tdFinalDate = document.createElement('td');
-          const dateFinal = new Date(item.final_date);
-          tdFinalDate.innerText = util.formaDateUTF8(dateFinal);
-          trBody.appendChild(tdFinalDate);
-
-          const tdPercent = document.createElement('td');
-          tdPercent.innerText = `${item.percent}%`;
-          trBody.appendChild(tdPercent);
-      
-          tbody.appendChild(trBody);
-        });
-      }
-  
+      thead.appendChild(this.createElementTr());
+      this.validate(tbody, configId, data);
       table.appendChild(thead);
       table.appendChild(tbody);
       this.content.appendChild(table);
     }
+
+    createElementTr() {
+      const headers = ['Tarefas', 'Estado das Tarefas', 'Prioridade', 'Data Inicial', 'Data Final', 'Percentual'];
+      const trHead = document.createElement('tr');
+      for (const headerText of headers) {
+          const th = document.createElement('th');
+          th.innerText = headerText;
+          trHead.appendChild(th);
+      }
+      return trHead;
+  }
   
-    generatePDF() {
-      this.printDocument.write('<html>');
-      this.printDocument.write(this.head.outerHTML);
-      this.printDocument.write('<body>');
-      this.printDocument.write(this.content.outerHTML);
-      this.printDocument.write('</body>');
-      this.printDocument.write('</html>');
-  
+  validate(tbody, configId, data) {
+    const util = new Util();
+    const filteredTasks = data.filter(item => item.state_id == util.removeStringAndUnderline(configId));
+    if (filteredTasks.length > 0) {
+      filteredTasks.forEach(item => {
+          const trBody = document.createElement('tr');
+          const attributes = [
+              { key: 'description', label: 'tdDescription' },
+              { key: 'state_description', label: 'tdState' },
+              { key: 'priority', label: 'tdPriority', transform: value => this.getPriorityText(value)},
+              { key: 'initial_date', label: 'tdInitialDate', transform: value => util.formaDateUTF8(new Date(value)) }, 
+              { key: 'final_date', label: 'tdFinalDate', transform: value => util.formaDateUTF8(new Date(value)) },
+              { key: 'percent', label: 'tdPercent', transform: value => `${value}%` }
+          ];
+          attributes.forEach(attr => {
+              const td = document.createElement('td');
+              td.innerText = attr.transform ? attr.transform(item[attr.key]) : item[attr.key];
+              trBody.appendChild(td);
+          });
+          tbody.appendChild(trBody);
+      });
+    }
+  }
+
+  getPriorityText(priority) {
+    return priority == 0 ? 'baixa' : priority == 1 ? 'média' : priority == 2 ? 'alta' : 'Não foi especificado o nível';
+  }
+
+  generatePDF() {
+      const htmlContent = `
+          <html>
+              ${this.head.outerHTML}
+              <body>
+                  ${this.content.outerHTML}
+              </body>
+          </html>
+      `;
+      this.printDocument.write(htmlContent);
       this.printWindow.print();
       this.printDocument.close();
-    }
-
+  }
     closeWindow() {
         if (this.printWindow) {
           this.printWindow.close();

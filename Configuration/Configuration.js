@@ -142,3 +142,42 @@ export const buttonStateTask ={
     classButton: 'btn',
     id: 'buttoStateTask'
 }
+
+/**
+ * Description placeholder
+ * @date 1/26/2024 - 2:32:09 PM
+ * @author Jonatas Silva
+ * @description essa variavel trabalha com estilo do PDF para as tabelas.
+ * @type {HTMLStyleElement}
+ */
+export const styleTable = `
+    body {
+        background-color: #FFF;
+    }
+
+    * {
+        font-family: monospace;
+        color: #000;
+        margin: 0;
+        padding: 0;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        padding: 12px 5px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+`;

@@ -38,7 +38,7 @@ export default class Card {
     cardDiv.appendChild(taskDiv);
     return cardDiv;
   }
-
+  
   createTaskElement(taskData) {
     const taskElement = document.createElement('div');
     taskElement.setAttribute('draggable', 'true');
@@ -58,18 +58,6 @@ export default class Card {
     return taskElement;
   }
 
-  async addTask(local) {
-    const simpleTask = new SimpleTask();
-    // const connection = new Connection();
-    
-    // const result = await connection.post(simpleTask, 'GTPP/Task.php')
-    // if (!result.error) {
-    //   this.#taskList.push(simpleTask);
-    // }
-    this.#taskList.push(simpleTask);
-    local.appendChild(this.loadTaskList());
-  }
-
   createElementInicialDateAndFinalDate(local) {
     const taskElementDate = document.createElement('div');
     taskElementDate.className = 'task-date';
@@ -87,18 +75,13 @@ export default class Card {
   createTaskElementDescription(local) {
     const tasksElementDescription = document.createElement('div');
     tasksElementDescription.className = 'task-description';
-    tasksElementDescription.innerHTML = `<b>${local.description}</b>`;
+    tasksElementDescription.title = local.description;
+    const maxLength = 20;
+    const truncatedDescription = local.description.length > maxLength
+    ? local.description.substring(0, maxLength) + '...'
+    : local.description;
+    tasksElementDescription.innerHTML = `<b>${truncatedDescription}</b>`;
     return tasksElementDescription;
-  }
-
-  loadTaskList() {
-    const elementTask = document.getElementById('taskDiv');
-
-    for (let i = 0; i < this.#taskList.length; i++) {
-      elementTask.appendChild(this.createTaskElement(this.#taskList[i]));
-    }
-
-    return elementTask;
   }
 
   createSubDivCard(label) {
@@ -191,6 +174,28 @@ export default class Card {
 
     const local = document.querySelector(`#${id}`);
     this.addTask(local);
+  }
+
+  async addTask(local) {
+    const simpleTask = new SimpleTask();
+    const connection = new Connection();
+    
+    const result = await connection.post(simpleTask, 'GTPP/Task.php')
+    if (!result.error) {
+      this.#taskList.push(simpleTask);
+    }
+
+    local.appendChild(this.loadTaskList());
+  }
+
+  loadTaskList() {
+    const elementTask = document.getElementById('taskDiv');
+
+    for (let i = 0; i < this.#taskList.length; i++) {
+      elementTask.appendChild(this.createTaskElement(this.#taskList[i]));
+    }
+
+    return elementTask;
   }
 
   configButton(local, id) {
