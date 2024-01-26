@@ -50,7 +50,6 @@ export class CSVGenerator {
     }
 }
 
-// terminar esse código até sexta-feira
 export class PDFGenerator {
     constructor(data, configId) {
       this.content = document.createElement('div');
