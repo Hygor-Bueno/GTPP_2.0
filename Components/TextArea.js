@@ -1,3 +1,4 @@
+import Util from "../Util.js";
 import Button from "./Button.js";
 
 /**
@@ -13,17 +14,31 @@ export default class TextArea {
     text;
     class;
     disabled = true;
-    #mandatory;
+    #mandatory=['id'];
     /**
      * Creates an instance of TextArea.
      * @date 1/26/2024 - 10:28:56 AM
      *
      * @constructor
-     * @param {{text?:string,class?:string}} configs
+     * @param {{text?:string,class?:string,id:string}} configs
      */
     constructor(configs) {
-        this.text = configs.text;
+        try {
+            const util = new Util();
+            let result = util.ValidatKeysComponent(this.#mandatory,configs);
+            console.log(result);
+            if(!result) throw new Error('Not found token ID').
+            this.text = configs.text;
+        } catch (error) {
+            console.error(error);
+        }
     }
+    /**
+     * Método que cria a textarea
+     * @date 1/26/2024 - 10:52:40 AM
+     *
+     * @returns {HTMLTextAreaElement}
+     */
     componentTextArea() {
         const textarea = document.createElement('textarea');
         textarea.innerText = this.text;
@@ -41,23 +56,25 @@ export default class TextArea {
         const div = document.createElement('div');
         div.id = 'textArea';
 
-        div.appendChild(this.buttonsTextArea())
+        div.appendChild(this.buttonTextArea())
         div.appendChild(this.componentTextArea());
         return div;
     }
 
-    buttonsTextArea() {
+    buttonTextArea() {
         const button = new Button();
         return button.Button({
             type: 'button',
             title: 'Editar area de texto',
             description: 'Editar',
+            classButton:`btn ${this.disabled ? 'btnDanger':'btnSuccess'}`,
             onAction: (e) => {
                 e.target.innerText = this.disabled ? 'Salvar' : 'Editar';
-                console.log(e.target.innerText);
-                this.disabled = false;
+                this.disabled = !this.disabled;
+                e.target.className = `btn ${this.disabled ? 'btnDanger':'btnSuccess'}`
                 if (document.getElementById('textArea')) {
-                    document.querySelector('#textArea > textarea').removeAttribute('disabled');
+                    const textarea = document.querySelector('#textArea > textarea');
+                    this.disabled ? textarea.setAttribute('disabled','true') : textarea.removeAttribute('disabled');
                 }
             }
         });

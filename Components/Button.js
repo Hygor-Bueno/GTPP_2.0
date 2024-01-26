@@ -15,7 +15,7 @@ export default class Button{
      * Cria e retonar um elemento html button totalmente configurado.
      * @date 10/01/2024 - 4:44:45 PM
      * @author Hygor Bueno.
-     * @param {{type:string;title:string;description:string;onAction:()=>,id?:string}} configs
+     * @param {{type:string;title:string;description:string;onAction:()=>,id?:string;classButton?:string}} configs
      * @returns {HTMLButtonElement} Elemento Button
      */
     Button(configs){

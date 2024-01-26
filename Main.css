@@ -181,7 +181,6 @@ img.iconImg {
     border-radius: var(--borderRadius);
     font-size: var(--textSize);
     padding: var(--spaceDefault);
-    margin: var(--spaceDefault) 0px;
     width: calc(100% - (2.5 * var(--spaceDefault)));
     resize: none;
 }

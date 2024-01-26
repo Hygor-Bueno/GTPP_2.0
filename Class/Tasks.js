@@ -87,7 +87,6 @@ export default class Tasks {
         const div = document.createElement('div');
         const desc = new Form();
         const text = new TextArea({text:this.full_description});
-        console.log(text);
         const p = new Paragraph(this.full_description);
         const container = new Containers();
 
