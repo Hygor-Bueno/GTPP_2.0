@@ -52,4 +52,21 @@ export default class Util {
             }
           });
     }
+
+
+    /**
+     * Description placeholder
+     * @date 1/26/2024 - 11:11:54 AM
+     *
+     * @param {HTMLDivElement} data
+     * @returns {*}
+     */
+    formaDateUTF8(data) {
+        const dia = data.getDate().toString().padStart(2, '0');
+        const mes = (data.getMonth() + 1).toString().padStart(2, '0');  // Os meses são indexados de 0 a 11
+        const ano = data.getFullYear();
+        
+        const novaData = `${dia}/${mes}/${ano}`;
+        return novaData;
+    }
 }

@@ -61,13 +61,11 @@ export class PDFGenerator {
     }
   
     setupHead() {
-      // Adicionar meta tag viewport
       const viewport = document.createElement('meta');
       viewport.name = 'viewport';
       viewport.content = 'width=device-width, initial-scale=1.0';
       this.head.appendChild(viewport);
   
-      // Adicionar charset ao cabeçalho
       const charset = document.createElement('meta');
       charset.charset = 'UTF-8';
       this.head.appendChild(charset);
@@ -81,6 +79,8 @@ export class PDFGenerator {
         * {
           font-family: monospace;
           color: #000;
+          margin: 0;
+          padding: 0;
         }
 
         table {
@@ -94,7 +94,7 @@ export class PDFGenerator {
         }
         
         th, td {
-          padding: 12px;
+          padding: 12px 5px;
           text-align: left;
         }
         
@@ -106,33 +106,74 @@ export class PDFGenerator {
     }
   
     setupContent(data, configId) {
+      console.log(data);
+
       const util = new Util();
 
       const table = document.createElement('table');
       const thead = document.createElement('thead');
       const tbody = document.createElement('tbody');
   
-      // Cabeçalho
       const trHead = document.createElement('tr');
+
       const th1 = document.createElement('th');
       th1.innerText = 'Tarefas';
+      trHead.appendChild(th1);
+      
       const th2 = document.createElement('th');
       th2.innerText = 'Estado das Tarefas';
-      trHead.appendChild(th1);
       trHead.appendChild(th2);
+      
+      const th3 = document.createElement('th');
+      th3.innerText = 'Prioridade';
+      trHead.appendChild(th3);
+      
+      const th4 = document.createElement('th');
+      th4.innerText = 'Data Inicial';
+      trHead.appendChild(th4);
+      
+      const th5 = document.createElement('th');
+      th5.innerText = 'Data Final';
+      trHead.appendChild(th5);
+
+      const th6 = document.createElement('th');
+      th6.innerText = 'Percentual';
+      trHead.appendChild(th6);
+      
       thead.appendChild(trHead);
 
       const filteredTasks = data.filter(item => item.state_id == util.removeStringAndUnderline(configId));
 
-      if(filteredTasks.length > 0) {
+      if (filteredTasks.length > 0) {
         filteredTasks.forEach(item => {
           const trBody = document.createElement('tr');
-          const td1 = document.createElement('td');
-          td1.innerText = item.description;
-          const td2 = document.createElement('td');
-          td2.innerText = item.state_description;
-          trBody.appendChild(td1);
-          trBody.appendChild(td2);
+      
+          const tdDescription = document.createElement('td');
+          tdDescription.innerText = item.description;
+          trBody.appendChild(tdDescription);
+      
+          const tdState = document.createElement('td');
+          tdState.innerText = item.state_description;
+          trBody.appendChild(tdState);
+      
+          const tdPriority = document.createElement('td');
+          tdPriority.innerText = item.priority == 0 ? 'baixa' : item.priority == 1 ? 'média' : 'alta';
+          trBody.appendChild(tdPriority);
+      
+          const tdInitialDate = document.createElement('td');
+          const dateInit = new Date(item.initial_date);
+          tdInitialDate.innerText = util.formaDateUTF8(dateInit);
+          trBody.appendChild(tdInitialDate);
+      
+          const tdFinalDate = document.createElement('td');
+          const dateFinal = new Date(item.final_date);
+          tdFinalDate.innerText = util.formaDateUTF8(dateFinal);
+          trBody.appendChild(tdFinalDate);
+
+          const tdPercent = document.createElement('td');
+          tdPercent.innerText = item.percent;
+          trBody.appendChild(tdPercent);
+      
           tbody.appendChild(trBody);
         });
       }
