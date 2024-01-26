@@ -1,6 +1,7 @@
 import Containers from "../Components/Containers.js";
 import Form from "../Components/Form.js";
 import Paragraph from "../Components/Paragraph.js";
+import ProgressBar from "../Components/ProgressBar .js";
 import TextArea from "../Components/TextArea.js";
 import Title from "../Components/Title.js";
 import { Connection } from "../Connection/Connection.js";
@@ -43,7 +44,7 @@ export default class Tasks {
         this.initial_date = configs.initial_date;
         this.final_date = configs.final_date;
     }
-
+    
     async getDetails() {
         try {
             const connect = new Connection();
@@ -56,8 +57,9 @@ export default class Tasks {
         } catch (error) {
             console.error(error);
         }
+        console.log(this.task_item)
     }
-
+    
     taskElement() {
         const div = new Containers();
         const elementDiv = div.containerBasic({ element: this.taskHeader() });
@@ -85,14 +87,18 @@ export default class Tasks {
     taskArticle(){
         const article = document.createElement('article');
         const div = document.createElement('div');
+        const listTask = document.createElement('div');
+
         const desc = new Form();
-        const text = new TextArea({text:this.full_description});
-        const p = new Paragraph(this.full_description);
+        const text = new TextArea({text:this.full_description,id:'taskFullDesc'});
         const container = new Containers();
+        const progressBar = new ProgressBar(this.task_item);
+        div.appendChild(progressBar.createProgressBar());
 
+        div.appendChild(listTask);
         div.appendChild(desc.label({label:'Detalhes:'}));
-        div.appendChild(container.containerBasic({element:text.TextAreaEnable(),id:'taskFullDesc'}));
-
+        div.appendChild(container.containerBasic({element:text.TextAreaEnable()}));
+        div.appendChild(listTask)
         article.appendChild(div);
         return article;
     }

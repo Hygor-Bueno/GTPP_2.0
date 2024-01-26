@@ -60,8 +60,21 @@
     
 }
 #taskBody > article{
-    /* background-color: blue; */
     overflow-y: auto;
     height: 100%;
     width: 80%;
+}
+#taskBody > article > div{
+    display:flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+#taskBody > article > div :nth-child(4){
+    display: flex;
+
+    flex-grow: 1;
+    overflow-y:auto;
+    background-color: green;
 }

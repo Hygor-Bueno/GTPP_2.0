@@ -28,6 +28,7 @@
     --spaceDefaultPP:clamp(1px, 1vmin, 5px);
     --spaceDefaultP:clamp(1px, 1.5vmin, 7.5px);
     --spaceDefault:clamp(1px, 2vmin, 10px);
+    --spaceDefaultL:clamp(1.5px, 3vmin, 15px);
 
     /*Cores*/
     --pegpeseOrangeColor: #E98D77;

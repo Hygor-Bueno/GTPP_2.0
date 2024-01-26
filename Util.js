@@ -17,7 +17,7 @@ export default class Util {
     ValidatKeysComponent(listKeys,  object) {
         let result = true;
         listKeys.forEach(itemKey => {
-            let subResult = listKeys.includes(...Object.keys(object))
+            let subResult = listKeys.includes(...Object.keys(object));
             if (!subResult || !object[itemKey]) result = false;
         });
         return result;
