@@ -14,6 +14,7 @@ export default class TextArea {
     text;
     class;
     disabled = true;
+    id;
     #mandatory=['id'];
     /**
      * Creates an instance of TextArea.
@@ -26,9 +27,9 @@ export default class TextArea {
         try {
             const util = new Util();
             let result = util.ValidatKeysComponent(this.#mandatory,configs);
-            console.log(result);
-            if(!result) throw new Error('Not found token ID').
-            this.text = configs.text;
+            if(result) throw new Error('Not found token ID');
+            this.text = configs?.text || '';
+            this.id = configs.id
         } catch (error) {
             console.error(error);
         }
@@ -41,7 +42,7 @@ export default class TextArea {
      */
     componentTextArea() {
         const textarea = document.createElement('textarea');
-        textarea.innerText = this.text;
+        textarea.innerText = this.text || '';
         if (this.disabled) textarea.disabled = 'disabled';
         textarea.className = this.class || 'texteAreaDefault';
         return textarea;
@@ -54,9 +55,9 @@ export default class TextArea {
      */
     TextAreaEnable() {
         const div = document.createElement('div');
-        div.id = 'textArea';
+        div.id = this.id;
 
-        div.appendChild(this.buttonTextArea())
+        div.appendChild(this.buttonTextArea());
         div.appendChild(this.componentTextArea());
         return div;
     }
@@ -67,13 +68,13 @@ export default class TextArea {
             type: 'button',
             title: 'Editar area de texto',
             description: 'Editar',
-            classButton:`btn ${this.disabled ? 'btnDanger':'btnSuccess'}`,
+            classButton:`btn btnFloatRight ${this.disabled ? 'btnDanger':'btnSuccess'}`,
             onAction: (e) => {
                 e.target.innerText = this.disabled ? 'Salvar' : 'Editar';
                 this.disabled = !this.disabled;
-                e.target.className = `btn ${this.disabled ? 'btnDanger':'btnSuccess'}`
-                if (document.getElementById('textArea')) {
-                    const textarea = document.querySelector('#textArea > textarea');
+                e.target.className = `btn btnFloatRight ${this.disabled ? 'btnDanger':'btnSuccess'}`;
+                if (document.getElementById(this.id)) {
+                    const textarea = document.querySelector(`#${this.id} > textarea`);
                     this.disabled ? textarea.setAttribute('disabled','true') : textarea.removeAttribute('disabled');
                 }
             }

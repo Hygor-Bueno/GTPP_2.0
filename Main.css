@@ -182,7 +182,43 @@ img.iconImg {
     padding: var(--spaceDefault);
     width: calc(100% - (2.5 * var(--spaceDefault)));
     resize: none;
+    height: 10vh;
 }
+/* Estilo para a barra de progresso */
+.progress-bar {
+    position: relative;
+    width: 100%;
+    height: var(--spaceDefaultL);
+    background-color: #007bff;
+    border-radius: var(--spaceDefaultL);
+    margin: var(--spaceDefault) 0px;
+}
+
+/* Estilo para a parte preenchida da barra de progresso */
+.progress-bar::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-radius: var(--spaceDefault);
+    background-color: #007bff; /* Cor da parte preenchida */
+    transition: width 0.3s ease;
+}
+
+/* Estilo para o texto dentro da barra de progresso */
+.progress-bar::before {
+    content: attr(aria-valuenow) '%';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-weight: bold;
+    font-size: var(--textSize);
+}
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);
