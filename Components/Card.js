@@ -1,9 +1,8 @@
 import SimpleTask from "../Class/SimpleTask.js";
 import Tasks from "../Class/Tasks.js";
-import { buttonAdd, buttonCSV, buttonPDF, buttonToTask } from "../Configuration/Configuration.js";
-import Util from "../Util.js";
+import { buttonAdd, buttonCSV, buttonPDF } from "../Configuration/Configuration.js";
 import Button from "./Button.js";
-import { CSVGenerator } from "./FileGenerator.js";
+import { CSVGenerator, PDFGenerator } from "./FileGenerator.js";
 import Modal from "./Modal.js";
 
 export default class Card {
@@ -163,8 +162,9 @@ export default class Card {
   }
 
   onPDF() {
-    const util = new Util();
-    util.onPDF(`hello world`);
+    const pdfGenerator = new PDFGenerator(this.#getTasks, this.#getConfigId);
+    pdfGenerator.generatePDF();
+    pdfGenerator.closeWindow();
   }
 
   onCSV() {

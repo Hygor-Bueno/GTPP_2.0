@@ -17,17 +17,17 @@
 
 * {
     scrollbar-width: thin;
-    scrollbar-color: var(--pegpeseColor) var(--primaryColor);
+    scrollbar-color: var(--pegpeseGreenColor) var(--primaryColor);
 }
   
 /* Works on Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-    width: 9px;
-    height: 9px;
+    width: 11px;
+    height: 11px;
 }
   
 *::-webkit-scrollbar-thumb {
-    background-color: var(--pegpeseColor);
+    background-color: var(--pegpeseGreenColor);
     border-radius: 25px;
     border: 3px solid var(--primaryColor);
 }
