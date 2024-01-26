@@ -52,13 +52,13 @@ export class CSVGenerator {
 
 // terminar esse código até sexta-feira
 export class PDFGenerator {
-    constructor(data) {
+    constructor(data, configId) {
       this.content = document.createElement('div');
       this.printWindow = window.open('', '_blank');
       this.printDocument = this.printWindow.document;
       this.head = document.createElement('head');
       this.setupHead();
-      this.setupContent(data);
+      this.setupContent(data, configId);
     }
   
     setupHead() {
@@ -83,11 +83,32 @@ export class PDFGenerator {
           font-family: monospace;
           color: #000;
         }
+
+        table {
+          border-collapse: collapse;
+          width: 100%;
+          margin-bottom: 20px;
+        }
+        
+        table, th, td {
+          border: 1px solid #ddd;
+        }
+        
+        th, td {
+          padding: 12px;
+          text-align: left;
+        }
+        
+        th {
+          background-color: #f2f2f2;
+        }
       `));
       this.head.appendChild(style);
     }
   
-    setupContent(data) {
+    setupContent(data, configId) {
+      const util = new Util();
+
       const table = document.createElement('table');
       const thead = document.createElement('thead');
       const tbody = document.createElement('tbody');
@@ -101,24 +122,21 @@ export class PDFGenerator {
       trHead.appendChild(th1);
       trHead.appendChild(th2);
       thead.appendChild(trHead);
-  
-    // Corpo
-    //   const data = [
-    //     { nome: 'Jonatas', idade: 23 },
-    //     { nome: 'Maria', idade: 30 },
-    //     { nome: 'Carlos', idade: 25 }
-    //   ];
-  
-      data.forEach(item => {
-        const trBody = document.createElement('tr');
-        const td1 = document.createElement('td');
-        td1.innerText = item.description;
-        const td2 = document.createElement('td');
-        td2.innerText = item.state_description;
-        trBody.appendChild(td1);
-        trBody.appendChild(td2);
-        tbody.appendChild(trBody);
-      });
+
+      const filteredTasks = data.filter(item => item.state_id == util.removeStringAndUnderline(configId));
+
+      if(filteredTasks.length > 0) {
+        filteredTasks.forEach(item => {
+          const trBody = document.createElement('tr');
+          const td1 = document.createElement('td');
+          td1.innerText = item.description;
+          const td2 = document.createElement('td');
+          td2.innerText = item.state_description;
+          trBody.appendChild(td1);
+          trBody.appendChild(td2);
+          tbody.appendChild(trBody);
+        });
+      }
   
       table.appendChild(thead);
       table.appendChild(tbody);

@@ -163,7 +163,7 @@ export default class Card {
   }
 
   onPDF() {
-    const pdfGenerator = new PDFGenerator(this.#getTasks);
+    const pdfGenerator = new PDFGenerator(this.#getTasks, this.#getConfigId);
     pdfGenerator.generatePDF();
     pdfGenerator.closeWindow();
   }
