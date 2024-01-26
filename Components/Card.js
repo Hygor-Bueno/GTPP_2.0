@@ -4,6 +4,7 @@ import { buttonAdd, buttonCSV, buttonPDF } from "../Configuration/Configuration.
 import Button from "./Button.js";
 import { CSVGenerator, PDFGenerator } from "./FileGenerator.js";
 import Modal from "./Modal.js";
+import { Connection } from "../Connection/Connection.js";
 
 export default class Card {
   #taskList = [];
@@ -58,8 +59,14 @@ export default class Card {
     return taskElement;
   }
 
-  addTask(local) {
+  async addTask(local) {
     const simpleTask = new SimpleTask();
+    // const connection = new Connection();
+    
+    // const result = await connection.post(simpleTask, 'GTPP/Task.php')
+    // if (!result.error) {
+    //   this.#taskList.push(simpleTask);
+    // }
     this.#taskList.push(simpleTask);
     local.appendChild(this.loadTaskList());
   }
