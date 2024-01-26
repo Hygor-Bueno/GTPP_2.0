@@ -13,6 +13,41 @@
     border:none;
 }
 
+.btnSuccess{
+    border-width: var(--borderSize);
+    border-style: solid;
+    border-radius: var(--borderRadius);
+    font-size: var(--textSize);
+    padding: var(--spaceDefaultP) var(--spaceDefault) ;
+    /* font-weight: bold; */
+    color:white;
+    background-color: var(--successColor);
+}
+.btnSuccess:active{
+    color: var(--successColor);
+    border-color: var(--successColor);
+    background-color: white;
+}
+
+.btnDanger{
+    border-width: var(--borderSize);
+    border-style: solid;
+    border-radius: var(--borderRadius);
+    font-size: var(--textSize);
+    padding: var(--spaceDefaultP) var(--spaceDefault) ;
+    /* font-weight: bold; */
+    color:white;
+    background-color: var(--dangerColor);
+}
+.btnDanger:active{
+    color: var(--dangerColor);
+    background-color: white;
+    border-color: var(--dangerColor);
+}
+.btnFloatRight{
+
+}
+
 .menuButton{
     color: white;
     font-size: var(--MainTitleSize);

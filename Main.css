@@ -7,6 +7,7 @@
 
 @import './Pages/Home/Home.css';
 @import './Styles/Menu.css';
+@import './Styles/Task.css';
 
 /* Retira as formatações iniciais dos componentes. */
 * {
@@ -163,7 +164,7 @@ img.iconImg {
 .simpleParagraph{
     font-size: var(--textSize);
     font-weight: bolder;
-
+    color: var(--textColor)
 }
 
 #containerMain {
@@ -174,6 +175,15 @@ img.iconImg {
     overflow-y: auto;
 }
 
+.texteAreaDefault{
+    border-width: var(--borderSize);
+    border-color: var(--borderColor);
+    border-radius: var(--borderRadius);
+    font-size: var(--textSize);
+    padding: var(--spaceDefault);
+    width: calc(100% - (2.5 * var(--spaceDefault)));
+    resize: none;
+}
 @keyframes spin {
     0% {
         transform: rotate(0deg);

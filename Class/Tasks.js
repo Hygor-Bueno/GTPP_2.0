@@ -1,6 +1,8 @@
 import Containers from "../Components/Containers.js";
 import Form from "../Components/Form.js";
 import Paragraph from "../Components/Paragraph.js";
+import TextArea from "../Components/TextArea.js";
+import Title from "../Components/Title.js";
 import { Connection } from "../Connection/Connection.js";
 
 export default class Tasks {
@@ -47,12 +49,10 @@ export default class Tasks {
             const connect = new Connection();
             let result = await connect.get(`&id=${this.id}`, 'GTPP/Task.php');
             if(result.error) throw new Error(result.message || 'Generic error');
-            console.log(result);
             this.full_description = result.data.full_description;
             this.task_item = result.data.task_item;
             this.task_user = result.data.task_user;
             this.csds = result.data.csds;
-
         } catch (error) {
             console.error(error);
         }
@@ -67,9 +67,8 @@ export default class Tasks {
     taskHeader() {
         const divHeader = document.createElement('div');
         divHeader.id = 'taskHeader';
-        const label = new Form();
-        label.label({ label: this.description });
-        divHeader.appendChild(label.label({ label: this.description }));
+        const title = new Title(this.description)
+        divHeader.appendChild(title.main());
         return divHeader;
     }
     taskBody() {
@@ -87,8 +86,12 @@ export default class Tasks {
         const article = document.createElement('article');
         const div = document.createElement('div');
         const desc = new Form();
-        const p = new Paragraph(this.full_description);        
+        const text = new TextArea({text:this.full_description});
+        const p = new Paragraph(this.full_description);
+        const container = new Containers();
+
         div.appendChild(desc.label({label:'Detalhes:'}));
+        div.appendChild(container.containerBasic({element:text.TextAreaEnable(),id:'taskFullDesc'}));
 
         article.appendChild(div);
         return article;

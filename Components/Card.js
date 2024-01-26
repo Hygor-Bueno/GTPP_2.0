@@ -49,10 +49,9 @@ export default class Card {
     taskElement.appendChild(this.createTaskElementPriority(taskData));
     taskElement.appendChild(this.createElementInicialDateAndFinalDate(taskData));
     
-    taskElement.addEventListener('click', () => {
+    taskElement.addEventListener('click', async() => {
       const task = new Tasks(taskData);
-      task.getDetails();
-      console.log(task)
+      await task.getDetails();
       const modal = new Modal();
       modal.modalDark(task.taskElement());
     });
