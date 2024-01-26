@@ -171,7 +171,7 @@ export class PDFGenerator {
           trBody.appendChild(tdFinalDate);
 
           const tdPercent = document.createElement('td');
-          tdPercent.innerText = item.percent;
+          tdPercent.innerText = `${item.percent}%`;
           trBody.appendChild(tdPercent);
       
           tbody.appendChild(trBody);
