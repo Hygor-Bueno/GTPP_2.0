@@ -92,7 +92,7 @@ export default class Tasks {
         const desc = new Form();
         const text = new TextArea({text:this.full_description,id:'taskFullDesc'});
         const container = new Containers();
-        const progressBar = new ProgressBar(this.task_item);
+        const progressBar = new ProgressBar(this.task_item || []);
         div.appendChild(progressBar.createProgressBar());
 
         div.appendChild(listTask);
