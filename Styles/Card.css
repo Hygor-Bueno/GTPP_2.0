@@ -5,7 +5,6 @@
     background-color: #FFF;
     padding: var(--spaceDefault);
     position: relative;
-    /* overflow: hidden; */
     margin: 0 var(--spaceDefault);
     min-width: clamp(10vw,50vw,190px);
     border: var(--borderSize) solid #0000004f;
@@ -136,10 +135,10 @@
 .task {
   padding: 1vw 1vw 1vw 0.5vw;
   cursor: pointer;
-  overflow-x: auto;
+  overflow-x: hidden;
   font-size: var(--textSize);
-  justify-content: flex-start;
-  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-around;
   gap: 0.5vw;
   transition: all ease-out .5s;
   border: var(--borderSize) solid #cccc;
@@ -155,4 +154,37 @@
 #taskDiv {
   overflow-y: auto;
   height: 93%;
+}
+
+.task-priority {
+  background-color: transparent;
+  color: white;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  /* font-size: clamp(1vmin, 2vmin, 12px); */
+}
+
+.task-priority > img{
+  width: calc(2*(var(--spaceDefault)));
+}
+
+.task-date {
+  margin-top: 3px;
+  /* font-weight: bold; */
+  font-size: clamp(1vmin, 2vmin, 12px);
+}
+
+.subTask {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  width: 100%;
+  flex-direction: column-reverse;
+}
+
+
+.task-desc-priority {
+  width: 100%;
 }

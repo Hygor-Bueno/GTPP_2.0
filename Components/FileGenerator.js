@@ -1,11 +1,51 @@
-import { styleTable } from "../Configuration/Configuration.js";
 import Util from "../Util.js";
 
 /**
  * Classe CSVGenerator
+ * @author Jonatas Silva
  * 
  * Esta classe é responsável por gerar e baixar um arquivo CSV a partir de dados fornecidos.
  */
+
+/**
+ * Description placeholder
+ * @date 1/26/2024 - 2:32:09 PM
+ * @author Jonatas Silva
+ * @description essa variavel trabalha com estilo do PDF para as tabelas.
+ * @type {HTMLStyleElement}
+ */
+const styleTable = `
+    body {
+        background-color: #FFF;
+    }
+
+    * {
+        font-family: monospace;
+        color: #000;
+        margin: 0;
+        padding: 0;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        padding: 12px 5px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+`;
+
 export class CSVGenerator {
   /**
    * Construtor da classe CSVGenerator.
@@ -79,6 +119,7 @@ export class CSVGenerator {
 
 /**
  * Classe PDFGenerator
+ * @author Jonatas Silva
  * 
  * Esta classe é responsável por gerar e imprimir um documento PDF a partir de dados fornecidos.
  */

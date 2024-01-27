@@ -19,3 +19,7 @@
 .menu button {
     font-size: calc(var(--textSize) - 2px);
 }
+
+.menu .btn-submenu img {
+    width: 2.1vmin;
+}

@@ -96,7 +96,7 @@ export const listItemsMenu = {
 export const buttonPDF={
     type: 'button',
     title: 'Criar um arquivo PDF',
-    description: 'PDF',
+    description: '',
     id: 'btnPDF',
     classButton: 'btn-submenu'
 }
@@ -111,7 +111,7 @@ export const buttonPDF={
 export const buttonCSV = {
     type: 'button',
     title: 'Criar um arquivo CSV',
-    description: 'CSV',
+    description: '',
     classButton: 'btn-submenu'
 }
 
@@ -125,7 +125,7 @@ export const buttonCSV = {
 export const buttonAdd = {
     type: 'button',
     title: 'Clique para adicionar um item a lista!',
-    description: 'Adicione um item',
+    description: '',
     classButton: 'btn-submenu'
 }
 
@@ -142,42 +142,3 @@ export const buttonStateTask ={
     classButton: 'btn',
     id: 'buttoStateTask'
 }
-
-/**
- * Description placeholder
- * @date 1/26/2024 - 2:32:09 PM
- * @author Jonatas Silva
- * @description essa variavel trabalha com estilo do PDF para as tabelas.
- * @type {HTMLStyleElement}
- */
-export const styleTable = `
-    body {
-        background-color: #FFF;
-    }
-
-    * {
-        font-family: monospace;
-        color: #000;
-        margin: 0;
-        padding: 0;
-    }
-
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        margin-bottom: 20px;
-    }
-
-    table, th, td {
-        border: 1px solid #ddd;
-    }
-
-    th, td {
-        padding: 12px 5px;
-        text-align: left;
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
-`;

@@ -5,6 +5,7 @@ import Button from "./Button.js";
 import { CSVGenerator, PDFGenerator } from "./FileGenerator.js";
 import Modal from "./Modal.js";
 import { Connection } from "../Connection/Connection.js";
+import Util from "../Util.js";
 
 /**
  * Classe Card
@@ -59,20 +60,31 @@ export default class Card {
    */
   createTaskElement(taskData) {
     const taskElement = document.createElement('div');
+    const subBoxTaskElement = document.createElement('div');
     taskElement.setAttribute('draggable', 'true');
     taskElement.className = 'task';
+    subBoxTaskElement.className = 'subTask';
     taskElement.dataset.taskid = taskData.id;
     
-    taskElement.appendChild(this.createTaskElementDescription(taskData));
-    taskElement.appendChild(this.createTaskElementPriority(taskData));
-    taskElement.appendChild(this.createElementInicialDateAndFinalDate(taskData));
+    taskElement.appendChild(this.createElementDescriptionAndPriority(taskData));
+    taskElement.appendChild(subBoxTaskElement);
+    subBoxTaskElement.appendChild(this.createTaskElementPriority(taskData));
     
+
     taskElement.addEventListener('click', async() => {
       const task = new Tasks(taskData);
       await task.getDetails();
       const modal = new Modal();
       modal.modalDark(task.taskElement());
     });
+    return taskElement;
+  }
+
+  createElementDescriptionAndPriority(taskData) {
+    const taskElement = document.createElement('div');
+    taskElement.className = 'task-desc-priority';
+    taskElement.appendChild(this.createTaskElementDescription(taskData));
+    taskElement.appendChild(this.createElementInicialDateAndFinalDate(taskData));
     return taskElement;
   }
 
@@ -83,9 +95,17 @@ export default class Card {
    * @returns {HTMLDivElement} - Elemento HTML para datas.
    */
   createElementInicialDateAndFinalDate(local) {
+    const util = new Util();
+    const initalDate = new Date(local.initial_date);
+    const finalDate = new Date(local.final_date);
     const taskElementDate = document.createElement('div');
+    const taskElementInitialDate = document.createElement('div');
+    taskElementInitialDate.innerText=`${util.formaDateUTF8(initalDate)}`;
+    const taskElementFinalData = document.createElement('div');
+    taskElementFinalData.innerText = `${util.formaDateUTF8(finalDate)}`;
+    taskElementDate.appendChild(taskElementInitialDate);
+    taskElementDate.appendChild(taskElementFinalData);
     taskElementDate.className = 'task-date';
-    taskElementDate.innerHTML = `${local.initial_date} | ${local.final_date}`;
     return taskElementDate;
   }
 
@@ -98,6 +118,7 @@ export default class Card {
   createTaskElementPriority(local) {
     const taskElementPriority = document.createElement('div');
     taskElementPriority.className = 'task-priority';
+    // taskElementPriority.className = `task-priority-${local.priority}`;
     taskElementPriority.innerHTML = `${this.getPriorityText(local.priority)}`;
     return taskElementPriority;
   }
@@ -112,7 +133,7 @@ export default class Card {
     const tasksElementDescription = document.createElement('div');
     tasksElementDescription.className = 'task-description';
     tasksElementDescription.title = local.description;
-    const maxLength = 20;
+    const maxLength = 15;
     const truncatedDescription = local.description.length > maxLength
     ? local.description.substring(0, maxLength) + '...'
     : local.description;
@@ -267,11 +288,11 @@ export default class Card {
     const simpleTask = new SimpleTask();
     const connection = new Connection();
     
-    const result = await connection.post(simpleTask, 'GTPP/Task.php')
-    if (!result.error) {
-      this.#taskList.push(simpleTask);
-    }
-
+    // const result = await connection.post(simpleTask, 'GTPP/Task.php')
+    // if (!result.error) {
+    // }
+    this.#taskList.push(simpleTask);
+    
     local.appendChild(this.loadTaskList());
   }
 
@@ -290,6 +311,12 @@ export default class Card {
     return elementTask;
   }
 
+  componentImage(srcImage) {
+    const teste = document.createElement('img');
+    teste.src = srcImage;
+    return teste;
+  }
+
   /**
    * Método configButton
    * Configura os botões de ação do menu do card.
@@ -303,18 +330,23 @@ export default class Card {
 
     const configBtnPDF = buttonPDF;
     configBtnPDF.onAction = () => this.onPDF();
+    configBtnPDF.description = this.componentImage('../Assets/Image/PDF.svg');
     local.appendChild(btnPDF.Button(configBtnPDF));
 
     const configBtnCSV = buttonCSV;
     configBtnCSV.onAction = () => this.onCSV();
+    configBtnCSV.description = this.componentImage('../Assets/Image/csv.svg');
     local.appendChild(btnCSV.Button(configBtnCSV));
 
     if (id === 'task_state_1') {
       const configBtnAdd = buttonAdd;
       configBtnAdd.onAction = () => this.reloadTaskList(id);
+      configBtnAdd.description = this.componentImage('../Assets/Image/ADD.svg');
       local.appendChild(btnADD.Button(configBtnAdd));
     }
   }
+
+  
 
   /**
    * Método getPriorityText
@@ -323,6 +355,7 @@ export default class Card {
    * @returns {string} - Descrição da prioridade.
    */
   getPriorityText(priority) {
-    return priority == 0 ? 'baixa' : priority == 1 ? 'média' : priority == 2 ? 'alta' : 'Não foi especificado o nível';
+    const titlePriority = ['Prioridade baixa', 'Prioridade media', 'Prioridade Alta'];
+    return priority == 0 ? `<img title='${titlePriority[0]}' src="../Assets/Image/eco.svg"/>` : priority == 1 ? `<img title='${titlePriority[1]}' src="../Assets/Image/Warning.svg"/>` : priority == 2 ? `<img title='${titlePriority[2]}' src="../Assets/Image/alert.svg"/>` : 'Não foi especificado o nível';
   }
 }
