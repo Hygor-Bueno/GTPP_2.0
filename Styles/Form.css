@@ -80,3 +80,46 @@
     display:flex;
     align-items: flex-end;
 }
+
+/*ESTILO DA LISTA DE ITENS DA TAREFA*/
+#taskBody > article > div > div:nth-child(4) > ul{
+    width: 100%;
+}
+#taskBody > article > div > div:nth-child(4) > ul > li *:hover{
+    cursor: pointer;
+    background-color: #f1f2f5;
+
+}
+#taskBody input[type="checkbox"]{
+    display: none;
+}
+#taskBody input[type="checkbox"]:checked + label:before {
+    content: '\2713'; /* código unicode do checkmark */
+    text-align: center;
+    color: rgba(10, 149, 120);; /* cor do checkmark */
+    visibility: visible;
+    font-weight: bold;
+}
+#taskBody label{
+    display: flex;
+    align-items: center;
+}
+#taskBody label::before{
+    display: flex;
+    justify-content: center;
+    width: var(--spaceDefault);
+    font-size: var(--labelSize);
+    margin: var(--spaceDefaultL);
+    line-height: var(--spaceDefault);
+}
+/* Estilo do "!" quando o checkbox não estiver marcado */
+#taskBody input[type="checkbox"] + label:before {
+    font-weight: bold;
+    content: '!'; /* "!" */
+    color: #ed4d01; /* cor do "!" */
+    visibility: hidden;
+}
+/* Exibir o "!" quando o checkbox não estiver marcado */
+#taskBody input[type="checkbox"]:not(:checked) + label:before {
+    visibility: visible;
+}

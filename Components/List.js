@@ -1,13 +1,15 @@
 import Util from '../Util.js';
-export default class List{
+import Containers from './Containers.js';
+import Form from './Form.js';
+export default class List {
     #listItems;
     #mandaroty = ["listItems"];
 
-    constructor(configs){
-        this.#listItems = configs.listItems;
+    constructor(configs) {
+        if (configs?.listItems) this.#listItems = configs.listItems;
     }
-    
-    ul(){
+
+    ul() {
         const ul = document.createElement('ul');
         this.#listItems.forEach(item => {
             ul.appendChild(this.li(item));
@@ -15,12 +17,12 @@ export default class List{
         return ul;
     };
 
-    li(item){
+    li(item) {
         const li = document.createElement('li');
         const p = document.createElement('p');
         const icon = document.createElement('img');
 
-        icon.className='iconMenu';
+        icon.className = 'iconMenu';
         icon.src = `../Assets/Image/${item.icon}`;
         li.onclick = item.onAction;
 
@@ -28,6 +30,27 @@ export default class List{
 
         li.appendChild(icon);
         li.appendChild(p);
+        return li;
+    }
+    /**
+     * Método responsável por criar os Itens das tarefas
+     * @date 29/01/2024 - 9:14:52 AM
+     * @param {{id:number;description:string;check:boolean;task_id:number;order:number;yes_no:number;file:number;note?:string;}} item
+    */
+    itemTask(item) {
+        console.log(item);
+        const li = document.createElement('li');
+        const container = new Containers();
+        const form = new Form();
+              
+        const label = document.createElement('label');
+        label.setAttribute('for',`task_item_${item.id}`);
+        label.innerText =item.description;
+        
+        const containerElement = container.containerBasic({element:form.input({inputType:'checkbox',inputId:`task_item_${item.id}`,checked:item.check})});
+        containerElement.appendChild(label);
+
+        li.appendChild(containerElement);
         return li;
     }
 }

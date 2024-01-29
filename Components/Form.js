@@ -113,7 +113,7 @@ export default class Form {
      * Cria e retorna um elemento html input pré-formatado
      * @date 10/01/2024 - 5:20:20 PM
      * @author Hygor Bueno
-     * @param {*} configs
+     * @param {{inputType:string;inputId:string;requiredInput?:boolean;classInput?:string;onAction?:()=>;checked?:boolean}} configs
      * @returns {HTMLElement} Retorna um input pré-configurado.
      */
     input(configs) {
@@ -124,6 +124,7 @@ export default class Form {
             const input = document.createElement('input');
             input.type = configs.inputType;
             input.id = configs.inputId;
+            input.checked = configs.checked;
             if (configs.requiredInput) input.dataset.required = 1
             if (configs?.classInput) input.className = configs.classInput;
             if (configs?.onAction) input.addEventListener('click', configs.onAction);
