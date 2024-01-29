@@ -45,9 +45,9 @@ export const registerInputs = [
                 classInput: 'inputForm',
                 label: 'Register',
                 inputType: 'text',
-                inputId: 'userInput',
+                inputId: 'registerInput',
                 iconLabel: true,
-                nameImageLabel: 'User.svg'
+                nameImageLabel: 'pen1.svg'
             },
             {
                 classItemsForm: 'itemsForm',
@@ -56,9 +56,20 @@ export const registerInputs = [
                 classInput: 'inputForm',
                 label: 'Data Inicial',
                 inputType: 'date',
-                inputId: 'passwordInput',
+                inputId: 'register2Input',
                 iconLabel: true,
-                nameImageLabel: 'Lock.svg'
+                nameImageLabel: 'calendar.svg'
+            },
+            {
+                classItemsForm: 'itemsForm',
+                classForm: 'form',
+                classLabel: 'labelForm',
+                classInput: 'inputForm',
+                label: 'Data Final',
+                inputType: 'date',
+                inputId: 'register2Input',
+                iconLabel: true,
+                nameImageLabel: 'calendar.svg'
             }
         ]
     }

@@ -9,13 +9,8 @@ export default class SimpleTask{
     initial_date;
     final_date;
     
-    // description,priority,initial_date,final_date
+    // 
     constructor(){
-        // this.description = prompt('Nome da tarefa',description);
-        // this.priority = prompt('prioridade',priority);
-        // this.initial_date = prompt('Data inicial',initial_date);
-        // this.final_date = prompt('Data final',final_date);
-
         this.registerModal();
     }
 
@@ -27,18 +22,16 @@ export default class SimpleTask{
         modal2.className = 'modal-register2';
 
         modal1.appendChild(modal2);
-        this.inputsForm();
+        this.inputsForm(modal2);
 
         const modalRegister = new Modal();
         return modalRegister.modalDark(modal1);
     }
 
-    inputsForm() {
-       const registerContainer = new Containers();
+    inputsForm(local) {
        const formObj = new Form();
        let form = formObj.ContainerForm(registerInputs);
-
-       return registerContainer.containerBasic({ id: 'registerContainerInputs', element: form })
+       local.appendChild(form);
     }
 
 
