@@ -188,6 +188,7 @@ img.iconImg {
 .progress-bar {
     position: relative;
     width: 100%;
+    min-width: 10%;
     height: var(--spaceDefaultL);
     background-color: #007bff;
     border-radius: var(--spaceDefaultL);

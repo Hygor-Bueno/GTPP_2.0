@@ -134,9 +134,8 @@ export default class Card {
     tasksElementDescription.className = 'task-description';
     tasksElementDescription.title = local.description;
     const maxLength = 15;
-    const truncatedDescription = local.description.length > maxLength
-    ? local.description.substring(0, maxLength) + '...'
-    : local.description;
+   
+    const truncatedDescription = local?.description && local.description.substring(0, maxLength) + `${local.description.length >maxLength ? '...':''}`
     tasksElementDescription.innerHTML = `<b>${truncatedDescription}</b>`;
     return tasksElementDescription;
   }

@@ -35,10 +35,9 @@ export default class List {
     /**
      * Método responsável por criar os Itens das tarefas
      * @date 29/01/2024 - 9:14:52 AM
-     * @param {{id:number;description:string;check:boolean;task_id:number;order:number;yes_no:number;file:number;note?:string;}} item
+     * @param {{id:number;description:string;check:boolean;task_id:number;order:number;yes_no:number;file:number;note?:string;onAction?:()=>}} item
     */
     itemTask(item) {
-        console.log(item);
         const li = document.createElement('li');
         const container = new Containers();
         const form = new Form();
@@ -47,7 +46,7 @@ export default class List {
         label.setAttribute('for',`task_item_${item.id}`);
         label.innerText =item.description;
         
-        const containerElement = container.containerBasic({element:form.input({inputType:'checkbox',inputId:`task_item_${item.id}`,checked:item.check})});
+        const containerElement = container.containerBasic({element:form.input({inputType:'checkbox',inputId:`task_item_${item.id}`,checked:item.check,onAction:item.onAction})});
         containerElement.appendChild(label);
 
         li.appendChild(containerElement);
