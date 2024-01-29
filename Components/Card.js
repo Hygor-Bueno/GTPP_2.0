@@ -9,6 +9,7 @@ import Util from "../Util.js";
 
 /**
  * Classe Card
+ * @author Jonatas silva.
  * 
  * Esta classe é responsável por criar e gerenciar os cards de tarefas.
  */
@@ -118,7 +119,6 @@ export default class Card {
   createTaskElementPriority(local) {
     const taskElementPriority = document.createElement('div');
     taskElementPriority.className = 'task-priority';
-    // taskElementPriority.className = `task-priority-${local.priority}`;
     taskElementPriority.innerHTML = `${this.getPriorityText(local.priority)}`;
     return taskElementPriority;
   }
@@ -312,9 +312,9 @@ export default class Card {
   }
 
   componentImage(srcImage) {
-    const teste = document.createElement('img');
-    teste.src = srcImage;
-    return teste;
+    const image = document.createElement('img');
+    image.src = `../Assets/Image/${srcImage}`;
+    return image;
   }
 
   /**
@@ -330,18 +330,18 @@ export default class Card {
 
     const configBtnPDF = buttonPDF;
     configBtnPDF.onAction = () => this.onPDF();
-    configBtnPDF.description = this.componentImage('../Assets/Image/PDF.svg');
+    configBtnPDF.description = this.componentImage('PDF.svg');
     local.appendChild(btnPDF.Button(configBtnPDF));
 
     const configBtnCSV = buttonCSV;
     configBtnCSV.onAction = () => this.onCSV();
-    configBtnCSV.description = this.componentImage('../Assets/Image/csv.svg');
+    configBtnCSV.description = this.componentImage('csv.svg');
     local.appendChild(btnCSV.Button(configBtnCSV));
 
     if (id === 'task_state_1') {
       const configBtnAdd = buttonAdd;
       configBtnAdd.onAction = () => this.reloadTaskList(id);
-      configBtnAdd.description = this.componentImage('../Assets/Image/ADD.svg');
+      configBtnAdd.description = this.componentImage('ADD.svg');
       local.appendChild(btnADD.Button(configBtnAdd));
     }
   }

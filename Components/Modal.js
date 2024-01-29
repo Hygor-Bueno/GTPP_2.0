@@ -48,6 +48,14 @@ export default class Modal {
     return modalDiv;
   }
 
+  
+  /**
+   * Description placeholder
+   * @date 1/29/2024 - 11:14:37 AM
+   *
+   * @param {*} modal
+   * @returns {*}
+   */
   modalDark(modal){
     const util = new Util();
     const container = new Containers();

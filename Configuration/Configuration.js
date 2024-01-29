@@ -34,6 +34,54 @@ export const inputsLogin = [
     }
 ];
 
+export const registerInputs = [
+    {
+        legend: 'register',
+        listfields: [
+            {
+                classItemsForm: 'itemsForm',
+                classForm: 'form',
+                classLabel: 'labelForm',
+                classInput: 'inputForm',
+                label: 'Register',
+                inputType: 'text',
+                inputId: 'userInput',
+                iconLabel: true,
+                nameImageLabel: 'User.svg'
+            },
+            {
+                classItemsForm: 'itemsForm',
+                classForm: 'form',
+                classLabel: 'labelForm',
+                classInput: 'inputForm',
+                label: 'Data Inicial',
+                inputType: 'date',
+                inputId: 'passwordInput',
+                iconLabel: true,
+                nameImageLabel: 'Lock.svg'
+            }
+        ]
+    }
+];
+
+export const textInputName = {
+    inputType: 'text',
+    inputId: 'taskNameInput',
+    classInput: 'custom-input-class'
+};
+
+export const dateInputConfig = {
+    inputType: 'date',
+    inputId: 'initialDateInput',
+    classInput: 'custom-input-class'
+};
+
+export const textInputPriority = {
+    inputType: 'select',
+    inputId: 'initialPriorityInput',
+    classInput: 'custom-input-class'
+}
+
 /**
  * Váriável de configuração para componentes html;
  * @date 10/01/2024 - 5:26:34 PM
@@ -142,3 +190,4 @@ export const buttonStateTask ={
     classButton: 'btn',
     id: 'buttoStateTask'
 }
+
