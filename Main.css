@@ -216,7 +216,7 @@ img.iconImg {
     transform: translate(-50%, -50%);
     color: #fff;
     font-weight: bold;
-    font-size: var(--textSize);
+    font-size:clamp(1vmin,2vmin,14px);;
 }
 
 @keyframes spin {
