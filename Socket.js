@@ -71,6 +71,12 @@ export class WebSocketGTPP {
                     let response = JSON.parse(ev.data);
 
                     console.log(response);
+                    if (!response.error) {
+                        if (response.type == 2){
+                            const task_item = document.getElementById(`task_item_${response.object.itemUp.id}`).checked = response.object.itemUp.check;
+                            console.log(task_item);
+                        }
+                    }
                     //Ao receber mensagem que não seja pong
                 };
             } catch (error) {

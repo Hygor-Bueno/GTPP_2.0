@@ -44,12 +44,12 @@ export default class Tasks {
         this.initial_date = configs.initial_date;
         this.final_date = configs.final_date;
     }
-    
+
     async getDetails() {
         try {
             const connect = new Connection();
             let result = await connect.get(`&id=${this.id}`, 'GTPP/Task.php');
-            if(result.error) throw new Error(result.message || 'Generic error');
+            if (result.error) throw new Error(result.message || 'Generic error');
             this.full_description = result.data.full_description;
             this.task_item = result.data.task_item;
             this.task_user = result.data.task_user;
@@ -58,7 +58,28 @@ export default class Tasks {
             console.error(error);
         }
     }
-    
+
+    async changeCheckedItem(id) {
+        this.task_item.forEach(async (item, index) => {
+            if (item.id == id) {
+                this.task_item[index].check = !this.task_item[index].check;
+                const bar = document.querySelector('.progress-bar');
+                if (bar) {
+                    const progress = new ProgressBar(this.task_item || []).calculateProgress().toFixed(2);
+                    const conn = new Connection();
+                    let result = await conn.put({
+                        task_id: item.task_id,
+                        id: item.id,
+                        check: item.check
+                    }, 'GTPP/TaskItem.php');
+                    console.log(result)
+                    bar.setAttribute('aria-valuenow', progress);
+                    bar.setAttribute('style', `width:${progress}%`);
+                }
+            }
+        })
+    }
+
     taskElement() {
         const div = new Containers();
         const elementDiv = div.containerBasic({ element: this.taskHeader() });
@@ -77,37 +98,39 @@ export default class Tasks {
         divBody.id = 'taskBody';
 
         divBody.appendChild(this.taskArticle());
-        
+
         const section = document.createElement('section');
         divBody.appendChild(section);
-        
+
         return divBody;
     }
-    taskArticle(){
+    taskArticle() {
         const article = document.createElement('article');
         const div = document.createElement('div');
         const listTask = document.createElement('div');
 
         const desc = new Form();
-        const text = new TextArea({text:this.full_description,id:'taskFullDesc'});
+        const text = new TextArea({ text: this.full_description, id: 'taskFullDesc' });
         const container = new Containers();
         const progressBar = new ProgressBar(this.task_item || []);
-        
+
 
         listTask.appendChild(this.listTaskItems(this.task_item || []));
         div.appendChild(progressBar.createProgressBar());
         div.appendChild(listTask);
-        div.appendChild(desc.label({label:'Detalhes:'}));
-        div.appendChild(container.containerBasic({element:text.TextAreaEnable()}));
+        div.appendChild(desc.label({ label: 'Detalhes:' }));
+        div.appendChild(container.containerBasic({ element: text.TextAreaEnable() }));
         div.appendChild(listTask);
 
         article.appendChild(div);
         return article;
     }
-    listTaskItems(list){
+    listTaskItems(list) {
         const ul = document.createElement('ul');
         list.forEach(listElement => {
             const li = new List();
+            listElement.onAction = () => this.changeCheckedItem(listElement.id);
+            console.log(listElement);
             ul.appendChild(li.itemTask(listElement));
         });
         return ul;
