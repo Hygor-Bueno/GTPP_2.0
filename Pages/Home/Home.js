@@ -26,7 +26,7 @@ export default class Home {
             // Busca os estados das tarefas.
             const listTaskState = await connection.get('', 'GTPP/TaskState.php');
             const postTask = await connection.get('', 'GTPP/Task.php');
-            console.log(postTask)
+           
             if (listTaskState.error) throw new Error(listTaskState.message);
             this.stateStoraga(listTaskState.data);
 

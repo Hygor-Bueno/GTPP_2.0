@@ -1,6 +1,6 @@
 import Containers from "../Components/Containers.js";
 import Form from "../Components/Form.js";
-import Paragraph from "../Components/Paragraph.js";
+import List from "../Components/List.js";
 import ProgressBar from "../Components/ProgressBar .js";
 import TextArea from "../Components/TextArea.js";
 import Title from "../Components/Title.js";
@@ -57,7 +57,6 @@ export default class Tasks {
         } catch (error) {
             console.error(error);
         }
-        console.log(this.task_item)
     }
     
     taskElement() {
@@ -93,13 +92,24 @@ export default class Tasks {
         const text = new TextArea({text:this.full_description,id:'taskFullDesc'});
         const container = new Containers();
         const progressBar = new ProgressBar(this.task_item || []);
-        div.appendChild(progressBar.createProgressBar());
+        
 
+        listTask.appendChild(this.listTaskItems(this.task_item || []));
+        div.appendChild(progressBar.createProgressBar());
         div.appendChild(listTask);
         div.appendChild(desc.label({label:'Detalhes:'}));
         div.appendChild(container.containerBasic({element:text.TextAreaEnable()}));
-        div.appendChild(listTask)
+        div.appendChild(listTask);
+
         article.appendChild(div);
         return article;
+    }
+    listTaskItems(list){
+        const ul = document.createElement('ul');
+        list.forEach(listElement => {
+            const li = new List();
+            ul.appendChild(li.itemTask(listElement));
+        });
+        return ul;
     }
 }

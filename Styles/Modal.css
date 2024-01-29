@@ -71,9 +71,8 @@
     overflow: hidden;
 }
 
-#taskBody > article > div :nth-child(4){
+#taskBody > article > div> div:nth-child(4){
     display: flex;
     flex-grow: 1;
     overflow-y:auto;
-    background-color: green;
 }
