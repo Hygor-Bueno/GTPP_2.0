@@ -1,15 +1,13 @@
-import Containers from "../Components/Containers.js";
 import Form from "../Components/Form.js";
 import Modal from "../Components/Modal.js";
-import { dateInputConfig, registerInputs, textInputName, textInputPriority } from "../Configuration/Configuration.js";
+import { dateInputConfig, registerInputs, selectConfigs, textInputName, textInputPriority } from "../Configuration/Configuration.js";
 
 export default class SimpleTask{
     description;
     priority;
     initial_date;
     final_date;
-    
-    // 
+
     constructor(){
         this.registerModal();
     }
@@ -29,12 +27,46 @@ export default class SimpleTask{
     }
 
     inputsForm(local) {
-       const formObj = new Form();
-       let form = formObj.ContainerForm(registerInputs);
-       local.appendChild(form);
+        local.appendChild(this.inputRegisterNameTask());
+        local.appendChild(this.selectForm());
+        local.appendChild(this.dateInitial());
+        local.appendChild(this.finalDate());
     }
 
+    selectForm() {
+        const formSelectField = new Form();
+        const configSelectField = selectConfigs;
+        configSelectField.onAction = (e) => {
+            if(e.target.value == "baixo") this.priority = 0;
+            if(e.target.value == "medio") this.priority = 1;
+            if(e.target.value == "alto") this.priority = 2;
+            console.log(this.priority);
+        };
 
+        return formSelectField.selectField(configSelectField)
+    }
+
+    inputRegisterNameTask() {
+        const formInputRegisterName = new Form();
+        const configInputRegisterName = textInputName;
+        configInputRegisterName.onAction = (e) => this.description = e.target.value;
+        return formInputRegisterName.input(configInputRegisterName);
+    }
+
+    dateInitial() {
+        const formInputDateInitial = new Form();
+        const configInitialDate = dateInputConfig;
+        configInitialDate.onAction = (e) => this.initial_date = this.validateDate(e.target.value);
+        return formInputDateInitial.input(configInitialDate);
+    }
+
+    finalDate() {
+        const formInputDateFinal = new Form();
+        const configFinalDate = dateInputConfig;
+        configFinalDate.onAction = (e) => this.final_date = this.finalDate(e.target.value);
+        return formInputDateFinal.input(configFinalDate);
+    }
+    
     validateDate(){
         try {
             if(this.initial_date > this.final_date) throw new Error('Invalid date');

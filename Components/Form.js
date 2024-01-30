@@ -125,9 +125,9 @@ export default class Form {
             input.type = configs.inputType;
             input.id = configs.inputId;
             input.checked = configs.checked;
-            if (configs.requiredInput) input.dataset.required = 1
+            if (configs.requiredInput) input.dataset.required = 1;
             if (configs?.classInput) input.className = configs.classInput;
-            if (configs?.onAction) input.addEventListener('click', configs.onAction);
+            if (configs?.onAction) input.addEventListener('change', configs.onAction);
             return input;
         } catch (error) {
             console.error(error)
@@ -162,6 +162,8 @@ export default class Form {
             const select = document.createElement('select');
             select.name = configs.name;
             select.className = (configs.classSelect) ? configs.classSelect : 'selectForm';
+
+            if (configs?.onAction) select.addEventListener('change', configs.onChange);
 
             configs.options.forEach(option => {
                 const optionElement = document.createElement('option');

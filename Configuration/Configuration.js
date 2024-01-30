@@ -75,10 +75,27 @@ export const registerInputs = [
     }
 ];
 
+
+export const selectConfigs = {
+    label: 'Seleciona a prioridade',
+    iconLabel: true,
+    nameImageLabel: 'priority.svg',
+    requiredInput: true,
+    classLabel: 'customLabel',
+    name: 'selectFieldName',
+    classSelect: 'customSelect',
+    options: [
+        { value: 'alto', text: 'alto' },
+        { value: 'medio', text: 'medio' },
+        { value: 'baixo', text: 'baixo' },
+    ],
+};
+
 export const textInputName = {
     inputType: 'text',
     inputId: 'taskNameInput',
-    classInput: 'custom-input-class'
+    classInput: 'custom-input-class',
+    placeholder: 'Enter task name',
 };
 
 export const dateInputConfig = {
