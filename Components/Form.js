@@ -133,6 +133,50 @@ export default class Form {
             console.error(error)
         }
     }
+
+    
+
+    /**
+     * Description placeholder
+     * @date 1/29/2024 - 4:54:44 PM
+     *
+     * @param {*} configs
+     * @returns {*}
+     */
+
+    selectField(configs) {
+        try {
+            if (!configs || !configs.label || !configs.options) {
+                throw new Error('Key label or options not found.');
+            }
+
+            const div = document.createElement('div');
+            if (configs.iconLabel) div.className = 'divLabelForm';
+
+            const label = document.createElement('label');
+            label.innerText = configs.label;
+            configs.iconLabel && div.appendChild(this.iconLabel(configs.nameImageLabel))
+            div.appendChild(label);
+            if (configs.requiredInput) div.appendChild(this.mandatory());
+
+            const select = document.createElement('select');
+            select.name = configs.name;
+            select.className = (configs.classSelect) ? configs.classSelect : 'selectForm';
+
+            configs.options.forEach(option => {
+                const optionElement = document.createElement('option');
+                optionElement.value = option.value;
+                optionElement.text = option.text;
+                select.appendChild(optionElement);
+            });
+
+            div.appendChild(select);
+            return div;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     simpleLabel(configs) {
         const label = document.createElement('label');
         label.className = configs.classLabel;
