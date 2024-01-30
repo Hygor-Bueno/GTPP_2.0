@@ -22,6 +22,13 @@ export default class Form {
         return form;
     }
 
+    ContainerForm2(configs) {
+        const form = document.createElement('form');
+        configs.forEach(config => { form.appendChild(this.ItemForm(config.listfields)) });
+        if (configs && configs.classForm) form.className = configs.classForm;
+        return form;
+    }
+
     /**
      * Cria e retorna um elemento html com as formatações básicas de um item de formulário (fieldset, div, label e input).
      * @date 10/01/2024 - 5:02:24 PM
@@ -35,6 +42,16 @@ export default class Form {
 
         //Adicação dos filhos.
         configs.forEach(config => { fieldset.appendChild(this.divSubContainer(this.label(config), this.input(config), config)); });
+        return fieldset;
+    }
+
+
+    ItemSelectForm(configs) {
+        //Configurações do fieldset
+        const fieldset = document.createElement('fieldset');
+
+        //Adicação dos filhos.
+        configs.forEach(config => { fieldset.appendChild(this.divSubContainer(this.label(config), this.input(config), this.selectField(config), config)); });
         return fieldset;
     }
 

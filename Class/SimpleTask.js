@@ -27,11 +27,22 @@ export default class SimpleTask{
     }
 
     inputsForm(local) {
-        local.appendChild(this.inputRegisterNameTask());
-        local.appendChild(this.selectForm());
-        local.appendChild(this.dateInitial());
-        local.appendChild(this.finalDate());
+        const formObj = new Form();
+        const formInputs = registerInputs;
+
+        formInputs[0].listfields[0].value = 'jonatas'
+
+        let form = formObj.ContainerForm2(registerInputs);
+        local.appendChild(form);
     }
+ 
+
+    // inputsForm(local) {
+    //     local.appendChild(this.inputRegisterNameTask());
+    //     local.appendChild(this.selectForm());
+    //     local.appendChild(this.dateInitial());
+    //     local.appendChild(this.finalDate());
+    // }
 
     selectForm() {
         const formSelectField = new Form();
