@@ -17,6 +17,10 @@ export default class Card {
   #taskList = [];
   #getTasks = [];
   #getConfigId;
+  #ws;
+  constructor(ws){
+    this.#ws = ws;
+  }
 
   /**
    * Método createCard
@@ -73,7 +77,7 @@ export default class Card {
     
 
     taskElement.addEventListener('click', async() => {
-      const task = new Tasks(taskData);
+      const task = new Tasks(taskData,this.#ws);
       await task.getDetails();
       const modal = new Modal();
       modal.modalDark(task.taskElement());
@@ -344,8 +348,6 @@ export default class Card {
       local.appendChild(btnADD.Button(configBtnAdd));
     }
   }
-
-  
 
   /**
    * Método getPriorityText
