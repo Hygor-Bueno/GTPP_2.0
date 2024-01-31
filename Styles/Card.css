@@ -190,8 +190,7 @@
 .divLabelImg {
   display: flex;
   flex-direction: column;
-  width: 60%;
-  margin-left: var(--spaceDefault);
+  padding: var(--spaceDefault);
 }
 
 .divLabelImg > div {

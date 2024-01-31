@@ -1,12 +1,11 @@
 import SimpleTask from "../Class/SimpleTask.js";
 import Tasks from "../Class/Tasks.js";
-import { buttonAdd, buttonCSV, buttonPDF } from "../Configuration/Configuration.js";
 import Button from "./Button.js";
 import { CSVGenerator, PDFGenerator } from "./FileGenerator.js";
 import Modal from "./Modal.js";
-import { Connection } from "../Connection/Connection.js";
 import Util from "../Util.js";
 import { HamburgerX } from "./Hambuger.js";
+import { Connection } from "../Connection/Connection.js";
 
 /**
  * @author Jonatas Silva
@@ -167,15 +166,19 @@ export default class Card {
     this.addTask(local);
   }
 
+  // vamos fazer o adicionar tarefas no SimpleTask para que eu possa adicionar uma tarefa quando eu clicar no botão de adicionar 
   async addTask(local) {
+    
     const simpleTask = new SimpleTask();
+
     // const connection = new Connection();
-    // const result = await connection.post(simpleTask, 'GTPP/Task.php')
+    // const result = await connection.post(simpleTask, 'GTPP/Task.php');
+    
     // if (!result.error) {
     //   this.#taskList.push(simpleTask);
+    //   local.appendChild(this.loadTaskList());
     // }
-    this.#taskList.push(simpleTask);
-    local.appendChild(this.loadTaskList());
+    
   }
 
   loadTaskList() {

@@ -17,11 +17,11 @@ export default class Form {
      */
     ContainerForm(configs) {
         const form = document.createElement('form');
-        configs.forEach(config => { 
-            config.listfields.forEach(itemConfig=>{
-                form.appendChild(this.controllerElements(itemConfig)) 
-            })
-        });
+
+        configs.listfields.forEach(itemConfig => {
+            form.appendChild(this.controllerElements(itemConfig))
+        })
+
         if (configs && configs.classForm) form.className = configs.classForm;
         return form;
     }
@@ -53,7 +53,7 @@ export default class Form {
         const fieldset = document.createElement('fieldset');
 
         //Adicação dos filhos.
-        fieldset.appendChild(this.divSubContainer(this.label(configs), this.input(configs), configs)); 
+        fieldset.appendChild(this.divSubContainer(this.label(configs), this.input(configs), configs));
         return fieldset;
     }
 
@@ -63,10 +63,10 @@ export default class Form {
         const option = document.createElement('option');
         option.innerText = 'Selecione';
         option.hidden = true;
-        option.value='';
+        option.value = '';
         option.selected = true;
 
-        select.appendChild(option);    
+        select.appendChild(option);
         return select;
     }
 
@@ -157,6 +157,7 @@ export default class Form {
             input.type = configs.inputType;
             input.id = configs.inputId;
             input.checked = configs.checked;
+            configs?.onChange && input.addEventListener('change', (e) => { configs.onChange(e.target.value) });
             if (configs.requiredInput) input.dataset.required = 1;
             if (configs?.classInput) input.className = configs.classInput;
             if (configs?.onAction) input.addEventListener('change', configs.onAction);
@@ -198,6 +199,7 @@ export default class Form {
             if (configs.requiredInput) fieldset.appendChild(this.mandatory());
 
             const select = document.createElement('select');
+            select.id = configs.selectId;
             select.name = configs.name;
             select.className = (configs.classSelect) ? configs.classSelect : 'inputForm';
 
