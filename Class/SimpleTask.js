@@ -1,17 +1,26 @@
-import Containers from "../Components/Containers.js";
 import Form from "../Components/Form.js";
 import Modal from "../Components/Modal.js";
-import { dateInputConfig, registerInputs, textInputName, textInputPriority } from "../Configuration/Configuration.js";
+
+import { registerInputs } from "../Configuration/Configuration.js";
 
 export default class SimpleTask{
     description;
     priority;
     initial_date;
     final_date;
-    
-    // 
+
     constructor(){
         this.registerModal();
+    }
+
+    setDescription(description){
+        this.description = description;
+        console.log(this)
+    }
+
+    setPriority(priority){
+        this.priority = priority;
+        console.log(this);
     }
 
     registerModal() {
@@ -29,11 +38,15 @@ export default class SimpleTask{
     }
 
     inputsForm(local) {
-       const formObj = new Form();
-       let form = formObj.ContainerForm(registerInputs);
-       local.appendChild(form);
-    }
+        const formObj = new Form();
+        //registerInputs.listfields[0].onChange = (value)=>this.setDescription(value)
+        for (let i = 0; i < registerInputs.listfields.length; i++) {
+            registerInputs.listfields[i].onChange = (value) => this.setDescription(value);
+        }
 
+        let form = formObj.ContainerForm(registerInputs);
+        local.appendChild(form);
+    }
 
     validateDate(){
         try {

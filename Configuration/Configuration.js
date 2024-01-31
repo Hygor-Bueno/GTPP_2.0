@@ -4,10 +4,11 @@
  * @author Hygor Bueno.
  * @type {{legend:string; listfields:[{ classItemsForm: string; classForm: string; classLabel: string; classInput: string; label: string; inputType: string; inputId: string;requiredInput:boolean;iconLabel:boolean,nameImageLabel:string }]}}
  */
-export const inputsLogin = [
-    {
-        legend: 'login',
-        listfields: [
+export const inputsLogin =
+{
+    legend: 'login',
+    listfields:
+        [
             {
                 classItemsForm: 'itemsForm',
                 classForm: 'form',
@@ -31,54 +32,85 @@ export const inputsLogin = [
                 nameImageLabel: 'Lock.svg'
             }
         ]
-    }
-];
+};
 
-export const registerInputs = [
-    {
-        legend: 'register',
-        listfields: [
-            {
-                classItemsForm: 'itemsForm',
-                classForm: 'form',
-                classLabel: 'labelForm',
-                classInput: 'inputForm',
-                label: 'Register',
-                inputType: 'text',
-                inputId: 'registerInput',
-                iconLabel: true,
-                nameImageLabel: 'pen1.svg'
-            },
-            {
-                classItemsForm: 'itemsForm',
-                classForm: 'form',
-                classLabel: 'labelForm',
-                classInput: 'inputForm',
-                label: 'Data Inicial',
-                inputType: 'date',
-                inputId: 'register2Input',
-                iconLabel: true,
-                nameImageLabel: 'calendar.svg'
-            },
-            {
-                classItemsForm: 'itemsForm',
-                classForm: 'form',
-                classLabel: 'labelForm',
-                classInput: 'inputForm',
-                label: 'Data Final',
-                inputType: 'date',
-                inputId: 'register2Input',
-                iconLabel: true,
-                nameImageLabel: 'calendar.svg'
-            }
-        ]
-    }
-];
+export const registerInputs = {
+    legend: 'register',
+    listfields: [
+        {
+            classItemsForm: 'itemsForm',
+            classForm: 'form',
+            classLabel: 'labelForm',
+            classInput: 'inputForm',
+            label: 'Register',
+            inputType: 'text',
+            inputId: 'registerInput',
+            iconLabel: true,
+            nameImageLabel: 'pen1.svg'
+        },
+        {
+            classItemsForm: 'itemsForm',
+            classForm: 'form',
+            classLabel: 'labelForm',
+            classInput: 'inputForm',
+            label: 'Data Inicial',
+            inputType: 'date',
+            inputId: 'initialDate',
+            iconLabel: true,
+            nameImageLabel: 'calendar.svg'
+        },
+        {
+            classItemsForm: 'itemsForm',
+            classForm: 'form',
+            classLabel: 'labelForm',
+            classInput: 'inputForm',
+            label: 'Data Final',
+            inputType: 'date',
+            inputId: 'finalDate',
+            iconLabel: true,
+            nameImageLabel: 'calendar.svg'
+        },
+        {
+            selectId: 'priority',
+            label: 'Seleciona a prioridade',
+            iconLabel: true,
+            nameImageLabel: 'priority.svg',
+            requiredInput: false,
+            classLabel: 'customLabel',
+            name: 'selectFieldName',
+            classSelect: 'inputForm',
+            options: [
+                { value: '2', text: 'alto' },
+                { value: '1', text: 'medio' },
+                { value: '0', text: 'baixo' },
+            ],
+            type: 'select'
+        }
+    ]
+}
+    ;
+
+
+export const selectConfigs = {
+    label: 'Seleciona a prioridade',
+    iconLabel: true,
+    nameImageLabel: 'priority.svg',
+    requiredInput: true,
+    classLabel: 'customLabel',
+    name: 'selectFieldName',
+    classSelect: 'customSelect',
+    options: [
+        { value: 'alto', text: 'alto' },
+        { value: 'medio', text: 'medio' },
+        { value: 'baixo', text: 'baixo' },
+    ],
+};
 
 export const textInputName = {
     inputType: 'text',
     inputId: 'taskNameInput',
-    classInput: 'custom-input-class'
+    classInput: 'custom-input-class',
+    placeholder: 'Enter task name',
 };
 
 export const dateInputConfig = {
@@ -140,8 +172,8 @@ export const buttonMenu = {
  */
 export const listItemsMenu = {
     listItems: [
-        { label: 'Home', icon: 'House.svg', router:'Home' },
-        { label: 'Logoff', icon: 'Logout.svg',router:'Login' }
+        { label: 'Home', icon: 'House.svg', router: 'Home' },
+        { label: 'Logoff', icon: 'Logout.svg', router: 'Login' }
     ],
 }
 
@@ -152,7 +184,7 @@ export const listItemsMenu = {
  * @author Jonatas Silva.
  * @type {{ type: string; title: string; description: string; classButton: string; }}
  */
-export const buttonPDF={
+export const buttonPDF = {
     type: 'button',
     title: 'Criar um arquivo PDF',
     description: '',
@@ -195,9 +227,9 @@ export const buttonToTask = {
     classButton: 'btn-toTask'
 }
 
-export const buttonStateTask ={
-    title: 'Abrir lista de status', 
-    type: 'button', 
+export const buttonStateTask = {
+    title: 'Abrir lista de status',
+    type: 'button',
     classButton: 'btn',
     id: 'buttoStateTask'
 }

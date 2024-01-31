@@ -17,9 +17,28 @@ export default class Form {
      */
     ContainerForm(configs) {
         const form = document.createElement('form');
-        configs.forEach(config => { form.appendChild(this.ItemForm(config.listfields)) });
+
+        configs.listfields.forEach(itemConfig => {
+            form.appendChild(this.controllerElements(itemConfig))
+        })
+
         if (configs && configs.classForm) form.className = configs.classForm;
         return form;
+    }
+
+    controllerElements(configs) {
+        let response;
+        switch (configs.type) {
+            case 'select':
+                response = this.selectFieldWithLabel(configs);
+                console.log('select')
+                break;
+            default:
+                console.log('input')
+                response = this.ItemForm(configs)
+                break;
+        }
+        return response;
     }
 
     /**
@@ -34,8 +53,21 @@ export default class Form {
         const fieldset = document.createElement('fieldset');
 
         //Adicação dos filhos.
-        configs.forEach(config => { fieldset.appendChild(this.divSubContainer(this.label(config), this.input(config), config)); });
+        fieldset.appendChild(this.divSubContainer(this.label(configs), this.input(configs), configs));
         return fieldset;
+    }
+
+
+    ItemSelectForm(configs) {
+        const select = document.createElement('select');
+        const option = document.createElement('option');
+        option.innerText = 'Selecione';
+        option.hidden = true;
+        option.value = '';
+        option.selected = true;
+
+        select.appendChild(option);
+        return select;
     }
 
     /**
@@ -125,14 +157,68 @@ export default class Form {
             input.type = configs.inputType;
             input.id = configs.inputId;
             input.checked = configs.checked;
-            if (configs.requiredInput) input.dataset.required = 1
+            configs?.onChange && input.addEventListener('change', (e) => { configs.onChange(e.target.value) });
+            if (configs.requiredInput) input.dataset.required = 1;
             if (configs?.classInput) input.className = configs.classInput;
-            if (configs?.onAction) input.addEventListener('click', configs.onAction);
+            if (configs?.onAction) input.addEventListener('change', configs.onAction);
             return input;
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
+
+
+
+    /**
+     * Description placeholder
+     * @date 1/29/2024 - 4:54:44 PM
+     *
+     * @param {*} configs
+     * @returns {*}
+     */
+
+    selectFieldWithLabel(configs) {
+        try {
+            if (!configs || !configs.label || !configs.options) {
+                throw new Error('Key label or options not found.');
+            }
+
+            const fieldset = document.createElement('fieldset');
+
+            const div = document.createElement('div');
+
+            if (configs.iconLabel) fieldset.className = 'divLabelImg';
+            const label = document.createElement('label');
+            label.className = 'labelForm';
+            label.innerText = configs.label;
+
+            configs.iconLabel && div.appendChild(this.iconLabel(configs.nameImageLabel));
+            fieldset.appendChild(div);
+            div.appendChild(label);
+
+            if (configs.requiredInput) fieldset.appendChild(this.mandatory());
+
+            const select = document.createElement('select');
+            select.id = configs.selectId;
+            select.name = configs.name;
+            select.className = (configs.classSelect) ? configs.classSelect : 'inputForm';
+
+            if (configs?.onAction) select.addEventListener('change', configs.onChange);
+
+            configs.options.forEach(option => {
+                const optionElement = document.createElement('option');
+                optionElement.value = option.value;
+                optionElement.text = option.text;
+                select.appendChild(optionElement);
+            });
+
+            fieldset.appendChild(select);
+            return fieldset;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     simpleLabel(configs) {
         const label = document.createElement('label');
         label.className = configs.classLabel;

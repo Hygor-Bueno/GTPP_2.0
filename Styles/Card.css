@@ -1,12 +1,10 @@
 .card {
-    max-width: 260px;
-    width: 100%;
     border-radius: var(--spaceDefault);
     background-color: #FFF;
     padding: var(--spaceDefault);
     position: relative;
     margin: 0 var(--spaceDefault);
-    min-width: clamp(10vw,50vw,190px);
+    min-width: clamp(10vw,50vw,260px);
     border: var(--borderSize) solid #0000004f;
     box-shadow:  calc(0.9 * var(--spaceDefault)) var(--spaceDefault) var(--spaceDefault) rgba(0, 0, 0, 0.35);
 }
@@ -188,3 +186,19 @@
 .task-desc-priority {
   width: 100%;
 }
+
+.divLabelImg {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spaceDefault);
+}
+
+.divLabelImg > div {
+  display: flex;
+  align-items: end;
+}
+
+/* .divLabelImg > div > label {
+  font-weight: bold;
+
+} */

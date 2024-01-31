@@ -1,3 +1,4 @@
+import { buttonAdd, buttonCSV, buttonPDF } from "../Configuration/Configuration.js";
 import Util from "../Util.js";
 
 /**
@@ -36,6 +37,27 @@ export default class Button{
         } catch (error) {
             console.error(error)
         }
+    }
+
+    configButton(local, id, onPDF, onCSV, reloadTaskList) {
+    const btnPDF = new Button();
+    const btnCSV = new Button();
+    const btnADD = new Button();
+    const configBtnPDF = { ...buttonPDF, onAction: () => onPDF(), description: this.componentImage('PDF.svg') };
+    local.appendChild(btnPDF.Button(configBtnPDF));
+    const configBtnCSV = { ...buttonCSV, onAction: () => onCSV(), description: this.componentImage('csv.svg') };
+    local.appendChild(btnCSV.Button(configBtnCSV));
+    if (id === 'task_state_1') {
+      const configBtnAdd = { ...buttonAdd, onAction: () => reloadTaskList(id), description: this.componentImage('ADD.svg') };
+      local.appendChild(btnADD.Button(configBtnAdd));
+    }
+  }
+
+    componentImage(srcImage, title) {
+        const image = document.createElement('img');
+        title && (image.title = `${title}`);
+        image.src = `../Assets/Image/${srcImage}`;
+        return image;
     }
     
 }

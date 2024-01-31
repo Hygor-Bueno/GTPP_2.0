@@ -61,10 +61,12 @@ export default class Util {
      * @param {HTMLDivElement} data
      * @returns {*}
      */
-    formaDateUTF8(data) {
-        const dia = data.getDate().toString().padStart(2, '0');
-        const mes = (data.getMonth() + 1).toString().padStart(2, '0');  // Os meses são indexados de 0 a 11
-        const ano = data.getFullYear();
+    formaDateUTF8(registerDate) {
+        const date  = new Date(registerDate);
+
+        const dia = date.getDate().toString().padStart(2, '0');
+        const mes = (date.getMonth() + 1).toString().padStart(2, '0');  // Os meses são indexados de 0 a 11
+        const ano = date.getFullYear();
         
         const novaData = `${dia}/${mes}/${ano}`;
         return novaData;
