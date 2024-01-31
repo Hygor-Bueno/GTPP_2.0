@@ -186,3 +186,20 @@
 .task-desc-priority {
   width: 100%;
 }
+
+.divLabelImg {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin-left: var(--spaceDefault);
+}
+
+.divLabelImg > div {
+  display: flex;
+  align-items: end;
+}
+
+/* .divLabelImg > div > label {
+  font-weight: bold;
+
+} */

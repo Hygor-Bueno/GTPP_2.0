@@ -28,11 +28,8 @@ export default class SimpleTask{
 
     inputsForm(local) {
         const formObj = new Form();
-        const formInputs = registerInputs;
-
-        formInputs[0].listfields[0].value = 'jonatas'
-
-        let form = formObj.ContainerForm2(registerInputs);
+        let form = formObj.ContainerForm(registerInputs);
+        // local.appendChild(formObj.ContainerForm([{type:'select'}]))
         local.appendChild(form);
     }
  

@@ -17,16 +17,28 @@ export default class Form {
      */
     ContainerForm(configs) {
         const form = document.createElement('form');
-        configs.forEach(config => { form.appendChild(this.ItemForm(config.listfields)) });
+        configs.forEach(config => { 
+            config.listfields.forEach(itemConfig=>{
+                form.appendChild(this.controllerElements(itemConfig)) 
+            })
+        });
         if (configs && configs.classForm) form.className = configs.classForm;
         return form;
     }
 
-    ContainerForm2(configs) {
-        const form = document.createElement('form');
-        configs.forEach(config => { form.appendChild(this.ItemForm(config.listfields)) });
-        if (configs && configs.classForm) form.className = configs.classForm;
-        return form;
+    controllerElements(configs) {
+        let response;
+        switch (configs.type) {
+            case 'select':
+                response = this.selectFieldWithLabel(configs);
+                console.log('select')
+                break;
+            default:
+                console.log('input')
+                response = this.ItemForm(configs)
+                break;
+        }
+        return response;
     }
 
     /**
@@ -41,18 +53,21 @@ export default class Form {
         const fieldset = document.createElement('fieldset');
 
         //Adicação dos filhos.
-        configs.forEach(config => { fieldset.appendChild(this.divSubContainer(this.label(config), this.input(config), config)); });
+        fieldset.appendChild(this.divSubContainer(this.label(configs), this.input(configs), configs)); 
         return fieldset;
     }
 
 
     ItemSelectForm(configs) {
-        //Configurações do fieldset
-        const fieldset = document.createElement('fieldset');
+        const select = document.createElement('select');
+        const option = document.createElement('option');
+        option.innerText = 'Selecione';
+        option.hidden = true;
+        option.value='';
+        option.selected = true;
 
-        //Adicação dos filhos.
-        configs.forEach(config => { fieldset.appendChild(this.divSubContainer(this.label(config), this.input(config), this.selectField(config), config)); });
-        return fieldset;
+        select.appendChild(option);    
+        return select;
     }
 
     /**
@@ -147,11 +162,11 @@ export default class Form {
             if (configs?.onAction) input.addEventListener('change', configs.onAction);
             return input;
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
 
-    
+
 
     /**
      * Description placeholder
@@ -161,24 +176,30 @@ export default class Form {
      * @returns {*}
      */
 
-    selectField(configs) {
+    selectFieldWithLabel(configs) {
         try {
             if (!configs || !configs.label || !configs.options) {
                 throw new Error('Key label or options not found.');
             }
 
-            const div = document.createElement('div');
-            if (configs.iconLabel) div.className = 'divLabelForm';
+            const fieldset = document.createElement('fieldset');
 
+            const div = document.createElement('div');
+
+            if (configs.iconLabel) fieldset.className = 'divLabelImg';
             const label = document.createElement('label');
+            label.className = 'labelForm';
             label.innerText = configs.label;
-            configs.iconLabel && div.appendChild(this.iconLabel(configs.nameImageLabel))
+
+            configs.iconLabel && div.appendChild(this.iconLabel(configs.nameImageLabel));
+            fieldset.appendChild(div);
             div.appendChild(label);
-            if (configs.requiredInput) div.appendChild(this.mandatory());
+
+            if (configs.requiredInput) fieldset.appendChild(this.mandatory());
 
             const select = document.createElement('select');
             select.name = configs.name;
-            select.className = (configs.classSelect) ? configs.classSelect : 'selectForm';
+            select.className = (configs.classSelect) ? configs.classSelect : 'inputForm';
 
             if (configs?.onAction) select.addEventListener('change', configs.onChange);
 
@@ -189,8 +210,8 @@ export default class Form {
                 select.appendChild(optionElement);
             });
 
-            div.appendChild(select);
-            return div;
+            fieldset.appendChild(select);
+            return fieldset;
         } catch (error) {
             console.error(error);
         }

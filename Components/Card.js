@@ -169,11 +169,12 @@ export default class Card {
 
   async addTask(local) {
     const simpleTask = new SimpleTask();
-    const connection = new Connection();
-    const result = await connection.post(simpleTask, 'GTPP/Task.php')
-    if (!result.error) {
-      this.#taskList.push(simpleTask);
-    }
+    // const connection = new Connection();
+    // const result = await connection.post(simpleTask, 'GTPP/Task.php')
+    // if (!result.error) {
+    //   this.#taskList.push(simpleTask);
+    // }
+    this.#taskList.push(simpleTask);
     local.appendChild(this.loadTaskList());
   }
 

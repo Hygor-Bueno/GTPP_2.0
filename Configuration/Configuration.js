@@ -70,6 +70,22 @@ export const registerInputs = [
                 inputId: 'register2Input',
                 iconLabel: true,
                 nameImageLabel: 'calendar.svg'
+            },
+            {
+                // inputType:'select',
+                label: 'Seleciona a prioridade',
+                iconLabel: true,
+                nameImageLabel: 'priority.svg',
+                requiredInput: false,
+                classLabel: 'customLabel',
+                name: 'selectFieldName',
+                classSelect: 'inputForm',
+                options: [
+                    { value: '0', text: 'alto' },
+                    { value: '1', text: 'medio' },
+                    { value: '2', text: 'baixo' },
+                ],
+                type:'select'
             }
         ]
     }
