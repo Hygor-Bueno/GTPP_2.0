@@ -23,6 +23,7 @@ export default class Tasks {
     task_item = [];
     task_user = [];
     csds = [];
+    #ws;
 
     /**
      * Creates an instance of Tasks.
@@ -31,7 +32,7 @@ export default class Tasks {
      * @constructor
      * @param {{id: number;description: string;percent: number;state_description: string;state_id: number;priority:number;expire: number;csds: [];user_id: number;initial_date: string;final_date:string;}} configs
      */
-    constructor(configs) {
+    constructor(configs, ws) {
         this.id = configs.id;
         this.description = configs.description;
         this.percent = configs.percent;
@@ -43,6 +44,7 @@ export default class Tasks {
         this.user_id = configs.user_id;
         this.initial_date = configs.initial_date;
         this.final_date = configs.final_date;
+        this.#ws = ws;
     }
 
     async getDetails() {
@@ -66,6 +68,7 @@ export default class Tasks {
                 const bar = document.querySelector('.progress-bar');
                 if (bar) {
                     const progress = new ProgressBar(this.task_item || []).calculateProgress().toFixed(2);
+                    this.percent = progress;
                     const conn = new Connection();
                     let result = await conn.put({
                         task_id: item.task_id,
@@ -80,12 +83,26 @@ export default class Tasks {
         })
     }
 
+    informeChangeItem(task) {
+        this.#ws.informSending({
+            user_id: localStorage?.userGTPP,
+            object: {
+                description: task.check ? "Um item foi marcado" : "Um item foi desmarcado",
+                percent: this.percent,
+                itemUp: task
+            },
+            task_id: this.id,
+            type: 2
+        });
+    }
+
     taskElement() {
         const div = new Containers();
         const elementDiv = div.containerBasic({ element: this.taskHeader() });
         elementDiv.appendChild(this.taskBody());
         return elementDiv;
     }
+    
     taskHeader() {
         const divHeader = document.createElement('div');
         divHeader.id = 'taskHeader';
@@ -114,7 +131,6 @@ export default class Tasks {
         const container = new Containers();
         const progressBar = new ProgressBar(this.task_item || []);
 
-
         listTask.appendChild(this.listTaskItems(this.task_item || []));
         div.appendChild(progressBar.createProgressBar());
         div.appendChild(listTask);
@@ -129,7 +145,10 @@ export default class Tasks {
         const ul = document.createElement('ul');
         list.forEach(listElement => {
             const li = new List();
-            listElement.onAction = () => this.changeCheckedItem(listElement.id);
+            listElement.onAction = async () => {
+                await this.changeCheckedItem(listElement.id);
+                this.informeChangeItem(listElement);
+            };
             console.log(listElement);
             ul.appendChild(li.itemTask(listElement));
         });

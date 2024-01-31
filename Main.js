@@ -12,6 +12,4 @@ init();
 async function init() {
     const router = new Router();
     router.navigation("Home");
-    const web = new WebSocketGTPP();
-    web.Connect();
 };
