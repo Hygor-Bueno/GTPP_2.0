@@ -6,6 +6,7 @@ import Button from "../../Components/Button.js";
 import Form from "../../Components/Form.js";
 import Paragraph from "../../Components/Paragraph.js";
 import { buttonStateTask } from "../../Configuration/Configuration.js";
+import { WebSocketGTPP } from "../../Socket.js";
 
 /**
  * Classe Pagina Home
@@ -16,8 +17,12 @@ import { buttonStateTask } from "../../Configuration/Configuration.js";
  * @classdesc Uma classe destinada para crianção de uma página html
  */
 export default class Home {
+    #web;
     async main() {
         try {
+            this.#web = new WebSocketGTPP();
+            this.#web.Connect();
+
             const containerHome = new Containers();
             const container = document.createElement('div');
             container.className = "gridRightHome";
@@ -26,7 +31,7 @@ export default class Home {
             // Busca os estados das tarefas.
             const listTaskState = await connection.get('', 'GTPP/TaskState.php');
             const postTask = await connection.get('', 'GTPP/Task.php');
-           
+
             if (listTaskState.error) throw new Error(listTaskState.message);
             this.stateStoraga(listTaskState.data);
 
@@ -35,14 +40,14 @@ export default class Home {
             container.appendChild(this.settingsHome(JSON.parse(localStorage?.stateTaskGTPP) || []));
             container.appendChild(this.renderCards(JSON.parse(localStorage?.stateTaskGTPP) || [], postTask.data));
 
-            const elementHome = containerHome.containerBasic({id: 'containerHome',element: container});
-
+            const elementHome = containerHome.containerBasic({ id: 'containerHome', element: container });
             elementHome.insertBefore(menu.nav(), elementHome.firstElementChild);
             return elementHome;
         } catch (error) {
             console.error(error)
         }
     }
+
     settingsHome(listState) {
         const section = document.createElement('section');
         section.appendChild(this.controllerStateTask(listState));
@@ -53,8 +58,8 @@ export default class Home {
     renderCards(list, postTask) {
         const div = document.createElement('div');
         list.forEach(item => {
-            const card = new Card();
-            div.appendChild(card.createCard({ id: `task_state_${item.id}`, label: item.description,view:item.view }, postTask))
+            const card = new Card(this.#web);
+            div.appendChild(card.createCard({ id: `task_state_${item.id}`, label: item.description, view: item.view }, postTask))
         });
         return div;
     }
@@ -62,8 +67,8 @@ export default class Home {
         try {
             const div = new Containers();
             const button = new Button();
-            const p = new Paragraph("Status");            
-            const containerHeader = document.createElement('div');       
+            const p = new Paragraph("Status");
+            const containerHeader = document.createElement('div');
             const img = document.createElement('img');
             img.src = '../../Assets/Image/arrowsBottom.svg';
             img.className = 'imageIcon';
@@ -131,7 +136,7 @@ export default class Home {
         localStorage.setItem('stateTaskGTPP', JSON.stringify(listStorage));
         this.reloadSate();
     }
-    
+
     reloadSate() {
         let data = localStorage.stateTaskGTPP || '[]';
         let listStorage = JSON.parse(data);

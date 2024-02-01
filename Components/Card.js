@@ -15,6 +15,10 @@ export default class Card {
   #taskList = [];
   #getTasks = [];
   #getConfigId;
+  #ws;
+  constructor(ws){
+    this.#ws = ws;
+  }
 
   createCard(configs, tasks) {
     this.#getConfigId = configs.id;
@@ -51,7 +55,7 @@ export default class Card {
     
 
     taskElement.addEventListener('click', async() => {
-      const task = new Tasks(taskData);
+      const task = new Tasks(taskData,this.#ws);
       await task.getDetails();
       const modal = new Modal();
       modal.modalDark(task.taskElement());
