@@ -31,10 +31,8 @@ export default class Form {
         switch (configs.type) {
             case 'select':
                 response = this.selectFieldWithLabel(configs);
-                console.log('select')
                 break;
             default:
-                console.log('input')
                 response = this.ItemForm(configs)
                 break;
         }
@@ -157,7 +155,7 @@ export default class Form {
             input.type = configs.inputType;
             input.id = configs.inputId;
             input.checked = configs.checked;
-            configs?.onChange && input.addEventListener('change', (e) => { configs.onChange(e.target.value) });
+            if (configs?.onChange) input.addEventListener('change', (e) => { configs.onChange(e.target.value) });
             if (configs.requiredInput) input.dataset.required = 1;
             if (configs?.classInput) input.className = configs.classInput;
             if (configs?.onAction) input.addEventListener('change', configs.onAction);
@@ -196,14 +194,14 @@ export default class Form {
             fieldset.appendChild(div);
             div.appendChild(label);
 
+            
             if (configs.requiredInput) fieldset.appendChild(this.mandatory());
-
+            
             const select = document.createElement('select');
             select.id = configs.selectId;
             select.name = configs.name;
             select.className = (configs.classSelect) ? configs.classSelect : 'inputForm';
-
-            if (configs?.onAction) select.addEventListener('change', configs.onChange);
+            if (configs?.onChange) select.addEventListener('change', (e) => { configs.onChange(e.target.value); });
 
             configs.options.forEach(option => {
                 const optionElement = document.createElement('option');

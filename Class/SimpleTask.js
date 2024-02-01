@@ -18,6 +18,16 @@ export default class SimpleTask{
         console.log(this)
     }
 
+    setInitialDate(initial_date){
+        this.initial_date = initial_date;
+        console.log(this);
+    }
+
+    setFinalDate(final_date){
+        this.final_date = final_date;
+        console.log(this);
+    }
+
     setPriority(priority){
         this.priority = priority;
         console.log(this);
@@ -39,10 +49,32 @@ export default class SimpleTask{
 
     inputsForm(local) {
         const formObj = new Form();
-        //registerInputs.listfields[0].onChange = (value)=>this.setDescription(value)
         for (let i = 0; i < registerInputs.listfields.length; i++) {
-            registerInputs.listfields[i].onChange = (value) => this.setDescription(value);
+            registerInputs.listfields[i].onChange = (value) => {
+                switch (i) {
+                    case 0:
+                        this.setDescription(value);
+                        break;
+        
+                    case 1:
+                        this.setInitialDate(value);
+                        break;
+                    
+                    case 2:
+                        this.setFinalDate(value);
+                        break;
+                    
+                    case 3:
+                        this.setPriority(value);
+                        break;
+        
+                    default:
+                        console.log('erro');
+                        break;
+                }
+            };
         }
+        
 
         let form = formObj.ContainerForm(registerInputs);
         local.appendChild(form);
