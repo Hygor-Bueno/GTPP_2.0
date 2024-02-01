@@ -29,12 +29,8 @@ export default class Form {
     controllerElements(configs) {
         let response;
         switch (configs.type) {
-            case 'select':
-                response = this.selectFieldWithLabel(configs);
-                break;
-            default:
-                response = this.ItemForm(configs)
-                break;
+            case 'select': response = this.selectFieldWithLabel(configs); break;
+            default: response = this.ItemForm(configs); break;
         }
         return response;
     }

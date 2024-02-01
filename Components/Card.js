@@ -170,7 +170,6 @@ export default class Card {
     this.addTask(local);
   }
 
-  // vamos fazer o adicionar tarefas no SimpleTask para que eu possa adicionar uma tarefa quando eu clicar no botão de adicionar 
   async addTask() {
      new SimpleTask();
   }

@@ -49,35 +49,18 @@ export default class SimpleTask{
 
     inputsForm(local) {
         const formObj = new Form();
-        for (let i = 0; i < registerInputs.listfields.length; i++) {
-            registerInputs.listfields[i].onChange = (value) => {
+        registerInputs.listfields.forEach((field, i) => {
+            field.onChange = value => {
                 switch (i) {
-                    case 0:
-                        this.setDescription(value);
-                        break;
-        
-                    case 1:
-                        this.setInitialDate(value);
-                        break;
-                    
-                    case 2:
-                        this.setFinalDate(value);
-                        break;
-                    
-                    case 3:
-                        this.setPriority(value);
-                        break;
-        
-                    default:
-                        console.log('erro');
-                        break;
+                    case 0: this.setDescription(value); break;
+                    case 1: this.setInitialDate(value); break;
+                    case 2: this.setFinalDate(value); break;
+                    case 3: this.setPriority(value); break;
+                    default: console.log('erro é necessario enviar uma nova função!');
                 }
             };
-        }
-        
-
-        let form = formObj.ContainerForm(registerInputs);
-        local.appendChild(form);
+        });
+        local.appendChild(formObj.ContainerForm(registerInputs));
     }
 
     validateDate(){

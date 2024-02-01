@@ -234,3 +234,10 @@ export const buttonStateTask = {
     id: 'buttoStateTask'
 }
 
+export const saveButton = {
+    type: 'button',
+    title: 'Clique para adicionar um item a lista',
+    description: 'Salvar',
+    classButton: 'btn-save',
+}
+
