@@ -11,11 +11,12 @@ export default class SimpleTask{
     priority;
     initial_date;
     final_date;
-    
-    #connection = new Connection();
 
-    constructor(){
-        this.registerModal();
+    constructor(description,priority,initial_date,final_date,){
+        this.description = description;
+        this.priority = priority;
+        this.initial_date = initial_date;
+        this.final_date = final_date;
     }
 
     setDescription(description){
@@ -38,7 +39,7 @@ export default class SimpleTask{
         console.log(this);
     }
 
-    registerModal() {
+    registerModal(taskList, local, funcAss) {
         const modal1 = document.createElement('div');
         modal1.setAttribute('modal-tasks', true);
         
@@ -52,13 +53,14 @@ export default class SimpleTask{
 
         const btnSave = new Button();
         
-        const configBtnSave = {...saveButton, onAction: () => {
-            this.#connection.post({
-                description: this.description,
-                initial_date: this.initial_date,
-                final_date: this.final_date,
-                priority: this.priority
-            }, 'GTPP/Task.php');
+        const configBtnSave = {...saveButton, onAction: async () => {
+            let connection = new Connection();
+            let result = await connection.post(this, 'GTPP/Task.php');
+
+            if(!result.error) {
+                taskList.push(this);
+                local.appendChild(funcAss());
+            }
         }}
         
         modal1.appendChild(modal2);
