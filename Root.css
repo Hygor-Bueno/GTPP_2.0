@@ -41,5 +41,6 @@
     --simplecardColor: #f2f2f2f2;
 
     /*Imagens*/
+    --imageSizeP: clamp(1.33vmin,4.8vmin,21.33px);
     --imageSize: clamp(2vmin,7.2vmin,32px);
 }
