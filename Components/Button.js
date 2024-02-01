@@ -53,9 +53,6 @@ export default class Button{
         }
     }
 
-    
-
-
     componentImage(srcImage, title) {
         const image = document.createElement('img');
         title && (image.title = `${title}`);
