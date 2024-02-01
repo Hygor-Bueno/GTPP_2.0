@@ -1,4 +1,4 @@
-import { buttonAdd, buttonCSV, buttonPDF,saveButton } from "../Configuration/Configuration.js";
+import { buttonAdd, buttonCSV, buttonPDF } from "../Configuration/Configuration.js";
 import Util from "../Util.js";
 
 /**
@@ -53,10 +53,8 @@ export default class Button{
         }
     }
 
-    configButtonRegister() {
-        const button = new Button();
-        const buttonAdd = { ...saveButton}
-    }
+    
+
 
     componentImage(srcImage, title) {
         const image = document.createElement('img');

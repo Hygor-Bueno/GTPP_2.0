@@ -33,12 +33,19 @@
 #modalTask>div {
     display: flex;
     flex-direction: column;
+    background: white;
     height: 80%;
     width: 80%;
-    background: white;
     border-radius: var(--spaceDefault);
     padding: var(--spaceDefault);
+    overflow: auto;
 }
+
+#modalTask>div[modal-tasks="true"] {
+    height: initial; /*90%*/
+    width: initial;
+}
+
 
 #taskHeader {
     height: clamp(5px,8%,50px);
@@ -75,4 +82,26 @@
     display: flex;
     flex-grow: 1;
     overflow-y:auto;
+}
+
+.modal-register3 {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-register3 > button {
+    padding: var(--spaceDefault);
+    background-color: transparent;
+    border: var(--borderSize) solid var(--successColor);
+    border-radius: var(--borderRadius);
+    color: var(--successColor);
+    font-size: var(--textSize);
+}
+
+.modal-register3 > button:active {
+    background-color: var(--successColor);
+    color: var(--primaryColor);
 }

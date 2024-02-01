@@ -1,5 +1,8 @@
+import Button from "../Components/Button.js";
 import Form from "../Components/Form.js";
 import Modal from "../Components/Modal.js";
+import {saveButton} from "../Configuration/Configuration.js";
+import {Connection} from "../Connection/Connection.js";
 
 import { registerInputs } from "../Configuration/Configuration.js";
 
@@ -8,6 +11,8 @@ export default class SimpleTask{
     priority;
     initial_date;
     final_date;
+    
+    #connection = new Connection();
 
     constructor(){
         this.registerModal();
@@ -15,7 +20,7 @@ export default class SimpleTask{
 
     setDescription(description){
         this.description = description;
-        console.log(this)
+        console.log(this);
     }
 
     setInitialDate(initial_date){
@@ -35,13 +40,31 @@ export default class SimpleTask{
 
     registerModal() {
         const modal1 = document.createElement('div');
+        modal1.setAttribute('modal-tasks', true);
+        
         modal1.className = 'modal-register1';
 
         const modal2 = document.createElement('div');
         modal2.className = 'modal-register2';
 
+        const modal3 = document.createElement('div');
+        modal3.className = 'modal-register3';
+
+        const btnSave = new Button();
+        
+        const configBtnSave = {...saveButton, onAction: () => {
+            this.#connection.post({
+                description: this.description,
+                initial_date: this.initial_date,
+                final_date: this.final_date,
+                priority: this.priority
+            }, 'GTPP/Task.php');
+        }}
+        
         modal1.appendChild(modal2);
         this.inputsForm(modal2);
+        modal2.appendChild(modal3);
+        modal3.appendChild(btnSave.Button(configBtnSave));
 
         const modalRegister = new Modal();
         return modalRegister.modalDark(modal1);
