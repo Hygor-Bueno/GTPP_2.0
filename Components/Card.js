@@ -166,24 +166,8 @@ export default class Card {
     if (isList) {
       isList.remove();
     }
-    const local = document.querySelector(`#${id}`);
-    this.addTask(local);
-  }
-
-  // vamos fazer o adicionar tarefas no SimpleTask para que eu possa adicionar uma tarefa quando eu clicar no botão de adicionar 
-  async addTask(local) {
-    
-    const simpleTask = new SimpleTask();
-
-    // const connection = new Connection();
-    // const result = await connection.post(simpleTask, 'GTPP/Task.php');
-    
-    // if (!result.error) {
-    //   this.#taskList.push(simpleTask);
-    //   local.appendChild(this.loadTaskList());
-    // }
-    
-  }
+    new SimpleTask();
+  } 
 
   loadTaskList() {
     const elementTask = document.getElementById('taskDiv');

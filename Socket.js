@@ -1,3 +1,4 @@
+import Router from './Routers/Router.js'
 export class WebSocketGTPP {
     constructor() {
         this.socket = null;
@@ -66,7 +67,15 @@ export class WebSocketGTPP {
         }
 
         let response = JSON.parse(ev.data);
-        console.log(response)
+        if (!response.error && response.send_user_id != this.id) { 
+            console.log(response) 
+        }
+
+        if(response.error && response.message.includes("This user has been connected to another place")) {
+            const router = new Router();
+            router.navigation('Login');
+        }
+        
         if (!response.error && response.type == 2) {
             const task_item = document.getElementById(`task_item_${response.object.itemUp.id}`)
             if (task_item) task_item.checked = response.object.itemUp.check;

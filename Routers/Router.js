@@ -81,7 +81,6 @@ export default class Router {
         const footer = new Footer('CLPP versão 1.0','Criado por Hygor Bueno e Jonatas')
  
         const isHeader = "#containerMain header";
-        const isFooter = "#containerMain footer";
         const container = document.querySelector("#containerMain");
         
         !document.querySelector(isHeader) && container.insertBefore(header.main(), container.lastElementChild);

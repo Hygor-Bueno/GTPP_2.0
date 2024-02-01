@@ -167,16 +167,13 @@ export default class Form {
         }
     }
 
-
-
     /**
      * Description placeholder
      * @date 1/29/2024 - 4:54:44 PM
      *
      * @param {*} configs
      * @returns {*}
-     */
-
+    */
     selectFieldWithLabel(configs) {
         try {
             if (!configs || !configs.label || !configs.options) {

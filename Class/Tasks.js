@@ -149,7 +149,6 @@ export default class Tasks {
                 await this.changeCheckedItem(listElement.id);
                 this.informeChangeItem(listElement);
             };
-            console.log(listElement);
             ul.appendChild(li.itemTask(listElement));
         });
         return ul;

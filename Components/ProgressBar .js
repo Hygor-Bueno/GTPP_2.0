@@ -50,7 +50,6 @@ export default class ProgressBar {
         progressBar.setAttribute('aria-valuemin', 0);
         progressBar.setAttribute('aria-valuemax', 100);
         progressBar.style.width = `${progress.toFixed(2)}%`;
-        console.log(progress.toFixed(2))
         return progressBar;
     }
 }
