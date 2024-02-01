@@ -80,6 +80,7 @@ export const registerInputs = {
             name: 'selectFieldName',
             classSelect: 'inputForm',
             options: [
+                { value: '', text: 'Selecione' },
                 { value: '2', text: 'alto' },
                 { value: '1', text: 'medio' },
                 { value: '0', text: 'baixo' },
@@ -232,5 +233,12 @@ export const buttonStateTask = {
     type: 'button',
     classButton: 'btn',
     id: 'buttoStateTask'
+}
+
+export const saveButton = {
+    type: 'submit',
+    title: 'Clique para adicionar um item a lista',
+    description: 'Salvar',
+    classButton: 'btn-save',
 }
 

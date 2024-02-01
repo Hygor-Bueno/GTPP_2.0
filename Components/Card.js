@@ -5,7 +5,6 @@ import { CSVGenerator, PDFGenerator } from "./FileGenerator.js";
 import Modal from "./Modal.js";
 import Util from "../Util.js";
 import { HamburgerX } from "./Hambuger.js";
-import { Connection } from "../Connection/Connection.js";
 
 /**
  * @author Jonatas Silva
@@ -166,8 +165,11 @@ export default class Card {
     if (isList) {
       isList.remove();
     }
-    new SimpleTask();
-  } 
+    const local = document.querySelector(`#${id}`);
+
+    const loadtask = new SimpleTask();
+    loadtask.registerModal(this.#taskList, local, () => this.loadTaskList());
+  }
 
   loadTaskList() {
     const elementTask = document.getElementById('taskDiv');
