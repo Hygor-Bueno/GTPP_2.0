@@ -1,5 +1,4 @@
 import Router from "./Routers/Router.js";
-import { WebSocketGTPP } from "./Socket.js";
 
 init();
 

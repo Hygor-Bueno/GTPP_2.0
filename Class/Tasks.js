@@ -31,7 +31,7 @@ export default class Tasks {
      *
      * @constructor
      * @param {{id: number;description: string;percent: number;state_description: string;state_id: number;priority:number;expire: number;csds: [];user_id: number;initial_date: string;final_date:string;}} configs
-     */
+    */
     constructor(configs, ws) {
         this.id = configs.id;
         this.description = configs.description;
@@ -64,7 +64,7 @@ export default class Tasks {
     async changeCheckedItem(id) {
         this.task_item.forEach(async (item, index) => {
             if (item.id == id) {
-                this.task_item[index].check = !this.task_item[index].check;
+                this.task_item[index].check = document.getElementById(`task_item_${id}`).checked;
                 const bar = document.querySelector('.progress-bar');
                 if (bar) {
                     const progress = new ProgressBar(this.task_item || []).calculateProgress().toFixed(2);
@@ -96,13 +96,26 @@ export default class Tasks {
         });
     }
 
+    updateFullDescription() {
+        this.#ws.informSending({
+            user_id: localStorage.userGTPP,
+            object: {
+                description: "A descrição completa da tarefa foi atualizada",
+                task_id: this.id,
+                full_description:this.full_description
+            },
+            task_id: this.id,
+            type: 3
+        })
+    }
+
     taskElement() {
         const div = new Containers();
         const elementDiv = div.containerBasic({ element: this.taskHeader() });
         elementDiv.appendChild(this.taskBody());
         return elementDiv;
     }
-    
+
     taskHeader() {
         const divHeader = document.createElement('div');
         divHeader.id = 'taskHeader';
@@ -127,7 +140,18 @@ export default class Tasks {
         const listTask = document.createElement('div');
 
         const desc = new Form();
-        const text = new TextArea({ text: this.full_description, id: 'taskFullDesc' });
+        const text = new TextArea({
+            text: this.full_description, id: 'taskFullDesc', onAction: async (newText) => {
+                const conn = new Connection();
+                let result = await conn.put(
+                    {
+                        id: this.id,
+                        full_description: newText
+                    }, 'GTPP/Task.php');
+                    this.full_description = newText;
+                    this.updateFullDescription();
+            }
+        });
         const container = new Containers();
         const progressBar = new ProgressBar(this.task_item || []);
 

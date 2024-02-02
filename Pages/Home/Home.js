@@ -18,13 +18,24 @@ import { WebSocketGTPP } from "../../Socket.js";
  */
 export default class Home {
     #web;
+    /**
+     * Description placeholder
+     * @date 2/2/2024 - 1:10:48 PM
+     *
+     * @async
+     * @param {WebSocketGTPP} ws
+     * @returns {unknown}
+     */
     async main() {
         try {
+            // this.#web = ws;
             this.#web = new WebSocketGTPP();
             this.#web.Connect();
+            
 
             const containerHome = new Containers();
             const container = document.createElement('div');
+
             container.className = "gridRightHome";
             const connection = new Connection();
 

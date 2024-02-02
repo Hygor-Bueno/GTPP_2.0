@@ -31,7 +31,8 @@ export default class ProgressBar {
     calculateProgress() {
         const totalTasks = this.tasks.length;
         const completedTasks = this.tasks.filter(task => task.check).length;
-        return (completedTasks / totalTasks) * 100;
+        const result = ((completedTasks / totalTasks) * 100) || 0
+        return result;
     }
 
     /**

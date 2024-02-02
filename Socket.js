@@ -31,7 +31,7 @@ export class WebSocketGTPP {
             console.log("error");
         }, 5000);
     }
-
+    
     Pong() {
         clearTimeout(this.time_out);
     }
@@ -53,7 +53,6 @@ export class WebSocketGTPP {
 
     onClose() {
         console.log("error");
-        getWebSocket({});
         setTimeout(() => {
             this.Connect(); // Corrigindo a chamada de método Connect
         }, 1000);
@@ -67,25 +66,44 @@ export class WebSocketGTPP {
         }
 
         let response = JSON.parse(ev.data);
-        if (!response.error && response.send_user_id != this.id) { 
-            console.log(response) 
+        if (!response.error && response.send_user_id != this.id) {
+            console.log(response)
         }
 
-        if(response.error && response.message.includes("This user has been connected to another place")) {
+        if (response.error && response.message.includes("This user has been connected to another place")) {
             const router = new Router();
             router.navigation('Login');
         }
-        
+
         if (!response.error && response.type == 2) {
-            const task_item = document.getElementById(`task_item_${response.object.itemUp.id}`)
-            if (task_item) task_item.checked = response.object.itemUp.check;
+            const task_item = document.getElementById(`task_item_${response.object.itemUp.id}`);
+            if (task_item) {
+                task_item.checked = response.object.itemUp.check;
+                const progressBar = document.querySelector('.progress-bar');
+                if (progressBar && response?.object?.percent) {
+                    progressBar.setAttribute('aria-valuenow', response.object.percent);
+                    progressBar.setAttribute('style', `width:${response.object.percent}%`);
+                }
+            }
         }
+        console.log(response)
     }
 
     informSending(json) {
-        // json.object.itemUp.check = !json.object.itemUp.check;
         if (this.isConnected) {
-            this.socket.send(JSON.stringify(json)); // Corrigindo para usar this.socket
+            console.log(this.socket);
+            this.socket.send(JSON.stringify(json));
         }
     }
+    // disconnect() {
+    //     // const close = {            
+    //     //      "send_user_id": this.id,
+    //     //      "type": -1,
+    //     //      "state": "disconnected"
+    //     //  }
+    //     //  this.socket.send(JSON.stringify(close))
+    //     this.socket.close();
+    //     // this.socket.onclose();
+    //     // console.log(this.socket)
+    //     }
 }

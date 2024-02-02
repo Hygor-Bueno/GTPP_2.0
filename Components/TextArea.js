@@ -15,13 +15,14 @@ export default class TextArea {
     class;
     disabled = true;
     id;
+    onAction=null;
     #mandatory=['id'];
     /**
      * Creates an instance of TextArea.
      * @date 1/26/2024 - 10:28:56 AM
      *
      * @constructor
-     * @param {{text?:string,class?:string,id:string}} configs
+     * @param {{text?:string,class?:string,id:string;onAction:(e)=>}} configs
      */
     constructor(configs) {
         try {
@@ -29,7 +30,8 @@ export default class TextArea {
             let result = util.ValidatKeysComponent(this.#mandatory,configs);
             if(result) throw new Error('Not found token ID');
             this.text = configs?.text || '';
-            this.id = configs.id
+            this.id = configs.id;
+            this.onAction = configs.onAction;
         } catch (error) {
             console.error(error);
         }
@@ -43,6 +45,7 @@ export default class TextArea {
     componentTextArea() {
         const textarea = document.createElement('textarea');
         textarea.innerText = this.text || '';
+        textarea.addEventListener('keyup',(e)=>this.text= e.target.value)
         if (this.disabled) textarea.disabled = 'disabled';
         textarea.className = this.class || 'texteAreaDefault';
         return textarea;
@@ -69,7 +72,7 @@ export default class TextArea {
             title: 'Editar area de texto',
             description: 'Editar',
             classButton:`btn btnFloatRight ${this.disabled ? 'btnDanger':'btnSuccess'}`,
-            onAction: (e) => {
+            onAction: async (e) => {
                 e.target.innerText = this.disabled ? 'Salvar' : 'Editar';
                 this.disabled = !this.disabled;
                 e.target.className = `btn btnFloatRight ${this.disabled ? 'btnDanger':'btnSuccess'}`;
@@ -77,6 +80,7 @@ export default class TextArea {
                     const textarea = document.querySelector(`#${this.id} > textarea`);
                     this.disabled ? textarea.setAttribute('disabled','true') : textarea.removeAttribute('disabled');
                 }
+                if(this.onAction && this.disabled) { await this.onAction(this.text)};
             }
         });
     }
