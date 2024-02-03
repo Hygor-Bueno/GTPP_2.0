@@ -23,9 +23,8 @@ export default class Modal {
     // criação do 'DIV' modal
     const modalDiv = document.createElement('div');
     modalDiv.className = 'modal';
-    // modalDiv.style.background= funcAss ? funcAss : "#f0025f"
 
-    modalDiv.className = `.modal ${this.styleModal[funcAss]}`;
+    modalDiv.className = `modal ${this.styleModal[funcAss]}`;
     modalDiv.id = 'ModalReturn';
 
     // criação do 'DIV' separator
