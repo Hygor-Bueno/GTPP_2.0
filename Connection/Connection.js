@@ -201,7 +201,7 @@ export class Connection {
                 if (body.error) throw Error(body.message);
                 req = body;
             }).catch((messageErr) => {
-                req = this.prepareCatchReturn(messageErr);
+                req = this.prepareCatchReturn(messageErr,1);
             });
         this.cleanParams();
         return req;
@@ -253,7 +253,7 @@ export class Connection {
         if (this.err.error && (!this.err.exception || !messageErr.message.toUpperCase().includes(this.err.exception.toUpperCase()))) {
             const translator = new Translator(messageErr["message"]);
             const modal = new Modal();
-            modal.openModal('Erro!', translator.getMessagePT(), document.querySelector("#containerMain section"));
+            modal.openModal('Erro!', translator.getMessagePT(), document.querySelector("#containerMain section"), 0);
         }
         console.log({ "error": true, "message": messageErr["message"] });
         return { "error": true, "message": messageErr["message"] }
