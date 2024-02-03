@@ -18,11 +18,12 @@ export default class Modal {
    * @public
    * @returns {HTMLElement} O elemento do modal criado.
    */
-  createModal() {
+  createModal(funcAss) {
 
     // criação do 'DIV' modal
     const modalDiv = document.createElement('div');
     modalDiv.className = 'modal';
+    modalDiv.style.background = funcAss ? funcAss : "#f0025f"
     modalDiv.id = 'ModalReturn';
 
     // criação do 'DIV' separator
@@ -106,7 +107,7 @@ export default class Modal {
    * @param {string} mensagem - A mensagem a ser exibida no modal.
    * @param {HTMLElement} local - O elemento DOM onde o modal será anexado.
    */
-  openModal(titulo, mensagem, local) {
+  openModal(titulo, mensagem, local, funcAss) {
     // Obtém uma referencia ao modal existente, se houver, ID 'ModalReturn'
     const modalExistente = document.getElementById('ModalReturn');
 
@@ -126,6 +127,7 @@ export default class Modal {
       // Anexa o modal a um certo local fornecido na DOM
       local.appendChild(modalDiv);
     }
+
 
     // Adiciona um ouvinte de evento para capturar cliques fora do modal
     document.addEventListener('click', this.handleOutsideClick.bind(this));
