@@ -76,7 +76,7 @@ export const registerInputs = {
             iconLabel: true,
             nameImageLabel: 'priority.svg',
             requiredInput: false,
-            classLabel: 'customLabel',
+            classLabel: 'labelForm',
             name: 'selectFieldName',
             classSelect: 'inputForm',
             options: [

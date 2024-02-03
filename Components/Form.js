@@ -168,39 +168,24 @@ export default class Form {
     */
     selectFieldWithLabel(configs) {
         try {
-            if (!configs || !configs.label || !configs.options) {
-                throw new Error('Key label or options not found.');
-            }
-
+            if (!configs || !configs.label || !configs.options) throw new Error('Key label or options not found.');
             const fieldset = document.createElement('fieldset');
-
             const div = document.createElement('div');
-
             if (configs.iconLabel) fieldset.className = 'divLabelImg';
-            const label = document.createElement('label');
-            label.className = 'labelForm';
-            label.innerText = configs.label;
-
-            configs.iconLabel && div.appendChild(this.iconLabel(configs.nameImageLabel));
             fieldset.appendChild(div);
-            div.appendChild(label);
-
-            
+            div.appendChild(this.label(configs));
             if (configs.requiredInput) fieldset.appendChild(this.mandatory());
-            
             const select = document.createElement('select');
             select.id = configs.selectId;
             select.name = configs.name;
             select.className = (configs.classSelect) ? configs.classSelect : 'inputForm';
             if (configs?.onChange) select.addEventListener('change', (e) => { configs.onChange(e.target.value); });
-
             configs.options.forEach(option => {
                 const optionElement = document.createElement('option');
                 optionElement.value = option.value;
                 optionElement.text = option.text;
                 select.appendChild(optionElement);
             });
-
             fieldset.appendChild(select);
             return fieldset;
         } catch (error) {
