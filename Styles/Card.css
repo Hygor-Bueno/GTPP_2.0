@@ -1,12 +1,13 @@
 .card {
+    width: 278px;
     border-radius: var(--spaceDefault);
     background-color: #FFF;
     padding: var(--spaceDefault);
     position: relative;
     margin: 0 var(--spaceDefault);
-    min-width: clamp(10vw,50vw,260px);
     border: var(--borderSize) solid #0000004f;
     box-shadow:  calc(0.9 * var(--spaceDefault)) var(--spaceDefault) var(--spaceDefault) rgba(0, 0, 0, 0.35);
+    align-self: flex-start;
 }
 
 .card:hover {
@@ -151,7 +152,7 @@
 
 #taskDiv {
   overflow-y: auto;
-  height: 93%;
+  max-height: 70vh;
 }
 
 .task-priority {
@@ -165,7 +166,8 @@
 }
 
 .task-priority > img{
-  width: calc(2*(var(--spaceDefault)));
+  /* width: calc(2*(var(--spaceDefault))); */
+  width: var(--imageSizeP);
 }
 
 .task-date {

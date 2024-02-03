@@ -21,5 +21,6 @@
 }
 
 .menu .btn-submenu img {
-    width: 2.1vmin;
+    /* width: 2.1vmin; */
+    width: var(--imageSizeP);
 }

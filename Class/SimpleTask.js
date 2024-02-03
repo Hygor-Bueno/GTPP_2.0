@@ -47,7 +47,7 @@ export default class SimpleTask{
 
         const modal2 = document.createElement('div');
         modal2.className = 'modal-register2';
-
+ 
         const modal3 = document.createElement('div');
         modal3.className = 'modal-register3';
 
@@ -58,7 +58,7 @@ export default class SimpleTask{
             let result = await connection.post(this, 'GTPP/Task.php');
 
             if(!result.error) {
-                taskList.push(this);
+                taskList.push({id: result.last_id, ...this});
                 local.appendChild(funcAss());
             }
         }}
