@@ -8,7 +8,14 @@ import { HamburgerX } from "./Hambuger.js";
 
 /**
  * @author Jonatas Silva
- * @description classe card
+ * @class Card
+ * @description Componente card que exibe e cria novas tarefas 
+ * @example componenteTeste() => {
+ *    const docTest = document.createElement("div");
+ *    const card = new Card(this.#web);
+ *    docTest.appendChild(card.createCard({ id: `task_state_1`, label: 'Nome do card', view: true }, getTask));
+ * }
+ * 
  */
 export default class Card {
   #taskList = [];
@@ -24,12 +31,10 @@ export default class Card {
     this.#getTasks = tasks;
     const cardDiv = document.createElement('div');
     cardDiv.className = 'card';
-    if (configs?.id) cardDiv.id = configs.id;
     cardDiv.style.display = configs.view ? 'block' : 'none';
-    const subDivCard = this.createSubDivCard(configs.label);
+    if (configs?.id) cardDiv.id = configs.id;
     const inputCheckbox = this.createButtonHamburger(configs.id);
-    cardDiv.appendChild(subDivCard);
-    subDivCard.appendChild(inputCheckbox);
+    cardDiv.appendChild(this.getSubdivCard(configs, inputCheckbox));
     const taskDiv = document.createElement('div');
     taskDiv.id = 'taskDiv';
     for (let i = 0; i < this.#getTasks.length; i++) {
@@ -38,6 +43,12 @@ export default class Card {
     }
     cardDiv.appendChild(taskDiv);
     return cardDiv;
+  }
+
+  getSubdivCard(configs, inputCheckbox) {
+    const subDivCard = this.createSubDivCard(configs.label);
+    subDivCard.appendChild(inputCheckbox);
+    return subDivCard;
   }
 
   createTaskElement(taskData) {
@@ -79,7 +90,6 @@ export default class Card {
   }
 
   createElementDate(date) {
-    const util = new Util();
     const taskElementInitialDate = document.createElement('div');
     taskElementInitialDate.innerText=`${date.split('-').reverse().join('/')}`;
     return taskElementInitialDate;
@@ -145,19 +155,21 @@ export default class Card {
     return fatherMenu;
   }
 
+  
+  /**
+   * Função que gera uma pagina blank que traz os dados da tarefa e podemos imprimir ou salvar em PDF.
+   * @date 2/5/2024 - 10:55:47 AM
+   */
   onPDF = () => {
     const pdfGenerator = new PDFGenerator(this.#getTasks, this.#getConfigId);
     pdfGenerator.generatePDF();
     pdfGenerator.closeWindow();
   }
 
+  /** Função que gera um arquivo CSV e faz o download para ser utilizando e importado para qualquer lugar.  */
   onCSV = () => {
     const csvGenerator = new CSVGenerator(this.#getTasks, this.#getConfigId);
     csvGenerator.generateCSV();
-  }
-
-  moveToDoingTask() {
-    console.log("passando para frente...");
   }
 
   reloadTaskList = (id) => {

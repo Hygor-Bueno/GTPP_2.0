@@ -24,7 +24,6 @@ export default class Button{
             let mandatory = ['type','title','description','onAction']; //Lista de chaves obrigatórias.
             let result = this.#util.ValidatKeysComponent(mandatory,configs); //Validação se as chaves obrigatórias se encontram nas configurações do objeto.
             if(!result) throw new Error(`is broken (${mandatory})`); //Tratativa de erro.
-
             // Criando o componente botão.
             const button = document.createElement('button');
             button.type = configs.type;

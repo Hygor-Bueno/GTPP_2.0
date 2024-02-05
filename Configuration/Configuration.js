@@ -34,6 +34,11 @@ export const inputsLogin =
         ]
 };
 
+/**
+ * @date 2/5/2024 - 10:03:34 AM
+ * @author Jonatas silva
+ * @type {{ legend: string; listfields: [{classItemsForm:string;classForm:string;classLabel:string;classInput:string;label:string;inputType:string;inputId:string;iconLabel:boolean;nameImageLabel:string;}, {selectId:string;label:string;iconLabel:boolean;nameImageLabel:string;registerInputs:boolean;classLabel:string;name:string;classSelect:string;options:[{value:string;text:string;}]}]; }}
+ */
 export const registerInputs = {
     legend: 'register',
     listfields: [
@@ -88,23 +93,6 @@ export const registerInputs = {
             type: 'select'
         }
     ]
-}
-    ;
-
-
-export const selectConfigs = {
-    label: 'Seleciona a prioridade',
-    iconLabel: true,
-    nameImageLabel: 'priority.svg',
-    requiredInput: true,
-    classLabel: 'customLabel',
-    name: 'selectFieldName',
-    classSelect: 'customSelect',
-    options: [
-        { value: 'alto', text: 'alto' },
-        { value: 'medio', text: 'medio' },
-        { value: 'baixo', text: 'baixo' },
-    ],
 };
 
 export const textInputName = {
@@ -221,6 +209,12 @@ export const buttonAdd = {
     classButton: 'btn-submenu'
 }
 
+/**
+ * Description placeholder
+ * @date 2/5/2024 - 10:02:44 AM
+ * @author Jonatas Silva.
+ * @type {{ type: string; title: string; description: string; classButton: string; }}
+ */
 export const buttonToTask = {
     type: 'button',
     title: 'Clique para mover essa tarefa para fazendo!',
@@ -228,6 +222,12 @@ export const buttonToTask = {
     classButton: 'btn-toTask'
 }
 
+/**
+ * Description placeholder
+ * @date 2/5/2024 - 10:02:53 AM
+ * @author Jonatas Silva.
+ * @type {{ title: string; type: string; classButton: string; id: string; }}
+ */
 export const buttonStateTask = {
     title: 'Abrir lista de status',
     type: 'button',
@@ -235,6 +235,12 @@ export const buttonStateTask = {
     id: 'buttoStateTask'
 }
 
+/**
+ * Description placeholder
+ * @date 2/5/2024 - 10:03:15 AM
+ * @author Jonatas Silva.
+ * @type {{ type: string; title: string; description: string; classButton: string; }}
+ */
 export const saveButton = {
     type: 'submit',
     title: 'Clique para adicionar um item a lista',
