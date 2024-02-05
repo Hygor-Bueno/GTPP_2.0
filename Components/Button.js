@@ -1,5 +1,6 @@
 import { buttonAdd, buttonCSV, buttonPDF } from "../Configuration/Configuration.js";
 import Util from "../Util.js";
+import Form from "./Form.js";
 
 /**
  * Classe Button
@@ -37,20 +38,33 @@ export default class Button{
         }
     }
 
+    
+    /**
+     * Description placeholder
+     * @date 2/5/2024 - 12:29:57 PM
+     * @author Jonatas silva
+     *
+     * @param {object} local
+     * @param {string} id
+     * @param {function} onPDF
+     * @param {function} onCSV
+     * @param {function} reloadTaskList
+     */
     configButton(local, id, onPDF, onCSV, reloadTaskList) {
+        const icon = new Form();
         const btn = new Button();
         const createButton = (config) => local.appendChild(btn.Button(config));        
         const addButton = config => id === 'task_state_1' && createButton(config);
-        createButton({ ...buttonPDF, onAction: onPDF, description: this.componentImage('PDF.svg') });
-        createButton({ ...buttonCSV, onAction: onCSV, description: this.componentImage('csv.svg') });
-        addButton({ ...buttonAdd, onAction: () => reloadTaskList(id), description: this.componentImage('ADD.svg') });
+        createButton({ ...buttonPDF, onAction: onPDF, description: icon.iconLabel('PDF.svg') });
+        createButton({ ...buttonCSV, onAction: onCSV, description: icon.iconLabel('csv.svg') });
+        addButton({ ...buttonAdd, onAction: () => reloadTaskList(id), description: icon.iconLabel('ADD.svg') });
     }
 
-    componentImage(srcImage, title) {
-        const image = document.createElement('img');
-        title && (image.title = `${title}`);
-        image.src = `../Assets/Image/${srcImage}`;
-        return image;
-    }
+    // componentImage(srcImage, title) {
+    //     const image = document.createElement('img');
+    //     title && (image.title = `${title}`);
+    //     image.src = `../Assets/Image/${srcImage}`;
+    //     return image;
+    // }
     
 }

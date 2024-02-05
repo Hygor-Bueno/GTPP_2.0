@@ -113,6 +113,12 @@ export default class Form {
         return label;
     }
 
+    /**
+     * Retorna um caminho automatico para as imagens da pasta, basta colocar o nome das imagens com suas extenções ".svg, .jpg, .png".
+     * 
+     * @param {string} nameImg
+     * @return {HTMLImageElement} 
+     */
     iconLabel(nameImg) {
         const img = document.createElement('img');
         img.className = 'iconImg'
