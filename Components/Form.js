@@ -29,7 +29,7 @@ export default class Form {
     controllerElements(configs) {
         let response;
         switch (configs.type) {
-            case 'select': response = this.selectFieldWithLabel(configs); break;
+            case 'select': response = this.getSelectFieldWithLabel(configs); break;
             default: response = this.ItemForm(configs); break;
         }
         return response;
@@ -49,19 +49,6 @@ export default class Form {
         //Adicação dos filhos.
         fieldset.appendChild(this.divSubContainer(this.label(configs), this.input(configs), configs));
         return fieldset;
-    }
-
-
-    ItemSelectForm(configs) {
-        const select = document.createElement('select');
-        const option = document.createElement('option');
-        option.innerText = 'Selecione';
-        option.hidden = true;
-        option.value = '';
-        option.selected = true;
-
-        select.appendChild(option);
-        return select;
     }
 
     /**
@@ -160,52 +147,61 @@ export default class Form {
     }
 
     /**
-     * Description placeholder
+     * Componente reutilizavel pré montado.
      * @date 1/29/2024 - 4:54:44 PM
      *
-     * @param {*} configs
-     * @returns {*}
+     * @param {{label:string;options:string;iconLabel:string;requiredInput:bool;}} configs
+     * @requires configs - necessario que as configurações que o label tenha um titulo e options tenha os seus valores para serem mostrados.
     */
-    selectFieldWithLabel(configs) {
+    getSelectFieldWithLabel(configs) {
         try {
-            if (!configs || !configs.label || !configs.options) {
-                throw new Error('Key label or options not found.');
-            }
-
+            if (!configs || !configs.label || !configs.options) throw new Error('Key label or options not found.');
             const fieldset = document.createElement('fieldset');
-
             const div = document.createElement('div');
-
             if (configs.iconLabel) fieldset.className = 'divLabelImg';
-            const label = document.createElement('label');
-            label.className = 'labelForm';
-            label.innerText = configs.label;
-
-            configs.iconLabel && div.appendChild(this.iconLabel(configs.nameImageLabel));
             fieldset.appendChild(div);
-            div.appendChild(label);
-
-            
+            div.appendChild(this.label(configs));
             if (configs.requiredInput) fieldset.appendChild(this.mandatory());
-            
+            fieldset.appendChild(this.getSelectSimple(configs));
+            return fieldset;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    /**
+     * Componente de criação de um select simples
+     *
+     * @param {{selectId:string;name:string;classSelect:string;onChange:()=>void;}} configs
+     * @returns {*}
+     */
+    getSelectSimple(configs){
+        try {
             const select = document.createElement('select');
             select.id = configs.selectId;
             select.name = configs.name;
             select.className = (configs.classSelect) ? configs.classSelect : 'inputForm';
             if (configs?.onChange) select.addEventListener('change', (e) => { configs.onChange(e.target.value); });
-
-            configs.options.forEach(option => {
-                const optionElement = document.createElement('option');
-                optionElement.value = option.value;
-                optionElement.text = option.text;
-                select.appendChild(optionElement);
-            });
-
-            fieldset.appendChild(select);
-            return fieldset;
+            this.getOptions(configs, select);
+            return select;
         } catch (error) {
-            console.error(error);
+            console.log(error.message);
         }
+    }
+
+
+    /**
+     * Componente reutilizável de options simples.
+     *
+     * @param {{options:[{value: string, text: string}];}} configs
+     */
+    getOptions(configs, select) {
+       configs.options.forEach(option => {
+            const optionElement = document.createElement('option');
+            optionElement.value = option.value;
+            optionElement.text = option.text;
+            select.appendChild(optionElement);
+        });
     }
 
     simpleLabel(configs) {

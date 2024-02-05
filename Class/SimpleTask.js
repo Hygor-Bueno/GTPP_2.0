@@ -6,12 +6,25 @@ import {Connection} from "../Connection/Connection.js";
 
 import { registerInputs } from "../Configuration/Configuration.js";
 
+
+/** Classe que representa uma tarefa simples
+ *  @author Jonatas Silva.
+ *  @example const test = new SimpleTest();
+ */
 export default class SimpleTask{
     description;
     priority;
     initial_date;
     final_date;
 
+    /**
+     * Cria uma instância de SimpleTask.
+     * @constructor
+     * @param {string} description - Descrição da tarefa.
+     * @param {string} priority - Prioridade da tarefa.
+     * @param {string} initial_date - Data de início da tarefa.
+     * @param {string} final_date - Data de término da tarefa.
+     */
     constructor(description,priority,initial_date,final_date,){
         this.description = description;
         this.priority = priority;
@@ -19,26 +32,53 @@ export default class SimpleTask{
         this.final_date = final_date;
     }
 
+    /**
+     * Define a descrição da tarefa.
+     * @example
+     * task.setDescription('Nova descrição da tarefa');
+     */
     setDescription(description){
         this.description = description;
         console.log(this);
     }
 
+    /**
+     * Define a data de início da tarefa.
+     * @example
+     * task.setInitialDate('2024-02-05');
+     */
     setInitialDate(initial_date){
         this.initial_date = initial_date;
         console.log(this);
     }
     
+    /**
+     * Define a data de término da tarefa.
+     * @example
+     * task.setFinalDate('2024-02-10');
+     */
     setFinalDate(final_date){
         this.final_date = final_date;
         console.log(this);
     }
 
+
+    /**
+     * Define a prioridade da tarefa.
+     * @param {string} priority - Nova prioridade da tarefa.
+     * @example
+     * task.setPriority('Alta');
+     */
     setPriority(priority){
         this.priority = priority;
         console.log(this);
     }
 
+    /**
+     * Registra a tarefa usando um modal.
+     * @example
+     * const modalElement = task.registerModal(taskList, document.getElementById('modalContainer'), assistFunction);
+     */
     registerModal(taskList, local, funcAss) {
         const modal1 = document.createElement('div');
         modal1.setAttribute('modal-tasks', true);
@@ -61,6 +101,11 @@ export default class SimpleTask{
         return modalRegister.modalDark(modal1);
     }
 
+    /**
+     * Lança o modal após o registro da tarefa.
+     * @example
+     * task.modalLauncher(result, taskList, document.getElementById('modalContainer'), assistFunction);
+     */
     modalLauncher(result, taskList, local, funcAss) {
         let inputRegisterTask = document.getElementById('registerInput');
         let initialDate = document.getElementById('initialDate');
