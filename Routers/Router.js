@@ -74,11 +74,11 @@ export default class Router {
      * @author Hygor Bueno.
      * @param {HTMLElement} local
      * @param {HTMLElement} pageElement
-     */
+    */
     async pageBuild(local, pageElement,titleHeader) {
 
         const header = new Header(titleHeader);
-        const footer = new Footer('CLPP versão 1.0','Criado por Hygor Bueno e Jonatas')
+        const footer = new Footer('CLPP versão 1.0','Criado por Hygor Bueno e Jonatas');
  
         const isHeader = "#containerMain header";
         const container = document.querySelector("#containerMain");

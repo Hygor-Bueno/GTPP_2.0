@@ -57,7 +57,7 @@ export default class Card {
       const task = new Tasks(taskData,this.#ws);
       await task.getDetails();
       const modal = new Modal();
-      modal.modalDark(task.taskElement());
+      modal.modalDark({modal:task.taskElement()});
     });
     return taskElement;
   }

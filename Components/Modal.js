@@ -1,6 +1,6 @@
 //import { buttonLogin } from "../Configuration/Configuration";
 import Button from "./Button.js";
-import {buttonCloseModal} from "../Configuration/Configuration.js";
+import { buttonCloseModal } from "../Configuration/Configuration.js";
 import Containers from "./Containers.js";
 import Util from "../Util.js";
 
@@ -31,7 +31,7 @@ export default class Modal {
 
     // criação do modal-content
     const modalContent = document.createElement('div');
-    modalContent.className = 'modal-content';    
+    modalContent.className = 'modal-content';
 
     // pega os components Title e paragraph 
     const divTitle = this.createTitleElement();
@@ -48,21 +48,19 @@ export default class Modal {
     return modalDiv;
   }
 
-  
+
   /**
    * Description placeholder
    * @date 1/29/2024 - 11:14:37 AM
    *
-   * @param {*} modal
-   * @returns {*}
+   * @param {{modal?:HTMLElement;class?:string}} configs
    */
-  modalDark(modal){
+  modalDark(configs) {
     const util = new Util();
     const container = new Containers();
-    const elementModal =container.containerBasic({element:modal,class:'darkModal',id:'modalTask'});
-    util.removeElementClikAway(elementModal,'modalTask');
+    const elementModal = container.containerBasic({ element: configs.modal, class: configs.class || 'darkModal', id: 'modalTask' });
+    util.removeElementClikAway(elementModal, 'modalTask');
     document.querySelector('body').appendChild(elementModal);
-    return elementModal;
   }
 
   /**
@@ -133,7 +131,7 @@ export default class Modal {
 
   handleOutsideClick(event) {
     const modalDiv = document.getElementById('ModalReturn');
-    if(modalDiv && !modalDiv.contains(event.target)) {
+    if (modalDiv && !modalDiv.contains(event.target)) {
 
       // Remove o modal se o clique ocorreu fora dele
       modalDiv.remove();

@@ -1,6 +1,7 @@
 import Containers from "../Components/Containers.js";
 import Form from "../Components/Form.js";
 import List from "../Components/List.js";
+import Modal from "../Components/Modal.js";
 import ProgressBar from "../Components/ProgressBar .js";
 import TextArea from "../Components/TextArea.js";
 import Title from "../Components/Title.js";
@@ -120,8 +121,17 @@ export default class Tasks {
         const divHeader = document.createElement('div');
         divHeader.id = 'taskHeader';
         const title = new Title(this.description)
+        divHeader.addEventListener('click',()=>{
+            this.editText();
+        });
         divHeader.appendChild(title.main());
         return divHeader;
+    }
+    editText(){
+        const modal = new Modal();
+        const div = document.createElement('div');
+        div.className = 'textEditModal';
+        modal.modalDark({modal:div,class:'textEditModal'});
     }
     taskBody() {
         const divBody = document.createElement('div');
@@ -177,4 +187,5 @@ export default class Tasks {
         });
         return ul;
     }
+
 }
