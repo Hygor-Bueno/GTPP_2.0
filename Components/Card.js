@@ -181,7 +181,7 @@ export default class Card {
       const local = document.querySelector(`#${id}`);
 
       const loadtask = new SimpleTask();
-       loadtask.registerModal(this.#taskList, local, () => console.log('ahahah'));
+       loadtask.registerModal(this.#taskList, local, () => this.loadTaskList());
     } catch (e) {
       console.error(e);
     }
