@@ -11,7 +11,6 @@ import Util from "../Util.js";
  */
 export default class Button{
     #util = new Util();
-    
     /**
      * Cria e retonar um elemento html button totalmente configurado.
      * @date 10/01/2024 - 4:44:45 PM
@@ -39,17 +38,12 @@ export default class Button{
     }
 
     configButton(local, id, onPDF, onCSV, reloadTaskList) {
-        const btnPDF = new Button();
-        const btnCSV = new Button();
-        const btnADD = new Button();
-        const configBtnPDF = { ...buttonPDF, onAction: () => onPDF(), description: this.componentImage('PDF.svg') };
-        local.appendChild(btnPDF.Button(configBtnPDF));
-        const configBtnCSV = { ...buttonCSV, onAction: () => onCSV(), description: this.componentImage('csv.svg') };
-        local.appendChild(btnCSV.Button(configBtnCSV));
-        if (id === 'task_state_1') {
-            const configBtnAdd = { ...buttonAdd, onAction: () => reloadTaskList(id), description: this.componentImage('ADD.svg') };
-            local.appendChild(btnADD.Button(configBtnAdd));
-        }
+        const btn = new Button();
+        const createButton = (config) => local.appendChild(btn.Button(config));        
+        const addButton = config => id === 'task_state_1' && createButton(config);
+        createButton({ ...buttonPDF, onAction: onPDF, description: this.componentImage('PDF.svg') });
+        createButton({ ...buttonCSV, onAction: onCSV, description: this.componentImage('csv.svg') });
+        addButton({ ...buttonAdd, onAction: () => reloadTaskList(id), description: this.componentImage('ADD.svg') });
     }
 
     componentImage(srcImage, title) {
