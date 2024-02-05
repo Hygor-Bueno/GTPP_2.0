@@ -85,6 +85,14 @@ export default class Form {
      * @param {Object} configs
      * @returns {HTMLInputElement} Retorna um elemento label
      */
+    /**
+     * Cria e retorna um elemento html label pré-formatado.
+     * @date 10/01/2024 - 5:18:16 PM
+     * @author Hygor Bueno.
+     * 
+     * @param {Object} configs
+     * @returns {HTMLInputElement} Retorna um elemento label
+     */
     label(configs) {
         try {
             if (!configs || !configs.label) {
@@ -119,12 +127,6 @@ export default class Form {
         return label;
     }
 
-    /**
-     * Retorna um caminho automatico para as imagens da pasta, basta colocar o nome das imagens com suas extenções ".svg, .jpg, .png".
-     * 
-     * @param {string} nameImg
-     * @return {HTMLImageElement} 
-     */
     iconLabel(nameImg) {
         const img = document.createElement('img');
         img.className = 'iconImg'
@@ -140,17 +142,14 @@ export default class Form {
      * @returns {HTMLElement} Retorna um input pré-configurado.
      */
     input(configs) {
-        console.log(configs)
         try {
             if (!configs || !configs.inputType) {
                 throw new Error('key inputType not found.');
             }
             const input = document.createElement('input');
             input.type = configs.inputType;
+            input.id = configs.inputId;
             input.checked = configs.checked;
-
-            if (configs?.inputValue) input.value = configs.inputValue;
-            if (configs?.inputId) input.id = configs.inputId;
             if (configs?.onChange) input.addEventListener('change', (e) => { configs.onChange(e.target.value) });
             if (configs.requiredInput) input.dataset.required = 1;
             if (configs?.classInput) input.className = configs.classInput;
@@ -166,7 +165,7 @@ export default class Form {
      * @date 1/29/2024 - 4:54:44 PM
      *
      * @param {{label:string;options:string;iconLabel:string;requiredInput:bool;}} configs
-     * @requires configs - dentro de configurações é necessario que o label tenha um titulo e options tenha os seus valores para serem mostrados.
+     * @requires configs - necessario que as configurações que o label tenha um titulo e options tenha os seus valores para serem mostrados.
     */
     getSelectFieldWithLabel(configs) {
         try {
@@ -175,11 +174,23 @@ export default class Form {
             const div = document.createElement('div');
             if (configs.iconLabel) fieldset.className = 'divLabelImg';
             fieldset.appendChild(div);
-            div.appendChild(label);
-
-
+            div.appendChild(this.label(configs));
             if (configs.requiredInput) fieldset.appendChild(this.mandatory());
+            fieldset.appendChild(this.getSelectSimple(configs));
+            return fieldset;
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
+    /**
+     * Componente de criação de um select simples
+     *
+     * @param {{selectId:string;name:string;classSelect:string;onChange:()=>void;}} configs
+     * @returns {*}
+     */
+    getSelectSimple(configs){
+        try {
             const select = document.createElement('select');
             select.id = configs.selectId;
             select.name = configs.name;
