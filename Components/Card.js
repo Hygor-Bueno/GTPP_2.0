@@ -81,7 +81,7 @@ export default class Card {
   createElementDate(date) {
     const util = new Util();
     const taskElementInitialDate = document.createElement('div');
-    taskElementInitialDate.innerText=`${util.formaDateUTF8(date)}`;
+    taskElementInitialDate.innerText=`${date.split('-').reverse().join('/')}`;
     return taskElementInitialDate;
   }
 

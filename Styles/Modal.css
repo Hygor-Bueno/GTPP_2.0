@@ -4,7 +4,17 @@
     width: clamp(10vw, calc(100vw - (2*var(--spaceDefault))), calc(400px - (2*var(--spaceDefault))));
     border-radius: 0.5vw;
     overflow: hidden;
-    /* background-color: var(--dangerColor); */
+    font-weight: bold;
+    background-color: var(--dangerColor);
+}
+.modalDanger{
+    background-color: var(--dangerColor);
+}
+.modalSuccess{     
+    background-color: var(--successColor);
+}
+.modalWarning{
+    background-color: var(--warningColor);
 }
 
 .modal-absolute {
@@ -46,6 +56,11 @@
     /*90%*/
     width: initial;
 }
+
+
+
+
+
 
 
 #taskHeader {

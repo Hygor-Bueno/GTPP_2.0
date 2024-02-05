@@ -8,6 +8,7 @@
     border: var(--borderSize) solid #0000004f;
     box-shadow:  calc(0.9 * var(--spaceDefault)) var(--spaceDefault) var(--spaceDefault) rgba(0, 0, 0, 0.35);
     align-self: flex-start;
+    flex: none;
 }
 
 .card:hover {
@@ -90,8 +91,10 @@
   
   input[type=checkbox]:checked + label {
     .top-bar {
+      /* transform: rotate(45deg);
+      transform-origin: 10% 208%; */
       transform: rotate(45deg);
-      transform-origin: 10% 208%;
+      transform-origin: -1px 5px;
     }
 
     .bottom-bar {
@@ -169,7 +172,7 @@
   display: flex;
   gap: 0.5rem;
   justify-content: space-between;
-  width: 100%;
+  width: 20%;
   flex-direction: column-reverse;
 }
 
@@ -189,7 +192,6 @@
   align-items: end;
 }
 
-/* .divLabelImg > div > label {
-  font-weight: bold;
-
-} */
+.borderRequired {
+  border-color: var(--dangerColor);
+}

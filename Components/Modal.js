@@ -13,17 +13,18 @@ import Util from "../Util.js";
  * @classdesc Representa um componente modal simples para exibir mensagens.
  */
 export default class Modal {
+  styleModal = ['modalDanger','modalSuccess','modalWarning'];
   /**
    * Cria um novo elemento de modal.
    * @public
    * @returns {HTMLElement} O elemento do modal criado.
    */
   createModal(funcAss) {
-
     // criação do 'DIV' modal
     const modalDiv = document.createElement('div');
     modalDiv.className = 'modal';
-    modalDiv.style.background = funcAss ? funcAss : "#f0025f"
+
+    modalDiv.className = `modal ${this.styleModal[funcAss]}`;
     modalDiv.id = 'ModalReturn';
 
     // criação do 'DIV' separator
@@ -113,7 +114,7 @@ export default class Modal {
     if (!modalExistente) {
 
       // Cria um novo elemento DIV para representar o modal.
-      const modalDiv = this.createModal();
+      const modalDiv = this.createModal(funcAss);
 
       // Define o conteúdo do modal com base nos parâmetros fornecidos
       modalDiv.querySelector('.title-modal h1').textContent = titulo;
