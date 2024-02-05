@@ -1,3 +1,4 @@
+import Button from "../Components/Button.js";
 import Containers from "../Components/Containers.js";
 import Form from "../Components/Form.js";
 import List from "../Components/List.js";
@@ -5,6 +6,7 @@ import Modal from "../Components/Modal.js";
 import ProgressBar from "../Components/ProgressBar .js";
 import TextArea from "../Components/TextArea.js";
 import Title from "../Components/Title.js";
+import { buttonEditText, inputsEditText } from "../Configuration/Configuration.js";
 import { Connection } from "../Connection/Connection.js";
 
 export default class Tasks {
@@ -103,7 +105,7 @@ export default class Tasks {
             object: {
                 description: "A descrição completa da tarefa foi atualizada",
                 task_id: this.id,
-                full_description:this.full_description
+                full_description: this.full_description
             },
             task_id: this.id,
             type: 3
@@ -121,17 +123,29 @@ export default class Tasks {
         const divHeader = document.createElement('div');
         divHeader.id = 'taskHeader';
         const title = new Title(this.description)
-        divHeader.addEventListener('click',()=>{
+        divHeader.addEventListener('click', () => {
             this.editText();
         });
         divHeader.appendChild(title.main());
         return divHeader;
     }
-    editText(){
+    editText() {
         const modal = new Modal();
+        const formObj = new Form();
+        const button = new Button();
+
         const div = document.createElement('div');
+
         div.className = 'textEditModal';
-        modal.modalDark({modal:div,class:'textEditModal'});
+
+        div.appendChild(formObj.ContainerForm(inputsEditText(this.description)));
+
+
+        buttonEditText.onAction = () => console.log(this.description);
+
+        div.appendChild(button.Button(buttonEditText));
+        modal.modalDark({ modal: div, id: 'editModal' });
+        
     }
     taskBody() {
         const divBody = document.createElement('div');
@@ -158,8 +172,8 @@ export default class Tasks {
                         id: this.id,
                         full_description: newText
                     }, 'GTPP/Task.php');
-                    this.full_description = newText;
-                    this.updateFullDescription();
+                this.full_description = newText;
+                this.updateFullDescription();
             }
         });
         const container = new Containers();
