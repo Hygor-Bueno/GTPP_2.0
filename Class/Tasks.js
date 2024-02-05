@@ -49,6 +49,10 @@ export default class Tasks {
         this.final_date = configs.final_date;
         this.#ws = ws;
     }
+    setDescription(description){
+        this.description = description;
+        console.log(this.description);
+    }
 
     async getDetails() {
         try {
@@ -138,7 +142,7 @@ export default class Tasks {
 
         div.className = 'textEditModal';
 
-        div.appendChild(formObj.ContainerForm(inputsEditText(this.description)));
+        div.appendChild(formObj.ContainerForm(inputsEditText(this.description,(text)=>this.setDescription(text))));
 
 
         buttonEditText.onAction = () => console.log(this.description);

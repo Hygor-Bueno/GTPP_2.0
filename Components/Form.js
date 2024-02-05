@@ -158,7 +158,7 @@ export default class Form {
 
             if (configs?.inputValue) input.value = configs.inputValue;
             if (configs?.inputId) input.id = configs.inputId;
-            if (configs?.onChange) input.addEventListener('change', (e) => { configs.onChange(e.target.value) });
+            if (configs?.onChange) input.addEventListener('keyup', (e) => { configs.onChange(e.target.value) });
             if (configs.requiredInput) input.dataset.required = 1;
             if (configs?.classInput) input.className = configs.classInput;
             if (configs?.onAction) input.addEventListener('change', configs.onAction);

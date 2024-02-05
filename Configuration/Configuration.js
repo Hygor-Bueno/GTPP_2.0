@@ -247,7 +247,7 @@ export const saveButton = {
  * @author Hygor Bueno
  * @type {{legend:string; listfields:[{ classItemsForm: string; classForm: string; classLabel: string; classInput: string; label: string; inputType: string; inputId: string;requiredInput:boolean;iconLabel:boolean,nameImageLabel:string }]}}
  */
-export const inputsEditText = (value) => {
+export const inputsEditText = (value,onChange) => {
     return {
         legend: 'Editar',
         listfields: {
@@ -259,7 +259,8 @@ export const inputsEditText = (value) => {
             label: 'Editar',
             inputType: 'text',
             iconLabel: true,
-            nameImageLabel: 'Pen.svg'
+            nameImageLabel: 'Pen.svg',
+            onChange:onChange
         }
     };
 }
