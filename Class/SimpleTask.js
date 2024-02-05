@@ -80,38 +80,42 @@ export default class SimpleTask{
      * const modalElement = task.registerModal(taskList, document.getElementById('modalContainer'), assistFunction);
      */
     registerModal(taskList, local, funcAss) {
-        const modal1 = document.createElement('div');
-        modal1.setAttribute('modal-tasks', true);
-        modal1.className = 'modal-register1';
-        const modal2 = document.createElement('div');
-        modal2.className = 'modal-register2';
-        const modal3 = document.createElement('div');
-        modal3.className = 'modal-register3';
-        const btnSave = new Button();
-        const configBtnSave = {...saveButton, onAction: async () => {
-            let connection = new Connection();
-            let result = await connection.post(this, 'GTPP/Task.php');
-            this.modalLauncher(result, taskList, local, funcAss);
-        }}
-        modal1.appendChild(modal2);
-        this.inputsForm(modal2);
-        modal2.appendChild(modal3);
-        modal3.appendChild(btnSave.Button(configBtnSave));
-        const modalRegister = new Modal();
-        return modalRegister.modalDark(modal1);
-    }
+        try{
 
-    /**
-     * Lança o modal após o registro da tarefa.
-     * @example
-     * task.modalLauncher(result, taskList, document.getElementById('modalContainer'), assistFunction);
-     */
+            const modal1 = document.createElement('div');
+            modal1.setAttribute('modal-tasks', true);
+            modal1.className = 'modal-register1';
+            const modal2 = document.createElement('div');
+            modal2.className = 'modal-register2';
+            const modal3 = document.createElement('div');
+            modal3.className = 'modal-register3';
+            
+            const btnSave = new Button();
+            const configBtnSave = {...saveButton, onAction: async () => {
+                let connection = new Connection();
+                let result = await connection.post(this, 'GTPP/Task.php');
+                this.modalLauncher(result, taskList, local, funcAss);
+            }}
+            
+            modal1.appendChild(modal2);
+            this.inputsForm(modal2);
+            modal2.appendChild(modal3);
+            modal3.appendChild(btnSave.Button(configBtnSave));
+            const modalRegister = new Modal();
+            return modalRegister.modalDark({modal:modal1});
+        }catch(e){
+            console.error(e);
+        }
+    }
+    
     modalLauncher(result, taskList, local, funcAss) {
+        console.log('Ola mundo!')
         let inputRegisterTask = document.getElementById('registerInput');
         let initialDate = document.getElementById('initialDate');
         let finalDate = document.getElementById('finalDate');
         let priority = document.getElementById('priority');
         const modelos = [inputRegisterTask, initialDate, finalDate, priority];
+        
         if(!result.error) {
             taskList.push({id: result.last_id, ...this});
             local.appendChild(funcAss());

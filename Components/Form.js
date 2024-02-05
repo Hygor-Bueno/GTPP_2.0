@@ -151,7 +151,7 @@ export default class Form {
      * @date 1/29/2024 - 4:54:44 PM
      *
      * @param {{label:string;options:string;iconLabel:string;requiredInput:bool;}} configs
-     * @requires configs - necessario que as configurações que o label tenha um titulo e options tenha os seus valores para serem mostrados.
+     * @requires configs - dentro de configurações é necessario que o label tenha um titulo e options tenha os seus valores para serem mostrados.
     */
     getSelectFieldWithLabel(configs) {
         try {

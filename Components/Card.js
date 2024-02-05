@@ -22,7 +22,7 @@ export default class Card {
   #getTasks = [];
   #getConfigId;
   #ws;
-  constructor(ws){
+  constructor(ws) {
     this.#ws = ws;
   }
 
@@ -58,17 +58,17 @@ export default class Card {
     taskElement.className = 'task';
     subBoxTaskElement.className = 'subTask';
     taskElement.dataset.taskid = taskData.id;
-    
+
     taskElement.appendChild(this.createElementDescriptionAndPriority(taskData));
     taskElement.appendChild(subBoxTaskElement);
     subBoxTaskElement.appendChild(this.createTaskElementPriority(taskData));
-    
 
-    taskElement.addEventListener('click', async() => {
-      const task = new Tasks(taskData,this.#ws);
+
+    taskElement.addEventListener('click', async () => {
+      const task = new Tasks(taskData, this.#ws);
       await task.getDetails();
       const modal = new Modal();
-      modal.modalDark({modal:task.taskElement()});
+      modal.modalDark({ modal: task.taskElement() });
     });
     return taskElement;
   }
@@ -91,7 +91,7 @@ export default class Card {
 
   createElementDate(date) {
     const taskElementInitialDate = document.createElement('div');
-    taskElementInitialDate.innerText=`${date.split('-').reverse().join('/')}`;
+    taskElementInitialDate.innerText = `${date.split('-').reverse().join('/')}`;
     return taskElementInitialDate;
   }
 
@@ -125,7 +125,7 @@ export default class Card {
 
   createButtonHamburger(id) {
     const hamburger = new HamburgerX();
-    return hamburger.createButton(id, (e) => this.handleList(e,id));
+    return hamburger.createButton(id, (e) => this.handleList(e, id));
   }
 
   handleList(e, id) {
@@ -155,7 +155,7 @@ export default class Card {
     return fatherMenu;
   }
 
-  
+
   /**
    * Função que gera uma pagina blank que traz os dados da tarefa e podemos imprimir ou salvar em PDF.
    * @date 2/5/2024 - 10:55:47 AM
@@ -173,14 +173,18 @@ export default class Card {
   }
 
   reloadTaskList = (id) => {
-    const isList = document.querySelector(`#${id} ul`);
-    if (isList) {
-      isList.remove();
-    }
-    const local = document.querySelector(`#${id}`);
+    try {
+      const isList = document.querySelector(`#${id} ul`);
+      if (isList) {
+        isList.remove();
+      }
+      const local = document.querySelector(`#${id}`);
 
-    const loadtask = new SimpleTask();
-    loadtask.registerModal(this.#taskList, local, () => this.loadTaskList());
+      const loadtask = new SimpleTask();
+       loadtask.registerModal(this.#taskList, local, () => console.log('ahahah'));
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   loadTaskList() {
@@ -200,8 +204,8 @@ export default class Card {
 
   getPriorityText(priority) {
     const titlePriority = ['Prioridade baixa', 'Prioridade media', 'Prioridade Alta'];
-    return priority == 0 ? this.componentImage('eco.svg', titlePriority[0]) : 
-    priority == 1 ? this.componentImage('Warning.svg', titlePriority[1]) :
-    priority == 2 ? this.componentImage('Alert.svg', titlePriority[2]) : null;
+    return priority == 0 ? this.componentImage('eco.svg', titlePriority[0]) :
+      priority == 1 ? this.componentImage('Warning.svg', titlePriority[1]) :
+        priority == 2 ? this.componentImage('Alert.svg', titlePriority[2]) : null;
   }
 }
