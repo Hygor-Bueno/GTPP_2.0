@@ -137,10 +137,16 @@
     z-index: 400;
 }
 
-.textEditModal {
-    background: white;
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
+#editModal {
     z-index: 500;
+}
+#editModal > .textEditModal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+    width: clamp(10px,70vw,400px);
+    height: clamp(10px,70vh,240px);
+    border-radius: var(--spaceDefaultL);
 }

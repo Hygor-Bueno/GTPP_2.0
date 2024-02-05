@@ -242,3 +242,36 @@ export const saveButton = {
     classButton: 'btn-save',
 }
 
+/**
+ * @date 2/5/2024 - 9:26:15 AM
+ * @author Hygor Bueno
+ * @type {{legend:string; listfields:[{ classItemsForm: string; classForm: string; classLabel: string; classInput: string; label: string; inputType: string; inputId: string;requiredInput:boolean;iconLabel:boolean,nameImageLabel:string }]}}
+ */
+export const inputsEditText = (value) => {
+    return {
+        legend: 'Editar',
+        listfields: {
+            inputValue: value,
+            classItemsForm: 'itemsForm',
+            classForm: 'form',
+            classLabel: 'labelForm',
+            classInput: 'inputForm',
+            label: 'Editar',
+            inputType: 'text',
+            iconLabel: true,
+            nameImageLabel: 'Pen.svg'
+        }
+    };
+}
+/**
+ * Váriável de configuração para componentes html;
+ * @date 05/02/2024 - 10:05 PM
+* @author Hygor Bueno.
+* @type {{ type: string; title: string; description: string; classButton: string; }} 
+*/
+export const buttonEditText = {
+    type: 'button',
+    title: 'Click para salvar alteração',
+    description: 'Salvar',
+    classButton: 'bgButton'
+}

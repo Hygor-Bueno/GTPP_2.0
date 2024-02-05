@@ -60,8 +60,8 @@ export default class Modal {
   modalDark(configs) {
     const util = new Util();
     const container = new Containers();
-    const elementModal = container.containerBasic({ element: configs.modal, class: configs.class || 'darkModal', id: 'modalTask' });
-    util.removeElementClikAway(elementModal, 'modalTask');
+    const elementModal = container.containerBasic({ element: configs.modal, class: configs.class || 'darkModal', id: configs.id || 'modalTask' });
+    util.removeElementClikAway(elementModal, configs.id || 'modalTask');
     document.querySelector('body').appendChild(elementModal);
   }
 
