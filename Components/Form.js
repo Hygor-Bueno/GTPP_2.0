@@ -142,14 +142,17 @@ export default class Form {
      * @returns {HTMLElement} Retorna um input pré-configurado.
      */
     input(configs) {
+        console.log(configs)
         try {
             if (!configs || !configs.inputType) {
                 throw new Error('key inputType not found.');
             }
             const input = document.createElement('input');
             input.type = configs.inputType;
-            input.id = configs.inputId;
             input.checked = configs.checked;
+
+            if (configs?.inputValue) input.value = configs.inputValue;
+            if (configs?.inputId) input.id = configs.inputId;
             if (configs?.onChange) input.addEventListener('change', (e) => { configs.onChange(e.target.value) });
             if (configs.requiredInput) input.dataset.required = 1;
             if (configs?.classInput) input.className = configs.classInput;
