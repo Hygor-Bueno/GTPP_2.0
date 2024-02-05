@@ -42,15 +42,17 @@
 }
 
 #modalTask>div[modal-tasks="true"] {
-    height: initial; /*90%*/
+    height: initial;
+    /*90%*/
     width: initial;
 }
 
 
 #taskHeader {
-    height: clamp(5px,8%,50px);
+    height: clamp(5px, 8%, 50px);
 }
-#taskHeader >div{
+
+#taskHeader>div {
     display: flex;
     align-items: center;
     height: 100%;
@@ -58,30 +60,33 @@
 
 #taskBody {
     display: flex;
-    height: clamp(110px,92%,1100px);
+    height: clamp(110px, 92%, 1100px);
 }
-#taskBody > section{
+
+#taskBody>section {
     background-color: red;
     height: 100%;
     width: 20%;
-    
+
 }
-#taskBody > article{
+
+#taskBody>article {
     overflow-y: auto;
     height: 100%;
     width: 80%;
 }
-#taskBody > article > div{
-    display:flex;
+
+#taskBody>article>div {
+    display: flex;
     flex-direction: column;
     height: 100%;
     overflow: hidden;
 }
 
-#taskBody > article > div> div:nth-child(4){
+#taskBody>article>div>div:nth-child(4) {
     display: flex;
     flex-grow: 1;
-    overflow-y:auto;
+    overflow-y: auto;
 }
 
 .modal-register3 {
@@ -92,7 +97,7 @@
     justify-content: center;
 }
 
-.modal-register3 > button {
+.modal-register3>button {
     padding: var(--spaceDefault);
     background-color: transparent;
     border: var(--borderSize) solid var(--successColor);
@@ -101,7 +106,26 @@
     font-size: var(--textSize);
 }
 
-.modal-register3 > button:active {
+.modal-register3>button:active {
     background-color: var(--successColor);
     color: var(--primaryColor);
+}
+
+.darkModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    background: #0004;
+    width: 100vw;
+    height: 100vh;
+    z-index: 400;
+}
+
+.textEditModal {
+    background: white;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 500;
 }
