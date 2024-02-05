@@ -17,13 +17,11 @@ export default class Form {
      */
     ContainerForm(configs) {
         const form = document.createElement('form');
-        if (configs.listfields.length > 0) {
-            configs.listfields.forEach(itemConfig => {
-                form.appendChild(this.controllerElements(itemConfig));
-            });
-        } else {
-            form.appendChild(this.controllerElements(configs.listfields));
-        }
+
+        configs.listfields.forEach(itemConfig => {
+            form.appendChild(this.controllerElements(itemConfig))
+        })
+
         if (configs && configs.classForm) form.className = configs.classForm;
         return form;
     }
@@ -31,12 +29,8 @@ export default class Form {
     controllerElements(configs) {
         let response;
         switch (configs.type) {
-            case 'select':
-                response = this.selectFieldWithLabel(configs);
-                break;
-            default:
-                response = this.ItemForm(configs);
-                break;
+            case 'select': response = this.getSelectFieldWithLabel(configs); break;
+            default: response = this.ItemForm(configs); break;
         }
         return response;
     }
@@ -119,12 +113,6 @@ export default class Form {
         return label;
     }
 
-    /**
-     * Retorna um caminho automatico para as imagens da pasta, basta colocar o nome das imagens com suas extenções ".svg, .jpg, .png".
-     * 
-     * @param {string} nameImg
-     * @return {HTMLImageElement} 
-     */
     iconLabel(nameImg) {
         const img = document.createElement('img');
         img.className = 'iconImg'
@@ -140,17 +128,14 @@ export default class Form {
      * @returns {HTMLElement} Retorna um input pré-configurado.
      */
     input(configs) {
-        console.log(configs)
         try {
             if (!configs || !configs.inputType) {
                 throw new Error('key inputType not found.');
             }
             const input = document.createElement('input');
             input.type = configs.inputType;
+            input.id = configs.inputId;
             input.checked = configs.checked;
-
-            if (configs?.inputValue) input.value = configs.inputValue;
-            if (configs?.inputId) input.id = configs.inputId;
             if (configs?.onChange) input.addEventListener('change', (e) => { configs.onChange(e.target.value) });
             if (configs.requiredInput) input.dataset.required = 1;
             if (configs?.classInput) input.className = configs.classInput;
@@ -166,7 +151,7 @@ export default class Form {
      * @date 1/29/2024 - 4:54:44 PM
      *
      * @param {{label:string;options:string;iconLabel:string;requiredInput:bool;}} configs
-     * @requires configs - dentro de configurações é necessario que o label tenha um titulo e options tenha os seus valores para serem mostrados.
+     * @requires configs - necessario que as configurações que o label tenha um titulo e options tenha os seus valores para serem mostrados.
     */
     getSelectFieldWithLabel(configs) {
         try {
@@ -175,11 +160,23 @@ export default class Form {
             const div = document.createElement('div');
             if (configs.iconLabel) fieldset.className = 'divLabelImg';
             fieldset.appendChild(div);
-            div.appendChild(label);
-
-
+            div.appendChild(this.label(configs));
             if (configs.requiredInput) fieldset.appendChild(this.mandatory());
+            fieldset.appendChild(this.getSelectSimple(configs));
+            return fieldset;
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
+    /**
+     * Componente de criação de um select simples
+     *
+     * @param {{selectId:string;name:string;classSelect:string;onChange:()=>void;}} configs
+     * @returns {*}
+     */
+    getSelectSimple(configs){
+        try {
             const select = document.createElement('select');
             select.id = configs.selectId;
             select.name = configs.name;
