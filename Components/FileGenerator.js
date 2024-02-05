@@ -206,8 +206,8 @@ export class PDFGenerator {
           { key: 'description', label: 'tdDescription' },
           { key: 'state_description', label: 'tdState' },
           { key: 'priority', label: 'tdPriority', transform: value => this.getPriorityText(value)},
-          { key: 'initial_date', label: 'tdInitialDate', transform: value => util.formaDateUTF8(new Date(value)) }, 
-          { key: 'final_date', label: 'tdFinalDate', transform: value => util.formaDateUTF8(new Date(value)) },
+          { key: 'initial_date', label: 'tdInitialDate', transform: value => value.split('-').reverse().join('/') }, 
+          { key: 'final_date', label: 'tdFinalDate', transform: value => value.split('-').reverse().join('/') },
           { key: 'percent', label: 'tdPercent', transform: value => `${value}%` }
         ];
         attributes.forEach(attr => {

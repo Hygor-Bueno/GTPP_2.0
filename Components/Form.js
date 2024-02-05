@@ -180,17 +180,21 @@ export default class Form {
             select.name = configs.name;
             select.className = (configs.classSelect) ? configs.classSelect : 'inputForm';
             if (configs?.onChange) select.addEventListener('change', (e) => { configs.onChange(e.target.value); });
-            configs.options.forEach(option => {
-                const optionElement = document.createElement('option');
-                optionElement.value = option.value;
-                optionElement.text = option.text;
-                select.appendChild(optionElement);
-            });
+            this.getOptions(configs, select);
             fieldset.appendChild(select);
             return fieldset;
         } catch (error) {
             console.error(error);
         }
+    }
+
+    getOptions(configs, select) {
+       configs.options.forEach(option => {
+            const optionElement = document.createElement('option');
+            optionElement.value = option.value;
+            optionElement.text = option.text;
+            select.appendChild(optionElement);
+        });
     }
 
     simpleLabel(configs) {
