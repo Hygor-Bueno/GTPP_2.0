@@ -1,5 +1,5 @@
 .card {
-    width: 278px;
+    width: clamp(10vw,50vw,300px);
     border-radius: var(--spaceDefault);
     background-color: #FFF;
     padding: var(--spaceDefault);
@@ -79,7 +79,7 @@
         background-color: #000;
         margin: var(--spaceDefault);
         margin: 14%;
-        transition: all 0.2s;    
+        transition: all 0.3s;    
     }
     .top-bar {
       transform: rotate(0);
@@ -91,15 +91,19 @@
   
   input[type=checkbox]:checked + label {
     .top-bar {
-      /* transform: rotate(45deg);
-      transform-origin: 10% 208%; */
       transform: rotate(45deg);
       transform-origin: -1px 5px;
     }
 
     .bottom-bar {
         transform: rotate(-45deg);
+        transform-origin: 5px 0px;
+    }
+
+    @media screen and (min-width: 767px) {
+      .bottom-bar {
         transform-origin: 10% -74%;
+    }
     }
 
     .middle-bar {
@@ -124,8 +128,6 @@
 }
 
 .task {
-  padding: 1vw 1vw 1vw 0.5vw;
-  cursor: pointer;
   overflow-x: hidden;
   font-size: var(--textSize);
   display: flex;
@@ -138,47 +140,52 @@
 }
 
 .task:hover {
-  background-color: var(--simplecardColor);
   transition: all .6s;
 }
 
 #taskDiv {
   overflow-y: auto;
-  max-height: 70vh;
+  max-height: clamp(5vh,70vh, 660px);
 }
 
 .task-priority {
   background-color: transparent;
-  color: white;
-  background-color: transparent;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  /* font-size: clamp(1vmin, 2vmin, 12px); */
+  justify-content: center;
+  font-size: var(--labelSizeP);
 }
 
 .task-priority > img{
-  /* width: calc(2*(var(--spaceDefault))); */
   width: var(--imageSizeP);
 }
 
 .task-date {
-  margin-top: 3px;
-  /* font-weight: bold; */
-  font-size: clamp(1vmin, 2vmin, 12px);
+  font-size: var(--spaceDefaultL);
 }
 
 .subTask {
   display: flex;
-  gap: 0.5rem;
+  padding: var(--spaceDefault);
+  gap: 0.1rem;
   justify-content: space-between;
   width: 20%;
   flex-direction: column-reverse;
+  flex: none;
 }
 
-
 .task-desc-priority {
+  padding: var(--spaceDefault);
+  cursor: pointer;
   width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.task-desc-priority:hover {
+  background-color: var(--simplecardColor);
 }
 
 .divLabelImg {
@@ -194,4 +201,33 @@
 
 .borderRequired {
   border-color: var(--dangerColor);
+}
+
+.task-description {
+  font-size: calc(2 * var(--spaceDefault));
+  display: flex;
+  text-wrap: nowrap;
+}
+
+img.img-task {
+  width: var(--imageSizeM);
+}
+
+.text {
+  position: absolute;
+  left: 73%;
+  top: -17%;
+  background-color: #00000097;
+  color: #FFF;
+  border-radius: var(--borderRadius);
+  font-size: 12px;
+  padding: 3px;
+}
+
+.qtd-user {
+  position: relative;
+}
+
+.task-priority > p {
+  padding: var(--spaceDefault) 0 0;
 }

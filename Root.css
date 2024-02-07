@@ -42,5 +42,6 @@
 
     /*Imagens*/
     --imageSizeP: clamp(1.33vmin,4.8vmin,21.33px);
+    --imageSizeM: clamp(1.33vmin,5.8vmin,23.33px);
     --imageSize: clamp(2vmin,7.2vmin,32px);
 }

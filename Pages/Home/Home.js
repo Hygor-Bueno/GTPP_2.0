@@ -68,9 +68,9 @@ export default class Home {
 
     renderCards(list, getTask) {
         const div = document.createElement('div');
-        list.forEach(item => {
+        list.forEach(async(item) => {
             const card = new Card(this.#web);
-            div.appendChild(card.createCard({ id: `task_state_${item.id}`, label: item.description, view: item.view }, getTask))
+            div.appendChild(await card.createCard({ id: `task_state_${item.id}`, label: item.description, view: item.view }, getTask))
         });
         return div;
     }

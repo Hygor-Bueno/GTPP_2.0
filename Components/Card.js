@@ -3,8 +3,8 @@ import Tasks from "../Class/Tasks.js";
 import Button from "./Button.js";
 import { CSVGenerator, PDFGenerator } from "./FileGenerator.js";
 import Modal from "./Modal.js";
-import Util from "../Util.js";
 import { HamburgerX } from "./Hambuger.js";
+import { Connection } from "../Connection/Connection.js";
 
 /**
  * @author Jonatas Silva
@@ -26,7 +26,7 @@ export default class Card {
     this.#ws = ws;
   }
 
-  createCard(configs, tasks) {
+  async createCard(configs, tasks) {
     this.#getConfigId = configs.id;
     this.#getTasks = tasks;
     const cardDiv = document.createElement('div');
@@ -37,13 +37,16 @@ export default class Card {
     cardDiv.appendChild(this.getSubdivCard(configs, inputCheckbox));
     const taskDiv = document.createElement('div');
     taskDiv.id = 'taskDiv';
+    taskDiv.className='column'
     for (let i = 0; i < this.#getTasks.length; i++) {
-      const taskElement = this.createTaskElement(this.#getTasks[i]);
+      const taskElement = await this.createTaskElement(this.#getTasks[i]);
       if (configs.id === `task_state_${this.#getTasks[i].state_id}`) taskDiv.appendChild(taskElement);
     }
     cardDiv.appendChild(taskDiv);
     return cardDiv;
   }
+
+  
 
   getSubdivCard(configs, inputCheckbox) {
     const subDivCard = this.createSubDivCard(configs.label);
@@ -51,7 +54,7 @@ export default class Card {
     return subDivCard;
   }
 
-  createTaskElement(taskData) {
+  async createTaskElement(taskData) {
     const taskElement = document.createElement('div');
     const subBoxTaskElement = document.createElement('div');
     taskElement.setAttribute('draggable', 'true');
@@ -61,15 +64,10 @@ export default class Card {
 
     taskElement.appendChild(this.createElementDescriptionAndPriority(taskData));
     taskElement.appendChild(subBoxTaskElement);
+    subBoxTaskElement.appendChild(this.createdPercentTask(taskData));
     subBoxTaskElement.appendChild(this.createTaskElementPriority(taskData));
+    subBoxTaskElement.appendChild(await this.createdUserElement(taskData));
 
-
-    taskElement.addEventListener('click', async () => {
-      const task = new Tasks(taskData, this.#ws);
-      await task.getDetails();
-      const modal = new Modal();
-      modal.modalDark({ modal: task.taskElement() });
-    });
     return taskElement;
   }
 
@@ -78,29 +76,54 @@ export default class Card {
     taskElement.className = 'task-desc-priority';
     taskElement.appendChild(this.createTaskElementDescription(taskData));
     taskElement.appendChild(this.createElementInicialDateAndFinalDate(taskData));
+
+    taskElement.addEventListener('click', async () => {
+      const task = new Tasks(taskData, this.#ws);
+      await task.getDetails();
+      const modal = new Modal();
+      modal.modalDark({ modal: task.taskElement() });
+    });
+
     return taskElement;
   }
 
   createElementInicialDateAndFinalDate(local) {
     const taskElementDate = document.createElement('div');
-    taskElementDate.appendChild(this.createElementDate(local.initial_date));
-    taskElementDate.appendChild(this.createElementDate(local.final_date));
+    taskElementDate.appendChild(this.createElementDate(local));
     taskElementDate.className = 'task-date';
     return taskElementDate;
   }
 
   createElementDate(date) {
     const taskElementInitialDate = document.createElement('div');
-    taskElementInitialDate.innerText = `${date.split('-').reverse().join('/')}`;
+    taskElementInitialDate.innerHTML = `
+      Data Inicial: ${date.initial_date.split('-').reverse().join('/')}
+      Data Final: ${date.final_date.split('-').reverse().join('/')}
+    `;
     return taskElementInitialDate;
   }
 
   createTaskElementPriority(local) {
     const taskElementPriority = document.createElement('div');
     taskElementPriority.className = 'task-priority';
-    taskElementPriority.appendChild(this.getPriorityText(local.priority || 0));
+    taskElementPriority.appendChild(this.getPriorityTextOrImage(local.priority || 0));
     return taskElementPriority;
   }
+
+  async createdUserElement(local) {
+    const taskElementPriority = document.createElement('div');
+    taskElementPriority.className = 'task-priority';
+    taskElementPriority.appendChild(await this.getUserImageAndColaboration(local));
+    return taskElementPriority;
+  }
+
+  createdPercentTask(local) {
+    const taskElementPriority = document.createElement('div');
+    taskElementPriority.className = 'task-priority';
+    taskElementPriority.appendChild(this.getPercent(local));
+    return taskElementPriority;
+  }
+
 
   createTaskElementDescription(local) {
     const maxLength = 15;
@@ -181,7 +204,7 @@ export default class Card {
       const local = document.querySelector(`#${id}`);
 
       const loadtask = new SimpleTask();
-       loadtask.registerModal(this.#taskList, local, () => this.loadTaskList());
+      loadtask.registerModal(this.#taskList, local, () => this.loadTaskList());
     } catch (e) {
       console.error(e);
     }
@@ -197,15 +220,50 @@ export default class Card {
 
   componentImage(srcImage, title) {
     const image = document.createElement('img');
+    image.className = 'img-task';
     title && (image.title = `${title}`);
     image.src = `../Assets/Image/${srcImage}`;
     return image;
   }
 
-  getPriorityText(priority) {
+  getPriorityTextOrImage(priority) {
     const titlePriority = ['Prioridade baixa', 'Prioridade media', 'Prioridade Alta'];
     return priority == 0 ? this.componentImage('eco.svg', titlePriority[0]) :
       priority == 1 ? this.componentImage('Warning.svg', titlePriority[1]) :
-        priority == 2 ? this.componentImage('Alert.svg', titlePriority[2]) : null;
+        priority == 2 ? this.componentImage('Alert.svg', titlePriority[2]) : null
+  }
+
+  async getUserImageAndColaboration(local) {
+    const qtdUser = document.createElement('div');
+    try {
+      qtdUser.className = 'qtd-user';
+      const p = document.createElement('p');
+      p.className = 'text';
+      p.innerHTML = `${local.users}`;
+      qtdUser.appendChild(p);
+      qtdUser.appendChild(this.componentImage('User.svg', 'usuarios participando!'));
+    } catch (error) {
+      console.error(error.message);
+    }
+    return qtdUser;
+  }
+
+  async getUser(local) {
+    try {
+      const connection = new Connection();
+      let result = await connection.get(`&task_id=${local.id}&list_user=0`, 'GTPP/Task_User.php');
+      if (!result.error) {
+        return result;
+      }
+    } catch (error) {
+      throw new Error('Failed to fetch user: ' + error.message);
+    }
+  }
+
+
+  getPercent(local) {
+    const percentDiv = document.createElement('p');
+    percentDiv.innerHTML = `${local.percent}%`;
+    return percentDiv;
   }
 }
