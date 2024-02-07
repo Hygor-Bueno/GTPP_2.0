@@ -36,6 +36,7 @@ export default class Card {
     const inputCheckbox = this.createButtonHamburger(configs.id);
     cardDiv.appendChild(this.getSubdivCard(configs, inputCheckbox));
     const taskDiv = document.createElement('div');
+  
     taskDiv.id = 'taskDiv';
     taskDiv.className='column'
     for (let i = 0; i < this.#getTasks.length; i++) {
@@ -45,8 +46,6 @@ export default class Card {
     cardDiv.appendChild(taskDiv);
     return cardDiv;
   }
-
-  
 
   getSubdivCard(configs, inputCheckbox) {
     const subDivCard = this.createSubDivCard(configs.label);
@@ -62,11 +61,13 @@ export default class Card {
     subBoxTaskElement.className = 'subTask';
     taskElement.dataset.taskid = taskData.id;
 
+
     taskElement.appendChild(this.createElementDescriptionAndPriority(taskData));
     taskElement.appendChild(subBoxTaskElement);
     subBoxTaskElement.appendChild(this.createdPercentTask(taskData));
     subBoxTaskElement.appendChild(this.createTaskElementPriority(taskData));
     subBoxTaskElement.appendChild(await this.createdUserElement(taskData));
+    subBoxTaskElement.appendChild(this.createTaskElementPriority(taskData));
 
     return taskElement;
   }
@@ -76,14 +77,12 @@ export default class Card {
     taskElement.className = 'task-desc-priority';
     taskElement.appendChild(this.createTaskElementDescription(taskData));
     taskElement.appendChild(this.createElementInicialDateAndFinalDate(taskData));
-
     taskElement.addEventListener('click', async () => {
       const task = new Tasks(taskData, this.#ws);
       await task.getDetails();
       const modal = new Modal();
       modal.modalDark({ modal: task.taskElement() });
     });
-
     return taskElement;
   }
 
@@ -94,13 +93,55 @@ export default class Card {
     return taskElementDate;
   }
 
+  getDateInit(initialDate) {
+    try {
+      const divDt = document.createElement('div');
+      const label = document.createElement('label');
+      label.innerText = 'Data inicial';
+      label.style.color = 'var(--successColor)';
+      const span = document.createElement('span');
+      span.innerText = `${initialDate.split('-').reverse().join('/')}`;
+      divDt.appendChild(label);
+      divDt.appendChild(span);
+      return divDt;
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  getDateFinal(initialDate) {
+    try {
+      const div = document.createElement('div');
+      const label = document.createElement('label');
+      label.innerText = 'Data final';
+      label.style.color = 'var(--dangerColor)';
+      const span = document.createElement('span');
+      span.innerText = `${initialDate.split('-').reverse().join('/')}`;
+      div.appendChild(label);
+      div.appendChild(span);
+      return div;
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
   createElementDate(date) {
-    const taskElementInitialDate = document.createElement('div');
-    taskElementInitialDate.innerHTML = `
-      Data Inicial: ${date.initial_date.split('-').reverse().join('/')}
-      Data Final: ${date.final_date.split('-').reverse().join('/')}
-    `;
-    return taskElementInitialDate;
+      try {
+        const taskElementInitialDate = document.createElement('div');
+        taskElementInitialDate.className = 'dateTasks'
+        date && taskElementInitialDate.appendChild(this.getDateInit(date.initial_date));
+        date && taskElementInitialDate.appendChild(this.getDateFinal(date.final_date));
+        return taskElementInitialDate;
+      } catch (error) {
+        console.error(error.message);
+      }
+  }
+
+  createArchivedTask(local) {
+    const taskElementPriority = document.createElement('div');
+    taskElementPriority.className = 'task-priority';
+    taskElementPriority.appendChild(this.getPriorityTextOrImage(local.priority || 0));
+    return taskElementPriority;
   }
 
   createTaskElementPriority(local) {
@@ -178,7 +219,6 @@ export default class Card {
     return fatherMenu;
   }
 
-
   /**
    * Função que gera uma pagina blank que traz os dados da tarefa e podemos imprimir ou salvar em PDF.
    * @date 2/5/2024 - 10:55:47 AM
@@ -204,16 +244,16 @@ export default class Card {
       const local = document.querySelector(`#${id}`);
 
       const loadtask = new SimpleTask();
-      loadtask.registerModal(this.#taskList, local, () => this.loadTaskList());
+      loadtask.registerModal(this.#taskList, local, async () => await this.loadTaskList());
     } catch (e) {
       console.error(e);
     }
   }
 
-  loadTaskList() {
+  async loadTaskList() {
     const elementTask = document.getElementById('taskDiv');
     for (let i = 0; i < this.#taskList.length; i++) {
-      elementTask.appendChild(this.createTaskElement(this.#taskList[i]));
+      elementTask.appendChild(await this.createTaskElement(this.#taskList[i]));
     }
     return elementTask;
   }

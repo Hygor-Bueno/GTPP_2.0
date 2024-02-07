@@ -94,7 +94,7 @@ export default class SimpleTask{
             const configBtnSave = {...saveButton, onAction: async () => {
                 let connection = new Connection();
                 let result = await connection.post(this, 'GTPP/Task.php');
-                this.modalLauncher(result, taskList, local, funcAss);
+                await this.modalLauncher(result, taskList, local, funcAss);
             }}
             
             modal1.appendChild(modal2);
@@ -108,7 +108,7 @@ export default class SimpleTask{
         }
     }
     
-    modalLauncher(result, taskList, local, funcAss) {
+    async modalLauncher(result, taskList, local, funcAss) {
         console.log('Ola mundo!')
         let inputRegisterTask = document.getElementById('registerInput');
         let initialDate = document.getElementById('initialDate');
@@ -118,7 +118,7 @@ export default class SimpleTask{
         
         if(!result.error) {
             taskList.push({id: result.last_id, ...this});
-            local.appendChild(funcAss());
+            local.appendChild(await funcAss());
             const modal = new Modal();
             modal.openModal('Tarefa registrada!', 'Parabéns uma nova tarefa já foi registrada com sucesso!', document.querySelector("#containerMain section"), 1);
         } else  {
