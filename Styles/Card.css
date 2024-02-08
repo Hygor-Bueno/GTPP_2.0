@@ -167,8 +167,8 @@ font-size: var(--spaceDefaultL);
 
 .subTask {
 display: flex;
-padding: var(--spaceDefault);
 gap: 0.1rem;
+padding: var(--spaceDefaultP);
 justify-content: space-between;
 width: 20%;
 flex-direction: column-reverse;
@@ -201,11 +201,14 @@ align-items: end;
 }
 
 .borderRequired {
-border-color: var(--dangerColor);
+  border-color: var(--dangerColor);
 }
 
 .task-description {
 font-size: calc(2 * var(--spaceDefault));
+width: 100%;
+justify-content: space-between;
+align-items: center;
 display: flex;
 text-wrap: nowrap;
 }
@@ -243,6 +246,22 @@ padding: 3px;
 position: relative;
 }
 
-.task-priority > p {
-padding: var(--spaceDefault) 0 0;
+.task-priority {
+/* padding: var(--spaceDefault) 0 0; */
+}
+
+.cursorPointer {
+  cursor: pointer;
+}
+
+.percent {
+  font-size: var(--textSize);
+}
+
+.svgArchived {
+  fill: "#000";
+}
+
+.svgArchived:active {
+  fill: "#FFF";
 }

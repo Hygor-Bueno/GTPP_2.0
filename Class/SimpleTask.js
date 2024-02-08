@@ -85,6 +85,7 @@ export default class SimpleTask{
             const modal1 = document.createElement('div');
             modal1.setAttribute('modal-tasks', true);
             modal1.className = 'modal-register1';
+            
             const modal2 = document.createElement('div');
             modal2.className = 'modal-register2';
             const modal3 = document.createElement('div');
