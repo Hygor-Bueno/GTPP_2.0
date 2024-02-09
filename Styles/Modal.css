@@ -17,6 +17,12 @@
     background-color: var(--warningColor);
 }
 
+.divModalReason {
+    width: 100%;
+    /* border: 1px solid var(--dangerColor); */
+    height: 10vh;
+}
+
 .modal-absolute {
     position: absolute;
     left: 0;
@@ -56,12 +62,6 @@
     /*90%*/
     width: initial;
 }
-
-
-
-
-
-
 
 #taskHeader {
     height: clamp(5px, 8%, 50px);

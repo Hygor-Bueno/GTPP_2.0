@@ -95,6 +95,21 @@ export const registerInputs = {
     ]
 };
 
+export const suspendedInput = {
+    legend: 'register',
+    listfields:{
+        classItemsForm: 'itemsForm',
+        classForm: 'form',
+        classLabel: 'labelForm',
+        classInput: 'inputForm',
+        label: 'Quantos dias voce precisa para entregar a tarefa?',
+        inputType: 'number',
+        inputId: 'suspendedInput',
+        iconLabel: true,
+        nameImageLabel: 'pen1.svg'
+    }
+}
+
 export const textInputName = {
     inputType: 'text',
     inputId: 'taskNameInput',

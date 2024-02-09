@@ -110,20 +110,22 @@ export default class SimpleTask{
     }
     
     async modalLauncher(result, taskList, local, funcAss) {
-        console.log('Ola mundo!')
         let inputRegisterTask = document.getElementById('registerInput');
         let initialDate = document.getElementById('initialDate');
         let finalDate = document.getElementById('finalDate');
         let priority = document.getElementById('priority');
-        const modelos = [inputRegisterTask, initialDate, finalDate, priority];
+
+        let doc = document.getElementById('modalTask');
         
         if(!result.error) {
             taskList.push({id: result.last_id, ...this});
             local.appendChild(await funcAss());
             const modal = new Modal();
             modal.openModal('Tarefa registrada!', 'Parabéns uma nova tarefa já foi registrada com sucesso!', document.querySelector("#containerMain section"), 1);
+            doc.remove();
+
         } else  {
-            modelos.forEach((element) => {
+            [inputRegisterTask, initialDate, finalDate, priority].forEach((element) => {
                 if(element.value.length <= 0) element.classList.add("borderRequired");
                 if(element.value.length > 0 || element.value !== '') element.classList.remove("borderRequired");
             })

@@ -6,7 +6,7 @@ import Modal from "./Modal.js";
 import { HamburgerX } from "./Hambuger.js";
 import { Connection } from "../Connection/Connection.js";
 import SVG from "./SVG.js";
-import { SVGImageArchived, SVGImageFlagInline, SVGImageFlagCircle, SVGImageUser } from "../Configuration/ImagesSVG.js";
+import { SVGImageArchived, SVGImageFlagInline, SVGImageUser } from "../Configuration/ImagesSVG.js";
 import SuspendedTask from "../Class/SuspendedTask.js";
 
 /**
@@ -63,14 +63,11 @@ export default class Card {
     taskElement.className = 'task';
     subBoxTaskElement.className = 'subTask';
     taskElement.dataset.taskid = taskData.id;
-
     taskElement.appendChild(this.createElementDescriptionAndPriority(taskData));
     taskElement.appendChild(subBoxTaskElement);
     subBoxTaskElement.appendChild(this.createdPercentTask(taskData));
     subBoxTaskElement.appendChild(this.createTaskElementPriority(taskData));
     subBoxTaskElement.appendChild(await this.createdUserElement(taskData));
-    // subBoxTaskElement.appendChild(this.createArchivedTask(taskData));
-
     return taskElement;
   }
 
@@ -170,7 +167,6 @@ export default class Card {
 
 
   createTaskElementDescription(local) {
-    console.log(local)
     const maxLength = 5;
     const truncatedDescription = local?.description?.substring(0, maxLength) + (local?.description?.length > maxLength ? '...' : '');
     const tasksElementDescription = document.createElement('div');
@@ -182,7 +178,7 @@ export default class Card {
     htmlBold.innerText = truncatedDescription || '';
     tasksElementDescription.appendChild(htmlBold);
     const loadSuspendedTasks = new SuspendedTask();
-    tasksElementDescription.appendChild(btn.Button({type:'button',title:'Arquivar tarefa',onAction:()=> loadSuspendedTasks.suspended(), description: svg.createSvg(SVGImageArchived), classButton: 'btnFiled'}));
+    tasksElementDescription.appendChild(btn.Button({type:'button',title:'Arquivar tarefa',onAction:()=> loadSuspendedTasks.suspended(local), description: svg.createSvg(SVGImageArchived), classButton: 'btnFiled'}));
     return tasksElementDescription;
   }
 
