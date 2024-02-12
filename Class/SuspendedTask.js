@@ -16,7 +16,7 @@ export default class SuspendedTask {
             console.log(config)
             const modal = document.createElement('div');
             const divTitle = document.createElement('div');
-            // divTitle.setAttribute(this.colorStopPoint(config), '')
+            divTitle.setAttribute(this.colorStopPoint(config), '')
 
             //const listTaskState = await connection.get('', 'GTPP/TaskState.php');
 

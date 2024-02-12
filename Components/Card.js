@@ -159,32 +159,28 @@ export default class Card {
     return taskElementPriority;
   }
 
-
   createTaskElementDescription(local) {
-    const maxLength = 5;
-    const truncatedDescription = local?.description?.substring(0, maxLength) + (local?.description?.length > maxLength ? '...' : '');
+    // const maxLength = 10;
+    // const truncatedDescription = local?.description?.substring(0, maxLength) + (local?.description?.length > maxLength ? '...' : '');
     const tasksElementDescription = document.createElement('div');
     const htmlBold = document.createElement('b');
-    const btn = new Button();
-    
     tasksElementDescription.className = 'task-description';
     tasksElementDescription.title = local?.description;
-    htmlBold.innerText = truncatedDescription || '';
+    htmlBold.innerText = local.description || '';
     tasksElementDescription.appendChild(htmlBold);
-    const loadSuspendedTasks = new SuspendedTask();
-    tasksElementDescription.appendChild(btn.Button({type:'button',title:'Arquivar tarefa',onAction:()=> loadSuspendedTasks.suspended(local), description: this.visualComponentsSVG(local), classButton: 'btnFiled'}));
+    this.visualComponentsButton(local, tasksElementDescription);   
     return tasksElementDescription;
   }
-
-  visualComponentsSVG(config) {
+  
+  visualComponentsButton(config, localElement) {
     const svg = new SVG();
-    if(config.state_id == 1 || config.state_id == 2) return svg.createSvg(SVGImageArchived);
-    if(config.state_id == 3) return svg.createSvg(SVGImageAnality); // svg de analise
-    if(config.state_id == 4) return svg.createSvg(SVGImageStopTask); // svg de tarefa parada
-    if(config.state_id == 5) return svg.createSvg(SVGImageOverview); // svg de bloqueado
-    if(config.state_id == 6) return svg.createSvg(SVGImageVerified); // svg de Feito com sucesso
-
-    return svg.createSvg(SVGImageArchived);
+    const loadSuspendedTasks = new SuspendedTask();
+    const btn = new Button();
+    if(config.state_id == 1 || config.state_id == 2) {
+       localElement.appendChild(
+        btn.Button({type:'button',title:'Arquivar tarefa',onAction:()=> loadSuspendedTasks.suspended(config),
+        description: svg.createSvg(SVGImageArchived), classButton: 'btnFiled'}))
+    }
   }
 
   createSubDivCard(label) {

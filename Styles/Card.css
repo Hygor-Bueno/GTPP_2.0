@@ -220,12 +220,17 @@ align-items: end;
 }
 
 .task-description {
-font-size: calc(2 * var(--spaceDefault));
-width: 100%;
-justify-content: space-between;
-align-items: center;
-display: flex;
-text-wrap: nowrap;
+  font-size: calc(2 * var(--spaceDefault));
+  width: clamp(12px, 50vw, 182px);
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+.task-description b {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 img.img-task {
