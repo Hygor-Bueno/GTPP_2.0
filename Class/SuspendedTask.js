@@ -13,14 +13,25 @@ export default class SuspendedTask {
     
     suspended(config) {
         try {
+            console.log(config)
             const modal = document.createElement('div');
+            const divTitle = document.createElement('div');
+            // divTitle.setAttribute(this.colorStopPoint(config), '')
+
+            //const listTaskState = await connection.get('', 'GTPP/TaskState.php');
+
             modal.setAttribute('modal-suspended', true);
             modal.className = 'suspendedDesign';
 
             const h1 = document.createElement('h1');
-            modal.appendChild(h1);
+
+            const p = document.createElement('p');
+
+            modal.appendChild(divTitle);
+            divTitle.append(h1, p);
 
             h1.innerText = config.description;
+            p.innerText = config.state_description;
 
             console.log(config);
 
@@ -30,6 +41,16 @@ export default class SuspendedTask {
         } catch (error) {
             console.error(error.message);
         }
+    }
+
+    colorStopPoint(config) {
+        const arrayBrackingState = ['todo', 'doing', 'analysis', 'stopped', 'blocked', 'done'];
+        if(config.state_id == 1) return arrayBrackingState[0];
+        if(config.state_id == 2) return arrayBrackingState[1];
+        if(config.state_id == 3) return arrayBrackingState[2];
+        if(config.state_id == 4) return arrayBrackingState[3];
+        if(config.state_id == 5) return arrayBrackingState[4];
+        if(config.state_id == 6) return arrayBrackingState[5];
     }
 
     buttonPut(config) {
@@ -61,7 +82,8 @@ export default class SuspendedTask {
         try {
             const div = document.createElement('div');
             div.className = 'divModalReason';
-            console.log(config);
+            
+
             
             if(config.state_id == 1 || config.state_id == 2 || config.state_id == 6){
                 div.appendChild(this.textArticleSuspended(config));
@@ -98,6 +120,10 @@ export default class SuspendedTask {
 
     textArticleSuspended(config) {
         const div = document.createElement('div');
+        const h3 = document.createElement('h3');
+
+        h3.innerText = `porque voce quer mudar esse status para ${config.state_id == 1 ? 'Arquivado' : config.state_id == 2 ? 'Arquivado' : config.state_id == 6 ? 'Fazer' : 'Aluma coisa'}?`
+
         const conn = new Connection();
         const textArea = new TextArea({
             text: this.reason, id: 'taskSuspended', onAction: async (text) => {
@@ -114,7 +140,7 @@ export default class SuspendedTask {
             }
         });
         
-        div.appendChild(textArea.TextAreaEnable());
+        div.append(h3, textArea.TextAreaEnable());
         return div;
     }
 }

@@ -19,7 +19,6 @@
 
 .divModalReason {
     width: 100%;
-    /* border: 1px solid var(--dangerColor); */
     height: 10vh;
 }
 
@@ -58,9 +57,13 @@
 }
 
 #modalTask>div[modal-tasks="true"] {
-    height: initial;
-    /*90%*/
     width: initial;
+    height: initial;
+
+    @media screen and (max-height: 500px){
+        height: 90%;
+        width: 50%;
+    }
 }
 
 #taskHeader {

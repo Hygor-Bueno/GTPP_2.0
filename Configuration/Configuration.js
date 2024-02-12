@@ -260,7 +260,7 @@ export const saveButton = {
     type: 'submit',
     title: 'Clique para adicionar um item a lista',
     description: 'Salvar',
-    classButton: 'btn-save',
+    classButton: 'btnSuccess',
 }
 
 /**

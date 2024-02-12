@@ -9,6 +9,10 @@
   box-shadow:  calc(0.9 * var(--spaceDefault)) var(--spaceDefault) var(--spaceDefault) rgba(0, 0, 0, 0.35);
   align-self: flex-start;
   flex: none;
+
+  @media screen and (max-width: 500px){
+    width: clamp(10vw,70vw,300px);
+  }
 }
 
 .card:hover {
@@ -31,6 +35,10 @@
 
 .subdivcard h4 {
   font-size: var(--textSize);
+}
+
+.btnFiled > svg, .subTask svg {
+  width: calc(1.5* var(--textSize));;
 }
 
 .btn-sublist {
@@ -113,30 +121,30 @@ input[type=checkbox]:checked + label {
 
 /*DIV OCULTA*/
 .hiddenDiv {
-display: flex;
-width: clamp(20vmin, 64vmin, 1000px);
-height: clamp(20vmin, 60vmin, 600px);
+  display: flex;
+  width: clamp(20vmin, 64vmin, 1000px);
+  height: clamp(20vmin, 60vmin, 600px);
 
-font-size: var(--textSize);
+  font-size: var(--textSize);
 
-background: #fff;
-margin: 13vh auto;
+  background: #fff;
+  margin: 13vh auto;
 
-padding: var(--spaceDefault);
+  padding: var(--spaceDefault);
 
-overflow: hidden;
+  overflow: hidden;
 }
 
 .task {
-overflow-x: hidden;
-font-size: var(--textSize);
-display: flex;
-justify-content: space-around;
-gap: var(--spaceDefault);
-transition: all ease-out .5s;
-border: var(--borderSize) solid #cccc;
-border-radius: var(--borderRadius);
-margin-bottom: 1vmin;
+  overflow-x: hidden;
+  font-size: var(--textSize);
+  display: flex;
+  justify-content: space-around;
+  gap: var(--spaceDefault);
+  transition: all ease-out .5s;
+  border: var(--borderSize) solid #cccc;
+  border-radius: var(--borderRadius);
+  margin-bottom: 1vmin;
 }
 
 .task:hover {
@@ -146,14 +154,18 @@ transition: all .6s;
 #taskDiv {
 overflow-y: auto;
 max-height: clamp(5vh,70vh, 660px);
+
+  @media screen and (max-height: 500px) {
+    max-height: clamp(5vh,63vh, 660px);
+  }
 }
 
 .task-priority {
-background-color: transparent;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: var(--labelSizeP);
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--labelSizeP);
 }
 
 .task-priority > img{
@@ -161,28 +173,31 @@ width: var(--imageSizeP);
 }
 
 .task-date {
-width: 100%;
-font-size: var(--spaceDefaultL);
+  width: 100%;
 }
 
 .subTask {
-display: flex;
-gap: 0.1rem;
-padding: var(--spaceDefaultP);
-justify-content: space-between;
-width: 20%;
-flex-direction: column-reverse;
-flex: none;
+  display: flex;
+  gap: 0.1rem;
+  padding: var(--spaceDefaultP);
+  justify-content: space-between;
+  width: 20%;
+  flex-direction: column-reverse;
+  flex: none;
+
+  p {
+    font-size: calc(2 / var(--textSize));
+  }
 }
 
 .task-desc-priority {
-padding: var(--spaceDefault);
-cursor: pointer;
-width: 100%;
-display: flex;
-justify-content: space-evenly;
-align-items: flex-start;
-flex-direction: column;
+  padding: var(--spaceDefault);
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  flex-direction: column;
 }
 
 .task-desc-priority:hover {
@@ -219,16 +234,67 @@ width: var(--imageSizeM);
 
 .dateTasks {
 width: 100%;
+gap: var(--spaceDefault); 
+display: flex;
+flex-direction: column;
+
+  div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  div label {
+    font-weight: 600;
+  }
+}
+
+div[todo], div[doing], div[analysis], div[stopped], div[blocked], div[done] {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: var(--spaceDefault);
+
+  P {
+    padding: 0 var(--spaceDefault);
+    border-radius: var(--borderRadius);
+    color: var(--primaryColor);
+  }
+}
 
 div {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-div label {
-  font-weight: 600;
-}
+  &[todo] {
+    p {
+      background-color: var(--infoColor);
+    }
+  }
+  &[doing] {
+   p {
+    background-color: var(--warningColor);
+   }
+  }
+  &[analysis] {
+    p {
+      background-color: #8000ff;
+    }
+  }
+  &[stopped] {
+    p {
+      background-color: var(--dangerColor);
+    }
+  }
+  &[blocked] {
+    p {
+      background-color: #848484;
+    }
+  }
+  &[done] {
+    p{
+      background-color: var(--successColor);
+    }
+  }
 }
 
 .text {
@@ -246,9 +312,7 @@ padding: 3px;
 position: relative;
 }
 
-.task-priority {
-/* padding: var(--spaceDefault) 0 0; */
-}
+.task-priority {}
 
 .cursorPointer {
   cursor: pointer;

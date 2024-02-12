@@ -41,15 +41,18 @@ export default class Home {
 
             // Busca os estados das tarefas.
             const listTaskState = await connection.get('', 'GTPP/TaskState.php');
-            const postTask = await connection.get('', 'GTPP/Task.php');
+            const getTask = await connection.get('', 'GTPP/Task.php');
 
             if (listTaskState.error) throw new Error(listTaskState.message);
             this.stateStoraga(listTaskState.data);
 
+            if (getTask.error) throw new Error(getTask.message);
+            this.stateStoraga(getTask.data);
+
             // Cria o Elemento de Menu.
             const menu = new Menu({ idNavMenu: 'navMenu', class: 'gridLeftHome' });
             container.appendChild(this.settingsHome(JSON.parse(localStorage?.stateTaskGTPP) || []));
-            container.appendChild(this.renderCards(JSON.parse(localStorage?.stateTaskGTPP) || [], postTask.data));
+            container.appendChild(this.renderCards(JSON.parse(localStorage?.stateTaskGTPP) || [], getTask.data));
 
             const elementHome = containerHome.containerBasic({ id: 'containerHome', element: container });
             elementHome.insertBefore(menu.nav(), elementHome.firstElementChild);
@@ -68,6 +71,7 @@ export default class Home {
 
     renderCards(list, getTask) {
         const div = document.createElement('div');
+        list.pop();
         list.forEach(async(item) => {
             const card = new Card(this.#web);
             div.appendChild(await card.createCard({ id: `task_state_${item.id}`, label: item.description, view: item.view }, getTask))
@@ -113,6 +117,7 @@ export default class Home {
         let listStorage = JSON.parse(data);
 
         const containerBody = document.createElement('section');
+        listStorage.pop();
         listStorage.forEach(item => {
             const div = document.createElement('div');
             div.className = 'itemsFormRow';
@@ -143,6 +148,7 @@ export default class Home {
 
     reloadStorage(id, view) {
         let listStorage = JSON.parse(localStorage.stateTaskGTPP);
+        console.log(listStorage)
         listStorage.forEach(item => { if (item.id == id) item.view = view });
         localStorage.setItem('stateTaskGTPP', JSON.stringify(listStorage));
         this.reloadSate();

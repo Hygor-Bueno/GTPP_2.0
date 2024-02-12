@@ -6,7 +6,7 @@ import Modal from "./Modal.js";
 import { HamburgerX } from "./Hambuger.js";
 import { Connection } from "../Connection/Connection.js";
 import SVG from "./SVG.js";
-import { SVGImageArchived, SVGImageFlagInline, SVGImageUser } from "../Configuration/ImagesSVG.js";
+import { SVGImageAnality, SVGImageArchived, SVGImageFlagInline, SVGImageOverview, SVGImageStopTask, SVGImageUser, SVGImageVerified } from "../Configuration/ImagesSVG.js";
 import SuspendedTask from "../Class/SuspendedTask.js";
 
 /**
@@ -39,7 +39,7 @@ export default class Card {
     const inputCheckbox = this.createButtonHamburger(configs.id);
     cardDiv.appendChild(this.getSubdivCard(configs, inputCheckbox));
     const taskDiv = document.createElement('div');
-  
+
     taskDiv.id = 'taskDiv';
     taskDiv.className='column'
     for (let i = 0; i < this.#getTasks.length; i++) {
@@ -63,19 +63,15 @@ export default class Card {
     taskElement.className = 'task';
     subBoxTaskElement.className = 'subTask';
     taskElement.dataset.taskid = taskData.id;
-    taskElement.appendChild(this.createElementDescriptionAndPriority(taskData));
-    taskElement.appendChild(subBoxTaskElement);
-    subBoxTaskElement.appendChild(this.createdPercentTask(taskData));
-    subBoxTaskElement.appendChild(this.createTaskElementPriority(taskData));
-    subBoxTaskElement.appendChild(await this.createdUserElement(taskData));
+    taskElement.append(this.createElementDescriptionAndPriority(taskData), subBoxTaskElement);
+    subBoxTaskElement.append(this.createdPercentTask(taskData), this.createTaskElementPriority(taskData), await this.createdUserElement(taskData))
     return taskElement;
   }
 
   createElementDescriptionAndPriority(taskData) {
     const taskElement = document.createElement('div');
     taskElement.className = 'task-desc-priority';
-    taskElement.appendChild(this.createTaskElementDescription(taskData));
-    taskElement.appendChild(this.createElementInicialDateAndFinalDate(taskData));
+    taskElement.append(this.createTaskElementDescription(taskData), this.createElementInicialDateAndFinalDate(taskData));
     taskElement.addEventListener('click', async (e) => {
       if (e.target.tagName !== 'BUTTON' && e.target.closest('button') === null) {
         const task = new Tasks(taskData, this.#ws);
@@ -116,8 +112,7 @@ export default class Card {
       label.innerText = 'Data final';
       const span = document.createElement('span');
       span.innerText = `${initialDate.split('-').reverse().join('/')}`;
-      div.appendChild(label);
-      div.appendChild(span);
+      div.append(label, span);
       return div;
     } catch (error) {
       console.error(error.message);
@@ -128,8 +123,7 @@ export default class Card {
       try {
         const taskElementInitialDate = document.createElement('div');
         taskElementInitialDate.className = 'dateTasks'
-        date && taskElementInitialDate.appendChild(this.getDateInit(date.initial_date));
-        date && taskElementInitialDate.appendChild(this.getDateFinal(date.final_date));
+        date && taskElementInitialDate.append(this.getDateInit(date.initial_date), this.getDateFinal(date.final_date));
         return taskElementInitialDate;
       } catch (error) {
         console.error(error.message);
@@ -172,14 +166,25 @@ export default class Card {
     const tasksElementDescription = document.createElement('div');
     const htmlBold = document.createElement('b');
     const btn = new Button();
-    const svg = new SVG();
+    
     tasksElementDescription.className = 'task-description';
     tasksElementDescription.title = local?.description;
     htmlBold.innerText = truncatedDescription || '';
     tasksElementDescription.appendChild(htmlBold);
     const loadSuspendedTasks = new SuspendedTask();
-    tasksElementDescription.appendChild(btn.Button({type:'button',title:'Arquivar tarefa',onAction:()=> loadSuspendedTasks.suspended(local), description: svg.createSvg(SVGImageArchived), classButton: 'btnFiled'}));
+    tasksElementDescription.appendChild(btn.Button({type:'button',title:'Arquivar tarefa',onAction:()=> loadSuspendedTasks.suspended(local), description: this.visualComponentsSVG(local), classButton: 'btnFiled'}));
     return tasksElementDescription;
+  }
+
+  visualComponentsSVG(config) {
+    const svg = new SVG();
+    if(config.state_id == 1 || config.state_id == 2) return svg.createSvg(SVGImageArchived);
+    if(config.state_id == 3) return svg.createSvg(SVGImageAnality); // svg de analise
+    if(config.state_id == 4) return svg.createSvg(SVGImageStopTask); // svg de tarefa parada
+    if(config.state_id == 5) return svg.createSvg(SVGImageOverview); // svg de bloqueado
+    if(config.state_id == 6) return svg.createSvg(SVGImageVerified); // svg de Feito com sucesso
+
+    return svg.createSvg(SVGImageArchived);
   }
 
   createSubDivCard(label) {
@@ -272,9 +277,9 @@ export default class Card {
 
   getPriorityTextOrImage(priority) {
     const svg = new SVG();
-    return priority == 0 ?  svg.createSvg({...SVGImageFlagInline, fill: "#28A745"}) :
-      priority == 1 ? svg.createSvg({...SVGImageFlagInline, fill: "#F37518"}) :
-        priority == 2 ? svg.createSvg({...SVGImageFlagInline, fill: "#DC3545"}) : null
+      if (priority == 0) return svg.createSvg({...SVGImageFlagInline, fill: "#28A745"});
+      if (priority == 1) return svg.createSvg({...SVGImageFlagInline, fill: "#F37518"});
+      if (priority == 2) return svg.createSvg({...SVGImageFlagInline, fill: "#DC3545"});
   }
 
   async getUserImageAndColaboration(local) {

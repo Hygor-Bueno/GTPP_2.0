@@ -1,5 +1,5 @@
 export class HamburgerX {
-  createButton(id, onClick) {
+   createButton(id, onClick) {
     const fatherNav = document.createElement('nav');
     fatherNav.className = 'fatherNav';
 
@@ -22,14 +22,9 @@ export class HamburgerX {
     spanIconBar2.className = 'icon-bar middle-bar';
     const spanIconBar3 = document.createElement('span');
     spanIconBar3.className = 'icon-bar bottom-bar';
-
-    fatherNav.appendChild(inputHamburger);
-    fatherNav.appendChild(label);
-
-    label.appendChild(spanHamburger);
-    label.appendChild(spanIconBar1);
-    label.appendChild(spanIconBar2);
-    label.appendChild(spanIconBar3);
+    
+    fatherNav.append(inputHamburger, label);
+    label.append(spanHamburger, spanIconBar1, spanIconBar2, spanIconBar3);
 
     inputHamburger.addEventListener('click', onClick);
 
