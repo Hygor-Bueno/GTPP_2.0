@@ -148,12 +148,12 @@ input[type=checkbox]:checked + label {
 }
 
 .task:hover {
-transition: all .6s;
+  transition: all .6s;
 }
 
 #taskDiv {
-overflow-y: auto;
-max-height: clamp(5vh,70vh, 660px);
+  overflow-y: auto;
+  max-height: clamp(5vh,70vh, 660px);
 
   @media screen and (max-height: 500px) {
     max-height: clamp(5vh,63vh, 660px);
@@ -200,10 +200,6 @@ width: var(--imageSizeP);
   flex-direction: column;
 }
 
-.divModalReason div #taskSuspended {
-  
-}
-
 .divLabelImg {
 display: flex;
 flex-direction: column;
@@ -223,6 +219,7 @@ align-items: end;
   font-size: calc(2 * var(--spaceDefault));
   width: clamp(12px, 50vw, 182px);
   justify-content: space-between;
+  margin-bottom: var(--spaceDefault);
   align-items: center;
   display: flex;
 }
@@ -251,7 +248,6 @@ width: var(--imageSizeM);
 
 .dateTasks {
 width: 100%;
-gap: var(--spaceDefault); 
 display: flex;
 flex-direction: column;
 
@@ -313,11 +309,6 @@ div {
     }
   }
 }
-
-/* div[modaltodo] {
-  height: 28% !important;
-  width:clamp(10vw, 50vw, 120px) !important;
-} */
 
 .text {
 position: absolute;

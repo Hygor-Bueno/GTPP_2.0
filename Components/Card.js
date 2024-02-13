@@ -23,14 +23,16 @@ import SuspendedTask from "../Class/SuspendedTask.js";
 export default class Card {
   #taskList = [];
   #getTasks = [];
+  colorBD = [];
   #getConfigId;
   #ws;
   constructor(ws) {
     this.#ws = ws;
   }
 
-  async createCard(configs, tasks) {
+  async createCard(configs, tasks, listTaskState) {
     try {
+      this.colorBD = listTaskState;
       this.#getConfigId = configs.id;
       this.#getTasks = tasks;
       const cardDiv = document.createElement('div');
@@ -212,7 +214,7 @@ export default class Card {
   visualComponentsButton(config, localElement) {
     try {
       const svg = new SVG();
-      const loadSuspendedTasks = new SuspendedTask();
+      const loadSuspendedTasks = new SuspendedTask(this.colorBD);
       const btn = new Button();
       if(config.state_id == 1 || config.state_id == 2) {
         localElement.appendChild(

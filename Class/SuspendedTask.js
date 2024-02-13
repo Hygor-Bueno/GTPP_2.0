@@ -10,15 +10,17 @@ export default class SuspendedTask {
     days = null;
     reason;
     task_id;
+    bdColor;
+
+    constructor(colorsBD) {
+        this.bdColor = colorsBD;
+    }
     
     suspended(config) {
         try {
-            console.log(config)
+            console.log(this.bdColor)
             const modal = document.createElement('div');
             const divTitle = document.createElement('div');
-            divTitle.setAttribute(this.colorStopPoint(config), '')
-
-            //const listTaskState = await connection.get('', 'GTPP/TaskState.php');
 
             modal.setAttribute('modal-suspended', true);
             
@@ -30,6 +32,7 @@ export default class SuspendedTask {
             const h1 = document.createElement('h1');
 
             const p = document.createElement('p');
+            p.style.backgroundColor = `${this.pointerColor(config)}`;
 
             modal.appendChild(divTitle);
             divTitle.append(h1, p);
@@ -47,14 +50,9 @@ export default class SuspendedTask {
         }
     }
 
-    colorStopPoint(config) {
-        const arrayBrackingState = ['todo', 'doing', 'analysis', 'stopped', 'blocked', 'done'];
-        if(config.state_id == 1) return arrayBrackingState[0];
-        if(config.state_id == 2) return arrayBrackingState[1];
-        if(config.state_id == 3) return arrayBrackingState[2];
-        if(config.state_id == 4) return arrayBrackingState[3];
-        if(config.state_id == 5) return arrayBrackingState[4];
-        if(config.state_id == 6) return arrayBrackingState[5];
+    pointerColor(config) {
+        if (config.state_id == 1) return `#${this.bdColor[0].color}`
+        if (config.state_id == 2) return `#${this.bdColor[1].color}`
     }
 
     buttonPut(config) {
@@ -130,16 +128,23 @@ export default class SuspendedTask {
         const div = document.createElement('div');
         const h3 = document.createElement('h3');
 
-        h3.innerText = `porque voce quer mudar esse status para ${config.state_id == 1 ? 'Arquivado' : config.state_id == 2 ? 'Arquivado' : config.state_id == 6 ? 'Fazer' : 'Aluma coisa'}?`
+        h3.innerText = `Deseja mesmo mudar o status para "parado"?`;
 
         const conn = new Connection();
         const textArea = new TextArea({
             text: this.reason, id: 'taskSuspended', onAction: async (text) => {
                try {
-                const result = await conn.put({days: null, reason: text, task_id: config.id}, 'GTPP/TaskState.php');
-                if(!result.error) {
+                let validateInput = document.querySelector('#taskSuspended textarea');
+
+                if(validateInput.value.length > 0) {
+                    const result = await conn.put({days: null, reason: text, task_id: config.id}, 'GTPP/TaskState.php');
+                    if(!result.error) {
+                        const modal = new Modal();
+                        modal.openModal('Enviado com sucesso!', 'Verifique a caixa de "parado!"', document.querySelector("#containerMain section"), 1);
+                    }
+                } else {
                     const modal = new Modal();
-                    modal.openModal('Enviado com sucesso!', 'Tarefa desarquivada com sucesso!', document.querySelector("#containerMain section"), 1);
+                    modal.openModal('Aviso!', 'Verifique os campos antes de enviá-los.', document.querySelector("#containerMain section"), 2);
                 }
                 
                } catch (error) {

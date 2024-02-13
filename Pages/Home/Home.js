@@ -52,7 +52,7 @@ export default class Home {
             // Cria o Elemento de Menu.
             const menu = new Menu({ idNavMenu: 'navMenu', class: 'gridLeftHome' });
             container.appendChild(this.settingsHome(JSON.parse(localStorage?.stateTaskGTPP) || []));
-            container.appendChild(this.renderCards(JSON.parse(localStorage?.stateTaskGTPP) || [], getTask.data));
+            container.appendChild(this.renderCards(JSON.parse(localStorage?.stateTaskGTPP) || [], getTask.data, listTaskState.data));
 
             const elementHome = containerHome.containerBasic({ id: 'containerHome', element: container });
             elementHome.insertBefore(menu.nav(), elementHome.firstElementChild);
@@ -69,12 +69,12 @@ export default class Home {
         return section;
     }
 
-    renderCards(list, getTask) {
+    renderCards(list, getTask, listTaskState) {
         const div = document.createElement('div');
         list.pop();
         list.forEach(async(item) => {
             const card = new Card(this.#web);
-            div.appendChild(await card.createCard({ id: `task_state_${item.id}`, label: item.description, view: item.view }, getTask))
+            div.appendChild(await card.createCard({ id: `task_state_${item.id}`, label: item.description, view: item.view }, getTask, listTaskState))
         });
         return div;
     }
