@@ -30,64 +30,83 @@ export default class Card {
   }
 
   async createCard(configs, tasks) {
-    this.#getConfigId = configs.id;
-    this.#getTasks = tasks;
-    const cardDiv = document.createElement('div');
-    cardDiv.className = 'card';
-    cardDiv.style.display = configs.view ? 'block' : 'none';
-    if (configs?.id) cardDiv.id = configs.id;
-    const inputCheckbox = this.createButtonHamburger(configs.id);
-    cardDiv.appendChild(this.getSubdivCard(configs, inputCheckbox));
-    const taskDiv = document.createElement('div');
-
-    taskDiv.id = 'taskDiv';
-    taskDiv.className='column'
-    for (let i = 0; i < this.#getTasks.length; i++) {
-      const taskElement = await this.createTaskElement(this.#getTasks[i]);
-      if (configs.id === `task_state_${this.#getTasks[i].state_id}`) taskDiv.appendChild(taskElement);
+    try {
+      this.#getConfigId = configs.id;
+      this.#getTasks = tasks;
+      const cardDiv = document.createElement('div');
+      cardDiv.className = 'card';
+      cardDiv.style.display = configs.view ? 'block' : 'none';
+      if (configs?.id) cardDiv.id = configs.id;
+      const inputCheckbox = this.createButtonHamburger(configs.id);
+      cardDiv.appendChild(this.getSubdivCard(configs, inputCheckbox));
+      const taskDiv = document.createElement('div');
+      taskDiv.id = 'taskDiv';
+      taskDiv.className='column'
+      for (let i = 0; i < this.#getTasks.length; i++) {
+        const taskElement = await this.createTaskElement(this.#getTasks[i]);
+        if (configs.id === `task_state_${this.#getTasks[i].state_id}`) taskDiv.appendChild(taskElement);
+      }
+      cardDiv.appendChild(taskDiv);
+      return cardDiv;
+    } catch (error) {
+      console.error(error.message);
     }
-    cardDiv.appendChild(taskDiv);
-    return cardDiv;
   }
 
   getSubdivCard(configs, inputCheckbox) {
-    const subDivCard = this.createSubDivCard(configs.label);
-    subDivCard.appendChild(inputCheckbox);
-    return subDivCard;
+    try {
+      const subDivCard = this.createSubDivCard(configs.label);
+      subDivCard.appendChild(inputCheckbox);
+      return subDivCard;
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   async createTaskElement(taskData) {
-    const taskElement = document.createElement('div');
-    const subBoxTaskElement = document.createElement('div');
-    taskElement.setAttribute('draggable', 'true');
-    taskElement.className = 'task';
-    subBoxTaskElement.className = 'subTask';
-    taskElement.dataset.taskid = taskData.id;
-    taskElement.append(this.createElementDescriptionAndPriority(taskData), subBoxTaskElement);
-    subBoxTaskElement.append(this.createdPercentTask(taskData), this.createTaskElementPriority(taskData), await this.createdUserElement(taskData))
-    return taskElement;
+    try {
+      const taskElement = document.createElement('div');
+      const subBoxTaskElement = document.createElement('div');
+      taskElement.setAttribute('draggable', 'true');
+      taskElement.className = 'task';
+      subBoxTaskElement.className = 'subTask';
+      taskElement.dataset.taskid = taskData.id;
+      taskElement.append(this.createElementDescriptionAndPriority(taskData), subBoxTaskElement);
+      subBoxTaskElement.append(this.createdPercentTask(taskData), this.createTaskElementPriority(taskData), await this.createdUserElement(taskData))
+      return taskElement;
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   createElementDescriptionAndPriority(taskData) {
-    const taskElement = document.createElement('div');
-    taskElement.className = 'task-desc-priority';
-    taskElement.append(this.createTaskElementDescription(taskData), this.createElementInicialDateAndFinalDate(taskData));
-    taskElement.addEventListener('click', async (e) => {
-      if (e.target.tagName !== 'BUTTON' && e.target.closest('button') === null) {
-        const task = new Tasks(taskData, this.#ws);
-        await task.getDetails();
-        const modal = new Modal();
-        modal.modalDark({ modal: task.taskElement() });
+    try {
+      const taskElement = document.createElement('div');
+      taskElement.className = 'task-desc-priority';
+      taskElement.append(this.createTaskElementDescription(taskData), this.createElementInicialDateAndFinalDate(taskData));
+      taskElement.addEventListener('click', async (e) => {
+        if (e.target.tagName !== 'BUTTON' && e.target.closest('button') === null) {
+          const task = new Tasks(taskData, this.#ws);
+          await task.getDetails();
+          const modal = new Modal();
+          modal.modalDark({ modal: task.taskElement() });
+        }
+      });
+      return taskElement;
+    } catch (error) {
+      console.error(error.message);
     }
-    });
-    return taskElement;
   }
 
   createElementInicialDateAndFinalDate(local) {
-    const taskElementDate = document.createElement('div');
-    taskElementDate.appendChild(this.createElementDate(local));
-    taskElementDate.className = 'task-date';
-    return taskElementDate;
+    try {
+      const taskElementDate = document.createElement('div');
+      taskElementDate.appendChild(this.createElementDate(local));
+      taskElementDate.className = 'task-date';
+      return taskElementDate;
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   getDateInit(initialDate) {
@@ -131,97 +150,143 @@ export default class Card {
   }
 
   createArchivedTask(local) {
-    const taskElementPriority = document.createElement('div');
-    taskElementPriority.className = 'task-priority';
-    taskElementPriority.classList.add("cursorPointer");
-    taskElementPriority.appendChild(this.componentImage('archive.svg', 'arquivado'));
-    return taskElementPriority;
+    try {
+      const taskElementPriority = document.createElement('div');
+      taskElementPriority.className = 'task-priority';
+      taskElementPriority.classList.add("cursorPointer");
+      taskElementPriority.appendChild(this.componentImage('archive.svg', 'arquivado'));
+      return taskElementPriority;
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   createTaskElementPriority(local) {
-    const taskElementPriority = document.createElement('div');
-    taskElementPriority.className = 'task-priority';
-    taskElementPriority.appendChild(this.getPriorityTextOrImage(local.priority || 0));
-    return taskElementPriority;
+    try {
+      const taskElementPriority = document.createElement('div');
+      taskElementPriority.className = 'task-priority';
+      taskElementPriority.appendChild(this.getPriorityTextOrImage(local.priority || 0));
+      return taskElementPriority;
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   async createdUserElement(local) {
-    const taskElementPriority = document.createElement('div');
-    taskElementPriority.className = 'task-priority';
-    taskElementPriority.appendChild(await this.getUserImageAndColaboration(local));
-    return taskElementPriority;
+    try {
+      const taskElementPriority = document.createElement('div');
+      taskElementPriority.className = 'task-priority';
+      taskElementPriority.appendChild(await this.getUserImageAndColaboration(local));
+      return taskElementPriority;
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   createdPercentTask(local) {
-    const taskElementPriority = document.createElement('div');
-    taskElementPriority.className = 'task-priority';
-    taskElementPriority.appendChild(this.getPercent(local));
-    return taskElementPriority;
+    try {
+      const taskElementPriority = document.createElement('div');
+      taskElementPriority.className = 'task-priority';
+      taskElementPriority.appendChild(this.getPercent(local));
+      return taskElementPriority;
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   createTaskElementDescription(local) {
-    // const maxLength = 10;
-    // const truncatedDescription = local?.description?.substring(0, maxLength) + (local?.description?.length > maxLength ? '...' : '');
-    const tasksElementDescription = document.createElement('div');
-    const htmlBold = document.createElement('b');
-    tasksElementDescription.className = 'task-description';
-    tasksElementDescription.title = local?.description;
-    htmlBold.innerText = local.description || '';
-    tasksElementDescription.appendChild(htmlBold);
-    this.visualComponentsButton(local, tasksElementDescription);   
-    return tasksElementDescription;
+    try {
+      const tasksElementDescription = document.createElement('div');
+      const htmlBold = document.createElement('b');
+      tasksElementDescription.className = 'task-description';
+      tasksElementDescription.title = local.description;
+      htmlBold.innerText = local.description || '';
+      tasksElementDescription.appendChild(htmlBold);
+      this.visualComponentsButton(local, tasksElementDescription);   
+      return tasksElementDescription;
+    } catch (error) {
+      console.error(error.message);
+    }
   }
   
   visualComponentsButton(config, localElement) {
-    const svg = new SVG();
-    const loadSuspendedTasks = new SuspendedTask();
-    const btn = new Button();
-    if(config.state_id == 1 || config.state_id == 2) {
-       localElement.appendChild(
-        btn.Button({type:'button',title:'Arquivar tarefa',onAction:()=> loadSuspendedTasks.suspended(config),
-        description: svg.createSvg(SVGImageArchived), classButton: 'btnFiled'}))
+    try {
+      const svg = new SVG();
+      const loadSuspendedTasks = new SuspendedTask();
+      const btn = new Button();
+      if(config.state_id == 1 || config.state_id == 2) {
+        localElement.appendChild(
+          btn.Button({type:'button',title:'Arquivar tarefa',onAction:()=> loadSuspendedTasks.suspended(config),
+          description: svg.createSvg(SVGImageArchived), classButton: 'btnFiled'}))
+      }
+    } catch (error) {
+      console.error(error.message);
     }
   }
 
   createSubDivCard(label) {
-    const subCardDiv = document.createElement('div');
-    subCardDiv.className = 'subdivcard';
-    const title = document.createElement('h4');
-    title.innerText = label;
-    subCardDiv.appendChild(title);
-    return subCardDiv;
+    try {
+      const subCardDiv = document.createElement('div');
+      subCardDiv.className = 'subdivcard';
+      const title = document.createElement('h4');
+      title.innerText = label;
+      subCardDiv.appendChild(title);
+      return subCardDiv;
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   createButtonHamburger(id) {
-    const hamburger = new HamburgerX();
-    return hamburger.createButton(id, (e) => this.handleList(e, id));
+    try {  
+      const hamburger = new HamburgerX();
+      return hamburger.createButton(id, (e) => this.handleList(e, id));
+    } catch (error) {
+      console.error(error.message);s
+    }
   }
 
   handleList(e, id) {
-    const cardReturn = document.getElementById(id);
-    e.target.checked ? this.openConfigCard(cardReturn, id) : this.closeConfigCard(id);
+    try {
+      const cardReturn = document.getElementById(id);
+      e.target.checked ? this.openConfigCard(cardReturn, id) : this.closeConfigCard(id);
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   openConfigCard(local, id) {
-    local.appendChild(this.createMenu(id));
+    try {
+      local.appendChild(this.createMenu(id));
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   closeConfigCard(id) {
-    const menuReturn = document.querySelector(`#${id} .fatherMenu`);
-    if (menuReturn) {
-      menuReturn.remove();
+    try {
+      const menuReturn = document.querySelector(`#${id} .fatherMenu`);
+      if (menuReturn) {
+        menuReturn.remove();
+      }
+    } catch (error) {
+      console.error(error.message);
     }
   }
 
   createMenu(id) {
-    const button = new Button();
-    const fatherMenu = document.createElement("div");
-    fatherMenu.className = "fatherMenu";
-    const cardMenu = document.createElement('div');
-    cardMenu.className = 'menu';
-    fatherMenu.appendChild(cardMenu);
-    button.configButton(cardMenu, id, this.onPDF, this.onCSV, () => this.reloadTaskList(id));
-    return fatherMenu;
+    try {
+      const button = new Button();
+      const fatherMenu = document.createElement("div");
+      fatherMenu.className = "fatherMenu";
+      const cardMenu = document.createElement('div');
+      cardMenu.className = 'menu';
+      fatherMenu.appendChild(cardMenu);
+      button.configButton(cardMenu, id, this.onPDF, this.onCSV, () => this.reloadTaskList(id));
+      return fatherMenu;
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   /**
@@ -229,15 +294,23 @@ export default class Card {
    * @date 2/5/2024 - 10:55:47 AM
    */
   onPDF = () => {
-    const pdfGenerator = new PDFGenerator(this.#getTasks, this.#getConfigId);
-    pdfGenerator.generatePDF();
-    pdfGenerator.closeWindow();
+    try {
+      const pdfGenerator = new PDFGenerator(this.#getTasks, this.#getConfigId);
+      pdfGenerator.generatePDF();
+      pdfGenerator.closeWindow();
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   /** Função que gera um arquivo CSV e faz o download para ser utilizando e importado para qualquer lugar.  */
   onCSV = () => {
-    const csvGenerator = new CSVGenerator(this.#getTasks, this.#getConfigId);
-    csvGenerator.generateCSV();
+    try {
+      const csvGenerator = new CSVGenerator(this.#getTasks, this.#getConfigId);
+      csvGenerator.generateCSV(); 
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   reloadTaskList = (id) => {
@@ -256,26 +329,38 @@ export default class Card {
   }
 
   async loadTaskList() {
-    const elementTask = document.getElementById('taskDiv');
-    for (let i = 0; i < this.#taskList.length; i++) {
-      elementTask.appendChild(await this.createTaskElement(this.#taskList[i]));
+    try {
+      const elementTask = document.getElementById('taskDiv');
+      for (let i = 0; i < this.#taskList.length; i++) {
+        elementTask.appendChild(await this.createTaskElement(this.#taskList[i]));
+      }
+      return elementTask;
+    } catch (error) {
+      console.error(error.message);
     }
-    return elementTask;
   }
 
   componentImage(srcImage, title) {
-    const image = document.createElement('img');
-    image.className = 'img-task';
-    title && (image.title = `${title}`);
-    image.src = `../Assets/Image/${srcImage}`;
-    return image;
+    try {
+      const image = document.createElement('img');
+      image.className = 'img-task';
+      title && (image.title = `${title}`);
+      image.src = `../Assets/Image/${srcImage}`;
+      return image;
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   getPriorityTextOrImage(priority) {
-    const svg = new SVG();
+    try {
+      const svg = new SVG();
       if (priority == 0) return svg.createSvg({...SVGImageFlagInline, fill: "#28A745"});
       if (priority == 1) return svg.createSvg({...SVGImageFlagInline, fill: "#F37518"});
       if (priority == 2) return svg.createSvg({...SVGImageFlagInline, fill: "#DC3545"});
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   async getUserImageAndColaboration(local) {
@@ -308,9 +393,13 @@ export default class Card {
 
 
   getPercent(local) {
-    const percentDiv = document.createElement('p');
-    percentDiv.className = 'percent';
-    percentDiv.innerHTML = `${local.percent ? local.percent : 0}%`;
-    return percentDiv;
+    try {
+      const percentDiv = document.createElement('p');
+      percentDiv.className = 'percent';
+      percentDiv.innerHTML = `${local.percent ? local.percent : 0}%`;
+      return percentDiv;
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 }

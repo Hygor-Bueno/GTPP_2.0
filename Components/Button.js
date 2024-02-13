@@ -51,12 +51,16 @@ export default class Button{
      * @param {function} reloadTaskList
      */
     configButton(local, id, onPDF, onCSV, reloadTaskList) {
-        const icon = new Form();
-        const btn = new Button();
-        const createButton = (config) => local.appendChild(btn.Button(config));        
-        const addButton = config => id === 'task_state_1' && createButton(config);
-        createButton({ ...buttonPDF, onAction: onPDF, description: icon.iconLabel('PDF.svg') });
-        createButton({ ...buttonCSV, onAction: onCSV, description: icon.iconLabel('csv.svg') });
-        addButton({ ...buttonAdd, onAction: () => reloadTaskList(id), description: icon.iconLabel('ADD.svg') });
+        try {
+            const icon = new Form();
+            const btn = new Button();
+            const createButton = (config) => local.appendChild(btn.Button(config));        
+            const addButton = config => id === 'task_state_1' && createButton(config);
+            createButton({ ...buttonPDF, onAction: onPDF, description: icon.iconLabel('PDF.svg') });
+            createButton({ ...buttonCSV, onAction: onCSV, description: icon.iconLabel('csv.svg') });
+            addButton({ ...buttonAdd, onAction: () => reloadTaskList(id), description: icon.iconLabel('ADD.svg') });
+        } catch (error) {
+            console.error(error.message);
+        }
     }
 }

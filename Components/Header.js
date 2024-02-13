@@ -6,9 +6,13 @@ export default class Header{
         this.#text = text;
     }
     main(){
-        const header = document.createElement('header');
-        const title = new Title(this.#text);
-        header.appendChild(title.main());
-        return header;
+        try {
+            const header = document.createElement('header');
+            const title = new Title(this.#text);
+            header.appendChild(title.main());
+            return header;
+        } catch (error) {
+            console.error(error.message);
+        }
     }
 }

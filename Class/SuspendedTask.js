@@ -21,6 +21,10 @@ export default class SuspendedTask {
             //const listTaskState = await connection.get('', 'GTPP/TaskState.php');
 
             modal.setAttribute('modal-suspended', true);
+            
+            config.state_id == 1 || config.state_id == 2 ? modal.setAttribute('modalTodo', '') : null;
+            
+
             modal.className = 'suspendedDesign';
 
             const h1 = document.createElement('h1');
@@ -83,10 +87,10 @@ export default class SuspendedTask {
             const div = document.createElement('div');
             div.className = 'divModalReason';
             
-
-            
             if(config.state_id == 1 || config.state_id == 2 || config.state_id == 6){
                 div.appendChild(this.textArticleSuspended(config));
+                div.setAttribute('modal-reason', true);
+
             } else if(config.state_id == 5) {
                 this.inputFormBlocked(div, config);
                 div.appendChild(this.buttonPut(config));
@@ -100,10 +104,14 @@ export default class SuspendedTask {
     }
 
     setDays(days, config) {
-        this.days = days;
-        this.reason = null;
-        this.task_id = config.id;
-        console.log(this);
+       try {
+            this.days = days;
+            this.reason = null;
+            this.task_id = config.id;
+            console.log(this);
+       } catch (error) {
+            console.error(error.message);
+       }
     }
 
 

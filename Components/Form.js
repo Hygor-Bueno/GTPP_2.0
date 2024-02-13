@@ -16,29 +16,37 @@ export default class Form {
      * @returns {HTMLElement} Retorna um elemento html form.
      */
     ContainerForm(configs) {
-        const form = document.createElement('form');
-        if (configs.listfields.length > 0) {
-            configs.listfields.forEach(itemConfig => {
-                form.appendChild(this.controllerElements(itemConfig));
-            });
-        } else {
-            form.appendChild(this.controllerElements(configs.listfields));
+        try {
+            const form = document.createElement('form');
+            if (configs.listfields.length > 0) {
+                configs.listfields.forEach(itemConfig => {
+                    form.appendChild(this.controllerElements(itemConfig));
+                });
+            } else {
+                form.appendChild(this.controllerElements(configs.listfields));
+            }
+            if (configs && configs.classForm) form.className = configs.classForm;
+            return form;
+        } catch (error) {
+            console.error(error.message);
         }
-        if (configs && configs.classForm) form.className = configs.classForm;
-        return form;
     }
 
     controllerElements(configs) {
-        let response;
-        switch (configs.type) {
-            case 'select':
-                response = this.getSelectFieldWithLabel(configs);
-                break;
-            default:
-                response = this.ItemForm(configs);
-                break;
+        try {
+            let response;
+            switch (configs.type) {
+                case 'select':
+                    response = this.getSelectFieldWithLabel(configs);
+                    break;
+                default:
+                    response = this.ItemForm(configs);
+                    break;
+            }
+            return response;
+        } catch (error) {
+            console.error(error.message);
         }
-        return response;
     }
 
     /**
@@ -49,12 +57,16 @@ export default class Form {
      * @returns {HTMLFieldSetElement} Retorna um elemento html fieldset.
      */
     ItemForm(configs) {
-        //Configurações do fieldset
-        const fieldset = document.createElement('fieldset');
+        try {
+            //Configurações do fieldset
+            const fieldset = document.createElement('fieldset');
 
-        //Adicação dos filhos.
-        fieldset.appendChild(this.divSubContainer(this.label(configs), this.input(configs), configs));
-        return fieldset;
+            //Adicação dos filhos.
+            fieldset.appendChild(this.divSubContainer(this.label(configs), this.input(configs), configs));
+            return fieldset;
+        } catch (error) {
+            console.error(error.message);
+        }
     }
 
     /**
@@ -68,13 +80,17 @@ export default class Form {
      * @returns {HTMLElement}
      */
     divSubContainer(label, input, configs) {
-        const subContainer = document.createElement('div');
-        if (configs && configs.classItemsForm) {
-            subContainer.className = configs.classItemsForm;
+        try {
+            const subContainer = document.createElement('div');
+            if (configs && configs.classItemsForm) {
+                subContainer.className = configs.classItemsForm;
+            }
+            subContainer.appendChild(label);
+            subContainer.appendChild(input);
+            return subContainer;
+        } catch (error) {
+            console.error(error.message);
         }
-        subContainer.appendChild(label);
-        subContainer.appendChild(input);
-        return subContainer;
     }
 
     /**

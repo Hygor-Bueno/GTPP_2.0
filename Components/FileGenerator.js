@@ -63,21 +63,25 @@ export class CSVGenerator {
    * Gera um arquivo CSV a partir das tarefas obtidas pela função getTasks e realiza o download.
    */
   generateCSV() {
-    const filteredTasks = this.getTasks.filter(item => item.state_id == this.util.removeStringAndUnderline(this.configId));
+    try {
+      const filteredTasks = this.getTasks.filter(item => item.state_id == this.util.removeStringAndUnderline(this.configId));
 
-    if (filteredTasks.length > 0) {
-      const jsonData = filteredTasks.map(item => ({
-        "Tarefas": item.description,
-        "Estado das Tarefas": item.state_description,
-        "Prioridade das Tarefas": item.priority == 0 ? 'baixa' : item.priority == 1 ? 'media' : item.priority == 2 ? 'alta' : 0,
-        "Data de Inicio das Tarefas": item.initial_date,
-        "Data final das Tarefas": item.final_date,
-      }));
-
-      const csvData = this.convertToCSV(jsonData);
-      this.downloadCSV(csvData, 'documento.csv');
-    } else {
-      console.log("Nenhum dado encontrado para criar o CSV.");
+      if (filteredTasks.length > 0) {
+        const jsonData = filteredTasks.map(item => ({
+          "Tarefas": item.description,
+          "Estado das Tarefas": item.state_description,
+          "Prioridade das Tarefas": item.priority == 0 ? 'baixa' : item.priority == 1 ? 'media' : item.priority == 2 ? 'alta' : 0,
+          "Data de Inicio das Tarefas": item.initial_date,
+          "Data final das Tarefas": item.final_date,
+        }));
+  
+        const csvData = this.convertToCSV(jsonData);
+        this.downloadCSV(csvData, 'documento.csv');
+      } else {
+        console.log("Nenhum dado encontrado para criar o CSV.");
+      }
+    } catch (error) {
+      console.error(error.message);
     }
   }
 
@@ -88,11 +92,15 @@ export class CSVGenerator {
    * @returns {string} - String CSV gerada a partir dos dados.
    */
   convertToCSV(data) {
-    const header = Object.keys(data[0]).join('\t');
-    const rows = data.map(obj => Object.values(obj).join('\t'));
-    console.log(header, rows);
-
-    return `${header}\n${rows.join('\n')}`;
+    try {
+      const header = Object.keys(data[0]).join('\t');
+      const rows = data.map(obj => Object.values(obj).join('\t'));
+      console.log(header, rows);
+  
+      return `${header}\n${rows.join('\n')}`;
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   /**
@@ -102,18 +110,22 @@ export class CSVGenerator {
    * @param {string} filename - Nome do arquivo CSV a ser baixado.
    */
   downloadCSV(csv, filename) {
-    const blob = new Blob([csv], { type: `text/csv;charset=utf-8, ${encodeURIComponent(csv)}` });
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-
-    document.body.appendChild(a);
-    a.click();
-
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    try {
+      const blob = new Blob([csv], { type: `text/csv;charset=utf-8, ${encodeURIComponent(csv)}` });
+      const url = URL.createObjectURL(blob);
+  
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+  
+      document.body.appendChild(a);
+      a.click();
+  
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 }
 
@@ -143,6 +155,7 @@ export class PDFGenerator {
    * Configura o cabeçalho do documento PDF.
    */
   setupHead() {
+   try {
     const viewport = document.createElement('meta');
     viewport.name = 'viewport';
     viewport.content = 'width=device-width, initial-scale=1.0';
@@ -153,6 +166,9 @@ export class PDFGenerator {
     const style = document.createElement('style');
     style.appendChild(document.createTextNode(styleTable));
     this.head.appendChild(style);
+   } catch (error) {
+    console.error(error.message);
+   }
   }
 
   /**
@@ -162,15 +178,18 @@ export class PDFGenerator {
    * @param {string} configId - Identificador de configuração para filtrar os dados desejados.
    */
   setupContent(data, configId) {
-    console.log(data);
-    const table = document.createElement('table');
-    const thead = document.createElement('thead');
-    const tbody = document.createElement('tbody');
-    thead.appendChild(this.createElementTr());
-    this.validate(tbody, configId, data);
-    table.appendChild(thead);
-    table.appendChild(tbody);
-    this.content.appendChild(table);
+    try {
+      const table = document.createElement('table');
+      const thead = document.createElement('thead');
+      const tbody = document.createElement('tbody');
+      thead.appendChild(this.createElementTr());
+      this.validate(tbody, configId, data);
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      this.content.appendChild(table);
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   /**
@@ -179,14 +198,18 @@ export class PDFGenerator {
    * @returns {HTMLTableRowElement} - Elemento 'tr' do cabeçalho da tabela.
    */
   createElementTr() {
-    const headers = ['Tarefas', 'Estado das Tarefas', 'Prioridade', 'Data Inicial', 'Data Final', 'Percentual'];
-    const trHead = document.createElement('tr');
-    for (const headerText of headers) {
-      const th = document.createElement('th');
-      th.innerText = headerText;
-      trHead.appendChild(th);
+    try {
+      const headers = ['Tarefas', 'Estado das Tarefas', 'Prioridade', 'Data Inicial', 'Data Final', 'Percentual'];
+      const trHead = document.createElement('tr');
+      for (const headerText of headers) {
+        const th = document.createElement('th');
+        th.innerText = headerText;
+        trHead.appendChild(th);
+      }
+      return trHead;
+    } catch (error) {
+      console.error(error.message);
     }
-    return trHead;
   }
 
   /**
@@ -197,26 +220,30 @@ export class PDFGenerator {
    * @param {Array} data - Dados a serem incluídos no documento PDF.
    */
   validate(tbody, configId, data) {
-    const util = new Util();
-    const filteredTasks = data.filter(item => item.state_id == util.removeStringAndUnderline(configId));
-    if (filteredTasks.length > 0) {
-      filteredTasks.forEach(item => {
-        const trBody = document.createElement('tr');
-        const attributes = [
-          { key: 'description', label: 'tdDescription' },
-          { key: 'state_description', label: 'tdState' },
-          { key: 'priority', label: 'tdPriority', transform: value => this.getPriorityText(value)},
-          { key: 'initial_date', label: 'tdInitialDate', transform: value => value.split('-').reverse().join('/') }, 
-          { key: 'final_date', label: 'tdFinalDate', transform: value => value.split('-').reverse().join('/') },
-          { key: 'percent', label: 'tdPercent', transform: value => `${value}%` }
-        ];
-        attributes.forEach(attr => {
-          const td = document.createElement('td');
-          td.innerText = attr.transform ? attr.transform(item[attr.key]) : item[attr.key];
-          trBody.appendChild(td);
+    try {
+      const util = new Util();
+      const filteredTasks = data.filter(item => item.state_id == util.removeStringAndUnderline(configId));
+      if (filteredTasks.length > 0) {
+        filteredTasks.forEach(item => {
+          const trBody = document.createElement('tr');
+          const attributes = [
+            { key: 'description', label: 'tdDescription' },
+            { key: 'state_description', label: 'tdState' },
+            { key: 'priority', label: 'tdPriority', transform: value => this.getPriorityText(value)},
+            { key: 'initial_date', label: 'tdInitialDate', transform: value => value.split('-').reverse().join('/') }, 
+            { key: 'final_date', label: 'tdFinalDate', transform: value => value.split('-').reverse().join('/') },
+            { key: 'percent', label: 'tdPercent', transform: value => `${value}%` }
+          ];
+          attributes.forEach(attr => {
+            const td = document.createElement('td');
+            td.innerText = attr.transform ? attr.transform(item[attr.key]) : item[attr.key];
+            trBody.appendChild(td);
+          });
+          tbody.appendChild(trBody);
         });
-        tbody.appendChild(trBody);
-      });
+      }
+    } catch (error) {
+      console.error(error.message);
     }
   }
 
@@ -227,7 +254,11 @@ export class PDFGenerator {
    * @returns {string} - String descritiva da prioridade.
    */
   getPriorityText(priority) {
-    return priority == 0 ? 'baixa' : priority == 1 ? 'média' : priority == 2 ? 'alta' : 'Não foi especificado o nível';
+   try {
+      return priority == 0 ? 'baixa' : priority == 1 ? 'média' : priority == 2 ? 'alta' : 'Não foi especificado o nível';
+   } catch (error) {
+    console.error(error.message);
+   }
   }
 
   /**
@@ -235,17 +266,21 @@ export class PDFGenerator {
    * Gera o conteúdo HTML do documento PDF, imprime e fecha a janela de impressão.
    */
   generatePDF() {
-    const htmlContent = `
-      <html>
-        ${this.head.outerHTML}
-        <body>
-          ${this.content.outerHTML}
-        </body>
-      </html>
-    `;
-    this.printDocument.write(htmlContent);
-    this.printWindow.print();
-    this.printDocument.close();
+    try {
+      const htmlContent = `
+        <html>
+          ${this.head.outerHTML}
+          <body>
+            ${this.content.outerHTML}
+          </body>
+        </html>
+      `;
+      this.printDocument.write(htmlContent);
+      this.printWindow.print();
+      this.printDocument.close();
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   /**
@@ -253,8 +288,12 @@ export class PDFGenerator {
    * Fecha a janela de impressão.
    */
   closeWindow() {
-    if (this.printWindow) {
-      this.printWindow.close();
+    try {
+      if (this.printWindow) {
+        this.printWindow.close();
+      }
+    } catch (error) {
+      console.error(error.message);
     }
   }
 }

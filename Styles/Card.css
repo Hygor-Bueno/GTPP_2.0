@@ -200,8 +200,8 @@ width: var(--imageSizeP);
   flex-direction: column;
 }
 
-.task-desc-priority:hover {
-background-color: var(--simplecardColor);
+.divModalReason div #taskSuspended {
+  
 }
 
 .divLabelImg {
@@ -225,6 +225,18 @@ align-items: end;
   justify-content: space-between;
   align-items: center;
   display: flex;
+}
+
+.divModalReason div #taskSuspended {
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
+  flex: none;
+  gap: var(--spaceDefault);
+
+  button {
+    width: 40%;
+  }
 }
 
 .task-description b {
@@ -301,6 +313,11 @@ div {
     }
   }
 }
+
+/* div[modaltodo] {
+  height: 28% !important;
+  width:clamp(10vw, 50vw, 120px) !important;
+} */
 
 .text {
 position: absolute;

@@ -19,7 +19,7 @@
 
 .divModalReason {
     width: 100%;
-    height: 10vh;
+    /* height: 10vh; */
 }
 
 .modal-absolute {
@@ -49,11 +49,15 @@
     display: flex;
     flex-direction: column;
     background: white;
-    height: 80%;
+    height: 70%;
     width: 80%;
     border-radius: var(--spaceDefault);
     padding: var(--spaceDefault);
     overflow: auto;
+}
+
+div[modaltodo] {
+    height: initial !important;
 }
 
 #modalTask>div[modal-tasks="true"] {

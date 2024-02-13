@@ -43,6 +43,10 @@
     border: var(--borderSize) solid #ced4da;
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+
+    @media screen and (max-height: 500px){
+        padding: 0 var(--spaceDefaultPP);
+    };
 }
 .labelFormP > div{
     display: flex;
