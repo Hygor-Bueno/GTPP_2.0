@@ -6,19 +6,11 @@ import Modal from "./Modal.js";
 import { HamburgerX } from "./Hambuger.js";
 import { Connection } from "../Connection/Connection.js";
 import SVG from "./SVG.js";
-import { SVGImageAnality, SVGImageArchived, SVGImageFlagInline, SVGImageOverview, SVGImageStopTask, SVGImageUser, SVGImageVerified } from "../Configuration/ImagesSVG.js";
+import { SVGImageArchived, SVGImageFlagInline, SVGImageUser } from "../Configuration/ImagesSVG.js";
 import SuspendedTask from "../Class/SuspendedTask.js";
 
 /**
- * @author Jonatas Silva
- * @class Card
- * @description Componente card que exibe e cria novas tarefas 
- * @example componenteTeste() => {
- *    const docTest = document.createElement("div");
- *    const card = new Card(this.#web);
- *    docTest.appendChild(card.createCard({ id: `task_state_1`, label: 'Nome do card', view: true }, getTask));
- * }
- * 
+ * Classe que representa um cartão de tarefa.
  */
 export default class Card {
   #taskList = [];
@@ -26,10 +18,24 @@ export default class Card {
   colorBD = [];
   #getConfigId;
   #ws;
+   /**
+   * Cria uma nova instância de Card.
+   * @param {Object} ws - Objeto WebSocket.
+   */
   constructor(ws) {
     this.#ws = ws;
   }
 
+  /**
+   * Cria um cartão de tarefa.
+   * @param {Object} configs - Configurações do cartão.
+   * @param {number} configs.id - ID do cartão.
+   * @param {boolean} configs.view - Visualização do cartão.
+   * @param {string} configs.label - Rótulo do cartão.
+   * @param {Array} tasks - Lista de tarefas do cartão.
+   * @param {Array} listTaskState - Lista de estados da tarefa.
+   * @returns {HTMLElement} - Elemento HTML do cartão.
+   */
   async createCard(configs, tasks, listTaskState) {
     try {
       this.colorBD = listTaskState;
@@ -54,7 +60,12 @@ export default class Card {
       console.error(error.message);
     }
   }
-
+  /**
+   * Cria um sub-div do cartão.
+   * @param {Object} configs - Configurações do cartão.
+   * @param {string} inputCheckbox - Checkbox do cartão.
+   * @returns {HTMLElement} - Sub-div do cartão.
+   */
   getSubdivCard(configs, inputCheckbox) {
     try {
       const subDivCard = this.createSubDivCard(configs.label);
@@ -64,7 +75,11 @@ export default class Card {
       console.error(error.message);
     }
   }
-
+  /**
+   * Cria um elemento de tarefa.
+   * @param {Object} taskData - Dados da tarefa.
+   * @returns {HTMLElement} - Elemento HTML da tarefa.
+   */
   async createTaskElement(taskData) {
     try {
       const taskElement = document.createElement('div');
@@ -80,7 +95,11 @@ export default class Card {
       console.error(error.message);
     }
   }
-
+  /**
+   * Cria um elemento de descrição e prioridade da tarefa.
+   * @param {Object} taskData - Dados da tarefa.
+   * @returns {HTMLElement} - Elemento HTML da descrição e prioridade.
+   */
   createElementDescriptionAndPriority(taskData) {
     try {
       const taskElement = document.createElement('div');
@@ -100,17 +119,27 @@ export default class Card {
     }
   }
 
-  createElementInicialDateAndFinalDate(local) {
+  /**
+   * Cria um elemento de data inicial e final da tarefa.
+   * @param {Object} date - Dados da data da tarefa.
+   * @returns {HTMLElement} - Elemento HTML da data da tarefa.
+   */
+  createElementDate(date) {
     try {
-      const taskElementDate = document.createElement('div');
-      taskElementDate.appendChild(this.createElementDate(local));
-      taskElementDate.className = 'task-date';
-      return taskElementDate;
+      const taskElementInitialDate = document.createElement('div');
+      taskElementInitialDate.className = 'dateTasks'
+      date && taskElementInitialDate.append(this.getDateInit(date.initial_date), this.getDateFinal(date.final_date));
+      return taskElementInitialDate;
     } catch (error) {
       console.error(error.message);
     }
   }
 
+  /**
+   * Cria um elemento de data inicial da tarefa.
+   * @param {string} initialDate - Data inicial da tarefa.
+   * @returns {HTMLElement} - Elemento HTML da data inicial da tarefa.
+   */
   getDateInit(initialDate) {
     try {
       const divDt = document.createElement('div');
@@ -126,6 +155,11 @@ export default class Card {
     }
   }
 
+  /**
+   * Cria um elemento de data final da tarefa.
+   * @param {string} finalDate - Data final da tarefa.
+   * @returns {HTMLElement} - Elemento HTML da data final da tarefa.
+   */
   getDateFinal(initialDate) {
     try {
       const div = document.createElement('div');
@@ -140,29 +174,22 @@ export default class Card {
     }
   }
 
-  createElementDate(date) {
-      try {
-        const taskElementInitialDate = document.createElement('div');
-        taskElementInitialDate.className = 'dateTasks'
-        date && taskElementInitialDate.append(this.getDateInit(date.initial_date), this.getDateFinal(date.final_date));
-        return taskElementInitialDate;
-      } catch (error) {
-        console.error(error.message);
-      }
-  }
-
-  createArchivedTask(local) {
+  createElementInicialDateAndFinalDate(local) {
     try {
-      const taskElementPriority = document.createElement('div');
-      taskElementPriority.className = 'task-priority';
-      taskElementPriority.classList.add("cursorPointer");
-      taskElementPriority.appendChild(this.componentImage('archive.svg', 'arquivado'));
-      return taskElementPriority;
+      const taskElementDate = document.createElement('div');
+      taskElementDate.appendChild(this.createElementDate(local));
+      taskElementDate.className = 'task-date';
+      return taskElementDate;
     } catch (error) {
       console.error(error.message);
     }
   }
 
+  /**
+   * Cria um elemento de prioridade da tarefa.
+   * @param {Object} local - Dados da prioridade da tarefa.
+   * @returns {HTMLElement} - Elemento HTML da prioridade da tarefa.
+   */
   createTaskElementPriority(local) {
     try {
       const taskElementPriority = document.createElement('div');
@@ -174,6 +201,11 @@ export default class Card {
     }
   }
 
+  /**
+   * Cria um elemento de colaborador da tarefa.
+   * @param {Object} local - Dados do colaborador da tarefa.
+   * @returns {HTMLElement} - Elemento HTML do colaborador da tarefa.
+   */
   async createdUserElement(local) {
     try {
       const taskElementPriority = document.createElement('div');
@@ -185,6 +217,11 @@ export default class Card {
     }
   }
 
+  /**
+   * Cria um elemento de porcentagem de conclusão da tarefa.
+   * @param {Object} local - Dados da tarefa.
+   * @returns {HTMLElement} - Elemento HTML da porcentagem de conclusão da tarefa.
+   */
   createdPercentTask(local) {
     try {
       const taskElementPriority = document.createElement('div');
@@ -196,6 +233,11 @@ export default class Card {
     }
   }
 
+  /**
+   * Cria um elemento de descrição da tarefa.
+   * @param {Object} local - Dados da tarefa.
+   * @returns {HTMLElement} - Elemento HTML da descrição da tarefa.
+   */
   createTaskElementDescription(local) {
     try {
       const tasksElementDescription = document.createElement('div');
@@ -211,6 +253,11 @@ export default class Card {
     }
   }
   
+  /**
+   * Visualiza componentes de botão.
+   * @param {Object} config - Configurações do botão.
+   * @param {HTMLElement} localElement - Elemento HTML local onde o botão será inserido.
+   */
   visualComponentsButton(config, localElement) {
     try {
       const svg = new SVG();
@@ -226,6 +273,11 @@ export default class Card {
     }
   }
 
+  /**
+   * Cria um sub-div do cartão.
+   * @param {string} label - Rótulo do cartão.
+   * @returns {HTMLElement} - Sub-div do cartão.
+   */
   createSubDivCard(label) {
     try {
       const subCardDiv = document.createElement('div');
@@ -239,6 +291,11 @@ export default class Card {
     }
   }
 
+  /**
+   * Cria um botão Hamburger para o cartão.
+   * @param {string} id - ID do cartão.
+   * @returns {HTMLElement} - Botão Hamburger do cartão.
+   */
   createButtonHamburger(id) {
     try {  
       const hamburger = new HamburgerX();
@@ -248,6 +305,11 @@ export default class Card {
     }
   }
 
+  /**
+   * Manipula a lista do cartão.
+   * @param {Event} e - Evento de clique.
+   * @param {string} id - ID do cartão.
+   */
   handleList(e, id) {
     try {
       const cardReturn = document.getElementById(id);
@@ -257,6 +319,11 @@ export default class Card {
     }
   }
 
+  /**
+   * Abre o menu de configuração do cartão.
+   * @param {HTMLElement} local - Elemento HTML local do cartão.
+   * @param {string} id - ID do cartão.
+   */
   openConfigCard(local, id) {
     try {
       local.appendChild(this.createMenu(id));
@@ -265,6 +332,10 @@ export default class Card {
     }
   }
 
+  /**
+   * Fecha o menu de configuração do cartão.
+   * @param {string} id - ID do cartão.
+   */
   closeConfigCard(id) {
     try {
       const menuReturn = document.querySelector(`#${id} .fatherMenu`);
@@ -276,6 +347,11 @@ export default class Card {
     }
   }
 
+  /**
+   * Cria um menu para o cartão.
+   * @param {string} id - ID do cartão.
+   * @returns {HTMLElement} - Menu do cartão.
+   */
   createMenu(id) {
     try {
       const button = new Button();
@@ -292,8 +368,7 @@ export default class Card {
   }
 
   /**
-   * Função que gera uma pagina blank que traz os dados da tarefa e podemos imprimir ou salvar em PDF.
-   * @date 2/5/2024 - 10:55:47 AM
+   * Função que gera uma página em branco que traz os dados da tarefa e pode ser impressa ou salva em PDF.
    */
   onPDF = () => {
     try {
@@ -305,7 +380,9 @@ export default class Card {
     }
   }
 
-  /** Função que gera um arquivo CSV e faz o download para ser utilizando e importado para qualquer lugar.  */
+  /**
+   * Função que gera um arquivo CSV e faz o download para ser utilizado e importado em qualquer lugar.
+   */
   onCSV = () => {
     try {
       const csvGenerator = new CSVGenerator(this.#getTasks, this.#getConfigId);
@@ -315,6 +392,10 @@ export default class Card {
     }
   }
 
+  /**
+   * Recarrega a lista de tarefas do cartão.
+   * @param {string} id - ID do cartão.
+   */
   reloadTaskList = (id) => {
     try {
       const isList = document.querySelector(`#${id} ul`);
@@ -330,6 +411,10 @@ export default class Card {
     }
   }
 
+  /**
+   * Carrega a lista de tarefas do cartão.
+   * @returns {HTMLElement} - Elemento HTML da lista de tarefas.
+   */
   async loadTaskList() {
     try {
       const elementTask = document.getElementById('taskDiv');
@@ -342,6 +427,12 @@ export default class Card {
     }
   }
 
+  /**
+   * Cria um componente de imagem.
+   * @param {string} srcImage - Caminho da imagem.
+   * @param {string} title - Título da imagem.
+   * @returns {HTMLImageElement} - Componente de imagem.
+   */
   componentImage(srcImage, title) {
     try {
       const image = document.createElement('img');
@@ -354,6 +445,11 @@ export default class Card {
     }
   }
 
+  /**
+   * Obtém o texto ou imagem da prioridade da tarefa.
+   * @param {number} priority - Prioridade da tarefa.
+   * @returns {HTMLElement} - Texto ou imagem da prioridade.
+   */
   getPriorityTextOrImage(priority) {
     try {
       const svg = new SVG();
@@ -365,6 +461,11 @@ export default class Card {
     }
   }
 
+  /**
+   * Obtém a imagem e a colaboração do usuário.
+   * @param {Object} local - Dados do usuário.
+   * @returns {HTMLElement} - Imagem e colaboração do usuário.
+   */
   async getUserImageAndColaboration(local) {
     const qtdUser = document.createElement('div');
     try {
@@ -373,14 +474,19 @@ export default class Card {
       const p = document.createElement('p');
       p.className = 'text';
       p.innerHTML = `${local.users ? local.users : 0}`;
-      qtdUser.appendChild(p);
-      qtdUser.appendChild(svg.createSvg(SVGImageUser));
+      qtdUser.append(p, svg.createSvg(SVGImageUser));
     } catch (error) {
       console.error(error.message);
     }
     return qtdUser;
   }
 
+  
+  /**
+   * Obtém os usuários associados à tarefa.
+   * @param {Object} local - Dados da tarefa.
+   * @returns {Object} - Usuários associados à tarefa.
+   */
   async getUser(local) {
     try {
       const connection = new Connection();
@@ -393,7 +499,11 @@ export default class Card {
     }
   }
 
-
+  /**
+   * Obtém a porcentagem de conclusão da tarefa.
+   * @param {Object} local - Dados da tarefa.
+   * @returns {HTMLElement} - Porcentagem de conclusão da tarefa.
+   */
   getPercent(local) {
     try {
       const percentDiv = document.createElement('p');
