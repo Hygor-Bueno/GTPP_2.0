@@ -5,13 +5,13 @@ import { SVGImageFlagInline, SVGImageUser } from "../Configuration/ImagesSVG.js"
 import { HamburgerX } from "../Components/Hambuger.js";
 import Button from "../Components/Button.js";
 
-export default class CardSimple {
+export default class CardTools {
   /**
    * Obtém a imagem e a colaboração do usuário.
    * @param {Object} local - Dados do usuário.
    * @returns {HTMLElement} - Imagem e colaboração do usuário.
    */
-  async getUserImageAndColaboration(local) {
+  async getUserImage(local) {
     const qtdUser = document.createElement('div');
     try {
       const svg = new SVG();
@@ -27,7 +27,7 @@ export default class CardSimple {
   }
 
   /**
-   * Obtém o texto ou imagem da prioridade da tarefa.
+   * faz a criação de uma imagem SVG com de acordo com o nivel de prioridade.
    * @param {number} priority - Prioridade da tarefa.
    * @returns {HTMLElement} - Texto ou imagem da prioridade.
    */
@@ -50,25 +50,12 @@ export default class CardSimple {
   createdPercentTask(local) {
     try {
       const taskElementPriority = document.createElement('div');
-      taskElementPriority.className = 'task-priority';
-      taskElementPriority.appendChild(this.getPercent(local));
-      return taskElementPriority;
-    } catch (error) {
-      console.error(error.message);
-    }
-  }
-
-  /**
-   * Obtém a porcentagem de conclusão da tarefa.
-   * @param {Object} local - Dados da tarefa.
-   * @returns {HTMLElement} - Porcentagem de conclusão da tarefa.
-   */
-  getPercent(local) {
-    try {
       const percentDiv = document.createElement('p');
       percentDiv.className = 'percent';
-      percentDiv.innerHTML = `${local.percent ? local.percent : 0}%`;
-      return percentDiv;
+      percentDiv.innerText = `${local.percent ? local.percent : 0}%`;
+      taskElementPriority.className = 'task-priority';
+      taskElementPriority.appendChild(percentDiv);
+      return taskElementPriority;
     } catch (error) {
       console.error(error.message);
     }
@@ -169,8 +156,8 @@ export default class CardSimple {
   }
 
     /**
-   * Função que gera uma página em branco que traz os dados da tarefa e pode ser impressa ou salva em PDF.
-   */
+    * Função que gera uma página em branco que traz os dados da tarefa e pode ser impressa ou salva em PDF.
+    */
     onPDF = () => {
       try {
         const pdfGenerator = new PDFGenerator(this.getTasks, this.getConfigId);
@@ -223,24 +210,6 @@ export default class CardSimple {
           elementTask.appendChild(await this.createTaskElement(this.taskList[i]));
         }
         return elementTask;
-      } catch (error) {
-        console.error(error.message);
-      }
-    }
-  
-    /**
-     * Cria um componente de imagem.
-     * @param {string} srcImage - Caminho da imagem.
-     * @param {string} title - Título da imagem.
-     * @returns {HTMLImageElement} - Componente de imagem.
-     */
-    componentImage(srcImage, title) {
-      try {
-        const image = document.createElement('img');
-        image.className = 'img-task';
-        title && (image.title = `${title}`);
-        image.src = `../Assets/Image/${srcImage}`;
-        return image;
       } catch (error) {
         console.error(error.message);
       }

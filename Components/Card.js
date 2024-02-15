@@ -4,12 +4,12 @@ import Modal from "./Modal.js";
 import SVG from "./SVG.js";
 import { SVGImageArchived} from "../Configuration/ImagesSVG.js";
 import SuspendedTask from "../Class/SuspendedTask.js";
-import CardSimple from "../Class/CardSimple.js";
+import CardTools from "../Class/Cardtools.js";
 
 /**
  * Classe que representa um cartão de tarefa.
  */
-export default class Card extends CardSimple {
+export default class Card extends CardTools {
   taskList = [];
   getTasks = [];
   colorBD = [];
@@ -208,7 +208,7 @@ export default class Card extends CardSimple {
     try {
       const taskElementPriority = document.createElement('div');
       taskElementPriority.className = 'task-priority';
-      taskElementPriority.appendChild(await this.getUserImageAndColaboration(local));
+      taskElementPriority.appendChild(await this.getUserImage(local));
       return taskElementPriority;
     } catch (error) {
       console.error(error.message);

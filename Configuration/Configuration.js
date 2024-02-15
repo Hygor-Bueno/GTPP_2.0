@@ -110,6 +110,16 @@ export const suspendedInput = {
     }
 }
 
+export const classHamburgerX = {
+    legend: 'hamburgerX',
+    listfields:{
+        "className": 'input-box',
+        "style.display": "none",
+        "type": 'checkbox',
+        "checked": false,
+    }
+}
+
 export const textInputName = {
     inputType: 'text',
     inputId: 'taskNameInput',
@@ -295,4 +305,11 @@ export const buttonEditText = {
     title: 'Click para salvar alteração',
     description: 'Salvar',
     classButton: 'bgButton'
+}
+
+export const hamburgerButtonX = {
+    className: 'input-box',
+    display: "none",
+    type: 'checkbox',
+    checked: false,
 }
