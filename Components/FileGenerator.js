@@ -223,17 +223,17 @@ export class PDFGenerator {
     try {
       const util = new Util();
       const filteredTasks = data.filter(item => item.state_id == util.removeStringAndUnderline(configId));
-      if (filteredTasks.length > 0) {
-        filteredTasks.forEach(item => {
-          const trBody = document.createElement('tr');
-          const attributes = [
+      const attributes = [
             { key: 'description', label: 'tdDescription' },
             { key: 'state_description', label: 'tdState' },
             { key: 'priority', label: 'tdPriority', transform: value => this.getPriorityText(value)},
             { key: 'initial_date', label: 'tdInitialDate', transform: value => value.split('-').reverse().join('/') }, 
             { key: 'final_date', label: 'tdFinalDate', transform: value => value.split('-').reverse().join('/') },
             { key: 'percent', label: 'tdPercent', transform: value => `${value}%` }
-          ];
+      ];
+      if (filteredTasks.length > 0) {
+        filteredTasks.forEach(item => {
+          const trBody = document.createElement('tr');
           attributes.forEach(attr => {
             const td = document.createElement('td');
             td.innerText = attr.transform ? attr.transform(item[attr.key]) : item[attr.key];
