@@ -1,9 +1,9 @@
-import SVG from "./SVG.js";
-import SimpleTask from "../Class/SimpleTask.js";
-import { CSVGenerator, PDFGenerator } from "./FileGenerator.js";
+import SVG from "../Components/SVG.js";
+import SimpleTask from "./SimpleTask.js";
+import { CSVGenerator, PDFGenerator } from "../Components/FileGenerator.js";
 import { SVGImageFlagInline, SVGImageUser } from "../Configuration/ImagesSVG.js";
-import { HamburgerX } from "./Hambuger.js";
-import Button from "./Button.js";
+import { HamburgerX } from "../Components/Hambuger.js";
+import Button from "../Components/Button.js";
 
 export default class CardSimple {
   /**
