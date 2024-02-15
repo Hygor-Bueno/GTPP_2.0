@@ -146,15 +146,15 @@ export class PDFGenerator {
     this.printWindow = window.open('', '_blank');
     this.printDocument = this.printWindow.document;
     this.head = document.createElement('head');
-    this.setupHead();
-    this.setupContent(data, configId);
+    this.Head();
+    this.Content(data, configId);
   }
 
   /**
    * Método setupHead
    * Configura o cabeçalho do documento PDF.
    */
-  setupHead() {
+  Head() {
    try {
     const viewport = document.createElement('meta');
     viewport.name = 'viewport';
@@ -177,12 +177,12 @@ export class PDFGenerator {
    * @param {Array} data - Dados a serem incluídos no documento PDF.
    * @param {string} configId - Identificador de configuração para filtrar os dados desejados.
    */
-  setupContent(data, configId) {
+  Content(data, configId) {
     try {
       const table = document.createElement('table');
       const thead = document.createElement('thead');
       const tbody = document.createElement('tbody');
-      thead.appendChild(this.createElementTr());
+      thead.appendChild(this.Tr());
       this.validate(tbody, configId, data);
       table.appendChild(thead);
       table.appendChild(tbody);
@@ -197,7 +197,7 @@ export class PDFGenerator {
    * Cria um elemento 'tr' para o cabeçalho da tabela no documento PDF.
    * @returns {HTMLTableRowElement} - Elemento 'tr' do cabeçalho da tabela.
    */
-  createElementTr() {
+  Tr() {
     try {
       const headers = ['Tarefas', 'Estado das Tarefas', 'Prioridade', 'Data Inicial', 'Data Final', 'Percentual'];
       const trHead = document.createElement('tr');
@@ -220,32 +220,27 @@ export class PDFGenerator {
    * @param {Array} data - Dados a serem incluídos no documento PDF.
    */
   validate(tbody, configId, data) {
-    try {
-      const util = new Util();
-      const filteredTasks = data.filter(item => item.state_id == util.removeStringAndUnderline(configId));
-      const attributes = [
-            { key: 'description', label: 'tdDescription' },
-            { key: 'state_description', label: 'tdState' },
-            { key: 'priority', label: 'tdPriority', transform: value => this.getPriorityText(value)},
-            { key: 'initial_date', label: 'tdInitialDate', transform: value => value.split('-').reverse().join('/') }, 
-            { key: 'final_date', label: 'tdFinalDate', transform: value => value.split('-').reverse().join('/') },
-            { key: 'percent', label: 'tdPercent', transform: value => `${value}%` }
-      ];
-      if (filteredTasks.length > 0) {
-        filteredTasks.forEach(item => {
-          const trBody = document.createElement('tr');
-          attributes.forEach(attr => {
+    const util = new Util();
+    const filteredTasks = data.filter(item => item.state_id == util.removeStringAndUnderline(configId));
+    const attributes = [
+        { key: 'description', label: 'tdDescription' },
+        { key: 'state_description', label: 'tdState' },
+        { key: 'priority', label: 'tdPriority', transform: value => this.getPriorityText(value)},
+        { key: 'initial_date', label: 'tdInitialDate', transform: value => value.split('-').reverse().join('/') }, 
+        { key: 'final_date', label: 'tdFinalDate', transform: value => value.split('-').reverse().join('/') },
+        { key: 'percent', label: 'tdPercent', transform: value => `${value}%` }
+    ];
+    filteredTasks.forEach(item => {
+        const trBody = document.createElement('tr');
+        attributes.forEach(attr => {
             const td = document.createElement('td');
             td.innerText = attr.transform ? attr.transform(item[attr.key]) : item[attr.key];
             trBody.appendChild(td);
-          });
-          tbody.appendChild(trBody);
         });
-      }
-    } catch (error) {
-      console.error(error.message);
-    }
+        tbody.appendChild(trBody);
+    });
   }
+
 
   /**
    * Método getPriorityText
@@ -255,9 +250,24 @@ export class PDFGenerator {
    */
   getPriorityText(priority) {
    try {
-      return priority == 0 ? 'baixa' : priority == 1 ? 'média' : priority == 2 ? 'alta' : 'Não foi especificado o nível';
+      let priorityText;
+      switch (priority) {
+        case 0: 
+          priorityText = 'baixa';
+          break;
+        case 1:
+          priorityText = 'média';
+          break;
+        case 2:
+          priorityText = 'alta';
+          break;
+        default:
+          priorityText = 'Não foi especificado o nivel';
+          break;
+      }
+      return priorityText;
    } catch (error) {
-    console.error(error.message);
+     console.error(error.message);
    }
   }
 
