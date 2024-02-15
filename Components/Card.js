@@ -4,7 +4,7 @@ import Modal from "./Modal.js";
 import SVG from "./SVG.js";
 import { SVGImageArchived} from "../Configuration/ImagesSVG.js";
 import SuspendedTask from "../Class/SuspendedTask.js";
-import CardTools from "../Class/Cardtools.js";
+import CardTools from "../Class/CardTools.js";
 
 /**
  * Classe que representa um cartão de tarefa.

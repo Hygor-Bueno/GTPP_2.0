@@ -137,23 +137,23 @@ export default class CardTools {
     }
   }
 
-  /**
-   * Cria um sub-div do cartão.
-   * @param {string} label - Rótulo do cartão.
-   * @returns {HTMLElement} - Sub-div do cartão.
-   */
-  createSubDivCard(label) {
-    try {
-      const subCardDiv = document.createElement('div');
-      subCardDiv.className = 'subdivcard';
-      const title = document.createElement('h4');
-      title.innerText = label;
-      subCardDiv.appendChild(title);
-      return subCardDiv;
-    } catch (error) {
-      console.error(error.message);
+    /**
+     * Cria um sub-div do cartão.
+     * @param {string} label - Rótulo do cartão.
+     * @returns {HTMLElement} - Sub-div do cartão.
+     */
+    createSubDivCard(label) {
+      try {
+        const subCardDiv = document.createElement('div');
+        subCardDiv.className = 'subdivcard';
+        const title = document.createElement('h4');
+        title.innerText = label;
+        subCardDiv.appendChild(title);
+        return subCardDiv;
+      } catch (error) {
+        console.error(error.message);
+      }
     }
-  }
 
     /**
     * Função que gera uma página em branco que traz os dados da tarefa e pode ser impressa ou salva em PDF.
@@ -191,7 +191,6 @@ export default class CardTools {
           isList.remove();
         }
         const local = document.querySelector(`#${id}`);
-  
         const loadtask = new SimpleTask();
         loadtask.registerModal(this.taskList, local, async () => await this.loadTaskList());
       } catch (e) {
