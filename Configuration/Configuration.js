@@ -54,6 +54,23 @@ export const registerInputs = {
             nameImageLabel: 'pen1.svg'
         },
         {
+            selectId: 'priority',
+            label: 'Seleciona a prioridade',
+            iconLabel: true,
+            nameImageLabel: 'priority.svg',
+            requiredInput: false,
+            classLabel: 'labelForm',
+            name: 'selectFieldName',
+            classSelect: 'inputForm',
+            options: [
+                { value: '', text: 'Selecione' },
+                { value: '2', text: 'alto' },
+                { value: '1', text: 'medio' },
+                { value: '0', text: 'baixo' },
+            ],
+            type: 'select'
+        },
+        {
             classItemsForm: 'itemsForm',
             classForm: 'form',
             classLabel: 'labelForm',
@@ -75,23 +92,6 @@ export const registerInputs = {
             iconLabel: true,
             nameImageLabel: 'calendar.svg'
         },
-        {
-            selectId: 'priority',
-            label: 'Seleciona a prioridade',
-            iconLabel: true,
-            nameImageLabel: 'priority.svg',
-            requiredInput: false,
-            classLabel: 'labelForm',
-            name: 'selectFieldName',
-            classSelect: 'inputForm',
-            options: [
-                { value: '', text: 'Selecione' },
-                { value: '2', text: 'alto' },
-                { value: '1', text: 'medio' },
-                { value: '0', text: 'baixo' },
-            ],
-            type: 'select'
-        }
     ]
 };
 

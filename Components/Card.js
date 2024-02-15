@@ -44,7 +44,7 @@ export default class Card extends CardTools {
       cardDiv.style.display = configs.view ? 'block' : 'none';
       if (configs?.id) cardDiv.id = configs.id;
       const inputCheckbox = this.createButtonHamburger(configs.id);
-      cardDiv.appendChild(this.getSubdivCard(configs, inputCheckbox));
+      cardDiv.appendChild(this.getSubDivCard(configs, inputCheckbox));
       const taskDiv = document.createElement('div');
       taskDiv.id = 'taskDiv';
       taskDiv.className='column'
@@ -64,7 +64,7 @@ export default class Card extends CardTools {
    * @param {string} inputCheckbox - Checkbox do cartão.
    * @returns {HTMLElement} - Sub-div do cartão.
    */
-  getSubdivCard(configs, inputCheckbox) {
+  getSubDivCard(configs, inputCheckbox) {
     try {
       const subDivCard = this.createSubDivCard(configs.label);
       subDivCard.appendChild(inputCheckbox);

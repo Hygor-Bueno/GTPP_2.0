@@ -38,7 +38,8 @@
 }
 
 .btnFiled > svg, .subTask svg {
-  width: calc(1.5* var(--textSize));;
+  width: calc(1.8* var(--textSize));
+  height: calc(1.7* var(--textSize));
 }
 
 .btn-sublist {
@@ -216,7 +217,7 @@ align-items: end;
 }
 
 .task-description {
-  font-size: calc(2 * var(--spaceDefault));
+  font-size: calc(1.3 * var(--textSize));
   width: clamp(12px, 50vw, 182px);
   justify-content: space-between;
   margin-bottom: var(--spaceDefault);
