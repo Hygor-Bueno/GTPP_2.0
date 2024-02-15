@@ -1,23 +1,23 @@
 /**
- * Class representing an SVG utility for creating SVG elements dynamically.
+ * Classe que representa uma utilidade SVG para criar elementos SVG dinamicamente.
  */
 export default class SVG {
     /**
-     * Creates an SVG element based on the provided configuration.
-     * @param {Object} config - Configuration object for the SVG element.
-     * @param {number} config.height - Height of the SVG element.
-     * @param {string} config.viewBox - ViewBox attribute of the SVG element.
-     * @param {number} config.width - Width of the SVG element.
-     * @param {string} config.fill - Fill color of the SVG element.
-     * @param {string} [config.title] - Optional title attribute for the SVG element.
-     * @param {string} config.path - Path attribute of the SVG element.
-     * @returns {SVGElement} - The created SVG element.
+     * Cria um elemento SVG com base na configuração fornecida.
+     * @param {Object} config - Objeto de configuração para o elemento SVG.
+     * @param {number} config.height - Altura do elemento SVG.
+     * @param {string} config.viewBox - Atributo viewBox do elemento SVG.
+     * @param {number} config.width - Largura do elemento SVG.
+     * @param {string} config.fill - Cor de preenchimento do elemento SVG.
+     * @param {string} [config.title] - Atributo de título opcional para o elemento SVG.
+     * @param {string} config.path - Atributo de caminho do elemento SVG.
+     * @returns {SVGElement} - O elemento SVG criado.
      */
     createSvg(config) {
-        // Create a new SVG element
+        // Cria um novo elemento SVG
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 
-        // Set attributes for the SVG element
+        // Define atributos para o elemento SVG
         svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
         svg.setAttribute("height", config.height);
         svg.setAttribute("viewBox", config.viewBox);
@@ -25,14 +25,14 @@ export default class SVG {
         svg.setAttribute("fill", config.fill);
         if(config.title) svg.setAttribute("title", config.title);
 
-        // Create a path element within the SVG
+        // Cria um elemento de caminho dentro do SVG
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", config.path);
 
-        // Append the path element to the SVG
+        // Anexa o elemento de caminho ao SVG
         svg.appendChild(path);
 
-        // Return the created SVG element
+        // Retorna o elemento SVG criado
         return svg;
     }
 }

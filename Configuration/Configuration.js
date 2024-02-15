@@ -113,10 +113,15 @@ export const suspendedInput = {
 export const classHamburgerX = {
     legend: 'hamburgerX',
     listfields:{
-        "className": 'input-box',
-        "style.display": "none",
-        "type": 'checkbox',
-        "checked": false,
+        classItemsForm: 'itemsForm',
+        classForm: 'form',
+        classLabel: 'labelForm',
+        classInput: 'inputForm',
+        label: 'Quantos dias voce precisa para entregar a tarefa?',
+        inputType: 'number',
+        inputId: 'suspendedInput',
+        iconLabel: true,
+        nameImageLabel: 'pen1.svg'
     }
 }
 
