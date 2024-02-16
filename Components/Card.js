@@ -172,10 +172,15 @@ export default class Card extends CardTools {
     }
   }
 
-  createElementInicialDateAndFinalDate(local) {
+  /**
+   * cria a data inicial e final.
+   * @date 2/15/2024 - 4:46:25 PM
+   * @param {HTMLDivElement} data -ele vai retornar uma lista
+   */
+  createElementInicialDateAndFinalDate(data) {
     try {
       const taskElementDate = document.createElement('div');
-      taskElementDate.appendChild(this.createElementDate(local));
+      taskElementDate.appendChild(this.createElementDate(data));
       taskElementDate.className = 'task-date';
       return taskElementDate;
     } catch (error) {
