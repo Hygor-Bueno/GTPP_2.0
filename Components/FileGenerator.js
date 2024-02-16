@@ -146,15 +146,15 @@ export class PDFGenerator {
     this.printWindow = window.open('', '_blank');
     this.printDocument = this.printWindow.document;
     this.head = document.createElement('head');
-    this.setupHead();
-    this.setupContent(data, configId);
+    this.Head();
+    this.Content(data, configId);
   }
 
   /**
-   * Método setupHead
+   * Método Head
    * Configura o cabeçalho do documento PDF.
    */
-  setupHead() {
+  Head() {
    try {
     const viewport = document.createElement('meta');
     viewport.name = 'viewport';
@@ -172,12 +172,12 @@ export class PDFGenerator {
   }
 
   /**
-   * Método setupContent
+   * Método Content
    * Configura o conteúdo do documento PDF com base nos dados fornecidos.
    * @param {Array} data - Dados a serem incluídos no documento PDF.
    * @param {string} configId - Identificador de configuração para filtrar os dados desejados.
    */
-  setupContent(data, configId) {
+  Content(data, configId) {
     try {
       const table = document.createElement('table');
       const thead = document.createElement('thead');
