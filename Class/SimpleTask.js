@@ -32,6 +32,7 @@ export default class SimpleTask {
      */
     setDescription(description) {
         this.description = description;
+        console.log(this);
     }
 
     /**
@@ -42,6 +43,7 @@ export default class SimpleTask {
      */
     setInitialDate(initial_date) {
         this.initial_date = initial_date;
+        console.log(this);
     }
 
     /**
@@ -52,6 +54,7 @@ export default class SimpleTask {
      */
     setFinalDate(final_date) {
         this.final_date = final_date;
+        console.log(this);
     }
 
     /**
@@ -62,6 +65,7 @@ export default class SimpleTask {
      */
     setPriority(priority) {
         this.priority = priority;
+        console.log(this);
     }
 
     /**
@@ -136,13 +140,15 @@ export default class SimpleTask {
             field.onChange = value => {
                 switch (i) {
                     case 0: this.setDescription(value); break;
-                    case 1: this.setInitialDate(value); break;
-                    case 2: this.setFinalDate(value); break;
-                    case 3: this.setPriority(value); break;
+                    case 1: this.setPriority(value); break;
+                    case 2: this.setInitialDate(value); break;
+                    case 3: this.setFinalDate(value); break;
                     default: console.log('Erro: é necessário enviar uma nova função!');
                 }
             };
         });
         local.appendChild(formObj.ContainerForm(registerInputs));
     }
+
+    
 }

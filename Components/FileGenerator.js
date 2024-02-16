@@ -182,7 +182,10 @@ export class PDFGenerator {
       const table = document.createElement('table');
       const thead = document.createElement('thead');
       const tbody = document.createElement('tbody');
-      thead.appendChild(this.Tr());
+
+      const headers = ['Tarefas', 'Estado das Tarefas', 'Prioridade', 'Data Inicial', 'Data Final', 'Percentual'];
+      
+      thead.appendChild(this.Tr(headers));
       this.validate(tbody, configId, data);
       table.appendChild(thead);
       table.appendChild(tbody);
@@ -197,9 +200,8 @@ export class PDFGenerator {
    * Cria um elemento 'tr' para o cabeçalho da tabela no documento PDF.
    * @returns {HTMLTableRowElement} - Elemento 'tr' do cabeçalho da tabela.
    */
-  Tr() {
+  Tr(headers) {
     try {
-      const headers = ['Tarefas', 'Estado das Tarefas', 'Prioridade', 'Data Inicial', 'Data Final', 'Percentual'];
       const trHead = document.createElement('tr');
       for (const headerText of headers) {
         const th = document.createElement('th');
@@ -223,12 +225,12 @@ export class PDFGenerator {
     const util = new Util();
     const filteredTasks = data.filter(item => item.state_id == util.removeStringAndUnderline(configId));
     const attributes = [
-        { key: 'description', label: 'tdDescription' },
-        { key: 'state_description', label: 'tdState' },
-        { key: 'priority', label: 'tdPriority', transform: value => this.getPriorityText(value)},
-        { key: 'initial_date', label: 'tdInitialDate', transform: value => value.split('-').reverse().join('/') }, 
-        { key: 'final_date', label: 'tdFinalDate', transform: value => value.split('-').reverse().join('/') },
-        { key: 'percent', label: 'tdPercent', transform: value => `${value}%` }
+      { key: 'description', label: 'tdDescription' },
+      { key: 'state_description', label: 'tdState' },
+      { key: 'priority', label: 'tdPriority', transform: value => this.getPriorityText(value)},
+      { key: 'initial_date', label: 'tdInitialDate', transform: value => value.split('-').reverse().join('/') }, 
+      { key: 'final_date', label: 'tdFinalDate', transform: value => value.split('-').reverse().join('/') },
+      { key: 'percent', label: 'tdPercent', transform: value => `${value}%` }
     ];
     filteredTasks.forEach(item => {
         const trBody = document.createElement('tr');
