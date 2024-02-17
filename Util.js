@@ -40,10 +40,6 @@ export default class Util {
         })
     }
 
-    removeStringAndUnderline(value) {
-      const result = value.replace(/[^0-9]/g,'');
-      return result;
-    }
 
     removeElementClikAway(element, id){
         element.addEventListener('click', function (event) {
@@ -53,22 +49,22 @@ export default class Util {
           });
     }
 
+    /**
+     * Remove todos os caracteres que não são números de uma string.
+     * @param {string} value - A string da qual os caracteres não numéricos serão removidos.
+     * @returns {string} - Uma nova string contendo apenas os números da string original.
+     */
+    static removeStringAndUnderline(value) {
+        const result = value.replace(/[^0-9]/g,'');
+        return result;
+    }
 
     /**
-     * Description placeholder
-     * @date 1/26/2024 - 11:11:54 AM
-     *
-     * @param {HTMLDivElement} data
-     * @returns {*}
+     * Método para formatar uma data no formato DD/MM/AAAA.
+     * @param {string} value - Valor da data no formato AAAA-MM-DD.
+     * @returns {string} - Data formatada no formato DD/MM/AAAA.
      */
-    // formaDateUTF8(registerDate) {
-    //     const date  = new Date(registerDate).getDate();
-
-    //     const dia = date.getDate().toString().padStart(2, '0');
-    //     const mes = (date.getMonth() + 1).toString().padStart(2, '0');  // Os meses são indexados de 0 a 11
-    //     const ano = date.getFullYear();
-        
-    //     const novaData = `${dia}/${mes}/${ano}`;
-    //     return novaData;
-    // }
+    static formatDate(value) {
+        return value.split('-').reverse().join('/');
+    }
 }

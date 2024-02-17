@@ -1,5 +1,4 @@
 import SVG from "../Components/SVG.js";
-import SimpleTask from "./SimpleTask.js";
 import { CSVGenerator, PDFGenerator } from "../Components/FileGenerator.js";
 import { SVGImageFlagInline, SVGImageUser } from "../Configuration/ImagesSVG.js";
 import { HamburgerX } from "../Components/Hambuger.js";
@@ -80,10 +79,10 @@ export default class CardTools {
    * @param {Event} e - Evento de clique.
    * @param {string} id - ID do cartão.
    */
-  handleList(e, id) {
+  handleList(event, id) {
     try {
       const cardReturn = document.getElementById(id);
-      e.target.checked ? this.openConfigCard(cardReturn, id) : this.closeConfigCard(id);
+      event.target.checked ? cardReturn.appendChild(this.createMenu(id)) : this.closeConfigCard(id);
     } catch (error) {
       console.error(error.message);
     }
@@ -102,21 +101,8 @@ export default class CardTools {
       const cardMenu = document.createElement('div');
       cardMenu.className = 'menu';
       fatherMenu.appendChild(cardMenu);
-      button.configButton(cardMenu, id, this.onPDF, this.onCSV, () => this.reloadTaskList(id));
+      button.configButton(cardMenu, id, () => this.onPDF() , () => this.onCSV(), () => this.reloadTaskList(id));
       return fatherMenu;
-    } catch (error) {
-      console.error(error.message);
-    }
-  }
-
-  /**
-   * Abre o menu de configuração do cartão.
-   * @param {HTMLElement} local - Elemento HTML local do cartão.
-   * @param {string} id - ID do cartão.
-   */
-  openConfigCard(local, id) {
-    try {
-      local.appendChild(this.createMenu(id));
     } catch (error) {
       console.error(error.message);
     }
@@ -158,7 +144,7 @@ export default class CardTools {
     /**
     * Função que gera uma página em branco que traz os dados da tarefa e pode ser impressa ou salva em PDF.
     */
-    onPDF = () => {
+    onPDF() {
       try {
         const pdfGenerator = new PDFGenerator(this.getTasks, this.getConfigId);
         pdfGenerator.generatePDF();
@@ -171,44 +157,10 @@ export default class CardTools {
     /**
      * Função que gera um arquivo CSV e faz o download para ser utilizado e importado em qualquer lugar.
      */
-    onCSV = () => {
+    onCSV() {
       try {
         const csvGenerator = new CSVGenerator(this.getTasks, this.getConfigId);
         csvGenerator.generateCSV(); 
-      } catch (error) {
-        console.error(error.message);
-      }
-    }
-  
-    /**
-     * Recarrega a lista de tarefas do cartão.
-     * @param {string} id - ID do cartão.
-     */
-    reloadTaskList = (id) => {
-      try {
-        const isList = document.querySelector(`#${id} ul`);
-        if (isList) {
-          isList.remove();
-        }
-        const local = document.querySelector(`#${id}`);
-        const loadtask = new SimpleTask();
-        loadtask.registerModal(this.taskList, local, async () => await this.loadTaskList());
-      } catch (e) {
-        console.error(e);
-      }
-    }
-  
-    /**
-     * Carrega a lista de tarefas do cartão.
-     * @returns {HTMLElement} - Elemento HTML da lista de tarefas.
-     */
-    async loadTaskList() {
-      try {
-        const elementTask = document.getElementById('taskDiv');
-        for (let i = 0; i < this.taskList.length; i++) {
-          elementTask.appendChild(await this.createTaskElement(this.taskList[i]));
-        }
-        return elementTask;
       } catch (error) {
         console.error(error.message);
       }

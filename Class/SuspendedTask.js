@@ -14,13 +14,15 @@ export default class SuspendedTask {
     reason;
     task_id;
     bdColor;
+    #ws;
 
     /**
      * Cria uma nova instância de SuspendedTask.
      * @param {Array} colorsBD - Cores do banco de dados.
      */
-    constructor(colorsBD) {
+    constructor(colorsBD, ws) {
         this.bdColor = colorsBD;
+        this.#ws = ws;
     }
     
     /**
@@ -33,6 +35,7 @@ export default class SuspendedTask {
      */
     suspended(config) {
         try {
+            console.log(this.#ws);
             const modal = document.createElement('div');
             const divTitle = document.createElement('div');
 

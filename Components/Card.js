@@ -5,12 +5,22 @@ import SVG from "./SVG.js";
 import { SVGImageArchived} from "../Configuration/ImagesSVG.js";
 import SuspendedTask from "../Class/SuspendedTask.js";
 import CardTools from "../Class/CardTools.js";
+import SimpleTask from "../Class/SimpleTask.js";
 
 /**
  * Classe que representa um cartão de tarefa.
  */
 export default class Card extends CardTools {
+  /**
+   * Lista das informações necessarias para carregar um card novo.
+   * @type {[{id;description;percent;state_description;state_id;priority;users;expire;csds;user_id;initial_date;final_date;}]}
+   */
   taskList = [];
+  
+  /**
+   * Pegando todos os simples cards para aparecerem na tela.
+   * @type {[{id;description;percent;state_description;state_id;priority;users;expire;csds;user_id;initial_date;final_date}]}
+   */
   getTasks = [];
   colorBD = [];
   getConfigId;
@@ -74,9 +84,9 @@ export default class Card extends CardTools {
     }
   }
   /**
-   * Cria um elemento de tarefa.
-   * @param {Object} taskData - Dados da tarefa.
-   * @returns {HTMLElement} - Elemento HTML da tarefa.
+   * Cria um elemento de descrição e prioridade da tarefa.
+   * @param {[{id;description;percent;state_description;state_id;priority;users;expire;csds;user_id;initial_date;final_date;}]} taskData - Dados da tarefa.
+   * @returns {HTMLElement} - Elemento HTML da descrição e prioridade.
    */
   async createTaskElement(taskData) {
     try {
@@ -86,6 +96,7 @@ export default class Card extends CardTools {
       taskElement.className = 'task';
       subBoxTaskElement.className = 'subTask';
       taskElement.dataset.taskid = taskData.id;
+      console.log(taskData);
       taskElement.append(this.createElementDescriptionAndPriority(taskData), subBoxTaskElement);
       subBoxTaskElement.append(this.createdPercentTask(taskData), this.createTaskElementPriority(taskData), await this.createdUserElement(taskData))
       return taskElement;
@@ -95,11 +106,12 @@ export default class Card extends CardTools {
   }
   /**
    * Cria um elemento de descrição e prioridade da tarefa.
-   * @param {Object} taskData - Dados da tarefa.
+   * @param {[{id;description;percent;state_description;state_id;priority;users;expire;csds;user_id;initial_date;final_date;}]} taskData - Dados da tarefa.
    * @returns {HTMLElement} - Elemento HTML da descrição e prioridade.
    */
   createElementDescriptionAndPriority(taskData) {
     try {
+      console.log(taskData)
       const taskElement = document.createElement('div');
       taskElement.className = 'task-desc-priority';
       taskElement.append(this.createTaskElementDescription(taskData), this.createElementInicialDateAndFinalDate(taskData));
@@ -248,7 +260,7 @@ export default class Card extends CardTools {
   visualComponentsButton(config, localElement) {
     try {
       const svg = new SVG();
-      const loadSuspendedTasks = new SuspendedTask(this.colorBD);
+      const loadSuspendedTasks = new SuspendedTask(this.colorBD, this.#ws);
       const btn = new Button();
       if(config.state_id == 1 || config.state_id == 2) {
         localElement.appendChild(
@@ -259,4 +271,39 @@ export default class Card extends CardTools {
       console.error(error.message);
     }
   }
+
+  /**
+   * Recarrega a lista de tarefas do cartão.
+   * @param {string} id - ID do cartão.
+   */
+  reloadTaskList (id) {
+    try {
+      const isList = document.querySelector(`#${id} ul`);
+      if (isList) {
+        isList.remove();
+      }
+      const local = document.querySelector(`#${id}`);
+      const loadtask = new SimpleTask();
+      loadtask.registerModal(this.taskList, local, async () => await this.loadTaskList());
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * Carrega a lista de tarefas do cartão.
+   * @returns {HTMLElement} - Elemento HTML da lista de tarefas.
+   */
+  async loadTaskList() {
+    try {
+      const elementTask = document.getElementById('taskDiv');
+      for (let i = 0; i < this.taskList.length; i++) {
+        elementTask.appendChild(await this.createTaskElement(this.taskList[i]));
+      }
+      return elementTask;
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
 }
+
