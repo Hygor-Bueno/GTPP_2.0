@@ -1,38 +1,42 @@
+
+/**
+ * Hamburger com animação em X quando é clicado!
+ * @date 2/15/2024 - 9:48:38 AM
+ *
+ * @export
+ * @class HamburgerX
+ * @param {String} id - id do seu hamburger
+ * @param {String} onClick - função que voce pode faze alguma regra de esse botão quando é clicado!
+ * @typedef {HamburgerX}
+ */
 export class HamburgerX {
-  createButton(id, onClick) {
-    const fatherNav = document.createElement('nav');
-    fatherNav.className = 'fatherNav';
-
-    const inputHamburger = document.createElement('input');
-    inputHamburger.id = `dropdown_${id}`;
-    inputHamburger.className = 'input-box';
-    inputHamburger.style = "display: none;";
-    inputHamburger.type = 'checkbox';
-    inputHamburger.checked = false;
-
-    const label = document.createElement('label');
-    label.setAttribute("for", `dropdown_${id}`);
-    label.className = 'dropdown';
-    
-    const spanHamburger = document.createElement('span');
-    spanHamburger.className = 'hamburger';
-    const spanIconBar1 = document.createElement('span');
-    spanIconBar1.className = 'icon-bar top-bar';
-    const spanIconBar2 = document.createElement('span');
-    spanIconBar2.className = 'icon-bar middle-bar';
-    const spanIconBar3 = document.createElement('span');
-    spanIconBar3.className = 'icon-bar bottom-bar';
-
-    fatherNav.appendChild(inputHamburger);
-    fatherNav.appendChild(label);
-
-    label.appendChild(spanHamburger);
-    label.appendChild(spanIconBar1);
-    label.appendChild(spanIconBar2);
-    label.appendChild(spanIconBar3);
-
-    inputHamburger.addEventListener('click', onClick);
-
-    return fatherNav;
-  }
+    createButton(id, onClick) {
+        try {
+            const fatherNav = document.createElement('nav');
+            fatherNav.className = 'fatherNav';
+            const elements = [];
+            const inputHamburger = document.createElement('input');
+            inputHamburger.id = `dropdown_${id}`;
+            inputHamburger.className = 'input-box';
+            inputHamburger.style.display = "none";
+            inputHamburger.type = 'checkbox';
+            inputHamburger.checked = false;
+            elements.push(inputHamburger);
+            const label = document.createElement('label');
+            label.setAttribute("for", `dropdown_${id}`);
+            label.className = 'dropdown';
+            const classNames = ['hamburger', 'icon-bar top-bar', 'icon-bar middle-bar', 'icon-bar bottom-bar'];
+            classNames.forEach(className => {
+                const element = document.createElement('span');
+                element.className = className;
+                label.appendChild(element);
+            });
+            elements.push(label);
+            fatherNav.append(...elements);
+            inputHamburger.addEventListener('click', onClick);
+            return fatherNav;
+        } catch (error) {
+            console.error(error.message);
+        }
+    }    
 }

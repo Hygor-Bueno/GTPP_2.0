@@ -95,3 +95,27 @@ button:hover{
 .arrowsClose{
     rotate: 180deg;
 }
+
+.btnFiled {
+    border: none;
+    background-color: transparent;
+}
+
+.btnFiled {
+    border: none;
+}
+
+.btnFiled > svg  {
+    fill: #099578;
+}
+
+.btnFiled > svg:active {
+    border: none;
+    fill: var(--dangerColor);
+}
+
+.btnFiled:active  {
+    border: none;
+    background-color: transparent;
+}
+

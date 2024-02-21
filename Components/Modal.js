@@ -84,10 +84,8 @@ export default class Modal {
   createTitleElement() {
     const divTitle = document.createElement('div');
     divTitle.className = 'title-modal';
-
     const title = document.createElement('h1');
     divTitle.appendChild(title);
-
     return divTitle;
   }
 

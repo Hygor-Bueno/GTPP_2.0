@@ -35,12 +35,13 @@
     --pegpeseGreenColor: #004030;
     --dangerColor: #DC3545;
     --infoColor: #007BFF;
-    --warningColor: #FFC107;
+    --warningColor: #ff8b07;
     --successColor: #28A745;
     --primaryColor: #FFFF;
     --simplecardColor: #f2f2f2f2;
 
     /*Imagens*/
     --imageSizeP: clamp(1.33vmin,4.8vmin,21.33px);
+    --imageSizeM: clamp(1.33vmin,5.8vmin,23.33px);
     --imageSize: clamp(2vmin,7.2vmin,32px);
 }

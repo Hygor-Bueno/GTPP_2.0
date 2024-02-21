@@ -17,6 +17,10 @@
     background-color: var(--warningColor);
 }
 
+.divModalReason {
+    width: 100%;
+}
+
 .modal-absolute {
     position: absolute;
     left: 0;
@@ -44,24 +48,55 @@
     display: flex;
     flex-direction: column;
     background: white;
-    height: 80%;
+    height: 70%;
     width: 80%;
     border-radius: var(--spaceDefault);
     padding: var(--spaceDefault);
     overflow: auto;
+
+    p, h3 {
+        font-size: var(--textSize) !important;
+    }
+
+    h1 {
+        font-size: calc(2* var(--textSize));
+    }
 }
+
+div[modaltodo] {
+    width: initial !important;
+    height: initial !important;
+}
+
+div[modaltodo] > div:first-child {
+    display: flex;
+    /* align-items: center; */
+    /* justify-content: space-between; */
+    align-items: flex-start;
+    flex-direction: column;
+    padding: var(--spaceDefault) 0;
+
+    p {
+        background-color: rgb(238, 190, 1);
+        padding: 0 var(--spaceDefaultPP);
+        border-radius: var(--borderRadius);
+        font-weight: bold;
+        color: var(--primaryColor);
+    }
+}
+
+
+
 
 #modalTask>div[modal-tasks="true"] {
-    height: initial;
-    /*90%*/
     width: initial;
+    height: initial;
+
+    @media screen and (max-height: 500px){
+        height: 90%;
+        width: 50%;
+    } 
 }
-
-
-
-
-
-
 
 #taskHeader {
     height: clamp(5px, 8%, 50px);
@@ -104,15 +139,35 @@
     overflow-y: auto;
 }
 
-.modal-register3 {
+.modal-register {
     width: 100%;
     height: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media screen and (max-height: 500px){
+        width: 90% !important;
+        height: 60% !important;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
 }
 
-.modal-register3>button {
+.modal-register > form {
+    @media screen and (max-height: 500px){
+        width: 90%;
+        height: 80%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        flex: none;
+    }
+}
+
+.modal-register>button {
     padding: var(--spaceDefault);
     background-color: transparent;
     border: var(--borderSize) solid var(--successColor);
@@ -121,7 +176,7 @@
     font-size: var(--textSize);
 }
 
-.modal-register3>button:active {
+.modal-register>button:active {
     background-color: var(--successColor);
     color: var(--primaryColor);
 }

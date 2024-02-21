@@ -54,6 +54,23 @@ export const registerInputs = {
             nameImageLabel: 'pen1.svg'
         },
         {
+            selectId: 'priority',
+            label: 'Seleciona a prioridade',
+            iconLabel: true,
+            nameImageLabel: 'priority.svg',
+            requiredInput: false,
+            classLabel: 'labelForm',
+            name: 'selectFieldName',
+            classSelect: 'inputForm',
+            options: [
+                { value: '', text: 'Selecione' },
+                { value: '2', text: 'alto' },
+                { value: '1', text: 'medio' },
+                { value: '0', text: 'baixo' },
+            ],
+            type: 'select'
+        },
+        {
             classItemsForm: 'itemsForm',
             classForm: 'form',
             classLabel: 'labelForm',
@@ -75,26 +92,34 @@ export const registerInputs = {
             iconLabel: true,
             nameImageLabel: 'calendar.svg'
         },
-        {
-            selectId: 'priority',
-            label: 'Seleciona a prioridade',
-            iconLabel: true,
-            nameImageLabel: 'priority.svg',
-            requiredInput: false,
-            classLabel: 'labelForm',
-            name: 'selectFieldName',
-            classSelect: 'inputForm',
-            options: [
-                { value: '', text: 'Selecione' },
-                { value: '2', text: 'alto' },
-                { value: '1', text: 'medio' },
-                { value: '0', text: 'baixo' },
-            ],
-            type: 'select'
-        }
     ]
 };
 
+/**
+ * Description placeholder
+ * @date 2/15/2024 - 12:39:14 PM
+ * @type {{ legend: string; listfields: { classItemsForm: string; classForm: string; classLabel: string; classInput: string; label: string; inputType: string; inputId: string; iconLabel: boolean; nameImageLabel: string; }; }}
+ */
+export const suspendedInput = {
+    legend: 'register',
+    listfields:{
+        classItemsForm: 'itemsForm',
+        classForm: 'form',
+        classLabel: 'labelForm',
+        classInput: 'inputForm',
+        label: 'Quantos dias voce precisa para entregar a tarefa?',
+        inputType: 'number',
+        inputId: 'suspendedInput',
+        iconLabel: true,
+        nameImageLabel: 'pen1.svg'
+    }
+}
+
+/**
+ * Description placeholder
+ * @date 2/15/2024 - 12:39:18 PM
+ * @type {{ inputType: string; inputId: string; classInput: string; placeholder: string; }}
+ */
 export const textInputName = {
     inputType: 'text',
     inputId: 'taskNameInput',
@@ -102,12 +127,22 @@ export const textInputName = {
     placeholder: 'Enter task name',
 };
 
+/**
+ * Description placeholder
+ * @date 2/15/2024 - 12:39:22 PM
+ * @type {{ inputType: string; inputId: string; classInput: string; }}
+ */
 export const dateInputConfig = {
     inputType: 'date',
     inputId: 'initialDateInput',
     classInput: 'custom-input-class'
 };
 
+/**
+ * Description placeholder
+ * @date 2/15/2024 - 12:39:26 PM
+ * @type {{ inputType: string; inputId: string; classInput: string; }}
+ */
 export const textInputPriority = {
     inputType: 'select',
     inputId: 'initialPriorityInput',
@@ -187,7 +222,6 @@ export const buttonPDF = {
  * @author Jonatas Silva.
  * @type {{ type: string; title: string; description: string; classButton: string; }}
  */
-
 export const buttonCSV = {
     type: 'button',
     title: 'Criar um arquivo CSV',
@@ -245,7 +279,7 @@ export const saveButton = {
     type: 'submit',
     title: 'Clique para adicionar um item a lista',
     description: 'Salvar',
-    classButton: 'btn-save',
+    classButton: 'btnSuccess',
 }
 
 /**
@@ -272,8 +306,8 @@ export const inputsEditText = (value) => {
 /**
  * Váriável de configuração para componentes html;
  * @date 05/02/2024 - 10:05 PM
-* @author Hygor Bueno.
-* @type {{ type: string; title: string; description: string; classButton: string; }} 
+ * @author Hygor Bueno.
+ * @type {{ type: string; title: string; description: string; classButton: string; }} 
 */
 export const buttonEditText = {
     type: 'button',

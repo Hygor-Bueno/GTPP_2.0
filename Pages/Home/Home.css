@@ -78,11 +78,3 @@
     overflow-x: auto;
     overflow-y: hidden;
 }
-/* 
-#containerHome>.gridRightHome>div {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    height: 90%;
-    overflow-x: auto;
-    overflow-y: hidden;
-} */
