@@ -4,13 +4,23 @@ import Modal from "./Modal.js";
 import SVG from "./SVG.js";
 import { SVGImageArchived} from "../Configuration/ImagesSVG.js";
 import SuspendedTask from "../Class/SuspendedTask.js";
-import CardTools from "../Class/CardTools.js";
+import CardTools from "../Class/Cardtools.js";
+import SimpleTask from "../Class/SimpleTask.js";
 
 /**
  * Classe que representa um cartão de tarefa.
  */
 export default class Card extends CardTools {
+  /**
+   * Lista das informações necessarias para carregar um card novo.
+   * @type {[{id;description;percent;state_description;state_id;priority;users;expire;csds;user_id;initial_date;final_date;}]}
+   */
   taskList = [];
+  
+  /**
+   * Pegando todos os simples cards para aparecerem na tela.
+   * @type {[{id;description;percent;state_description;state_id;priority;users;expire;csds;user_id;initial_date;final_date}]}
+   */
   getTasks = [];
   colorBD = [];
   getConfigId;
@@ -74,20 +84,21 @@ export default class Card extends CardTools {
     }
   }
   /**
-   * Cria um elemento de tarefa.
-   * @param {Object} taskData - Dados da tarefa.
-   * @returns {HTMLElement} - Elemento HTML da tarefa.
+   * Cria um elemento de descrição e prioridade da tarefa.
+   * @param {[{id;description;percent;state_description;state_id;priority;users;expire;csds;user_id;initial_date;final_date;}]} taskData - Dados da tarefa.
+   * @returns {HTMLElement} - Elemento HTML da descrição e prioridade.
    */
-  async createTaskElement(taskData) {
+  async createTaskElement(config) {
     try {
       const taskElement = document.createElement('div');
       const subBoxTaskElement = document.createElement('div');
       taskElement.setAttribute('draggable', 'true');
       taskElement.className = 'task';
       subBoxTaskElement.className = 'subTask';
-      taskElement.dataset.taskid = taskData.id;
-      taskElement.append(this.createElementDescriptionAndPriority(taskData), subBoxTaskElement);
-      subBoxTaskElement.append(this.createdPercentTask(taskData), this.createTaskElementPriority(taskData), await this.createdUserElement(taskData))
+      taskElement.dataset.taskid = config.id;
+      console.log(config);
+      taskElement.append(this.createElementDescriptionAndPriority(config), subBoxTaskElement);
+      subBoxTaskElement.append(this.createdPercentTask(config), this.createTaskElementPriority(config), await this.createdUserElement(config))
       return taskElement;
     } catch (error) {
       console.error(error.message);
@@ -95,11 +106,12 @@ export default class Card extends CardTools {
   }
   /**
    * Cria um elemento de descrição e prioridade da tarefa.
-   * @param {Object} taskData - Dados da tarefa.
+   * @param {[{id;description;percent;state_description;state_id;priority;users;expire;csds;user_id;initial_date;final_date;}]} taskData - Dados da tarefa.
    * @returns {HTMLElement} - Elemento HTML da descrição e prioridade.
    */
   createElementDescriptionAndPriority(taskData) {
     try {
+      console.log(taskData)
       const taskElement = document.createElement('div');
       taskElement.className = 'task-desc-priority';
       taskElement.append(this.createTaskElementDescription(taskData), this.createElementInicialDateAndFinalDate(taskData));
@@ -119,14 +131,14 @@ export default class Card extends CardTools {
 
   /**
    * Cria um elemento de data inicial e final da tarefa.
-   * @param {Object} date - Dados da data da tarefa.
+   * @param {Object} config - Dados da data da tarefa.
    * @returns {HTMLElement} - Elemento HTML da data da tarefa.
    */
-  createElementDate(date) {
+  createElementDate(config) {
     try {
       const taskElementInitialDate = document.createElement('div');
       taskElementInitialDate.className = 'dateTasks'
-      date && taskElementInitialDate.append(this.getDateInit(date.initial_date), this.getDateFinal(date.final_date));
+      config && taskElementInitialDate.append(this.getDateInit(config.initial_date), this.getDateFinal(config.final_date));
       return taskElementInitialDate;
     } catch (error) {
       console.error(error.message);
@@ -190,14 +202,14 @@ export default class Card extends CardTools {
 
   /**
    * Cria um elemento de prioridade da tarefa.
-   * @param {Object} local - Dados da prioridade da tarefa.
+   * @param {Object} config - Dados da prioridade da tarefa.
    * @returns {HTMLElement} - Elemento HTML da prioridade da tarefa.
    */
-  createTaskElementPriority(local) {
+  createTaskElementPriority(config) {
     try {
       const taskElementPriority = document.createElement('div');
       taskElementPriority.className = 'task-priority';
-      taskElementPriority.appendChild(this.getPriorityTextOrImage(local.priority || 0));
+      taskElementPriority.appendChild(this.getPriorityTextOrImage(config.priority || 0));
       return taskElementPriority;
     } catch (error) {
       console.error(error.message);
@@ -209,11 +221,11 @@ export default class Card extends CardTools {
    * @param {Object} local - Dados do colaborador da tarefa.
    * @returns {HTMLElement} - Elemento HTML do colaborador da tarefa.
    */
-  async createdUserElement(local) {
+  async createdUserElement(config) {
     try {
       const taskElementPriority = document.createElement('div');
       taskElementPriority.className = 'task-priority';
-      taskElementPriority.appendChild(await this.getUserImage(local));
+      taskElementPriority.appendChild(await this.getUserImage(config));
       return taskElementPriority;
     } catch (error) {
       console.error(error.message);
@@ -222,18 +234,18 @@ export default class Card extends CardTools {
 
   /**
    * Cria um elemento de descrição da tarefa.
-   * @param {Object} local - Dados da tarefa.
+   * @param {Object} config - Dados da tarefa.
    * @returns {HTMLElement} - Elemento HTML da descrição da tarefa.
    */
-  createTaskElementDescription(local) {
+  createTaskElementDescription(config) {
     try {
       const tasksElementDescription = document.createElement('div');
       const htmlBold = document.createElement('b');
       tasksElementDescription.className = 'task-description';
-      tasksElementDescription.title = local.description;
-      htmlBold.innerText = local.description || '';
+      tasksElementDescription.title = config.description;
+      htmlBold.innerText = config.description || '';
       tasksElementDescription.appendChild(htmlBold);
-      this.visualComponentsButton(local, tasksElementDescription);   
+      this.visualComponentsButton(config, tasksElementDescription);   
       return tasksElementDescription;
     } catch (error) {
       console.error(error.message);
@@ -248,7 +260,7 @@ export default class Card extends CardTools {
   visualComponentsButton(config, localElement) {
     try {
       const svg = new SVG();
-      const loadSuspendedTasks = new SuspendedTask(this.colorBD);
+      const loadSuspendedTasks = new SuspendedTask(this.colorBD, this.#ws);
       const btn = new Button();
       if(config.state_id == 1 || config.state_id == 2) {
         localElement.appendChild(
@@ -259,4 +271,39 @@ export default class Card extends CardTools {
       console.error(error.message);
     }
   }
+
+  /**
+   * Recarrega a lista de tarefas do cartão.
+   * @param {string} id - ID do cartão.
+   */
+  reloadTaskList (id) {
+    try {
+      const isList = document.querySelector(`#${id} ul`);
+      if (isList) {
+        isList.remove();
+      }
+      const local = document.querySelector(`#${id}`);
+      const loadtask = new SimpleTask();
+      loadtask.registerModal(this.taskList, local, async () => await this.loadTaskList());
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * Carrega a lista de tarefas do cartão.
+   * @returns {HTMLElement} - Elemento HTML da lista de tarefas.
+   */
+  async loadTaskList() {
+    try {
+      const elementTask = document.getElementById('taskDiv');
+      for (let i = 0; i < this.taskList.length; i++) {
+        elementTask.appendChild(await this.createTaskElement(this.taskList[i]));
+      }
+      return elementTask;
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
 }
+

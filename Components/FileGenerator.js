@@ -1,4 +1,5 @@
 import Util from "../Util.js";
+import { TableGenerator } from "./table.js";
 
 /**
  * Classe CSVGenerator
@@ -55,7 +56,6 @@ export class CSVGenerator {
   constructor(getTasks, configId) {
     this.getTasks = getTasks;
     this.configId = configId;
-    this.util = new Util();
   }
 
   /**
@@ -64,7 +64,7 @@ export class CSVGenerator {
    */
   generateCSV() {
     try {
-      const filteredTasks = this.getTasks.filter(item => item.state_id == this.util.removeStringAndUnderline(this.configId));
+      const filteredTasks = this.getTasks.filter(item => item.state_id == Util.removeStringAndUnderline(this.configId));
 
       if (filteredTasks.length > 0) {
         const jsonData = filteredTasks.map(item => ({
@@ -147,102 +147,59 @@ export class PDFGenerator {
     this.printDocument = this.printWindow.document;
     this.head = document.createElement('head');
     this.Head();
-    this.Content(data, configId);
+    this.Table(data, configId);
   }
+  
+  #headers = ['Tarefas', 'Estado das Tarefas', 'Prioridade', 'Data Inicial', 'Data Final', 'Percentual'];
+  #attributes = [
+    { key: 'description', label: 'tdDescription' },
+    { key: 'state_description', label: 'tdState' },
+    { key: 'priority', label: 'tdPriority', transform: (value) => this.getPriorityText(value) },
+    { key: 'initial_date', label: 'tdInitialDate', transform: (value) => Util.formatDate(value)}, 
+    { key: 'final_date', label: 'tdFinalDate', transform: (value) => Util.formatDate(value) },
+    { key: 'percent', label: 'tdPercent', transform: value => `${value}%` }
+  ];
 
   /**
-   * Método Head
+   * Método setupHead
    * Configura o cabeçalho do documento PDF.
    */
   Head() {
    try {
-    const viewport = document.createElement('meta');
-    viewport.name = 'viewport';
-    viewport.content = 'width=device-width, initial-scale=1.0';
-    this.head.appendChild(viewport);
-    const charset = document.createElement('meta');
-    charset.charset = 'UTF-8';
-    this.head.appendChild(charset);
-    const style = document.createElement('style');
-    style.appendChild(document.createTextNode(styleTable));
-    this.head.appendChild(style);
+      const viewport = document.createElement('meta');
+      viewport.name = 'viewport';
+      viewport.content = 'width=device-width, initial-scale=1.0';
+      this.head.appendChild(viewport);
+      const charset = document.createElement('meta');
+      charset.charset = 'UTF-8';
+      this.head.appendChild(charset);
+      const style = document.createElement('style');
+      style.appendChild(document.createTextNode(styleTable));
+      this.head.appendChild(style);
    } catch (error) {
-    console.error(error.message);
+      console.error(error.message);
    }
   }
 
   /**
-   * Método Content
    * Configura o conteúdo do documento PDF com base nos dados fornecidos.
    * @param {Array} data - Dados a serem incluídos no documento PDF.
    * @param {string} configId - Identificador de configuração para filtrar os dados desejados.
+   * @memberOf TableGenerator
+   * @function Table
+   * @instance
    */
-  Content(data, configId) {
+  Table(data, configId) {
     try {
-      const table = document.createElement('table');
-      const thead = document.createElement('thead');
-      const tbody = document.createElement('tbody');
-
-      const headers = ['Tarefas', 'Estado das Tarefas', 'Prioridade', 'Data Inicial', 'Data Final', 'Percentual'];
-      
-      thead.appendChild(this.Tr(headers));
-      this.validate(tbody, configId, data);
-      table.appendChild(thead);
-      table.appendChild(tbody);
-      this.content.appendChild(table);
+        const table = document.createElement('table');
+        const tbody = document.createElement('tbody');
+        TableGenerator.fillTableBody(tbody, this.#attributes, data, "state_id", configId);
+        table.append(TableGenerator.Thead(TableGenerator.createHeaderRow(this.#headers)), tbody);
+        this.content.appendChild(table);
     } catch (error) {
-      console.error(error.message);
+        console.error(error.message);
     }
   }
-
-  /**
-   * Método createElementTr
-   * Cria um elemento 'tr' para o cabeçalho da tabela no documento PDF.
-   * @returns {HTMLTableRowElement} - Elemento 'tr' do cabeçalho da tabela.
-   */
-  Tr(headers) {
-    try {
-      const trHead = document.createElement('tr');
-      for (const headerText of headers) {
-        const th = document.createElement('th');
-        th.innerText = headerText;
-        trHead.appendChild(th);
-      }
-      return trHead;
-    } catch (error) {
-      console.error(error.message);
-    }
-  }
-
-  /**
-   * Método validate
-   * Valida e preenche o corpo da tabela com os dados fornecidos.
-   * @param {HTMLTableSectionElement} tbody - Elemento 'tbody' da tabela.
-   * @param {string} configId - Identificador de configuração para filtrar os dados desejados.
-   * @param {Array} data - Dados a serem incluídos no documento PDF.
-   */
-  validate(tbody, configId, data) {
-    const util = new Util();
-    const filteredTasks = data.filter(item => item.state_id == util.removeStringAndUnderline(configId));
-    const attributes = [
-      { key: 'description', label: 'tdDescription' },
-      { key: 'state_description', label: 'tdState' },
-      { key: 'priority', label: 'tdPriority', transform: value => this.getPriorityText(value)},
-      { key: 'initial_date', label: 'tdInitialDate', transform: value => value.split('-').reverse().join('/') }, 
-      { key: 'final_date', label: 'tdFinalDate', transform: value => value.split('-').reverse().join('/') },
-      { key: 'percent', label: 'tdPercent', transform: value => `${value}%` }
-    ];
-    filteredTasks.forEach(item => {
-        const trBody = document.createElement('tr');
-        attributes.forEach(attr => {
-            const td = document.createElement('td');
-            td.innerText = attr.transform ? attr.transform(item[attr.key]) : item[attr.key];
-            trBody.appendChild(td);
-        });
-        tbody.appendChild(trBody);
-    });
-  }
-
 
   /**
    * Método getPriorityText
@@ -251,26 +208,13 @@ export class PDFGenerator {
    * @returns {string} - String descritiva da prioridade.
    */
   getPriorityText(priority) {
-   try {
-      let priorityText;
-      switch (priority) {
-        case 0: 
-          priorityText = 'baixa';
-          break;
-        case 1:
-          priorityText = 'média';
-          break;
-        case 2:
-          priorityText = 'alta';
-          break;
-        default:
-          priorityText = 'Não foi especificado o nivel';
-          break;
-      }
-      return priorityText;
-   } catch (error) {
-     console.error(error.message);
-   }
+    try {
+        const priorityMap = { 0: 'baixa', 1: 'média', 2: 'alta' };
+        return priorityMap[priority] || 'Não foi especificado valor!';
+    } catch (error) {
+        console.error(error.message);
+        return 'Erro ao obter a prioridade';
+    }
   }
 
   /**

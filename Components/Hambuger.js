@@ -1,6 +1,6 @@
 
 /**
- * Hamburger com animação em X quando é clicado!
+ * Componente hamburger em forma de "X" quando é clicado
  * @date 2/15/2024 - 9:48:38 AM
  *
  * @export

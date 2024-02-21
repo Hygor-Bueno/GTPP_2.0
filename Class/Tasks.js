@@ -8,6 +8,7 @@ import TextArea from "../Components/TextArea.js";
 import Title from "../Components/Title.js";
 import { buttonEditText, inputsEditText } from "../Configuration/Configuration.js";
 import { Connection } from "../Connection/Connection.js";
+import CardTools from "../Class/Cardtools.js";
 
 export default class Tasks {
     id;
@@ -194,7 +195,7 @@ export default class Tasks {
         list.forEach(listElement => {
             const li = new List();
             listElement.onAction = async () => {
-                await this.changeCheckedItem(listElement.id);
+                await this.changeCheckedItem(listElement.id, this.callbackRequestValue);
                 this.informeChangeItem(listElement);
             };
             ul.appendChild(li.itemTask(listElement));
