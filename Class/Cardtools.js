@@ -5,19 +5,21 @@ import { HamburgerX } from "../Components/Hambuger.js";
 import Button from "../Components/Button.js";
 
 export default class CardTools {
+  percentual;
+
   /**
    * Obtém a imagem e a colaboração do usuário.
-   * @param {Object} local - Dados do usuário.
+   * @param {Object} config - Dados do usuário.
    * @returns {HTMLElement} - Imagem e colaboração do usuário.
    */
-  async getUserImage(local) {
+  async getUserImage(config) {
     const qtdUser = document.createElement('div');
     try {
       const svg = new SVG();
       qtdUser.className = 'qtd-user';
       const p = document.createElement('p');
       p.className = 'text';
-      p.innerHTML = `${local.users ? local.users : 0}`;
+      p.innerHTML = `${config.users ? config.users : 0}`;
       qtdUser.append(p, svg.createSvg(SVGImageUser));
     } catch (error) {
       console.error(error.message);
@@ -43,15 +45,16 @@ export default class CardTools {
 
   /**
    * Cria um elemento de porcentagem de conclusão da tarefa.
-   * @param {Object} local - Dados da tarefa.
+   * @param {Object} config - Dados da tarefa.
    * @returns {HTMLElement} - Elemento HTML da porcentagem de conclusão da tarefa.
    */
-  createdPercentTask(local) {
+  createdPercentTask(config) {
     try {
       const taskElementPriority = document.createElement('div');
       const percentDiv = document.createElement('p');
+      percentDiv.id = `percent_task_${config.id}`;
       percentDiv.className = 'percent';
-      percentDiv.innerText = `${local.percent ? local.percent : 0}%`;
+      percentDiv.innerText = `${config.percent}%`;
       taskElementPriority.className = 'task-priority';
       taskElementPriority.appendChild(percentDiv);
       return taskElementPriority;

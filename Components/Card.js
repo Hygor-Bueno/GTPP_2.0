@@ -4,7 +4,7 @@ import Modal from "./Modal.js";
 import SVG from "./SVG.js";
 import { SVGImageArchived} from "../Configuration/ImagesSVG.js";
 import SuspendedTask from "../Class/SuspendedTask.js";
-import CardTools from "../Class/CardTools.js";
+import CardTools from "../Class/Cardtools.js";
 import SimpleTask from "../Class/SimpleTask.js";
 
 /**
@@ -88,17 +88,17 @@ export default class Card extends CardTools {
    * @param {[{id;description;percent;state_description;state_id;priority;users;expire;csds;user_id;initial_date;final_date;}]} taskData - Dados da tarefa.
    * @returns {HTMLElement} - Elemento HTML da descrição e prioridade.
    */
-  async createTaskElement(taskData) {
+  async createTaskElement(config) {
     try {
       const taskElement = document.createElement('div');
       const subBoxTaskElement = document.createElement('div');
       taskElement.setAttribute('draggable', 'true');
       taskElement.className = 'task';
       subBoxTaskElement.className = 'subTask';
-      taskElement.dataset.taskid = taskData.id;
-      console.log(taskData);
-      taskElement.append(this.createElementDescriptionAndPriority(taskData), subBoxTaskElement);
-      subBoxTaskElement.append(this.createdPercentTask(taskData), this.createTaskElementPriority(taskData), await this.createdUserElement(taskData))
+      taskElement.dataset.taskid = config.id;
+      console.log(config);
+      taskElement.append(this.createElementDescriptionAndPriority(config), subBoxTaskElement);
+      subBoxTaskElement.append(this.createdPercentTask(config), this.createTaskElementPriority(config), await this.createdUserElement(config))
       return taskElement;
     } catch (error) {
       console.error(error.message);
@@ -131,14 +131,14 @@ export default class Card extends CardTools {
 
   /**
    * Cria um elemento de data inicial e final da tarefa.
-   * @param {Object} date - Dados da data da tarefa.
+   * @param {Object} config - Dados da data da tarefa.
    * @returns {HTMLElement} - Elemento HTML da data da tarefa.
    */
-  createElementDate(date) {
+  createElementDate(config) {
     try {
       const taskElementInitialDate = document.createElement('div');
       taskElementInitialDate.className = 'dateTasks'
-      date && taskElementInitialDate.append(this.getDateInit(date.initial_date), this.getDateFinal(date.final_date));
+      config && taskElementInitialDate.append(this.getDateInit(config.initial_date), this.getDateFinal(config.final_date));
       return taskElementInitialDate;
     } catch (error) {
       console.error(error.message);
@@ -202,14 +202,14 @@ export default class Card extends CardTools {
 
   /**
    * Cria um elemento de prioridade da tarefa.
-   * @param {Object} local - Dados da prioridade da tarefa.
+   * @param {Object} config - Dados da prioridade da tarefa.
    * @returns {HTMLElement} - Elemento HTML da prioridade da tarefa.
    */
-  createTaskElementPriority(local) {
+  createTaskElementPriority(config) {
     try {
       const taskElementPriority = document.createElement('div');
       taskElementPriority.className = 'task-priority';
-      taskElementPriority.appendChild(this.getPriorityTextOrImage(local.priority || 0));
+      taskElementPriority.appendChild(this.getPriorityTextOrImage(config.priority || 0));
       return taskElementPriority;
     } catch (error) {
       console.error(error.message);
@@ -221,11 +221,11 @@ export default class Card extends CardTools {
    * @param {Object} local - Dados do colaborador da tarefa.
    * @returns {HTMLElement} - Elemento HTML do colaborador da tarefa.
    */
-  async createdUserElement(local) {
+  async createdUserElement(config) {
     try {
       const taskElementPriority = document.createElement('div');
       taskElementPriority.className = 'task-priority';
-      taskElementPriority.appendChild(await this.getUserImage(local));
+      taskElementPriority.appendChild(await this.getUserImage(config));
       return taskElementPriority;
     } catch (error) {
       console.error(error.message);
@@ -234,18 +234,18 @@ export default class Card extends CardTools {
 
   /**
    * Cria um elemento de descrição da tarefa.
-   * @param {Object} local - Dados da tarefa.
+   * @param {Object} config - Dados da tarefa.
    * @returns {HTMLElement} - Elemento HTML da descrição da tarefa.
    */
-  createTaskElementDescription(local) {
+  createTaskElementDescription(config) {
     try {
       const tasksElementDescription = document.createElement('div');
       const htmlBold = document.createElement('b');
       tasksElementDescription.className = 'task-description';
-      tasksElementDescription.title = local.description;
-      htmlBold.innerText = local.description || '';
+      tasksElementDescription.title = config.description;
+      htmlBold.innerText = config.description || '';
       tasksElementDescription.appendChild(htmlBold);
-      this.visualComponentsButton(local, tasksElementDescription);   
+      this.visualComponentsButton(config, tasksElementDescription);   
       return tasksElementDescription;
     } catch (error) {
       console.error(error.message);

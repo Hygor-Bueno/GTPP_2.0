@@ -31,7 +31,7 @@ export class WebSocketGTPP {
             console.log("error");
         }, 5000);
     }
-    
+
     Pong() {
         clearTimeout(this.time_out);
     }
@@ -85,6 +85,10 @@ export class WebSocketGTPP {
                     progressBar.setAttribute('style', `width:${response.object.percent}%`);
                 }
             }
+
+            //Porcentagem simpleCard
+            const percent = document.getElementById(`percent_task_${response.task_id}`);
+            if (percent) percent.innerText = `${response.object.percent}%`;
         }
         console.log(response)
     }
