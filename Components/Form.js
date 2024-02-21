@@ -154,7 +154,7 @@ export default class Form {
      * Cria e retorna um elemento html input pré-formatado
      * @date 10/01/2024 - 5:20:20 PM
      * @author Hygor Bueno
-     * @param {{inputType:string;inputId:string;requiredInput?:boolean;classInput?:string;onAction?:()=>;checked?:boolean}} configs
+     * @param {{inputType:string;inputId:string;requiredInput?:boolean;classInput?:string;onAction?:()=>;checked?:boolean,onClick?:()=>;onChange?:()=>}} configs
      * @returns {HTMLElement} Retorna um input pré-configurado.
      */
     input(configs) {
@@ -169,10 +169,11 @@ export default class Form {
 
             if (configs?.inputValue) input.value = configs.inputValue;
             if (configs?.inputId) input.id = configs.inputId;
-            if (configs?.onChange) input.addEventListener('keyup', (e) => { configs.onChange(e.target.value) });
             if (configs.requiredInput) input.dataset.required = 1;
             if (configs?.classInput) input.className = configs.classInput;
+            if (configs?.onChange) input.addEventListener('keyup', (e) => { configs.onChange(e.target.value) });
             if (configs?.onAction) input.addEventListener('change', configs.onAction);
+            if (configs?.onClick) input.addEventListener('click', configs.onClick);
             return input;
         } catch (error) {
             console.error(error);

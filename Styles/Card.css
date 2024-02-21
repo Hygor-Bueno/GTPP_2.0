@@ -30,6 +30,7 @@
 }
 
 .subdivcard input[type="checkbox"] {
+  display: none;
   border: none;
 }
 

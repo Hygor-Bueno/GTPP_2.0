@@ -1,3 +1,5 @@
+import { inputHamburgerModal } from "../Configuration/Configuration.js";
+import Form from "./Form.js";
 
 /**
  * Componente hamburger em forma de "X" quando é clicado
@@ -15,12 +17,7 @@ export class HamburgerX {
             const fatherNav = document.createElement('nav');
             fatherNav.className = 'fatherNav';
             const elements = [];
-            const inputHamburger = document.createElement('input');
-            inputHamburger.id = `dropdown_${id}`;
-            inputHamburger.className = 'input-box';
-            inputHamburger.style.display = "none";
-            inputHamburger.type = 'checkbox';
-            inputHamburger.checked = false;
+            const inputHamburger = new Form().input(inputHamburgerModal(id, onClick));
             elements.push(inputHamburger);
             const label = document.createElement('label');
             label.setAttribute("for", `dropdown_${id}`);
@@ -33,7 +30,6 @@ export class HamburgerX {
             });
             elements.push(label);
             fatherNav.append(...elements);
-            inputHamburger.addEventListener('click', onClick);
             return fatherNav;
         } catch (error) {
             console.error(error.message);

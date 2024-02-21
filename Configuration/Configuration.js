@@ -304,6 +304,15 @@ export const inputsEditText = (value,onChange) => {
         }
     };
 }
+
+export const inputHamburgerModal = (id, onClick) => {
+    return {
+        inputId:`dropdown_${id}`,
+        inputType: 'checkbox',
+        checked:false,
+        onClick:onClick
+    }
+}
 /**
  * Váriável de configuração para componentes html;
  * @date 05/02/2024 - 10:05 PM
