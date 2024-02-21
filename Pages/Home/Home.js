@@ -39,8 +39,9 @@ export default class Home {
             container.className = "gridRightHome";
             const connection = new Connection();
 
-            // Busca os estados das tarefas.
+            // Busca os tipos estados das tarefas.
             const listTaskState = await connection.get('', 'GTPP/TaskState.php');
+            //busca as tarefas do colaborador
             const postTask = await connection.get('', 'GTPP/Task.php');
 
             if (listTaskState.error) throw new Error(listTaskState.message);

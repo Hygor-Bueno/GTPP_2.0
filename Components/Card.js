@@ -63,7 +63,6 @@ export default class Card {
     taskElement.appendChild(subBoxTaskElement);
     subBoxTaskElement.appendChild(this.createTaskElementPriority(taskData));
 
-
     taskElement.addEventListener('click', async () => {
       const task = new Tasks(taskData, this.#ws);
       await task.getDetails();
@@ -168,8 +167,9 @@ export default class Card {
 
   /** Função que gera um arquivo CSV e faz o download para ser utilizando e importado para qualquer lugar.  */
   onCSV = () => {
-    const csvGenerator = new CSVGenerator(this.#getTasks, this.#getConfigId);
-    csvGenerator.generateCSV();
+    console.log(this.#getTasks);
+    // const csvGenerator = new CSVGenerator(this.#getTasks, this.#getConfigId);
+    // csvGenerator.generateCSV();
   }
 
   reloadTaskList = (id) => {

@@ -162,7 +162,6 @@ export class PDFGenerator {
    * @param {string} configId - Identificador de configuração para filtrar os dados desejados.
    */
   setupContent(data, configId) {
-    console.log(data);
     const table = document.createElement('table');
     const thead = document.createElement('thead');
     const tbody = document.createElement('tbody');
