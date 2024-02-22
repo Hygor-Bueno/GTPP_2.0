@@ -19,9 +19,7 @@ export class HamburgerX {
             const elements = [];
             const inputHamburger = new Form().input(inputHamburgerModal(id, onClick));
             elements.push(inputHamburger);
-            const label = document.createElement('label');
-            label.setAttribute("for", `dropdown_${id}`);
-            label.className = 'dropdown';
+            const label = new Form().simpleLabel({classLabel: 'dropdown', for: `dropdown_${id}`, description: ''});
             const classNames = ['hamburger', 'icon-bar top-bar', 'icon-bar middle-bar', 'icon-bar bottom-bar'];
             classNames.forEach(className => {
                 const element = document.createElement('span');
