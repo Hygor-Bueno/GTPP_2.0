@@ -119,7 +119,7 @@ export default class Form {
 
             const label = document.createElement('label');
             label.innerText = configs.label;
-            configs.iconLabel && div.appendChild(this.iconLabel(configs.nameImageLabel))
+            configs.iconLabel && div.appendChild(this.iconLabel(configs.nameImageLabel));
             div.appendChild(label);
             if (configs.requiredInput) div.appendChild(this.mandatory());
             label.className = (configs?.classLabel) ? configs.classLabel : 'labelForm';
