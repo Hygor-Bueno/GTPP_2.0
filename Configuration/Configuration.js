@@ -313,6 +313,15 @@ export const inputHamburgerModal = (id, onClick) => {
         onClick:onClick
     }
 }
+
+/** @param {{classLabel:string;description:string;for:string;}} */
+export const inputLabelHamburgerModal = (id) => {
+    return {
+        classLabel: 'dropdown',
+        for: `dropdown_${id}`, 
+        description: ''
+    }
+}
 /**
  * Váriável de configuração para componentes html;
  * @date 05/02/2024 - 10:05 PM
