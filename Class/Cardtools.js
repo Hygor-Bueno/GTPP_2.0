@@ -45,8 +45,8 @@ export default class CardTools {
 
   /**
    * Cria um elemento de porcentagem de conclusão da tarefa.
-   * @param {Object} config - Dados da tarefa.
-   * @returns {HTMLElement} - Elemento HTML da porcentagem de conclusão da tarefa.
+   * @param {Object} config Dados da tarefa.
+   * @returns {HTMLElement} Elemento HTML da porcentagem de conclusão da tarefa.
    */
   createdPercentTask(config) {
     try {

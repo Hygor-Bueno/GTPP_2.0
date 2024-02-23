@@ -37,18 +37,17 @@ export default class Card extends CardTools {
 
   /**
    * Cria um cartão de tarefa.
-   * @param {Object} configs - Configurações do cartão.
-   * @param {number} configs.id - ID do cartão.
-   * @param {boolean} configs.view - Visualização do cartão.
-   * @param {string} configs.label - Rótulo do cartão.
-   * @param {Array} tasks - Lista de tarefas do cartão.
-   * @param {Array} listTaskState - Lista de estados da tarefa.
-   * @returns {HTMLElement} - Elemento HTML do cartão.
+   * @param {Object} configs Configurações do cartão.
+   * @param {number} configs.id ID do cartão.
+   * @param {boolean} configs.view Visualização do cartão.
+   * @param {string} configs.label Rótulo do cartão.
+   * @param {Array} tasks Lista de tarefas do cartão.
+   * @param {Array} listTaskState Lista de estados da tarefa.
+   * @returns {HTMLElement} Elemento HTML do cartão.
    */
   async createCard(configs, tasks, listTaskState) {
     try {
       this.colorBD = listTaskState;
-      console.log(configs.id);
       this.getConfigId = configs.id;
       this.getTasks = tasks;
       const cardDiv = document.createElement('div');
@@ -69,6 +68,11 @@ export default class Card extends CardTools {
     }
   }
 
+  /**
+   * @description Aqui vamos exibir nossas tarefas 
+   * @param {*} config 
+   * @param {*} local 
+   */
   async showTask(config, local) {
     for (let i = 0; i < this.getTasks.length; i++) {
       const taskElement = await this.createTaskElement(this.getTasks[i]);
@@ -78,9 +82,9 @@ export default class Card extends CardTools {
 
   /**
    * Cria um sub-div do cartão.
-   * @param {Object} configs - Configurações do cartão.
-   * @param {string} inputCheckbox - Checkbox do cartão.
-   * @returns {HTMLElement} - Sub-div do cartão.
+   * @param {Object} configs Configurações do cartão.
+   * @param {string} inputCheckbox Checkbox do cartão.
+   * @returns {HTMLElement} Sub-div do cartão.
    */
   getSubDivCard(configs, inputCheckbox) {
     try {
@@ -91,6 +95,7 @@ export default class Card extends CardTools {
       console.error(error.message);
     }
   }
+
   /**
    * Cria um elemento de descrição e prioridade da tarefa.
    * @param {[{id;description;percent;state_description;state_id;priority;users;expire;csds;user_id;initial_date;final_date;}]} taskData - Dados da tarefa.
@@ -110,6 +115,7 @@ export default class Card extends CardTools {
       console.error(error.message);
     }
   }
+
   /**
    * Cria um elemento de descrição e prioridade da tarefa.
    * @param {[{id;description;percent;state_description;state_id;priority;users;expire;csds;user_id;initial_date;final_date;}]} taskData - Dados da tarefa.

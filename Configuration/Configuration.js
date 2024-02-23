@@ -2,7 +2,7 @@
  * Váriável de configuração para componentes html;
  * @date 10/01/2024 - 5:27:19 PM
  * @author Hygor Bueno.
- * @type {{legend:string; listfields:[{ classItemsForm: string; classForm: string; classLabel: string; classInput: string; label: string; inputType: string; inputId: string;requiredInput:boolean;iconLabel:boolean,nameImageLabel:string }]}}
+ * @type {{legend:string;listfields:[{classItemsForm:string;classForm:string;classLabel:string;classInput:string;label:string;inputType:string;inputId:string;requiredInput:boolean;iconLabel:boolean,nameImageLabel:string}]}}
  */
 export const inputsLogin =
 {
@@ -96,9 +96,8 @@ export const registerInputs = {
 };
 
 /**
- * Description placeholder
- * @date 2/15/2024 - 12:39:14 PM
- * @type {{ legend: string; listfields: { classItemsForm: string; classForm: string; classLabel: string; classInput: string; label: string; inputType: string; inputId: string; iconLabel: boolean; nameImageLabel: string; }; }}
+ * 
+ * @param {{legend:string;listfields:{classItemsForm:string;classForm:string;classLabel:string;classInput:string;label:string;inputType:string;inputId:string;iconLabel:boolean;nameImageLabel:string;};}}
  */
 export const suspendedInput = {
     legend: 'register',
@@ -118,7 +117,7 @@ export const suspendedInput = {
 /**
  * Description placeholder
  * @date 2/15/2024 - 12:39:18 PM
- * @type {{ inputType: string; inputId: string; classInput: string; placeholder: string; }}
+ * @type {{inputType:string;inputId:string;classInput:string;placeholder:string;}}
  */
 export const textInputName = {
     inputType: 'text',
@@ -130,7 +129,7 @@ export const textInputName = {
 /**
  * Description placeholder
  * @date 2/15/2024 - 12:39:22 PM
- * @type {{ inputType: string; inputId: string; classInput: string; }}
+ * @type {{inputType:string;inputId:string;classInput:string;}}
  */
 export const dateInputConfig = {
     inputType: 'date',
@@ -141,7 +140,7 @@ export const dateInputConfig = {
 /**
  * Description placeholder
  * @date 2/15/2024 - 12:39:26 PM
- * @type {{ inputType: string; inputId: string; classInput: string; }}
+ * @type {{inputType:string;inputId:string;classInput:string;}}
  */
 export const textInputPriority = {
     inputType: 'select',
@@ -153,7 +152,7 @@ export const textInputPriority = {
  * Váriável de configuração para componentes html;
  * @date 10/01/2024 - 5:26:34 PM
  * @author Hygor Bueno.
- * @type {{ type: string; title: string; description: string; classButton: string; }} 
+ * @type {{type:string;title:string;description:string;classButton:string;}} 
  */
 export const buttonLogin = {
     type: 'button',
@@ -166,7 +165,7 @@ export const buttonLogin = {
  * Váriável de configuração para componentes html;
  * @date 10/01/2024 - 5:29:24 PM
  * @author Hygor Bueno.
- * @type {{ type: string; title: string; description: string; classButton: string; }}
+ * @type {{type:string;title:string;description:string;classButton:string;}}
  */
 export const buttonCloseModal = {
     type: 'button',
@@ -179,7 +178,7 @@ export const buttonCloseModal = {
  * Váriável de configuração para componentes html;
  * @date 12/01/2024 - 4:35:09 PM
  * @author Hygor Bueno.
- * @type {{ type: string; title: string; description: string; classButton: string; }}
+ * @type {{type:string;title:string;description:string;classButton:string;}}
  */
 export const buttonMenu = {
     type: 'button',
@@ -192,7 +191,7 @@ export const buttonMenu = {
  * Váriável de configuração para componentes html;
  * @date 12/01/2024 - 4:42:21 PM
  * @author Hygor Bueno.
- * @type {{ listItems: {label:string;icon:string;router:string}; }}
+ * @type {{listItems:{label:string;icon:string;router:string};}}
  */
 export const listItemsMenu = {
     listItems: [
@@ -206,7 +205,7 @@ export const listItemsMenu = {
  * Description placeholder
  * @date 1/12/2024 - 11:44:29 AM
  * @author Jonatas Silva.
- * @type {{ type: string; title: string; description: string; classButton: string; }}
+ * @type {{type:string;title:string;description:string;classButton:string;}}
  */
 export const buttonPDF = {
     type: 'button',
@@ -220,7 +219,7 @@ export const buttonPDF = {
  * Description placeholder
  * @date 1/12/2024 - 11:50:37 AM
  * @author Jonatas Silva.
- * @type {{ type: string; title: string; description: string; classButton: string; }}
+ * @type {{type:string;title:string;description:string;classButton:string;}}
  */
 export const buttonCSV = {
     type: 'button',
@@ -234,7 +233,7 @@ export const buttonCSV = {
  * Description placeholder
  * @date 1/12/2024 - 11:52:24 AM
  * @author Jonatas Silva.
- * @type {{ type: string; title: string; description: string; classButton: string; }}
+ * @type {{type:string;title:string;description:string;classButton:string;}}
  */
 export const buttonAdd = {
     type: 'button',
@@ -247,7 +246,7 @@ export const buttonAdd = {
  * Description placeholder
  * @date 2/5/2024 - 10:02:44 AM
  * @author Jonatas Silva.
- * @type {{ type: string; title: string; description: string; classButton: string; }}
+ * @type {{type:string;title:string;description:string;classButton:string;}}
  */
 export const buttonToTask = {
     type: 'button',
@@ -260,7 +259,7 @@ export const buttonToTask = {
  * Description placeholder
  * @date 2/5/2024 - 10:02:53 AM
  * @author Jonatas Silva.
- * @type {{ title: string; type: string; classButton: string; id: string; }}
+ * @type {{title:string;type:string;classButton:string;id:string;}}
  */
 export const buttonStateTask = {
     title: 'Abrir lista de status',
@@ -273,7 +272,7 @@ export const buttonStateTask = {
  * Description placeholder
  * @date 2/5/2024 - 10:03:15 AM
  * @author Jonatas Silva.
- * @type {{ type: string; title: string; description: string; classButton: string; }}
+ * @param {{type:string;title:string;description:string;classButton:string;}}
  */
 export const saveButton = {
     type: 'submit',
@@ -285,7 +284,7 @@ export const saveButton = {
 /**
  * @date 2/5/2024 - 9:26:15 AM
  * @author Hygor Bueno
- * @type {{legend:string; listfields:[{ classItemsForm: string; classForm: string; classLabel: string; classInput: string; label: string; inputType: string; inputId: string;requiredInput:boolean;iconLabel:boolean,nameImageLabel:string }]}}
+ * @param {{legend:string;listfields:[{classItemsForm:string;classForm:string;classLabel:string;classInput:string;label:string;inputType:string;inputId:string;requiredInput:boolean;iconLabel:boolean,nameImageLabel:string}]}}
  */
 export const inputsEditText = (value,onChange) => {
     return {
@@ -305,6 +304,9 @@ export const inputsEditText = (value,onChange) => {
     };
 }
 
+/**
+ * @param {{inputId:string;inputType:string;checked:boolean;onClick:()=>;}}
+ */
 export const inputHamburgerModal = (id, onClick) => {
     return {
         inputId:`dropdown_${id}`,
@@ -326,7 +328,7 @@ export const inputLabelHamburgerModal = (id) => {
  * Váriável de configuração para componentes html;
  * @date 05/02/2024 - 10:05 PM
  * @author Hygor Bueno.
- * @type {{ type: string; title: string; description: string; classButton: string; }} 
+ * @type {{type:string;title:string;description:string;classButton:string;}} 
 */
 export const buttonEditText = {
     type: 'button',

@@ -4,14 +4,14 @@
 export default class SVG {
     /**
      * Cria um elemento SVG com base na configuração fornecida.
-     * @param {Object} config - Objeto de configuração para o elemento SVG.
-     * @param {number} config.height - Altura do elemento SVG.
-     * @param {string} config.viewBox - Atributo viewBox do elemento SVG.
-     * @param {number} config.width - Largura do elemento SVG.
-     * @param {string} config.fill - Cor de preenchimento do elemento SVG.
-     * @param {string} [config.title] - Atributo de título opcional para o elemento SVG.
-     * @param {string} config.path - Atributo de caminho do elemento SVG.
-     * @returns {SVGElement} - O elemento SVG criado.
+     * @param {Object} config Objeto de configuração para o elemento SVG.
+     * @param {number} config.height Altura do elemento SVG.
+     * @param {string} config.viewBox Atributo viewBox do elemento SVG.
+     * @param {number} config.width Largura do elemento SVG.
+     * @param {string} config.fill Cor de preenchimento do elemento SVG.
+     * @param {string} [config.title] Atributo de título opcional para o elemento SVG.
+     * @param {string} config.path Atributo de caminho do elemento SVG.
+     * @returns {SVGElement} O elemento SVG criado.
      */
     createSvg(config) {
         // Cria um novo elemento SVG

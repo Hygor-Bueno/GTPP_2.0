@@ -13,22 +13,16 @@ export default class Footer{
         try {
             const containerLeft = new Containers();
             const containerRight = new Containers();
-            
             const footer = document.createElement('footer');
             const lblTitle = document.createElement('label');
             const lblCreators = document.createElement('label');
-
             lblTitle.innerText = this.#title;
             lblCreators.innerText = this.#creators;
-
             const elementLeft = containerLeft.containerBasic({element:lblTitle});
             elementLeft.id = 'footerDivLeft';
             const elementRigth = containerRight.containerBasic({element:lblCreators});
             elementRigth.id = 'footerDivRigth';
-
-            footer.appendChild(elementLeft);
-            footer.appendChild(elementRigth);
-            
+            footer.append(elementLeft, elementRigth);
             return footer;
         } catch (error) {
             console.error(error.message);

@@ -21,13 +21,10 @@ export default class List {
         const li = document.createElement('li');
         const p = document.createElement('p');
         const icon = document.createElement('img');
-
         icon.className = 'iconMenu';
         icon.src = `../Assets/Image/${item.icon}`;
         li.onclick = item.onAction;
-
         p.innerText = item.label;
-
         li.appendChild(icon);
         li.appendChild(p);
         return li;
@@ -41,14 +38,11 @@ export default class List {
         const li = document.createElement('li');
         const container = new Containers();
         const form = new Form();
-              
         const label = document.createElement('label');
         label.setAttribute('for',`task_item_${item.id}`);
         label.innerText =item.description;
-        
         const containerElement = container.containerBasic({element:form.input({inputType:'checkbox',inputId:`task_item_${item.id}`,checked:item.check,onAction:item.onAction})});
         containerElement.appendChild(label);
-
         li.appendChild(containerElement);
         return li;
     }

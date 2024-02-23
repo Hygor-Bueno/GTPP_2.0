@@ -35,8 +35,8 @@ export class TableGenerator {
   
     /**
      * Método para criar um elemento 'tr' para o cabeçalho da tabela.
-     * @param {Array} headers - Array contendo os cabeçalhos da tabela.
-     * @returns {HTMLTableRowElement} - Elemento 'tr' do cabeçalho da tabela.
+     * @param {Array} headers Array contendo os cabeçalhos da tabela.
+     * @returns {HTMLTableRowElement} Elemento 'tr' do cabeçalho da tabela.
      */
     static createHeaderRow(headers) {
       try {

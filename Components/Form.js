@@ -158,7 +158,6 @@ export default class Form {
      * @returns {HTMLElement} Retorna um input pré-configurado.
      */
     input(configs) {
-        console.log(configs)
         try {
             if (!configs || !configs.inputType) {
                 throw new Error('key inputType not found.');

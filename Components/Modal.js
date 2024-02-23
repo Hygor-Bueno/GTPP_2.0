@@ -39,7 +39,6 @@ export default class Modal {
     const divTitle = this.createTitleElement();
     const messageElement = this.createMessageElement();
 
-
     // VINCULANDO OS FILHOS.
     modalDiv.appendChild(modalContent);
     modalContent.appendChild(this.closeModal());
