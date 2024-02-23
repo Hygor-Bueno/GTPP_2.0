@@ -8,7 +8,6 @@ import TextArea from "../Components/TextArea.js";
 import Title from "../Components/Title.js";
 import { buttonEditText, inputsEditText } from "../Configuration/Configuration.js";
 import { Connection } from "../Connection/Connection.js";
-import CardTools from "../Class/Cardtools.js";
 
 export default class Tasks {
     id;

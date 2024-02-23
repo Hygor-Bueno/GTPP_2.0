@@ -6,6 +6,7 @@ import { SVGImageArchived} from "../Configuration/ImagesSVG.js";
 import SuspendedTask from "../Class/SuspendedTask.js";
 import CardTools from "../Class/Cardtools.js";
 import SimpleTask from "../Class/SimpleTask.js";
+import Util from "../Util.js";
 
 /**
  * Classe que representa um cartão de tarefa.
@@ -47,27 +48,34 @@ export default class Card extends CardTools {
   async createCard(configs, tasks, listTaskState) {
     try {
       this.colorBD = listTaskState;
+      console.log(configs.id);
       this.getConfigId = configs.id;
       this.getTasks = tasks;
       const cardDiv = document.createElement('div');
       cardDiv.className = 'card';
       cardDiv.style.display = configs.view ? 'block' : 'none';
+      cardDiv.setAttribute('state', Util.removeStringAndUnderline(configs.id));
       if (configs?.id) cardDiv.id = configs.id;
       const inputCheckbox = this.createButtonHamburger(configs.id);
       cardDiv.appendChild(this.getSubDivCard(configs, inputCheckbox));
       const taskDiv = document.createElement('div');
       taskDiv.id = 'taskDiv';
       taskDiv.className='column'
-      for (let i = 0; i < this.getTasks.length; i++) {
-        const taskElement = await this.createTaskElement(this.getTasks[i]);
-        if (configs.id === `task_state_${this.getTasks[i].state_id}`) taskDiv.appendChild(taskElement);
-      }
+      await this.showTask(configs, taskDiv);
       cardDiv.appendChild(taskDiv);
       return cardDiv;
     } catch (error) {
       console.error(error.message);
     }
   }
+
+  async showTask(config, local) {
+    for (let i = 0; i < this.getTasks.length; i++) {
+      const taskElement = await this.createTaskElement(this.getTasks[i]);
+      if (config.id === `task_state_${this.getTasks[i].state_id}`) local.appendChild(taskElement);
+    }
+  }
+
   /**
    * Cria um sub-div do cartão.
    * @param {Object} configs - Configurações do cartão.
@@ -92,11 +100,9 @@ export default class Card extends CardTools {
     try {
       const taskElement = document.createElement('div');
       const subBoxTaskElement = document.createElement('div');
-      taskElement.setAttribute('draggable', 'true');
       taskElement.className = 'task';
       subBoxTaskElement.className = 'subTask';
       taskElement.dataset.taskid = config.id;
-      console.log(config);
       taskElement.append(this.createElementDescriptionAndPriority(config), subBoxTaskElement);
       subBoxTaskElement.append(this.createdPercentTask(config), this.createTaskElementPriority(config), await this.createdUserElement(config))
       return taskElement;
@@ -111,7 +117,6 @@ export default class Card extends CardTools {
    */
   createElementDescriptionAndPriority(taskData) {
     try {
-      console.log(taskData)
       const taskElement = document.createElement('div');
       taskElement.className = 'task-desc-priority';
       taskElement.append(this.createTaskElementDescription(taskData), this.createElementInicialDateAndFinalDate(taskData));
@@ -254,6 +259,7 @@ export default class Card extends CardTools {
   
   /**
    * Visualiza componentes de botão.
+   * nessa função tem um controle em quais componentes vão ter um botão os primeiros é o que vao ter o componente para ser controlados.
    * @param {Object} config - Configurações do botão.
    * @param {HTMLElement} localElement - Elemento HTML local onde o botão será inserido.
    */
@@ -264,8 +270,8 @@ export default class Card extends CardTools {
       const btn = new Button();
       if(config.state_id == 1 || config.state_id == 2) {
         localElement.appendChild(
-          btn.Button({type:'button',title:'Arquivar tarefa',onAction:()=> loadSuspendedTasks.suspended(config),
-          description: svg.createSvg(SVGImageArchived), classButton: 'btnFiled'}))
+        btn.Button({type:'button',title:'Arquivar tarefa',onAction:()=> loadSuspendedTasks.suspended(config),
+        description: svg.createSvg(SVGImageArchived), classButton: 'btnFiled'}))
       }
     } catch (error) {
       console.error(error.message);

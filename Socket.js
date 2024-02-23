@@ -86,11 +86,12 @@ export class WebSocketGTPP {
                 }
             }
 
+
             //Porcentagem simpleCard
             const percent = document.getElementById(`percent_task_${response.task_id}`);
             if (percent) percent.innerText = `${response.object.percent}%`;
         }
-        console.log(response)
+        console.log(response);
     }
 
     informSending(json) {

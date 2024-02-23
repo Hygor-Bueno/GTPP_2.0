@@ -1,7 +1,9 @@
 import Button from "../Components/Button.js";
 import Form from "../Components/Form.js";
 import Modal from "../Components/Modal.js";
+import Paragraph from "../Components/Paragraph.js";
 import TextArea from "../Components/TextArea.js";
+import Title from "../Components/Title.js";
 import { saveButton } from "../Configuration/Configuration.js";
 import { suspendedInput } from "../Configuration/Configuration.js";
 import { Connection } from "../Connection/Connection.js";
@@ -13,6 +15,7 @@ export default class SuspendedTask {
     days = null;
     reason;
     task_id;
+    state_id;
     bdColor;
     #ws;
 
@@ -24,7 +27,7 @@ export default class SuspendedTask {
         this.bdColor = colorsBD;
         this.#ws = ws;
     }
-    
+
     /**
      * Cria um modal para tarefa suspensa.
      * @param {Object} config - Configurações para o modal.
@@ -35,33 +38,43 @@ export default class SuspendedTask {
      */
     suspended(config) {
         try {
-            console.log(this.#ws);
             const modal = document.createElement('div');
-            const divTitle = document.createElement('div');
-
+            const divTitle = document.createElement('div')
             modal.setAttribute('modal-suspended', true);
-            
             config.state_id == 1 || config.state_id == 2 ? modal.setAttribute('modalTodo', '') : null;
-            
-
             modal.className = 'suspendedDesign';
-
-            const h1 = document.createElement('h1');
-
-            const p = document.createElement('p');
-            p.style.backgroundColor = `${this.pointerColor(config)}`;
-
+            const title = new Title(config.description, 'modalTitle');
+            const taskDesc =  new Paragraph(`${config.state_description}`);
             modal.appendChild(divTitle);
-            divTitle.append(h1, p);
-
-            h1.innerText = config.description;
-            p.innerText = config.state_description;
-
-            console.log(config);
-
+            divTitle.append(title.main(),taskDesc.simpleParagraph());
             modal.appendChild(this.modalRegisterReason(config));
             const modalRegister = new Modal();
             return modalRegister.modalDark({modal:modal});
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+
+    /**
+     * Cria um modelo de card com uma caixa de texto.
+     * @param {Object} config - Configurações para o modelo.
+     * @param {number} config.state_id - ID do estado da tarefa.
+     * @returns {HTMLElement} - Elemento HTML do modelo.
+     */
+    modalRegisterReason(config) {
+        try {
+            const div = document.createElement('div');
+            div.className = 'divModalReason';
+            if(config.state_id == 1 || config.state_id == 2 || config.state_id == 6){
+                div.appendChild(this.textArticleSuspended(config));
+                div.setAttribute('modal-reason', true);
+            } else if(config.state_id == 5) {
+                this.inputFormUnlock(div, config);
+                div.appendChild(this.buttonPut(config));
+            } else {
+                div.appendChild(this.buttonPut(config));
+            }
+            return div;
         } catch (error) {
             console.error(error.message);
         }
@@ -90,53 +103,42 @@ export default class SuspendedTask {
         try{
             const btnSave = new Button();
             const configBtnSave = {...saveButton, onAction: async () => {
-                let connection = new Connection();
-                if(config.state_id == 4 || config.state_id == 3) {
-                    let result = await connection.put({days:null, reason: null, task_id: config.id}, 'GTPP/TaskState.php');
-                    if(!result.error) {
-                        const modal = new Modal();
-                        modal.openModal('Enviado com sucesso!', 'Tarefa desarquivada com sucesso!', document.querySelector("#containerMain section"), 1);
-                    }
-                } else if (config.state_id == 5) {
-                    let result = await connection.put({reason: null, ...this}, 'GTPP/TaskState.php');
-                    if(!result.error) {
-                        const modal = new Modal();
-                        modal.openModal('Enviado com sucesso!', 'Tarefa desarquivada com sucesso!', document.querySelector("#containerMain section"), 1);
-                    }
-                } 
+                await this.stopTask(config);
+                await this.unlockTask(config);
             }};
-        return btnSave.Button(configBtnSave);
+            return btnSave.Button(configBtnSave);
         }catch (error) {
             console.error(error.message);
         }
     }
-
-    /**
-     * Cria um modelo de card com uma caixa de texto.
-     * @param {Object} config - Configurações para o modelo.
-     * @param {number} config.state_id - ID do estado da tarefa.
-     * @returns {HTMLElement} - Elemento HTML do modelo.
-     */
-    modalRegisterReason(config) {
-        try {
-            const div = document.createElement('div');
-            div.className = 'divModalReason';
-            
-            if(config.state_id == 1 || config.state_id == 2 || config.state_id == 6){
-                div.appendChild(this.textArticleSuspended(config));
-                div.setAttribute('modal-reason', true);
-
-            } else if(config.state_id == 5) {
-                this.inputFormBlocked(div, config);
-                div.appendChild(this.buttonPut(config));
-            } else {
-                div.appendChild(this.buttonPut(config));
+    
+    async stopTask(config) {
+        let connection = new Connection();
+        if(config.state_id == 4 || config.state_id == 3) {
+            let result = await connection.put({days:null, reason: null, task_id: config.id}, 'GTPP/TaskState.php');
+            if(!result.error) {
+                let modalTask = document.getElementById('modalTask');
+                const modal = new Modal();
+                this.state_id = result.data[0].id;
+                this.infoChangeItem(config);
+                modal.openModal('Enviado com sucesso!', 'Tarefa desarquivada com sucesso!', document.querySelector("#containerMain section"), 1);
+                modalTask.remove();
             }
-            return div;
-        } catch (error) {
-            console.error(error.message);
         }
     }
+
+   async unlockTask(config) {
+       const connection = new Connection();
+        if (config.state_id == 5) {
+            let result = await connection.put({reason: null, ...this}, 'GTPP/TaskState.php');
+            if(!result.error) {
+                const modal = new Modal();
+                this.state_id = result.data[0].id;
+                this.newChangeForDateTime(config);
+                modal.openModal('Enviado com sucesso!', 'Tarefa desarquivada com sucesso!', document.querySelector("#containerMain section"), 1);
+            }
+        }
+   }
 
     
     /**
@@ -161,7 +163,7 @@ export default class SuspendedTask {
      * @param {HTMLElement} local - Elemento HTML onde o formulário será inserido.
      * @param {Object} config - Configurações para o formulário.
      */
-    inputFormBlocked(local, config) {
+    inputFormUnlock(local, config) {
         try {
             const formObj = new Form();
             suspendedInput.listfields.onChange = value => this.setDays(value, config);
@@ -180,31 +182,63 @@ export default class SuspendedTask {
     textArticleSuspended(config) {
         const div = document.createElement('div');
         const h3 = document.createElement('h3');
-
         h3.innerText = `Deseja mesmo mudar o status para "parado"?`;
-
         const conn = new Connection();
         const textArea = new TextArea({
             text: this.reason, id: 'taskSuspended', onAction: async (text) => {
-               try {
-                let validateInput = document.querySelector('#taskSuspended textarea');
-
-                if(validateInput.value.length > 0) {
-                    const result = await conn.put({days: null, reason: text, task_id: config.id}, 'GTPP/TaskState.php');
-                    if(!result.error) {
-                        let modalTask = document.getElementById('modalTask');
-                        const modal = new Modal();
-                        modal.openModal('Enviado com sucesso!', 'Verifique a caixa de "parado!"', document.querySelector("#containerMain section"), 1);
-                        modalTask.remove();
-                    }
-                }
-               } catch (error) {
-                    console.error(error.message);
-               }
+               await this.updatingChange(config);
             }
         });
-        
         div.append(h3, textArea.TextAreaEnable());
         return div;
     }
+
+    async updatingChange(config) {
+        try {
+            let validateInput = document.querySelector('#taskSuspended textarea');
+            if(validateInput.value.length > 0) {
+                const result = await conn.put({days: null, reason: text, task_id: config.id}, 'GTPP/TaskState.php');
+                if(!result.error) {
+                    let modalTask = document.getElementById('modalTask');
+                    const modal = new Modal();
+                    this.state_id = result.data[0].id;
+                    this.infoChangeItem(config);
+                    modal.openModal('Enviado com sucesso!', 'Verifique a caixa de "parado!"', document.querySelector("#containerMain section"), 1);
+                    modalTask.remove();
+                }
+            }
+           } catch (error) {
+                console.error(error.message);
+           }
+    }
+    // essa função é serve para fazer o desbloqueio das datas e atualizar elas!
+    // newChangeForDateTime(config) {
+    //     this.#ws.informSending({
+    //         user_id: localStorage?.userGTPP,
+    //         object: {
+    //             description: "send",
+    //             new_final_date: this.days,
+    //             task_id: config.id,
+    //             state_id: this.state_id,
+    //             percent: config.percent,
+    //         },
+    //         task_id: config.id,
+    //         type: 6
+    //     });
+    // }
+
+    infoChangeItem(config) {
+        this.#ws.informSending({
+            user_id: localStorage?.userGTPP,
+            object: {
+                description: "send",
+                percent: config.percent,
+                task_id: config.id,
+                state_id: this.state_id,
+            },
+            task_id: config.id,
+            type: 6
+        });
+    }
+
 }

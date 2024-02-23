@@ -8,14 +8,16 @@
  */
 export default class Title {
     #title;
-    constructor(title){
+    #classTitle;
+    constructor(title, classTitle){
 
         this.#title = title;
+        this.#classTitle = classTitle;
     }
     main(){
         const h1 = document.createElement('h1');
         h1.innerText = this.#title;
-        h1.className = 'mainTitle';
+        h1.className = this.#classTitle ? this.#classTitle : 'mainTitle';
         return h1;
     }
 }
