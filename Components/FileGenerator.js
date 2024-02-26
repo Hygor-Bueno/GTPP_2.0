@@ -1,5 +1,5 @@
 import Util from "../Util.js";
-import { TableGenerator } from "./table.js";
+import { TableGenerator } from "./Table.js";
 
 /**
  * Classe CSVGenerator
@@ -50,7 +50,7 @@ const styleTable = `
 export class CSVGenerator {
   /**
    * Construtor da classe CSVGenerator.
-   * @param {Function} getTasks - Função que retorna a lista de tarefas a serem incluídas no CSV.
+   * @param {()=>any} getTasks - Função que retorna a lista de tarefas a serem incluídas no CSV.
    * @param {string} configId - Identificador de configuração para filtrar as tarefas desejadas.
    */
   constructor(getTasks, configId) {
@@ -88,7 +88,7 @@ export class CSVGenerator {
   /**
    * Método convertToCSV
    * Converte os dados fornecidos em formato JSON para uma string CSV.
-   * @param {Array} data - Array de objetos contendo os dados a serem convertidos.
+   * @param {string[] | number[] | any[]} data - Array de objetos contendo os dados a serem convertidos.
    * @returns {string} - String CSV gerada a partir dos dados.
    */
   convertToCSV(data) {
@@ -183,7 +183,7 @@ export class PDFGenerator {
 
   /**
    * Configura o conteúdo do documento PDF com base nos dados fornecidos.
-   * @param {Array} data - Dados a serem incluídos no documento PDF.
+   * @param {string[] | number[] | any[]} data - Dados a serem incluídos no documento PDF.
    * @param {string} configId - Identificador de configuração para filtrar os dados desejados.
    * @memberOf TableGenerator
    * @function Table

@@ -60,7 +60,6 @@ export default class Form {
         try {
             //Configurações do fieldset
             const fieldset = document.createElement('fieldset');
-
             //Adicação dos filhos.
             fieldset.appendChild(this.divSubContainer(this.label(configs), this.input(configs), configs));
             return fieldset;

@@ -16,20 +16,8 @@
 }
 
 * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--pegpeseGreenColor) var(--primaryColor);
+    scrollbar-color: var(--pegpeseGreenColor) var(--scrollColor);
 }
-  
-*::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-}
- 
-*::-webkit-scrollbar-thumb {
-    background-color: var(--pegpeseGreenColor);
-    border-radius: 25px;
-    /* border: 2px solid #fff; */
-} 
 
 fieldset {
     border: none;

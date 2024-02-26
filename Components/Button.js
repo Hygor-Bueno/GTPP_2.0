@@ -40,15 +40,11 @@ export default class Button{
 
     
     /**
-     * Description placeholder
-     * @date 2/5/2024 - 12:29:57 PM
-     * @author Jonatas silva
-     *
-     * @param {object} local
-     * @param {string} id
-     * @param {function} onPDF
-     * @param {function} onCSV
-     * @param {function} reloadTaskList
+     * @param {HTMLButtonElement} local
+     * @param {number} id
+     * @param {()=>void} reloadTaskList
+     * @param {()=>void} onPDF
+     * @param {()=>void} onCSV
      */
     configButton(local, id, onPDF, onCSV, reloadTaskList) {
         try {

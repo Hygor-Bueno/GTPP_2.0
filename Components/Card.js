@@ -6,7 +6,6 @@ import { SVGImageArchived} from "../Configuration/ImagesSVG.js";
 import SuspendedTask from "../Class/SuspendedTask.js";
 import CardTools from "../Class/Cardtools.js";
 import SimpleTask from "../Class/SimpleTask.js";
-import Util from "../Util.js";
 
 /**
  * Classe que representa um cartão de tarefa.
@@ -37,13 +36,9 @@ export default class Card extends CardTools {
 
   /**
    * Cria um cartão de tarefa.
-   * @param {Object} configs Configurações do cartão.
-   * @param {number} configs.id ID do cartão.
-   * @param {boolean} configs.view Visualização do cartão.
-   * @param {string} configs.label Rótulo do cartão.
-   * @param {Array} tasks Lista de tarefas do cartão.
-   * @param {Array} listTaskState Lista de estados da tarefa.
-   * @returns {HTMLElement} Elemento HTML do cartão.
+   * @param {{id:number;view:boolean;label:string;}} configs Configurações do cartão.
+   * @param {string[]} tasks Lista de tarefas do cartão.
+   * @param {string[]} listTaskState Lista de estados da tarefa.
    */
   async createCard(configs, tasks, listTaskState) {
     try {
@@ -53,7 +48,6 @@ export default class Card extends CardTools {
       const cardDiv = document.createElement('div');
       cardDiv.className = 'card';
       cardDiv.style.display = configs.view ? 'block' : 'none';
-      cardDiv.setAttribute('state', Util.removeStringAndUnderline(configs.id));
       if (configs?.id) cardDiv.id = configs.id;
       const inputCheckbox = this.createButtonHamburger(configs.id);
       cardDiv.appendChild(this.getSubDivCard(configs, inputCheckbox));
@@ -69,9 +63,9 @@ export default class Card extends CardTools {
   }
 
   /**
-   * @description Aqui vamos exibir nossas tarefas 
-   * @param {*} config 
-   * @param {*} local 
+   * @description Aqui vamos exibir nossas tarefas
+   * @param {{id:number;}} config 
+   * @param {Object} local 
    */
   async showTask(config, local) {
     for (let i = 0; i < this.getTasks.length; i++) {
@@ -82,9 +76,8 @@ export default class Card extends CardTools {
 
   /**
    * Cria um sub-div do cartão.
-   * @param {Object} configs Configurações do cartão.
+   * @param {{label:string;}} configs Configurações do cartão.
    * @param {string} inputCheckbox Checkbox do cartão.
-   * @returns {HTMLElement} Sub-div do cartão.
    */
   getSubDivCard(configs, inputCheckbox) {
     try {
@@ -98,7 +91,7 @@ export default class Card extends CardTools {
 
   /**
    * Cria um elemento de descrição e prioridade da tarefa.
-   * @param {[{id;description;percent;state_description;state_id;priority;users;expire;csds;user_id;initial_date;final_date;}]} taskData - Dados da tarefa.
+   * @param {{id:number;}} config - Dados da tarefa.
    * @returns {HTMLElement} - Elemento HTML da descrição e prioridade.
    */
   async createTaskElement(config) {
@@ -108,7 +101,7 @@ export default class Card extends CardTools {
       taskElement.className = 'task';
       subBoxTaskElement.className = 'subTask';
       taskElement.dataset.taskid = config.id;
-      taskElement.append(this.createElementDescriptionAndPriority(config), subBoxTaskElement);
+      taskElement.append(this.createElementDetails(config), subBoxTaskElement);
       subBoxTaskElement.append(this.createdPercentTask(config), this.createTaskElementPriority(config), await this.createdUserElement(config))
       return taskElement;
     } catch (error) {
@@ -118,10 +111,10 @@ export default class Card extends CardTools {
 
   /**
    * Cria um elemento de descrição e prioridade da tarefa.
-   * @param {[{id;description;percent;state_description;state_id;priority;users;expire;csds;user_id;initial_date;final_date;}]} taskData - Dados da tarefa.
-   * @returns {HTMLElement} - Elemento HTML da descrição e prioridade.
+   * @param {{description:string;initial_date:string;final_date:string;}} taskData
+   * @return {HTMLDivElement}
    */
-  createElementDescriptionAndPriority(taskData) {
+  createElementDetails(taskData) {
     try {
       const taskElement = document.createElement('div');
       taskElement.className = 'task-desc-priority';
@@ -142,8 +135,7 @@ export default class Card extends CardTools {
 
   /**
    * Cria um elemento de data inicial e final da tarefa.
-   * @param {Object} config - Dados da data da tarefa.
-   * @returns {HTMLElement} - Elemento HTML da data da tarefa.
+   * @param {{final_date:string;initial_date:string}} config - Dados da data da tarefa.
    */
   createElementDate(config) {
     try {
@@ -159,7 +151,6 @@ export default class Card extends CardTools {
   /**
    * Cria um elemento de data inicial da tarefa.
    * @param {string} initialDate - Data inicial da tarefa.
-   * @returns {HTMLElement} - Elemento HTML da data inicial da tarefa.
    */
   getDateInit(initialDate) {
     try {
@@ -168,8 +159,7 @@ export default class Card extends CardTools {
       label.innerText = 'Data inicial';
       const span = document.createElement('span');
       span.innerText = `${initialDate.split('-').reverse().join('/')}`;
-      divDt.appendChild(label);
-      divDt.appendChild(span);
+      divDt.append(label, span);
       return divDt;
     } catch (error) {
       console.error(error.message);
@@ -179,15 +169,14 @@ export default class Card extends CardTools {
   /**
    * Cria um elemento de data final da tarefa.
    * @param {string} finalDate - Data final da tarefa.
-   * @returns {HTMLElement} - Elemento HTML da data final da tarefa.
    */
-  getDateFinal(initialDate) {
+  getDateFinal(finalDate) {
     try {
       const div = document.createElement('div');
       const label = document.createElement('label');
       label.innerText = 'Data final';
       const span = document.createElement('span');
-      span.innerText = `${initialDate.split('-').reverse().join('/')}`;
+      span.innerText = `${finalDate.split('-').reverse().join('/')}`;
       div.append(label, span);
       return div;
     } catch (error) {
@@ -197,13 +186,12 @@ export default class Card extends CardTools {
 
   /**
    * cria a data inicial e final.
-   * @date 2/15/2024 - 4:46:25 PM
-   * @param {HTMLDivElement} data -ele vai retornar uma lista
+   * @param {{final_date:string;initial_date:string}} config - ele vai retornar uma lista
    */
-  createElementInicialDateAndFinalDate(data) {
+  createElementInicialDateAndFinalDate(config) {
     try {
       const taskElementDate = document.createElement('div');
-      taskElementDate.appendChild(this.createElementDate(data));
+      taskElementDate.appendChild(this.createElementDate(config));
       taskElementDate.className = 'task-date';
       return taskElementDate;
     } catch (error) {
@@ -213,8 +201,8 @@ export default class Card extends CardTools {
 
   /**
    * Cria um elemento de prioridade da tarefa.
-   * @param {Object} config - Dados da prioridade da tarefa.
-   * @returns {HTMLElement} - Elemento HTML da prioridade da tarefa.
+   * @param {{priority:number}} config - Dados da prioridade da tarefa.
+   * @returns {HTMLElement} Elemento HTML da prioridade da tarefa.
    */
   createTaskElementPriority(config) {
     try {
@@ -229,14 +217,14 @@ export default class Card extends CardTools {
 
   /**
    * Cria um elemento de colaborador da tarefa.
-   * @param {Object} local - Dados do colaborador da tarefa.
-   * @returns {HTMLElement} - Elemento HTML do colaborador da tarefa.
+   * @async
+   * @param {{users:number;}} numberCollaboration - Dados do colaborador da tarefa.
    */
-  async createdUserElement(config) {
+  async createdUserElement(numberCollaboration) {
     try {
       const taskElementPriority = document.createElement('div');
       taskElementPriority.className = 'task-priority';
-      taskElementPriority.appendChild(await this.getUserImage(config));
+      taskElementPriority.appendChild(await this.getUserImage(numberCollaboration.users));
       return taskElementPriority;
     } catch (error) {
       console.error(error.message);
@@ -245,8 +233,7 @@ export default class Card extends CardTools {
 
   /**
    * Cria um elemento de descrição da tarefa.
-   * @param {Object} config - Dados da tarefa.
-   * @returns {HTMLElement} - Elemento HTML da descrição da tarefa.
+   * @param {{description:string;}} config
    */
   createTaskElementDescription(config) {
     try {
@@ -266,7 +253,7 @@ export default class Card extends CardTools {
   /**
    * Visualiza componentes de botão.
    * nessa função tem um controle em quais componentes vão ter um botão os primeiros é o que vao ter o componente para ser controlados.
-   * @param {Object} config - Configurações do botão.
+   * @param {{state_id:number;}} config - Configurações do botão.
    * @param {HTMLElement} localElement - Elemento HTML local onde o botão será inserido.
    */
   visualComponentsButton(config, localElement) {

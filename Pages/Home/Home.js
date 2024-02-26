@@ -70,13 +70,17 @@ export default class Home {
     }
 
     renderCards(list, getTask, listTaskState) {
-        const div = document.createElement('div');
-        list.pop();
-        list.forEach(async(item) => {
-            const card = new Card(this.#web);
-            div.appendChild(await card.createCard({ id: `task_state_${item.id}`, label: item.description, view: item.view }, getTask, listTaskState))
-        });
-        return div;
+        try {
+            const div = document.createElement('div');
+            list.pop();
+            list.forEach(async(item) => {
+                const card = new Card(this.#web);
+                div.appendChild(await card.createCard({ id: `task_state_${item.id}`, label: item.description, view: item.view }, getTask, listTaskState))
+            });
+            return div;
+        } catch (error) {
+            console.log(error.message);
+        }
     }
     controllerStateTask() {
         try {

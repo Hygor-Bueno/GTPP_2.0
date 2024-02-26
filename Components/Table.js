@@ -7,20 +7,32 @@ export class TableGenerator {
 
 
     /**
-     * cabeçalho da tabela
-     * @date 2/17/2024 - 10:34:01 AM
-     *
-     * @static
-     * @param {*} local - é aonde vai receber as linhas
+     * @param {string} config - é aonde vai receber as linhas
+     * @return {HTMLTableElement}
      */
-    static Thead(local) {
+    static Thead(config) {
         try {
             const thead = document.createElement("thead");
-            thead.appendChild(local);
+            thead.appendChild(config);
             return thead;
         } catch(e) {
             console.error(e.error);
         }
+    }
+
+    /**
+     * @return {HTMLTableElement}
+     */
+    static Table() {
+      try {
+        const table = document.createElement("table");
+        const thead = document.createElement("thead");
+        const tbody = document.createElement("tbody");
+        table.append(thead, tbody);
+        return table;
+      } catch(e) {
+        console.error(e.message);
+      }
     }
     
     // static Tbody(local) {

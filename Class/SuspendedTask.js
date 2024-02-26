@@ -21,7 +21,8 @@ export default class SuspendedTask {
 
     /**
      * Cria uma nova instância de SuspendedTask.
-     * @param {Array} colorsBD - Cores do banco de dados.
+     * @param {string[]} colorsBD Cores principais que vem do banco de dados.
+     * @param {string} ws websocket.
      */
     constructor(colorsBD, ws) {
         this.bdColor = colorsBD;
@@ -30,11 +31,7 @@ export default class SuspendedTask {
 
     /**
      * Cria um modal para tarefa suspensa.
-     * @param {Object} config - Configurações para o modal.
-     * @param {number} config.state_id - ID do estado da tarefa.
-     * @param {string} config.description - Descrição da tarefa.
-     * @param {string} config.state_description - Descrição do estado da tarefa.
-     * @returns {HTMLElement} - Elemento HTML do modal.
+     * @param {{state_id:number;description:string;state_description:string;}} config - Configurações para o modal.
      */
     suspended(config) {
         try {
@@ -57,9 +54,7 @@ export default class SuspendedTask {
 
     /**
      * Cria um modelo de card com uma caixa de texto.
-     * @param {Object} config - Configurações para o modelo.
-     * @param {number} config.state_id - ID do estado da tarefa.
-     * @returns {HTMLElement} - Elemento HTML do modelo.
+     * @param {{state_id:number;}} config - Configurações para o modelo.
      */
     modalRegisterReason(config) {
         try {
@@ -81,23 +76,8 @@ export default class SuspendedTask {
     }
 
     /**
-     * Seleciona a cor com base no estado da tarefa.
-     * @param {Object} config - Configurações para a cor.
-     * @param {number} config.state_id - ID do estado da tarefa.
-     * @param {string} config.color - Cor da tarefa.
-     * @returns {string} - Cor selecionada.
-     */
-    pointerColor(config) {
-        if (config.state_id == 1) return `#${this.bdColor[0].color}`;
-        if (config.state_id == 2) return `#${this.bdColor[1].color}`;
-    }
-
-    /**
      * Cria um botão para atualizar o estado da tarefa.
-     * @param {Object} config - Configurações para o botão.
-     * @param {number} config.state_id - ID do estado da tarefa.
-     * @param {number} config.id - ID da tarefa.
-     * @returns {HTMLElement} - Elemento HTML do botão.
+     * @param {string[] | number[] | any[]} config
      */
     buttonPut(config) {
         try{
@@ -112,6 +92,13 @@ export default class SuspendedTask {
         }
     }
     
+    
+    /**
+     * 
+     * @description faz o arquivamento da tarefa.
+     * @async
+     * @param {{id:number;state_id:number;}} config
+     */
     async stopTask(config) {
         let connection = new Connection();
         if(config.state_id == 4 || config.state_id == 3) {
@@ -127,6 +114,12 @@ export default class SuspendedTask {
         }
     }
 
+    
+   /**
+    * @description faz o desbloqueio da tarefa.
+    * @async
+    * @param {{state_id:number}} config
+    */
    async unlockTask(config) {
        const connection = new Connection();
         if (config.state_id == 5) {
@@ -145,7 +138,6 @@ export default class SuspendedTask {
      * Define o número de dias para a tarefa.
      * @param {string} days - Número de dias.
      * @param {Object} config - Configurações para os dias.
-     * @param {string} config.id - ID da tarefa.
      */
     setDays(days, config) {
        try {
@@ -174,18 +166,15 @@ export default class SuspendedTask {
     }
 
     /**
-     * Cria uma área de texto para a tarefa suspensa.
-     * @param {Object} config - Configurações para a área de texto.
-     * @param {string} config.id - ID da tarefa.
-     * @returns {HTMLElement} - Elemento HTML da área de texto.
+     * Método responsável por criar uma textarea que inicia desabilitada para edição e que possúi componentes para controle dela. 
+     * @param {{id:number;percent:number;}} config
      */
     textArticleSuspended(config) {
         const div = document.createElement('div');
         const h3 = document.createElement('h3');
         h3.innerText = `Deseja mesmo mudar o status para "parado"?`;
-        const conn = new Connection();
         const textArea = new TextArea({
-            text: this.reason, id: 'taskSuspended', onAction: async (text) => {
+            text: this.reason, id: 'taskSuspended', onAction: async () => {
                await this.updatingChange(config);
             }
         });
@@ -193,6 +182,10 @@ export default class SuspendedTask {
         return div;
     }
 
+    /**
+     * faz a atualização para arquivado.
+     * @param {{id:number;percent:number;}} config
+     */
     async updatingChange(config) {
         try {
             let validateInput = document.querySelector('#taskSuspended textarea');
@@ -228,6 +221,10 @@ export default class SuspendedTask {
     //     });
     // }
 
+    /**
+     * Abrindo uma sessão de comunicação interativa com o servidor.
+     * @param {{id:number;percent:number;}} config
+     */
     infoChangeItem(config) {
         this.#ws.informSending({
             user_id: localStorage?.userGTPP,

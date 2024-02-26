@@ -107,12 +107,12 @@ input[type=checkbox]:checked + label {
 
   .bottom-bar {
       transform: rotate(-45deg);
-      transform-origin: 5px 0px;
+      transform-origin: 5px -1px;
   }
 
   @media screen and (min-width: 767px) {
     .bottom-bar {
-      transform-origin: 10% -74%;
+      transform-origin: 3px -1px;
   }
   }
 
@@ -186,10 +186,6 @@ width: var(--imageSizeP);
   width: 20%;
   flex-direction: column-reverse;
   flex: none;
-
-  p {
-    font-size: calc(2 / var(--textSize));
-  }
 }
 
 .task-desc-priority {

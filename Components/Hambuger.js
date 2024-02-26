@@ -2,17 +2,18 @@ import { inputHamburgerModal, inputLabelHamburgerModal } from "../Configuration/
 import Form from "./Form.js";
 
 /**
- * 
- * @date 2/15/2024 - 9:48:38 AM
- *
- * @export
+ * @date 2/15/2024 - 9:48:38
  * @class HamburgerX
- * @param {String} id - id do seu hamburger
- * @param {String} onClick - função que voce pode faze alguma regra de esse botão quando é clicado!
- * @typedef {HamburgerX}
+ * @author Jonatas Silva
  */
 export class HamburgerX {
-    /**Componente hamburger em forma de "X" quando é clicado */
+    
+    /**
+     * @description Retorna um elemento do tipo botão em formato de "X" quando é clicado!
+     * @param {number} id
+     * @param {()=>void} onClick
+     * @returns {HTMLButtonElement}
+     */
     createButton(id, onClick) {
         try {
             const fatherNav = document.createElement('nav');

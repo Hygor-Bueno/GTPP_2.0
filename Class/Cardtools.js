@@ -9,17 +9,16 @@ export default class CardTools {
 
   /**
    * Obtém a imagem e a colaboração do usuário.
-   * @param {Object} config - Dados do usuário.
-   * @returns {HTMLElement} - Imagem e colaboração do usuário.
+   * @param {number} numberCollaboration Dados do usuário.
    */
-  async getUserImage(config) {
+  async getUserImage(numberCollaboration) {
     const qtdUser = document.createElement('div');
     try {
       const svg = new SVG();
       qtdUser.className = 'qtd-user';
       const p = document.createElement('p');
       p.className = 'text';
-      p.innerHTML = `${config.users ? config.users : 0}`;
+      p.innerHTML = `${numberCollaboration ? numberCollaboration : 0}`;
       qtdUser.append(p, svg.createSvg(SVGImageUser));
     } catch (error) {
       console.error(error.message);
@@ -45,8 +44,7 @@ export default class CardTools {
 
   /**
    * Cria um elemento de porcentagem de conclusão da tarefa.
-   * @param {Object} config Dados da tarefa.
-   * @returns {HTMLElement} Elemento HTML da porcentagem de conclusão da tarefa.
+   * @param {{percent:number;id:number;}} config Dados da tarefa.
    */
   createdPercentTask(config) {
     try {
@@ -94,7 +92,6 @@ export default class CardTools {
   /**
    * Cria um menu para o cartão.
    * @param {string} id - ID do cartão.
-   * @returns {HTMLElement} - Menu do cartão.
    */
   createMenu(id) {
     try {

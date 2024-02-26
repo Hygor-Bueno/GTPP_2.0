@@ -39,6 +39,7 @@
     --successColor: #28A745;
     --primaryColor: #FFFF;
     --simplecardColor: #f2f2f2f2;
+    --scrollColor: #f1f1f1;
 
     /*Imagens*/
     --imageSizeP: clamp(1.33vmin,4.8vmin,21.33px);
