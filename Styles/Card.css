@@ -107,12 +107,12 @@ input[type=checkbox]:checked + label {
 
   .bottom-bar {
       transform: rotate(-45deg);
-      transform-origin: 5px -1px;
+      transform-origin: 5px 0px;
   }
 
   @media screen and (min-width: 767px) {
     .bottom-bar {
-      transform-origin: 3px -1px;
+      transform-origin: 4px 0;
   }
   }
 
@@ -261,53 +261,6 @@ flex-direction: column;
   }
 }
 
-div[todo], div[doing], div[analysis], div[stopped], div[blocked], div[done] {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-bottom: var(--spaceDefault);
-
-  P {
-    padding: 0 var(--spaceDefault);
-    border-radius: var(--borderRadius);
-    color: var(--primaryColor);
-  }
-}
-
-div {
-  &[todo] {
-    p {
-      background-color: var(--infoColor);
-    }
-  }
-  &[doing] {
-   p {
-    background-color: var(--warningColor);
-   }
-  }
-  &[analysis] {
-    p {
-      background-color: #8000ff;
-    }
-  }
-  &[stopped] {
-    p {
-      background-color: var(--dangerColor);
-    }
-  }
-  &[blocked] {
-    p {
-      background-color: #848484;
-    }
-  }
-  &[done] {
-    p{
-      background-color: var(--successColor);
-    }
-  }
-}
-
 .text {
 position: absolute;
 left: 73%;
@@ -315,8 +268,8 @@ top: -17%;
 background-color: #00000097;
 color: #FFF;
 border-radius: var(--borderRadius);
-font-size: 12px;
-padding: 3px;
+font-size: var(--textSize);
+padding: var(--spaceDefaultPPP);
 }
 
 .qtd-user {

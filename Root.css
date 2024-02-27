@@ -25,6 +25,7 @@
     --labelColor:#757575;
 
     /*Outras formatações.*/
+    --spaceDefaultPPP:clamp(1px, 1vmin, 3px);
     --spaceDefaultPP:clamp(1px, 1vmin, 5px);
     --spaceDefaultP:clamp(1px, 1.5vmin, 7.5px);
     --spaceDefault:clamp(1px, 2vmin, 10px);

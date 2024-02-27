@@ -83,18 +83,24 @@ export default class SimpleTask {
             modal.setAttribute('modal-tasks', true);
             modal.className = 'modal-register';
             const btnSave = new Button();
-            const configBtnSave = {...saveButton, onAction: async () => {
-                let connection = new Connection();
-                let result = await connection.post(this, 'GTPP/Task.php');
-                await this.modalLauncher(result, taskList, local, funcAss);
-            }};
+            
             this.inputsForm(modal);
-            modal.appendChild(btnSave.Button(configBtnSave));
+            modal.appendChild(btnSave.Button(this.btnRegister(taskList, local, funcAss)));
             const modalRegister = new Modal();
             return modalRegister.modalDark({modal:modal});
         } catch(e) {
             console.error(e);
         }
+    }
+
+    btnRegister(taskList, local, funcAss){
+        const configBtnSave = {...saveButton, onAction: async () => {
+            let connection = new Connection();
+            let result = await connection.post(this, 'GTPP/Task.php');
+            await this.modalLauncher(result, taskList, local, funcAss);
+        }};
+
+        return configBtnSave;
     }
     
     /**

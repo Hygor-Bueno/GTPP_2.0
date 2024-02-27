@@ -21,7 +21,6 @@ export default class Containers {
             const container = document.createElement('div');
             if (configs && configs.id) container.id = configs.id;
             if (configs && configs.class) container.className = configs.class;
-            
             container.appendChild(configs.element);
             return container;
         } catch (error) {

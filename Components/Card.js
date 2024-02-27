@@ -233,17 +233,17 @@ export default class Card extends CardTools {
 
   /**
    * Cria um elemento de descrição da tarefa.
-   * @param {{description:string;}} config
+   * @param {{description:string;initial_date:string;final_date:string;}} taskData
    */
-  createTaskElementDescription(config) {
+  createTaskElementDescription(taskData) {
     try {
       const tasksElementDescription = document.createElement('div');
       const htmlBold = document.createElement('b');
       tasksElementDescription.className = 'task-description';
-      tasksElementDescription.title = config.description;
-      htmlBold.innerText = config.description || '';
+      tasksElementDescription.title = taskData.description;
+      htmlBold.innerText = taskData.description || '';
       tasksElementDescription.appendChild(htmlBold);
-      this.visualComponentsButton(config, tasksElementDescription);   
+      this.visualComponentsButton(taskData, tasksElementDescription);   
       return tasksElementDescription;
     } catch (error) {
       console.error(error.message);
