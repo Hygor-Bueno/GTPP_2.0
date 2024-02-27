@@ -102,7 +102,7 @@ export default class Card extends CardTools {
       subBoxTaskElement.className = 'subTask';
       taskElement.dataset.taskid = config.id;
       taskElement.append(this.createElementDetails(config), subBoxTaskElement);
-      subBoxTaskElement.append(this.createdPercentTask(config), this.createTaskElementPriority(config), await this.createdUserElement(config))
+      subBoxTaskElement.append(this.createdPercentTask(config), this.createTaskElementPriority(config), await this.createdUserElement(config));
       return taskElement;
     } catch (error) {
       console.error(error.message);
