@@ -138,7 +138,7 @@ export class CSVGenerator {
 export class PDFGenerator {
   /**
    * Construtor da classe PDFGenerator.
-   * @param {Array} data - Dados a serem incluídos no documento PDF.
+   * @param {string[]} data - Dados a serem incluídos no documento PDF.
    * @param {string} configId - Identificador de configuração para filtrar os dados desejados.
    */
   constructor(data, configId) {

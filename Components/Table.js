@@ -47,7 +47,7 @@ export class TableGenerator {
   
     /**
      * Método para criar um elemento 'tr' para o cabeçalho da tabela.
-     * @param {Array} headers Array contendo os cabeçalhos da tabela.
+     * @param {string[]} headers Array contendo os cabeçalhos da tabela.
      * @returns {HTMLTableRowElement} Elemento 'tr' do cabeçalho da tabela.
      */
     static createHeaderRow(headers) {
@@ -67,8 +67,8 @@ export class TableGenerator {
     /**
      * Método para preencher o corpo da tabela com os dados fornecidos.
      * @param {HTMLTableSectionElement} tbody - Elemento 'tbody' da tabela.
-     * @param {Array} attributes - Array contendo os atributos dos dados.
-     * @param {Array} data - Dados a serem incluídos na tabela.
+     * @param {string[]} attributes - Array contendo os atributos dos dados.
+     * @param {string[]} data - Dados a serem incluídos na tabela.
      * @param {string} configId - Identificador de configuração para filtrar os dados desejados.
      */
     static fillTableBody(tbody, attributes, data, teste, configId) {

@@ -15,7 +15,7 @@ export default class ProgressBar {
      * @author Hygor Bueno
      *
      * @constructor
-     * @param {Array} tasks Array de tarefas com propriedades 'id' e 'check'
+     * @param {string[]} tasks Array de tarefas com propriedades 'id' e 'check'
      */
     constructor(tasks) {
         this.tasks = tasks;

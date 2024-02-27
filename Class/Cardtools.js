@@ -29,7 +29,7 @@ export default class CardTools {
   /**
    * faz a criação de uma imagem SVG com de acordo com o nivel de prioridade.
    * @param {number} priority - Prioridade da tarefa.
-   * @returns {HTMLElement} - Texto ou imagem da prioridade.
+   * @returns {SVGElement}
    */
   getPriorityTextOrImage(priority) {
     try {
@@ -64,14 +64,14 @@ export default class CardTools {
   /**
    * Cria um botão Hamburger para o cartão.
    * @param {string} id - ID do cartão.
-   * @returns {HTMLElement} - Botão Hamburger do cartão.
+   * @returns {HTMLButtonElement}
    */
   createButtonHamburger(id) {
     try {  
       const hamburger = new HamburgerX();
       return hamburger.createButton(id, (e) => this.handleList(e, id));
     } catch (error) {
-      console.error(error.message);s
+      console.error(error.message);
     }
   }
 
@@ -142,7 +142,8 @@ export default class CardTools {
     }
 
     /**
-    * Função que gera uma página em branco que traz os dados da tarefa e pode ser impressa ou salva em PDF.
+    * Gerador de pdf
+    * @return {void}
     */
     onPDF() {
       try {
@@ -155,7 +156,8 @@ export default class CardTools {
     }
   
     /**
-     * Função que gera um arquivo CSV e faz o download para ser utilizado e importado em qualquer lugar.
+     * Gerador de CSV
+     * @return {void}
      */
     onCSV() {
       try {

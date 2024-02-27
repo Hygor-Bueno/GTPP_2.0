@@ -100,7 +100,7 @@ export default class SimpleTask {
     /**
      * Abre o modal após o registro da tarefa.
      * @param {Object} result - Resultado do registro da tarefa.
-     * @param {Array} taskList - Lista de tarefas.
+     * @param {string[]} taskList - Lista de tarefas.
      * @param {HTMLElement} local - Elemento HTML onde o modal está localizado.
      * @param {()=>any} funcAss - Função de assistência.
      * @returns {void}
