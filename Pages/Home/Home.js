@@ -75,7 +75,7 @@ export default class Home {
             list.pop();
             list.forEach(async(item) => {
                 const card = new Card(this.#web);
-                div.appendChild(await card.createCard({ id: `task_state_${item.id}`, label: item.description, view: item.view }, getTask, listTaskState))
+                div.appendChild(await card.createCard({ id: item.id, label: item.description, view: item.view }, getTask, listTaskState))
             });
             return div;
         } catch (error) {

@@ -35,6 +35,17 @@ export default class SimpleTask {
         console.log(this);
     }
 
+     /**
+     * Define a prioridade da tarefa.
+     * @param {string} priority - Nova prioridade da tarefa.
+     * @example
+     * task.setPriority('Alta');
+     */
+     setPriority(priority) {
+        this.priority = priority;
+        console.log(this);
+    }
+
     /**
      * Define a data de início da tarefa.
      * @param {string} initial_date - Nova data de início da tarefa.
@@ -58,21 +69,10 @@ export default class SimpleTask {
     }
 
     /**
-     * Define a prioridade da tarefa.
-     * @param {string} priority - Nova prioridade da tarefa.
-     * @example
-     * task.setPriority('Alta');
-     */
-    setPriority(priority) {
-        this.priority = priority;
-        console.log(this);
-    }
-
-    /**
      * Registra a tarefa usando um modal.
-     * @param {Array} taskList - Lista de tarefas.
+     * @param {any[]} taskList - Lista de tarefas.
      * @param {HTMLElement} local - Elemento HTML onde o modal será inserido.
-     * @param {Function} funcAss - Função de assistência.
+     * @param {()=>any} funcAss - Função de assistência.
      * @returns {HTMLElement} - Elemento HTML do modal.
      * @example
      * const modalElement = task.registerModal(taskList, document.getElementById('modalContainer'), assistFunction);
@@ -102,7 +102,7 @@ export default class SimpleTask {
      * @param {Object} result - Resultado do registro da tarefa.
      * @param {Array} taskList - Lista de tarefas.
      * @param {HTMLElement} local - Elemento HTML onde o modal está localizado.
-     * @param {Function} funcAss - Função de assistência.
+     * @param {()=>any} funcAss - Função de assistência.
      * @returns {void}
      * @async
      */
@@ -136,9 +136,9 @@ export default class SimpleTask {
      */
     inputsForm(local) {
         const formObj = new Form();
-        registerInputs.listfields.forEach((field, i) => {
-            field.onChange = value => {
-                switch (i) {
+        registerInputs.listfields.forEach((field, index) => {
+            field.onChange = (value) => {
+                switch (index) {
                     case 0: this.setDescription(value); break;
                     case 1: this.setPriority(value); break;
                     case 2: this.setInitialDate(value); break;
@@ -146,9 +146,8 @@ export default class SimpleTask {
                     default: console.log('Erro: é necessário enviar uma nova função!');
                 }
             };
+
         });
         local.appendChild(formObj.ContainerForm(registerInputs));
     }
-
-    
 }

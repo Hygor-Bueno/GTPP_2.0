@@ -52,7 +52,7 @@ export default class CardTools {
       const percentDiv = document.createElement('p');
       percentDiv.id = `percent_task_${config.id}`;
       percentDiv.className = 'percent';
-      percentDiv.innerText = `${config.percent}%`;
+      percentDiv.innerText = `${config.percent == undefined ? 0 : config.percent}%`;
       taskElementPriority.className = 'task-priority';
       taskElementPriority.appendChild(percentDiv);
       return taskElementPriority;
@@ -77,12 +77,12 @@ export default class CardTools {
 
   /**
    * Manipula a lista do cartão.
-   * @param {Event} e - Evento de clique.
+   * @param {Event} event - Evento de clique.
    * @param {string} id - ID do cartão.
    */
   handleList(event, id) {
     try {
-      const cardReturn = document.getElementById(id);
+      const cardReturn = document.getElementById(`task_state_${id}`);
       event.target.checked ? cardReturn.appendChild(this.createMenu(id)) : this.closeConfigCard(id);
     } catch (error) {
       console.error(error.message);
@@ -101,7 +101,7 @@ export default class CardTools {
       const cardMenu = document.createElement('div');
       cardMenu.className = 'menu';
       fatherMenu.appendChild(cardMenu);
-      button.configButton(cardMenu, id, () => this.onPDF() , () => this.onCSV(), () => this.reloadTaskList(id));
+     button.configButton(cardMenu, `task_state_${id}`, () => this.onPDF() , () => this.onCSV(), () => this.reloadTaskList(id));
       return fatherMenu;
     } catch (error) {
       console.error(error.message);
@@ -114,7 +114,7 @@ export default class CardTools {
    */
   closeConfigCard(id) {
     try {
-      const menuReturn = document.querySelector(`#${id} .fatherMenu`);
+      const menuReturn = document.querySelector(`#task_state_${id} .fatherMenu`);
       if (menuReturn) {
         menuReturn.remove();
       }

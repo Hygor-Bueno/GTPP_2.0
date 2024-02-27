@@ -12,14 +12,14 @@ import SimpleTask from "../Class/SimpleTask.js";
  */
 export default class Card extends CardTools {
   /**
-   * Lista das informações necessarias para carregar um card novo.
-   * @type {[{id;description;percent;state_description;state_id;priority;users;expire;csds;user_id;initial_date;final_date;}]}
+   * @description Lista das informações necessarias para carregar um card novo.
+   * @type {[{id:number;description:string;percent:number;state_description:string;state_id:number;priority:string;users:number;expire:string;csds:[];user_id:number;initial_date:string;final_date:string;}]}
    */
   taskList = [];
   
   /**
    * Pegando todos os simples cards para aparecerem na tela.
-   * @type {[{id;description;percent;state_description;state_id;priority;users;expire;csds;user_id;initial_date;final_date}]}
+   * @type {[{id:number;description:string;percent:number;state_description:string;state_id:number;priority:string;users:number;expire:string;csds:[];user_id:number;initial_date:string;final_date:string;}]}
    */
   getTasks = [];
   colorBD = [];
@@ -43,12 +43,12 @@ export default class Card extends CardTools {
   async createCard(configs, tasks, listTaskState) {
     try {
       this.colorBD = listTaskState;
-      this.getConfigId = configs.id;
+      this.getConfigId = `task_state_${configs.id}`;
       this.getTasks = tasks;
       const cardDiv = document.createElement('div');
       cardDiv.className = 'card';
       cardDiv.style.display = configs.view ? 'block' : 'none';
-      if (configs?.id) cardDiv.id = configs.id;
+      if (configs?.id) cardDiv.id = `task_state_${configs.id}`;
       const inputCheckbox = this.createButtonHamburger(configs.id);
       cardDiv.appendChild(this.getSubDivCard(configs, inputCheckbox));
       const taskDiv = document.createElement('div');
@@ -70,7 +70,7 @@ export default class Card extends CardTools {
   async showTask(config, local) {
     for (let i = 0; i < this.getTasks.length; i++) {
       const taskElement = await this.createTaskElement(this.getTasks[i]);
-      if (config.id === `task_state_${this.getTasks[i].state_id}`) local.appendChild(taskElement);
+      if (config.id === this.getTasks[i].state_id) local.appendChild(taskElement);
     }
   }
 
@@ -277,11 +277,11 @@ export default class Card extends CardTools {
    */
   reloadTaskList (id) {
     try {
-      const isList = document.querySelector(`#${id} ul`);
+      const isList = document.querySelector(`#task_state_${id} ul`);
       if (isList) {
         isList.remove();
       }
-      const local = document.querySelector(`#${id}`);
+      const local = document.querySelector(`#task_state_${id}`);
       const loadtask = new SimpleTask();
       loadtask.registerModal(this.taskList, local, async () => await this.loadTaskList());
     } catch (e) {
