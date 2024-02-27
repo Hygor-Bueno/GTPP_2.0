@@ -178,7 +178,7 @@ export default class SuspendedTask {
         const div = document.createElement('div');
         const h3 = document.createElement('h3');
 
-        h3.innerText = `Deseja mesmo mudar o status para "parado"?`;
+        h3.innerText = `Porque deseja parar essa tarefa?`;
 
         const conn = new Connection();
         const textArea = new TextArea({
