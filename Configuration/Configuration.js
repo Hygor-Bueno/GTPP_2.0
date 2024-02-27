@@ -285,6 +285,8 @@ export const saveButton = {
  * @date 2/5/2024 - 9:26:15 AM
  * @author Hygor Bueno
  * @param {{legend:string;listfields:[{classItemsForm:string;classForm:string;classLabel:string;classInput:string;label:string;inputType:string;inputId:string;requiredInput:boolean;iconLabel:boolean,nameImageLabel:string}]}}
+ * @param {string} value
+ * @param {()=>} onChange
  */
 export const inputsEditText = (value,onChange) => {
     return {
@@ -306,6 +308,8 @@ export const inputsEditText = (value,onChange) => {
 
 /**
  * @param {{inputId:string;inputType:string;checked:boolean;onClick:()=>;}}
+ * @param {number} id
+ * @param {()=>} onClick
  */
 export const inputHamburgerModal = (id, onClick) => {
     return {
@@ -316,7 +320,10 @@ export const inputHamburgerModal = (id, onClick) => {
     }
 }
 
-/** @param {{classLabel:string;description:string;for:string;}} */
+/** 
+ * @param {{classLabel:string;description:string;for:string;}} 
+ * @param {number} id
+ * */
 export const inputLabelHamburgerModal = (id) => {
     return {
         classLabel: 'dropdown',
