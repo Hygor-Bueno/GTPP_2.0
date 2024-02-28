@@ -12,7 +12,7 @@ export class HamburgerX {
      * @description Retorna um elemento do tipo botão em formato de "X" quando é clicado!
      * @param {number} id
      * @param {()=>void} onClick
-     * @returns {HTMLButtonElement}
+     * @returns {HTMLButtonElement} Button
      */
     createButton(id, onClick) {
         try {

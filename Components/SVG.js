@@ -23,6 +23,7 @@ export default class SVG {
         svg.setAttribute("viewBox", config.viewBox);
         svg.setAttribute("width", config.width);
         svg.setAttribute("fill", config.fill);
+
         if(config.title) svg.setAttribute("title", config.title);
 
         // Cria um elemento de caminho dentro do SVG

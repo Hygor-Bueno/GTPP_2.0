@@ -20,6 +20,7 @@ export default class Button{
      * @returns {HTMLButtonElement} Elemento Button
      */
     Button(configs){
+
         try {
             let mandatory = ['type','title','description','onAction']; //Lista de chaves obrigatórias.
             let result = this.#util.ValidatKeysComponent(mandatory,configs); //Validação se as chaves obrigatórias se encontram nas configurações do objeto.

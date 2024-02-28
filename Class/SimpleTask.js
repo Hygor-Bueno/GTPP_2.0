@@ -32,7 +32,6 @@ export default class SimpleTask {
      */
     setDescription(description) {
         this.description = description;
-        console.log(this);
     }
 
      /**
@@ -43,7 +42,6 @@ export default class SimpleTask {
      */
      setPriority(priority) {
         this.priority = priority;
-        console.log(this);
     }
 
     /**
@@ -54,7 +52,6 @@ export default class SimpleTask {
      */
     setInitialDate(initial_date) {
         this.initial_date = initial_date;
-        console.log(this);
     }
 
     /**
@@ -65,7 +62,6 @@ export default class SimpleTask {
      */
     setFinalDate(final_date) {
         this.final_date = final_date;
-        console.log(this);
     }
 
     /**
@@ -93,6 +89,15 @@ export default class SimpleTask {
         }
     }
 
+    
+    /**
+     * Description placeholder
+     * @param {any[]} taskList - Lista de tarefas.
+     * @param {HTMLElement} local - Elemento HTML onde o modal será inserido.
+     * @param {()=>any} funcAss - Função de assistência.
+     * @returns {HTMLElement} - Elemento HTML do modal.
+     * @returns {HTMLButtonElement}
+     */
     btnRegister(taskList, local, funcAss){
         const configBtnSave = {...saveButton, onAction: async () => {
             let connection = new Connection();
@@ -108,7 +113,7 @@ export default class SimpleTask {
      * @param {Object} result - Resultado do registro da tarefa.
      * @param {string[]} taskList - Lista de tarefas.
      * @param {HTMLElement} local - Elemento HTML onde o modal está localizado.
-     * @param {()=>any} funcAss - Função de assistência.
+     * @param {()=>any} funcAss - Função de callback.
      * @returns {void}
      * @async
      */
