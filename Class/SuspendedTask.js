@@ -37,9 +37,7 @@ export default class SuspendedTask {
             const divTitle = document.createElement('div');
 
             modal.setAttribute('modal-suspended', true);
-            
             config.state_id == 1 || config.state_id == 2 ? modal.setAttribute('modalTodo', '') : null;
-            
 
             modal.className = 'suspendedDesign';
 

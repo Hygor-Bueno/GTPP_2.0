@@ -35,16 +35,6 @@ export class TableGenerator {
       }
     }
     
-    // static Tbody(local) {
-    //     try {
-    //         const tbody = document.createElement("tbody");
-    //         tbody.appendChild(local);
-    //         return tbody;
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-  
     /**
      * Método para criar um elemento 'tr' para o cabeçalho da tabela.
      * @param {string[]} headers Array contendo os cabeçalhos da tabela.

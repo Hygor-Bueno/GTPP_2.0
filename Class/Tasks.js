@@ -158,7 +158,11 @@ export default class Tasks {
         divBody.appendChild(this.taskArticle());
 
         const section = document.createElement('section');
+        const button = document.createElement('button');
+        button.innerText = 'Arquivar a tarefa';
+
         divBody.appendChild(section);
+        section.appendChild(button);
 
         return divBody;
     }

@@ -2,7 +2,7 @@ import Tasks from "../Class/Tasks.js";
 import Button from "./Button.js";
 import Modal from "./Modal.js";
 import SVG from "./SVG.js";
-import { SVGImageArchived, SVGImageFlagInline, SVGImageUser} from "../Configuration/ImagesSVG.js";
+import { SVGImageArchived, SVGImageFlagInline, SVGImageUser } from "../Configuration/ImagesSVG.js";
 import SuspendedTask from "../Class/SuspendedTask.js";
 import SimpleTask from "../Class/SimpleTask.js";
 import { CSVGenerator, PDFGenerator } from "./FileGenerator.js";
@@ -18,7 +18,7 @@ export default class Card {
    * @type {[{id:number;description:string;percent:number;state_description:string;state_id:number;priority:string;users:number;expire:string;csds:[];user_id:number;initial_date:string;final_date:string;}]}
    */
   taskList = [];
-  
+
   /**
    * Pegando todos os simples cards para aparecerem na tela.
    * @type {[{id:number;description:string;percent:number;state_description:string;state_id:number;priority:string;users:number;expire:string;csds:[];user_id:number;initial_date:string;final_date:string;}]}
@@ -28,10 +28,10 @@ export default class Card {
   percentual;
   getConfigId;
   #ws;
-   /**
-   * Cria uma nova instância de Card.
-   * @param {Object} ws - Objeto WebSocket.
-   */
+  /**
+  * Cria uma nova instância de Card.
+  * @param {Object} ws - Objeto WebSocket.
+  */
   constructor(ws) {
     this.#ws = ws;
   }
@@ -56,7 +56,7 @@ export default class Card {
       cardDiv.appendChild(this.getSubDivCard(configs, inputCheckbox));
       const taskDiv = document.createElement('div');
       taskDiv.id = 'taskDiv';
-      taskDiv.className='column'
+      taskDiv.className = 'column'
       await this.showTask(configs, taskDiv);
       cardDiv.appendChild(taskDiv);
       return cardDiv;
@@ -73,12 +73,12 @@ export default class Card {
   async getUserImage(numberCollaboration) {
     const qtdUser = document.createElement('div');
     try {
-      const svg = new SVG();
+      const svg = new SVG(SVGImageUser);
       qtdUser.className = 'qtd-user';
       const p = document.createElement('p');
       p.className = 'text';
       p.innerHTML = `${numberCollaboration ? numberCollaboration : 0}`;
-      qtdUser.append(p, svg.createSvg(SVGImageUser));
+      qtdUser.append(p, svg.createSvg());
     } catch (error) {
       console.error(error.message);
     }
@@ -91,11 +91,10 @@ export default class Card {
    * @returns {SVGElement}
    */
   getPriorityTextOrImage(priority) {
-    try {
-      const svg = new SVG();
-      if (priority == 0) return svg.createSvg({...SVGImageFlagInline, fill: "#28A745"});
-      if (priority == 1) return svg.createSvg({...SVGImageFlagInline, fill: "#F37518"});
-      if (priority == 2) return svg.createSvg({...SVGImageFlagInline, fill: "#DC3545"});
+    try { 
+      if (priority == 0) return new SVG({ ...SVGImageFlagInline, fill: "#28A745" }).createSvg();
+      if (priority == 1) return new SVG({ ...SVGImageFlagInline, fill: "#F37518" }).createSvg();
+      if (priority == 2) return new SVG({ ...SVGImageFlagInline, fill: "#DC3545" }).createSvg();
     } catch (error) {
       console.error(error.message);
     }
@@ -121,13 +120,13 @@ export default class Card {
     }
   }
 
-   /**
-   * Cria um botão Hamburger para o cartão.
-   * @param {string} id - ID do cartão.
-   * @returns {HTMLButtonElement}
-   */
-   createButtonHamburger(id) {
-    try {  
+  /**
+  * Cria um botão Hamburger para o cartão.
+  * @param {string} id - ID do cartão.
+  * @returns {HTMLButtonElement}
+  */
+  createButtonHamburger(id) {
+    try {
       const hamburger = new HamburgerX();
       return hamburger.createButton(id, (e) => this.handleList(e, id));
     } catch (error) {
@@ -141,13 +140,15 @@ export default class Card {
    * @param {HTMLElement} local 
    */
   async showTask(config, local) {
-    for (const task of this.getTasks) {
-      if (config.id === task.state_id) {
-        const taskElement = await this.createTaskElement(task);
-        console.log(taskElement);
-        local.appendChild(taskElement);
-      }
-    }
+    local.append(
+      ...await Promise.all(
+      this.getTasks
+        .filter((task) => config.id === task.state_id)
+        .map(async (task) => {
+          return await this.createTaskElement(task);
+        })
+    )
+    )
   }
 
   /**
@@ -307,13 +308,13 @@ export default class Card {
       tasksElementDescription.title = taskData.description;
       htmlBold.innerText = taskData.description || '';
       tasksElementDescription.appendChild(htmlBold);
-      this.visualComponentsButton(taskData, tasksElementDescription);   
+      this.visualComponentsButton(taskData, tasksElementDescription);
       return tasksElementDescription;
     } catch (error) {
       console.error(error.message);
     }
   }
-  
+
   /**
    * Visualiza componentes de botão.
    * nessa função tem um controle em quais componentes vão ter um botão os primeiros é o que vao ter o componente para ser controlados.
@@ -322,127 +323,129 @@ export default class Card {
    */
   visualComponentsButton(config, localElement) {
     try {
-      const svg = new SVG();
+      const svg = new SVG(SVGImageArchived);
       const loadSuspendedTasks = new SuspendedTask(this.colorBD, this.#ws);
       const btn = new Button();
-      if(config.state_id == 1 || config.state_id == 2) {
+      if (config.state_id == 1 || config.state_id == 2) {
         localElement.appendChild(
-        btn.Button({type:'button',title:'Arquivar tarefa',onAction:()=> loadSuspendedTasks.suspended(config),
-        description: svg.createSvg(SVGImageArchived), classButton: 'btnFiled'}))
+          btn.Button({
+            type: 'button', title: 'Arquivar tarefa', onAction: () => loadSuspendedTasks.suspended(config),
+            description: svg.createSvg(), classButton: 'btnFiled'
+          }))
       }
     } catch (error) {
       console.error(error.message);
     }
   }
 
-    /**
-     * Recarrega a lista de tarefas do cartão.
-     * @param {string} id - ID do cartão.
-     */
-    reloadTaskList (id) {
-      try {
-        const isList = document.querySelector(`#task_state_${id} ul`);
-        if (isList) {
-          isList.remove();
-        }
-        const local = document.querySelector(`#task_state_${id}`);
-        const loadtask = new SimpleTask();
-        loadtask.registerModal(this.taskList, local, async () => await this.loadTaskList());
-      } catch (e) {
-        console.error(e);
+  /**
+   * Recarrega a lista de tarefas do cartão.
+   * @param {string} id - ID do cartão.
+   */
+  reloadTaskList(id) {
+    try {
+      const isList = document.querySelector(`#task_state_${id} ul`);
+      if (isList) {
+        isList.remove();
       }
+      const local = document.querySelector(`#task_state_${id}`);
+      const loadtask = new SimpleTask();
+      loadtask.registerModal(this.taskList, local, async () => await this.loadTaskList());
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * Carrega a lista de tarefas do cartão.
-     * @returns {HTMLElement} - Elemento HTML da lista de tarefas.
-     */
-    async loadTaskList() {
-      try {
-        const elementTask = document.getElementById('taskDiv');
-        for (let i = 0; i < this.taskList.length; i++) {
-          elementTask.appendChild(await this.createTaskElement(this.taskList[i]));
-        }
-        return elementTask;
-      } catch (error) {
-        console.error(error.message);
+  /**
+   * Carrega a lista de tarefas do cartão.
+   * @returns {HTMLElement} - Elemento HTML da lista de tarefas.
+   */
+  async loadTaskList() {
+    try {
+      const elementTask = document.getElementById('taskDiv');
+      for (let i = 0; i < this.taskList.length; i++) {
+        elementTask.appendChild(await this.createTaskElement(this.taskList[i]));
       }
+      return elementTask;
+    } catch (error) {
+      console.error(error.message);
     }
+  }
 
 
-      /**
-       * Manipula a lista do cartão.
-       * @param {Event} event - Evento de clique.
-       * @param {string} id - ID do cartão.
-       * @return {HTMLElement} 
-       */
-      handleList(event, id) {
-        try {
-          const cardReturn = document.getElementById(`task_state_${id}`);
-          event.target.checked ? cardReturn.appendChild(this.createMenu(id)) : this.closeConfigCard(id);
-        } catch (error) {
-          console.error(error.message);
-        }
-      }
-
-      /**
-       * Cria um menu para o cartão.
-       * @param {string} id - ID do cartão.
-       * @returns {HTMLElement}
-       */
-      createMenu(id) {
-        try {
-          const button = new Button();
-          const fatherMenu = document.createElement("div");
-          fatherMenu.className = "fatherMenu";
-          const cardMenu = document.createElement('div');
-          cardMenu.className = 'menu';
-          fatherMenu.appendChild(cardMenu);
-        button.configButton(cardMenu, `task_state_${id}`, () => this.onPDF() , () => this.onCSV(), () => this.reloadTaskList(id));
-          return fatherMenu;
-        } catch (error) {
-          console.error(error.message);
-        }
-      }
-
-    /**
-     * Fecha o menu de configuração do cartão.
-     * @param {string} id - ID do cartão.
-     */
-    closeConfigCard(id) {
-      try {
-        const menuReturn = document.querySelector(`#task_state_${id} .fatherMenu`);
-        if (menuReturn) {
-          menuReturn.remove();
-        }
-      } catch (error) {
-        console.error(error.message);
-      }
+  /**
+   * Manipula a lista do cartão.
+   * @param {Event} event - Evento de clique.
+   * @param {string} id - ID do cartão.
+   * @return {HTMLElement} 
+   */
+  handleList(event, id) {
+    try {
+      const cardReturn = document.getElementById(`task_state_${id}`);
+      event.target.checked ? cardReturn.appendChild(this.createMenu(id)) : this.closeConfigCard(id);
+    } catch (error) {
+      console.error(error.message);
     }
+  }
 
-    /**
-     * Cria um sub-div do cartão.
-     * @param {string} label - Rótulo do cartão.
-     * @returns {HTMLElement} - Sub-div do cartão.
-     */
-    createSubDivCard(label) {
-      try {
-        const subCardDiv = document.createElement('div');
-        subCardDiv.className = 'subdivcard';
-        const title = document.createElement('h4');
-        title.innerText = label;
-        subCardDiv.appendChild(title);
-        return subCardDiv;
-      } catch (error) {
-        console.error(error.message);
-      }
+  /**
+   * Cria um menu para o cartão.
+   * @param {string} id - ID do cartão.
+   * @returns {HTMLElement}
+   */
+  createMenu(id) {
+    try {
+      const button = new Button();
+      const fatherMenu = document.createElement("div");
+      fatherMenu.className = "fatherMenu";
+      const cardMenu = document.createElement('div');
+      cardMenu.className = 'menu';
+      fatherMenu.appendChild(cardMenu);
+      button.configButton(cardMenu, `task_state_${id}`, () => this.onPDF(), () => this.onCSV(), () => this.reloadTaskList(id));
+      return fatherMenu;
+    } catch (error) {
+      console.error(error.message);
     }
+  }
 
-   /**
-    * Gerador de pdf
-    * @return {void}
-    */
-   onPDF() {
+  /**
+   * Fecha o menu de configuração do cartão.
+   * @param {string} id - ID do cartão.
+   */
+  closeConfigCard(id) {
+    try {
+      const menuReturn = document.querySelector(`#task_state_${id} .fatherMenu`);
+      if (menuReturn) {
+        menuReturn.remove();
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  /**
+   * Cria um sub-div do cartão.
+   * @param {string} label - Rótulo do cartão.
+   * @returns {HTMLElement} - Sub-div do cartão.
+   */
+  createSubDivCard(label) {
+    try {
+      const subCardDiv = document.createElement('div');
+      subCardDiv.className = 'subdivcard';
+      const title = document.createElement('h4');
+      title.innerText = label;
+      subCardDiv.appendChild(title);
+      return subCardDiv;
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  /**
+   * Gerador de pdf
+   * @return {void}
+   */
+  onPDF() {
     try {
       const pdfGenerator = new PDFGenerator(this.getTasks, this.getConfigId);
       pdfGenerator.generatePDF();
@@ -459,7 +462,7 @@ export default class Card {
   onCSV() {
     try {
       const csvGenerator = new CSVGenerator(this.getTasks, this.getConfigId);
-      csvGenerator.generateCSV(); 
+      csvGenerator.generateCSV();
     } catch (error) {
       console.error(error.message);
     }
