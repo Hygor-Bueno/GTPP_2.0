@@ -141,13 +141,13 @@ export default class Card {
    */
   async showTask(config, local) {
     local.append(
-      ...await Promise.all(
-      this.getTasks
+      ...await Promise.all( 
+        this.getTasks
         .filter((task) => config.id === task.state_id)
         .map(async (task) => {
           return await this.createTaskElement(task);
         })
-    )
+      )
     )
   }
 
@@ -360,18 +360,21 @@ export default class Card {
    * Carrega a lista de tarefas do cartão.
    * @returns {HTMLElement} - Elemento HTML da lista de tarefas.
    */
-  async loadTaskList() {
-    try {
-      const elementTask = document.getElementById('taskDiv');
-      for (let i = 0; i < this.taskList.length; i++) {
-        elementTask.appendChild(await this.createTaskElement(this.taskList[i]));
-      }
-      return elementTask;
-    } catch (error) {
-      console.error(error.message);
-    }
+  loadTaskList() {
+    return Promise.all(this.taskList.map(task => this.createTaskElement(task)))
+      .then(taskElements => {
+        const elementTask = document.getElementById('taskDiv');
+        taskElements.forEach(taskElement => {
+          elementTask.appendChild(taskElement);
+        }); 
+        return elementTask;
+      })
+      .catch(error => {
+        console.error(error.message);
+        throw error;
+      });
   }
-
+  
 
   /**
    * Manipula a lista do cartão.

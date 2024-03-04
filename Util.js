@@ -49,6 +49,11 @@ export default class Util {
           });
     }
 
+    static changePosition(arr, from, to) {
+        arr.splice(to, 0, arr.splice((from, 1)[0]));
+        return arr;
+    }
+
     /**
      * Remove todos os caracteres que não são números de uma string.
      * @param {string} value - A string da qual os caracteres não numéricos serão removidos.

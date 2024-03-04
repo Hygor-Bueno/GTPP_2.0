@@ -102,17 +102,17 @@ input[type=checkbox] + label {
 input[type=checkbox]:checked + label {
   .top-bar {
     transform: rotate(45deg);
-    transform-origin: -1px 5px;
+    transform-origin: 0px 6px;
   }
 
   .bottom-bar {
       transform: rotate(-45deg);
-      transform-origin: 5px 0px;
+      transform-origin: 5px -2px;
   }
 
   @media screen and (min-width: 767px) {
     .bottom-bar {
-      transform-origin: 4px 0;
+      transform-origin: 3px -3px;
   }
   }
 

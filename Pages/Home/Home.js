@@ -52,7 +52,7 @@ export default class Home {
             // Cria o Elemento de Menu.
             const menu = new Menu({ idNavMenu: 'navMenu', class: 'gridLeftHome' });
             container.appendChild(this.settingsHome(JSON.parse(localStorage?.stateTaskGTPP) || []));
-            container.appendChild(this.renderCards(JSON.parse(localStorage?.stateTaskGTPP) || [], getTask.data, listTaskState.data));
+            container.appendChild(await this.renderCards(JSON.parse(localStorage?.stateTaskGTPP) || [], getTask.data, listTaskState.data));
 
             const elementHome = containerHome.containerBasic({ id: 'containerHome', element: container });
             elementHome.insertBefore(menu.nav(), elementHome.firstElementChild);
@@ -69,13 +69,15 @@ export default class Home {
         return section;
     }
 
-    renderCards(list, getTask, listTaskState) {
+    async renderCards(list, getTask, listTaskState) {
         try {
-            const div = document.createElement('div');
-            list.forEach(async(item) => {
+            const promisse = list.map(async (item) => {
                 const card = new Card(this.#web);
-                div.appendChild(await card.createCard({ id: item.id, label: item.description, view: item.view }, getTask, listTaskState))
+                return await card.createCard({ id: item.id, label: item.description, view: item.view}, getTask, listTaskState);
             });
+            const cards = await Promise.all(promisse);
+            const div = document.createElement('div');
+            cards.forEach(card => div.appendChild(card));
             return div;
         } catch (error) {
             console.log(error.message);
