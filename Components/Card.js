@@ -308,7 +308,7 @@ export default class Card {
       tasksElementDescription.title = taskData.description;
       htmlBold.innerText = taskData.description || '';
       tasksElementDescription.appendChild(htmlBold);
-      this.visualComponentsButton(taskData, tasksElementDescription);
+      this.filedButton(taskData, tasksElementDescription);
       return tasksElementDescription;
     } catch (error) {
       console.error(error.message);
@@ -321,7 +321,7 @@ export default class Card {
    * @param {{state_id:number;}} config - Configurações do botão.
    * @param {HTMLElement} localElement - Elemento HTML local onde o botão será inserido.
    */
-  visualComponentsButton(config, localElement) {
+  filedButton(config, localElement) {
     try {
       const svg = new SVG(SVGImageArchived);
       const loadSuspendedTasks = new SuspendedTask(this.colorBD, this.#ws);
@@ -385,7 +385,26 @@ export default class Card {
   handleList(event, id) {
     try {
       const cardReturn = document.getElementById(`task_state_${id}`);
-      event.target.checked ? cardReturn.appendChild(this.createMenu(id)) : this.closeConfigCard(id);
+      const dropdown = document.getElementById(`dropdown_${id}`)
+      if(event.target.checked) {
+        if(event.target.checked === true) {
+          cardReturn.appendChild(this.createMenu(id));
+        }
+        document.body.addEventListener('click', function(event) {
+            if(event.target.nodeName != 'INPUT' && event.target.nodeName != 'LABEL' && event.target.nodeName != 'SPAN' ) {
+              const menuReturn = document.querySelector(`#task_state_${id} .fatherMenu`);
+                dropdown.checked=false;
+                console.log(dropdown.id)
+                if (menuReturn) {
+                  menuReturn.remove();
+                }
+                console.log(event.target)
+            }
+          event.stopPropagation();
+        });
+      } else {
+        this.closeConfigCard(id);
+      }
     } catch (error) {
       console.error(error.message);
     }
@@ -417,7 +436,7 @@ export default class Card {
    */
   closeConfigCard(id) {
     try {
-      const menuReturn = document.querySelector(`#task_state_${id} .fatherMenu`);
+      const menuReturn = document.querySelector(`#task_state_${id} .fatherMenu`);      
       if (menuReturn) {
         menuReturn.remove();
       }

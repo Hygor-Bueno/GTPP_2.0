@@ -73,7 +73,7 @@ export default class Home {
         try {
             const promisse = list.map(async (item) => {
                 const card = new Card(this.#web);
-                return await card.createCard({ id: item.id, label: item.description, view: item.view}, getTask, listTaskState);
+                return card.createCard({ id: item.id, label: item.description, view: item.view}, getTask, listTaskState);
             });
             const cards = await Promise.all(promisse);
             const div = document.createElement('div');

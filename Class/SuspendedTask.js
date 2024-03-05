@@ -25,10 +25,7 @@ export default class SuspendedTask {
     
     /**
      * Cria um modal para tarefa suspensa.
-     * @param {Object} config - Configurações para o modal.
-     * @param {number} config.state_id - ID do estado da tarefa.
-     * @param {string} config.description - Descrição da tarefa.
-     * @param {string} config.state_description - Descrição do estado da tarefa.
+     * @param {{state_id:string;state_description:string;description:string}} config - Configurações para o modal.
      * @returns {HTMLElement} - Elemento HTML do modal.
      */
     suspended(config) {
@@ -51,8 +48,6 @@ export default class SuspendedTask {
 
             h1.innerText = config.description;
             p.innerText = config.state_description;
-
-            console.log(config);
 
             modal.appendChild(this.modalRegisterReason(config));
             const modalRegister = new Modal();
