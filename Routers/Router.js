@@ -69,7 +69,7 @@ export default class Router {
     }
 
     /**
-     * Método responsável por realizar a contrução da págian
+     * Método responsável por realizar a contrução da página
      * @date 12/01/2024 - 9:18:19 AM
      * @author Hygor Bueno.
      * @param {HTMLElement} local
@@ -78,7 +78,7 @@ export default class Router {
     async pageBuild(local, pageElement,titleHeader) {
 
         const header = new Header(titleHeader);
-        const footer = new Footer('CLPP versão 1.0','Criado por Hygor Bueno e Jonatas');
+        const footer = new Footer('CLPP versão 1.0','Criado por Hygor Bueno e Jonatas Silva');
  
         const isHeader = "#containerMain header";
         const container = document.querySelector("#containerMain");

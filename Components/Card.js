@@ -386,17 +386,16 @@ export default class Card {
     try {
       const cardReturn = document.getElementById(`task_state_${id}`);
       const dropdown = document.getElementById(`dropdown_${id}`);
-
+      
       if(event.target.checked) {
         cardReturn.appendChild(this.createMenu(id));
         document.body.addEventListener('click', function(event) {
-            if(event.target.nodeName != 'INPUT' && event.target.nodeName != 'LABEL' && event.target.nodeName != 'SPAN') {
+            if(!event.target.closest(`input#dropdown_${id}`) && event.target.nodeName != 'LABEL' && event.target.nodeName != 'SPAN') {
               const menuReturn = document.querySelector(`#task_state_${id} .fatherMenu`);
+              if (menuReturn) {
                 dropdown.checked=false;
-                console.log(dropdown.id)
-                if (menuReturn) {
-                  menuReturn.remove();
-                }
+                menuReturn.remove();
+              }
             }
           event.stopPropagation();
         });
