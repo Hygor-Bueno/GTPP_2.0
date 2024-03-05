@@ -385,20 +385,18 @@ export default class Card {
   handleList(event, id) {
     try {
       const cardReturn = document.getElementById(`task_state_${id}`);
-      const dropdown = document.getElementById(`dropdown_${id}`)
+      const dropdown = document.getElementById(`dropdown_${id}`);
+
       if(event.target.checked) {
-        if(event.target.checked === true) {
-          cardReturn.appendChild(this.createMenu(id));
-        }
+        cardReturn.appendChild(this.createMenu(id));
         document.body.addEventListener('click', function(event) {
-            if(event.target.nodeName != 'INPUT' && event.target.nodeName != 'LABEL' && event.target.nodeName != 'SPAN' ) {
+            if(event.target.nodeName != 'INPUT' && event.target.nodeName != 'LABEL' && event.target.nodeName != 'SPAN') {
               const menuReturn = document.querySelector(`#task_state_${id} .fatherMenu`);
                 dropdown.checked=false;
                 console.log(dropdown.id)
                 if (menuReturn) {
                   menuReturn.remove();
                 }
-                console.log(event.target)
             }
           event.stopPropagation();
         });
