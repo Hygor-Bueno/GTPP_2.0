@@ -79,6 +79,7 @@ export default class User {
     async loadPhotos() {
         try {
             let userPhoto = await this.#connection.get(`&id=${this.id}`, 'CCPP/EmployeePhoto.php');
+            console.log(userPhoto);
             if (userPhoto.error && !userPhoto.message.includes('No data')) {
                 throw new Error(userPhoto.message);
             } else if (!userPhoto.message) {

@@ -174,6 +174,19 @@ export const buttonCloseModal = {
     classButton: 'btn-close'
 }
 
+
+/**
+ * Configuração do botão para conseguir fazer desbloqueio das tarefas.
+ * @author Jonatas Silva.
+ * @type {{ type: string; title: string; description: string; classButton: string; }}
+ */
+export const UnlockButton = {
+    type: 'button',
+    title: 'Clica para conseguir desbloquear a tarefa',
+    description: 'desbloquear tarefa',
+    classButton: 'btn-unlock'
+}
+
 /**
  * Váriável de configuração para componentes html;
  * @date 12/01/2024 - 4:35:09 PM

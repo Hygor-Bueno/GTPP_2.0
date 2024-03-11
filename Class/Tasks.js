@@ -6,8 +6,9 @@ import Modal from "../Components/Modal.js";
 import ProgressBar from "../Components/ProgressBar .js";
 import TextArea from "../Components/TextArea.js";
 import Title from "../Components/Title.js";
-import { buttonEditText, inputsEditText } from "../Configuration/Configuration.js";
+import { buttonEditText, inputsEditText, UnlockButton } from "../Configuration/Configuration.js";
 import { Connection } from "../Connection/Connection.js";
+import SuspendedTask from "./SuspendedTask.js";
 
 export default class Tasks {
     id;
@@ -116,10 +117,10 @@ export default class Tasks {
         })
     }
 
-    taskElement() {
+    taskElement(config) {
         const div = new Containers();
         const elementDiv = div.containerBasic({ element: this.taskHeader() });
-        elementDiv.appendChild(this.taskBody());
+        elementDiv.appendChild(this.taskBody(config));
         return elementDiv;
     }
 
@@ -151,18 +152,21 @@ export default class Tasks {
         modal.modalDark({ modal: div, id: 'editModal' });
         
     }
-    taskBody() {
+    taskBody(config) {
         const divBody = document.createElement('div');
         divBody.id = 'taskBody';
 
         divBody.appendChild(this.taskArticle());
 
+        let btn = document.createElement('button');
+        btn.innerText = 'teste';
+
         const section = document.createElement('section');
-        const button = document.createElement('button');
-        button.innerText = 'Arquivar a tarefa';
+        section.innerText='text'
+        
+        // const suspendedTask = new SuspendedTask();
 
         divBody.appendChild(section);
-        section.appendChild(button);
 
         return divBody;
     }

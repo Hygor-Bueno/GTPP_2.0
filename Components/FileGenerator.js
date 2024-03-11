@@ -65,7 +65,6 @@ export class CSVGenerator {
   generateCSV() {
     try {
       const filteredTasks = this.getTasks.filter(item => item.state_id == Util.removeStringAndUnderline(this.configId));
-
       if (filteredTasks.length > 0) {
         const jsonData = filteredTasks.map(item => ({
           "Tarefas": item.description,
@@ -74,9 +73,8 @@ export class CSVGenerator {
           "Data de Inicio das Tarefas": item.initial_date,
           "Data final das Tarefas": item.final_date,
         }));
-  
-        const csvData = this.convertToCSV(jsonData);
-        this.downloadCSV(csvData, 'documento.csv');
+        const csvData = this.#convertToCSV(jsonData);
+        this.#downloadCSV(csvData, 'documento.csv');
       } else {
         console.log("Nenhum dado encontrado para criar o CSV.");
       }
@@ -91,7 +89,7 @@ export class CSVGenerator {
    * @param {string[] | number[] | any[]} data - Array de objetos contendo os dados a serem convertidos.
    * @returns {string} - String CSV gerada a partir dos dados.
    */
-  convertToCSV(data) {
+  #convertToCSV(data) {
     try {
       const header = Object.keys(data[0]).join('\t');
       const rows = data.map(obj => Object.values(obj).join('\t'));
@@ -109,7 +107,7 @@ export class CSVGenerator {
    * @param {string} csv - String CSV a ser baixada.
    * @param {string} filename - Nome do arquivo CSV a ser baixado.
    */
-  downloadCSV(csv, filename) {
+  #downloadCSV(csv, filename) {
     try {
       const blob = new Blob([csv], { type: `text/csv;charset=utf-8, ${encodeURIComponent(csv)}` });
       const url = URL.createObjectURL(blob);
@@ -146,15 +144,15 @@ export class PDFGenerator {
     this.printWindow = window.open('', '_blank');
     this.printDocument = this.printWindow.document;
     this.head = document.createElement('head');
-    this.Head();
-    this.Table(data, configId);
+    this.#Head();
+    this.#Table(data, configId);
   }
   
   #headers = ['Tarefas', 'Estado das Tarefas', 'Prioridade', 'Data Inicial', 'Data Final', 'Percentual'];
   #attributes = [
     { key: 'description', label: 'tdDescription' },
     { key: 'state_description', label: 'tdState' },
-    { key: 'priority', label: 'tdPriority', transform: (value) => this.getPriorityText(value) },
+    { key: 'priority', label: 'tdPriority', transform: (value) => this.#getPriorityText(value) },
     { key: 'initial_date', label: 'tdInitialDate', transform: (value) => Util.formatDate(value)}, 
     { key: 'final_date', label: 'tdFinalDate', transform: (value) => Util.formatDate(value) },
     { key: 'percent', label: 'tdPercent', transform: value => `${value}%` }
@@ -164,7 +162,7 @@ export class PDFGenerator {
    * Método setupHead
    * Configura o cabeçalho do documento PDF.
    */
-  Head() {
+  #Head() {
    try {
       const viewport = document.createElement('meta');
       viewport.name = 'viewport';
@@ -189,7 +187,7 @@ export class PDFGenerator {
    * @function Table
    * @instance
    */
-  Table(data, configId) {
+  #Table(data, configId) {
     try {
         const table = document.createElement('table');
         const tbody = document.createElement('tbody');
@@ -207,7 +205,7 @@ export class PDFGenerator {
    * @param {number} priority - Valor numérico representando a prioridade.
    * @returns {string} - String descritiva da prioridade.
    */
-  getPriorityText(priority) {
+  #getPriorityText(priority) {
     try {
         const priorityMap = { 0: 'baixa', 1: 'média', 2: 'alta' };
         return priorityMap[priority] || 'Não foi especificado valor!';
